@@ -1,0 +1,438 @@
+---
+class: inverse 
+title: "<b>Metodologias Informacionais com R</b>"
+subtitle: "<br/>Módulo I: Introdução à Linguagem R"
+author: "<br/><b>Telmo dos Santos Klipp</b> (telmo.klipp@inpe.br)<br/>"
+output:
+  xaringan::moon_reader:
+    css: [default, ninjutsu, ki-fonts, my-theme.css]
+    yolo: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideClass: ["left", "top"]
+      slideNumberFormat: "%current%"
+---
+layout: true
+
+background-image: url(figuras/template_middlepage.png)
+background-size: cover
+
+```{r libririesandcustoms, include=FALSE, warning=FALSE}
+  library(xaringanthemer)
+  library(icons)
+  colors = c(
+    red = "#f34213",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF",
+    midnightblue = "#191970"
+  )
+```
+
+---
+exclude: TRUE
+class: center, top
+
+<br/><br/><br/><br/><br/><br/><br/>
+
+.orange[<b>Telmo dos Santos Klipp</b>]
+
+.small[
+Graduação em Tecnologias da Informação e Comunicação (UFSC, 2009-2013) <br/>
+Mestrado em Engenharia de Computação (FURG, 2013-2015) <br/>
+Bolsista CNPq no Laboratório de Computação para Clima Espacial (LCCE/INPE, 2015-2020) <br/>
+Doutorando em Computação Aplicada (INPE, 2020-atual) <br/>
+]
+
+---
+### .orange[`r icons::fontawesome("info-circle")` Informações Gerais sobre o Curso]
+
+- <p class="jst">Materiais disponibilizados via <A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3">Classroom</A>;</p> 
+- <p class="jst">O aprendizado requer a prática que será constante nas aulas;</p>
+- <p class="jst">Será cobrado ao menos uma atividade semanal `r icon_style(fontawesome("thumbtack"), fill = "black")`.</p> 
+
+.pull-left[
+Bibliografia Básica:
+
+ .tiny[- <p class="jst">Kennedy, R., & Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.</p>
+
+```{r out.width = '40%', echo=FALSE, fig.align = "center"}
+knitr::include_graphics("figuras/basicblibliograph.png") 
+```
+]
+]
+
+.pull-right[
+Bibliografia Complementar:
+
+ .tiny[- <p class="jst">Wickham, H., & Grolemund, G. (2016). R for data science: import, tidy, transform, visualize, and model data. " O'Reilly Media, Inc.". Disponível em: <A href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</A>. Acesso em: 12 de maio, 2023. (Online) </p>
+- <p class="jst">Damiani, A. et. al., (2022). Ciência de Dados em R. Curso-R. Disponível em: <A href="https://livro.curso-r.com">https://livro.curso-r.com</A>. Acesso em: 12 de maio, 2023. (Online)</p>
+-  <p class="jst">de Aquino, J. A. (2014). R para cientistas sociais. Editora da UESC (editus). Disponível em: <A href="http://www.uesc.br/editora/index.php?item=conteudo_livros_digitais.php">http://www.uesc.br/editora/</A>. Acesso em: 12 de maio, 2023. </p>
+-  <p class="jst">de Oliveira, P. F., Guerra, S., McDonnell, R. (2018). Ciência de Dados com R: Introdução. Editora IBPAD. Disponível em: <A href="https://cdr.ibpad.com.br/index.html">https://cdr.ibpad.com.br/index.html</A>. Acesso em: 12 de maio, 2023. (Online) </p> ] 
+]
+
+---
+
+### .orange[Solução da tarefa 2 da aula anterior]
+
+--
+
+- <p class="jst"> As funções .purple[`paste()`] e .purple[`paste0()`] concatenam blocos de texto (ou caracteres). Além disso, qualquer objeto que possa ser convertido para texto pode ser concatenado. A conversão é feita automaticamente pelas funções. Portanto, números e textos podem ser concatenados. No entanto, .purple[`paste()`] adiciona por padrão espaços entre os componentes que serão concatenados enquanto  .purple[`paste0()`] une por padrão os elementos sem a adição de espaços. A forma de concatenação padrão dessas funções pode ser alterada usando o parâmetro .purple[sep]. Por fim, a tarefa pode ser solucionada escrevendo no .purple[`R` <i>script</i>] qualquer um dos comandos: </p>
+  ```{r, eval = FALSE}
+    paste("O dobro de ", 2, " é ", 2*2, "!", sep = "")
+    paste0("O dobro de ", 2, " é ", 2*2, "!")
+  ```
+--
+
+<br/>
+
+> .center[Mas números e textos são representados de forma diferente no R? O que é conversão de objetos? O que são .purple[<b>funções</b>] e .purple[<b>objetos</b>]?]
+
+---
+
+## .orange[Fundamentos do R]
+
+- <p class="jst"> Entre os fundamentos do R, duas regras gerais se aplicam: </p>
+  > 1. Tudo no R é um objeto;
+  > 2. Qualquer coisa que realize uma tarefa é uma função.
+
+--
+
+- Além disso:
+  - <p class="jst">O R é um ambiente/linguagem de <i>scripting</i>. Isso significa que o código é interpretado no momento de sua execução;</p>
+  - <p class="jst">Toda linguagem de programação tem uma sintaxe específica e formas de representação de dados.</p>
+
+
+---
+
+## .orange[Fundamentos do R - objetos]
+
+- São exemplos de objetos:
+  ```{r, eval= FALSE}
+  7            # numeric
+  7L           # integer  
+  'R'          # character
+  FALSE        # logical
+  3i           # complex
+  paste0()     # function
+  ```
+--
+
+- São operações permitidas entre objetos:
+  ```{r, eval= FALSE}
+  1 + 1; 1 < 2; 4 + 3i;
+  ```
+--
+
+- São objetos, mas não é permitida a operação:
+  ```{r, eval=FALSE}
+  1 + '1'
+  '1' + "dois"
+  ```
+
+---
+## .orange[Fundamentos do R - objetos]
+
+
+ <p class="jst"> Assim como no mundo real, objetos no R tem atributos. Por enquanto, estamos interessados apenas no atributo do objeto que indica seu tipo. Este pode ser revelado pela função .purple[`class()`]. </p>
+ 
+.pull-left[
+  ```{r}
+  class(1 + 1)
+  class("abcd")
+  class(7i)
+  ```
+]
+
+.pull-right[
+```{r}
+  class( is.complex(7i) )
+  class(version)
+  class(class)
+```
+]
+
+--
+
+<br/>
+
+> .center[<b>Atributos determinam o que pode ser feito com os objetos individualmente e entre si.</b>]
+
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst"> <b>Mas onde estão esses objetos afinal?</b> Objetos podem ser persistidos (armazenados) na memória RAM do computador com o operador de atribuição .purple[.large[`<-`]] e permaneceram disponíveis para uso na sessão do R atual, sendo listados na aba Ambiente (do RStudio). Teste alguns exemplos conforme a sintaxe do R abaixo. Dica: use "Alt + -" no RStudio para obter .purple[.large[`<-`]].  </p> <br/>
+
+.center[.content-box-green[<b> Sintaxe : nome_do_objeto .purple[`<-`] valor</b>]]
+
+--
+
+  ```{r}
+  letras <- "abcdefgh"
+  numero_complexo <- 3i
+  numero_inteiro <- 3L
+  numero_real <- 2.7
+  verdade <- TRUE
+  falso <- FALSE
+  ```
+
+
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst"> <b>Alguma recomendação para nomes de objetos?</b> Considere que a linguagem R é <i>case sentitive</i> (difere entre letras maiúsculas e minúsculas), assim: </p>
+.pull-left[
+```{r}
+(number <- 1 + 1)
+(Number <- 4 + 3)
+```
+
+```{r, eval=FALSE}
+{{number == Number}}
+```
+]
+
+--
+
+.pull-right[
+
+```{r}
+(number <- 4 + 3)
+Number
+```
+
+```{r, eval=FALSE}
+{{number == Number}}
+```
+]
+
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst"> <b>Alguma recomendação para nomes de objetos?</b> Os nomes podem combinar números e letras, mas nunca começar por números.</p>
+  ```{r, eval = FALSE}
+  number9 <- 9
+  9number <- 9
+  ```
+
+--
+
+<br/>
+
+> .center[No entanto, como boa prática, evite usar letras e números em nomes de objetos.]
+
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst"> <b> Alguma recomendação para nomes de objetos?</b> Evite usar simbolos nos nomes. Considere apenas o uso do simbolo .purple.large[_] (urderline).</p>
+  ```{r, eval = FALSE}
+  eureka! <- "Achei a solução!"
+  number&two <- 2
+  number-two <- "two"
+  number.two <- 2
+  ```
+
+--
+
+  ```{r, eval = FALSE}
+  number_two <- 2
+  numero_complexo <- 3i
+  numero_inteiro <- 3L
+  numero_real <- 2.7
+
+  ```
+  
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst"> <b> Alguma recomendação para nomes de objetos?</b> Evite usar nomes de funções em objetos.</p>
+  ```{r, eval=FALSE}
+  class("two")
+  class <- 2
+  ```
+
+--
+
+<p class="jst"> Além disso, existem palavras reservadas no R.</p>
+  ```{r, eval=FALSE}
+  TRUE <- 1
+  FALSE <- 0
+  ```
+
+--
+
+<p class="jst">Palavras reservadas podem ser consultadas usando .purple[?reserved].</p>
+
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst">É possível fazer atribuições em um objeto com valores a esquerda do operador que assume a forma .purple[.large[`->`]].</p>
+  ```{r}
+  # Essa forma de atribuição raramente é usada, pois dificulta o 
+  # entendimento e clareza do código
+  4 + 3 -> number
+  ```
+  
+--
+
+> .center[<b>A propósito, o simbolo .purple[.large[#]] (hashtag) permite adcionar comentários no código. Tudo que estiver a direita do mesmo será ignorado.</b>]
+
+--
+
+<p class="jst"> O simbolo .purple[.large[=]] também pode ser usado para fazer atribuições, mas não é recomendado, salvo em algumas situações (obs: voltaremos nesse assunto).</p>
+
+<p class="jst"><b>Curiosidade</b>. Existe uma função para fazer atribuições em objetos (.purple[`assign`]).</p>
+  ```{r}
+  ( assign('number', 7) )
+  ```
+---
+## .orange[Fundamentos do R - objetos]
+
+<b>Questões e prática:</b>
+
+- <p class="jst">Como identificar qual o tipo de um objeto?</p>
+
+- <p class="jst">Caso eu queira obter informações de como atribuir valores a um objeto no R, como posso proceder?</p>
+
+- <p class="jst">Crie um <i> R script </i> que persista objetos na memória para comparar a diferença entre dois anos (ex: 1700 e 2000) conforme as seguintes operações matemáticas e lógicas: </p>
+  - Obter o valor absoluto da diferença entre os anos e armazenar o resultado. Obs: a função .purple[abs()] fornece o valor absoluto; 
+  - Compare os valores de todos os objetos com o resultado usando .purple.large[`>=`];
+  - Mostre os comandos e os resultados obtidos carregando o <i>script</i>.
+
+- <p class="jst">É possível fazer comparações lógicas entre caracteres (ex: 'A' .purple.large[`<`] 'B')? Faça alguns testes.</p>
+
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst"> <b>Conversão.</b> Um objeto no R pode ser convertido em outro. Além disso, é possível testar o tipo de um objeto.</p>
+
+  ```{r}
+  number <- paste0('4', '3')
+  number <- as.numeric(number) + 7
+  number <- as.character(number)
+  ```
+
+Qual o tipo do objeto criado acima? Qual o seu valor?
+
+--
+
+  ```{r}
+  is.numeric(number)
+  is.character(number)
+  number
+  ```
+
+---
+## .orange[Fundamentos do R - objetos]
+
+<p class="jst"><b>Conversão.</b> Funções do R no estilo .purple[as.tipo_do_objeto()] e .purple[is.tipo_do_objeto()] servem para conversão e teste do tipo do objeto.</p>
+
+--
+
+O que acontecerá nas conversões listadas a seguir?
+```{r, eval=FALSE}
+  number <- as.numeric("16.995")
+  number <- as.numeric("16,995")
+  integer_number <- as.integer("45L")
+  integer_number <- as.integer("12.5")
+  integer_number <- as.integer(TRUE)
+  flag <- as.logical(1)
+  flag <- as.logical('1')
+  flag <- as.logical("False")
+  flag <- as.logical("FalsE")
+```
+--
+
+<br/>
+
+> .center[<b>Mas quais e quantos tipos de objetos existem no R?</b>] 
+
+---
+## .orange[Fundamentos do R - objetos]
+
+- <p class="jst">Existem 6 tipos básicos (atômicos) de objetos no R:</p>
+  - .content-box-yellow[numeric;]
+  - .content-box-yellow[integer;]
+  - .content-box-yellow[character;]
+  - .content-box-yellow[logical;]
+  - complex;
+  - raw.
+
+--
+
+- <p class="jst">São exemplos de objetos não básicos no R:</p>
+  - .content-box-yellow[factors;]
+  - .content-box-yellow[data.frames;]
+  - .content-box-yellow[functions;]
+  - lists;
+  - matrices, arrays.
+  
+---
+### .orange[RStudio - `r icons::fontawesome("database")` Ambiente e `r icons::fontawesome("history")` Histórico ]
+
+- <p class="jst">Na aba <b>Ambiente</b> são listadas informações dos objetos e funções carregados na sessão atual do R. É possível interagir, importar/exportar dados e obter informações sobre alocação de memória (do computador) ou liberar memória que esta sem uso no R. </p>
+- <p class="jst">A aba <b>Histórico</b> fornece a lista de comandos executados no console, também disponíveis interativamente usando as setas `r icons::fontawesome("arrow-up")` e `r icons::fontawesome("arrow-down")` do teclado. </p> 
+
+Algumas funções executam algumas dessas tarefas:
+  ```{r, eval=FALSE}
+    ls()        # listar objetos/funções
+    objects()   # similar ao ls
+    gc()        # liberar a memória sem uso
+    history()   # mostrar o histórico de comandos
+  ```
+
+---
+exclude: TRUE
+### .orange[Tarefa 2 para a semana.]
+
+- <p class="jst"> As funções  .purple[`paste()`] e .purple[`paste0()`] concatenam (unem) blocos de texto (ou caracteres) conforme o exemplo abaixo:</p>
+  ```{r}
+  paste('Boa', 'tarde!')
+  ```
+
+- Qual a diferença entre as funções .purple[`paste()`] e .purple[`paste0()`]? 
+
+
+- Ao concatenarmos a expressão  na forma
+  ```{r}
+  paste('O dobro de', 2, 'é', 2*2, '!')
+  ```
+
+  <p class="jst"> no resultado, é possível notar que existe um espaço entre os caracteres "4" e "!". Por que você acha que isso ocorreu? Que resultado obtemos usando .purple[`paste0()`]?  Desenvolva uma solução para a mesma concatenação, cujo resultado seja .orange[<b>"`r paste0('O dobro de ', 2, ' é ', 2*2, '!')`"</b>]. Crie um .purple[`R` <i>script</i>] que mostre o mesmo resultado ao ser carregado com .purple[`source()`].</p>
+
+
+---
+exclude: TRUE
+class: left, top
+
+### .orange[Referências]
+
+```{r, load_refs, echo=FALSE}
+library(RefManageR)
+bib <- ReadBib("./files/my-bib.bib", check = FALSE)
+generateReferences <- function(bib) {
+  for(i in 1:length(bib)) {
+    print(bib[i], .opts = list(check.entries = FALSE, style = "html", bib.style = "authoryear"))
+  }
+}
+```
+
+```{r, print_refs, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+writeLines('.small[')
+generateReferences(bib)
+writeLines(']')
+```
+
+---
+class: center, middle
+
+background-image: url(figuras/template_endpage.png)
+background-size: contain
+
+.center[.large[<b> Metotologias Informacionais com `r icon_style( icons::simple_icons("r"), scale = 2)`</b> ]]
+
+.xxlarge[<b style="color:MidnightBlue "> Muito Obrigado pela Atenção!</b>]
