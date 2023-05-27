@@ -17,7 +17,7 @@ output:
 ---
 layout: true
 
-background-image: url(figuras/template_middlepage.png)
+background-image: url(figures/template_middlepage.png)
 background-size: cover
 
 ```{r libririesandcustoms, include=FALSE, warning=FALSE}
@@ -61,7 +61,7 @@ Bibliografia Básica:
  .tiny[- <p class="jst">Kennedy, R., & Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.</p>
 
 ```{r out.width = '40%', echo=FALSE, fig.align = "center"}
-knitr::include_graphics("figuras/basicblibliograph.png") 
+knitr::include_graphics("figures/basicblibliograph.png") 
 ```
 ]
 ]
@@ -430,7 +430,7 @@ writeLines(']')
 ---
 class: center, middle
 
-background-image: url(figuras/template_endpage.png)
+background-image: url(figures/template_endpage.png)
 background-size: contain
 
 .center[.large[<b> Metotologias Informacionais com `r icon_style( icons::simple_icons("r"), scale = 2)`</b> ]]

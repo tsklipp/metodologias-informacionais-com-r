@@ -20,7 +20,7 @@ output:
 ---
 layout: true
 
-background-image: url(figuras/template_middlepage.png)
+background-image: url(figures/template_middlepage.png)
 background-size: cover
 
 ```{r libririesandcustoms, include=FALSE, warning=FALSE}
@@ -55,7 +55,7 @@ Bibliografia Básica:
  .tiny[- <p class="jst">Kennedy, R., & Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.</p>
 
 ```{r out.width = '48%', echo=FALSE, fig.align = "center"}
-knitr::include_graphics("figuras/basicblibliograph.png") 
+knitr::include_graphics("figures/basicblibliograph.png") 
 ```
 ]
 ]
@@ -97,7 +97,7 @@ Dinâmica em grupo:
 ---
 class: left, bottom
 
-background-image: url(figuras/r_atterminal.png)
+background-image: url(figures/r_atterminal.png)
 background-size: contain
 
 ## .orange[O que é o R?]
@@ -114,7 +114,7 @@ background-size: contain
 
 class: left, bottom
 
-background-image: url(figuras/rstudio_panels.png)
+background-image: url(figures/rstudio_panels.png)
 background-size: contain
 
 ## .orange[RStudio?]
@@ -174,7 +174,7 @@ rstudioapi::versionInfo()
 
 
 ---
-background-image: url(figuras/rcommunity.png)
+background-image: url(figures/rcommunity.png)
 background-size: cover
 background-position: center
 
@@ -197,7 +197,7 @@ background-position: center
 ---
 class: left, bottom
 
-background-image: url(figuras/rstudio_panels_console.png)
+background-image: url(figures/rstudio_panels_console.png)
 background-size: contain
 background-position: 
 
@@ -248,7 +248,7 @@ Teste alguns comandos:
 ---
 class: left, bottom
 
-background-image: url(figuras/rstudio_panels_ajuda.png)
+background-image: url(figures/rstudio_panels_ajuda.png)
 background-size: contain
 
 .orange.xlarge[RStudio: nossa ferramenta de trabalho - `r icons::fontawesome("question-circle")` Ajuda] 
@@ -269,7 +269,7 @@ Teste alguns comandos: </p>
 ---
 class: left, bottom
 
-background-image: url(figuras/rstudio_panels_arquivos.png)
+background-image: url(figures/rstudio_panels_arquivos.png)
 background-size: contain
 
 .orange.xlarge[RStudio: nossa ferramenta de trabalho - `r icons::fontawesome("clone")` Arquivos]
@@ -288,7 +288,7 @@ background-size: contain
 
 > 3. Clique no ícone do menu secundário e selecione .purple[`R` <i>script</i>]: 
 ```{r out.width = '100%', echo=FALSE, fig.align = "center"}
-knitr::include_graphics("figuras/newfile.png")
+knitr::include_graphics("figures/newfile.png")
 ```
 
 ---
@@ -303,7 +303,7 @@ knitr::include_graphics("figuras/newfile.png")
 
 > 3. Clique no ícone do menu secundário e procure/selecione no diretório o nome do arquivo:
 ```{r out.width = '100%', echo=FALSE, fig.align = "center"}
-knitr::include_graphics("figuras/openfile.png")
+knitr::include_graphics("figures/openfile.png")
 ```
 
 ---
@@ -312,7 +312,7 @@ knitr::include_graphics("figuras/openfile.png")
 - <p class="jst">Digite alguns comandos no seu .purple[`R` <i>script</i>] e salve o arquivo usando o ícone para salvar (conforme imagem abaixo ou Ctrl + S). É possível executar os comandos do  <i>script</i> um por um usando o ícone .purple[Run] ou usando o ícone .purple[Source], disponíveis no menu da aba do próprio arquivo (canto superior direito), conforme imagem abaixo: </p> 
 
 ```{r out.width = '95%', echo=FALSE, fig.align = "right"}
-knitr::include_graphics("figuras/script_example1.png")
+knitr::include_graphics("figures/script_example1.png")
 ```
 
 --
@@ -325,7 +325,7 @@ knitr::include_graphics("figuras/script_example1.png")
 - <p class="jst"> Para este segundo caso, qual resultado será produzido com .purple[`source("teste2.R")`]?</p> 
 
 ```{r out.width = '95%', echo=FALSE, fig.align = "right"}
-knitr::include_graphics("figuras/script_example2.png")
+knitr::include_graphics("figures/script_example2.png")
 ```
 
 --
@@ -344,7 +344,7 @@ knitr::include_graphics("figuras/script_example2.png")
 ---
 class: left, bottom
 
-background-image: url(figuras/rstudio_panels_ambiente.png)
+background-image: url(figures/rstudio_panels_ambiente.png)
 background-size: contain
 
 .orange.xlarge[RStudio: nossa ferramenta de trabalho - `r icons::fontawesome("database")` Ambiente]
@@ -411,7 +411,7 @@ writeLines(']')
 ---
 class: center, middle
 
-background-image: url(figuras/template_endpage.png)
+background-image: url(figures/template_endpage.png)
 background-size: contain
 
 .center[.large[<b> Metotologias Informacionais com `r icon_style( icons::simple_icons("r"), scale = 2)`</b> ]]
