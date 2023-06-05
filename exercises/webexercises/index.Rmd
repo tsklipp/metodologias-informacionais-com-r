@@ -37,7 +37,7 @@ knitr::write_bib(c(
 
 # Sobre {.unnumbered}
 
-Sejam bem vin\@s!
+Sejam bem vind\@s!
 
 <p class="jst"> Este material online pretende trazer conteúdos complementares e exercícios para reforçar o aprendizado dos assuntos apresentados nas aulas. O mesmo será produzido conforme formos avançando no curso, portanto, fique livre para fazer sugestões. </p>
 
