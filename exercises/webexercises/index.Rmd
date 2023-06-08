@@ -74,7 +74,7 @@ Perfeito, sigamos com uma lista de exercícios.
 
 - Os objetos que criamos ficam listados e disponíveis na aba `r mcq(c("Console", "Pacotes", "Ajuda", answer = "Ambiente", "em nenhuma aba"))` do RStudio.
 
-### Complete as sentenças conforme os enunciados:
+### Complete as sentenças ou responda conforme os enunciados:
 
 - Qual operador permite que um objeto receba dados? `r fitb(c("<-", "->", "="))`
 
@@ -112,7 +112,7 @@ Perfeito, sigamos com uma lista de exercícios.
 
 - Um texto
 
-`r fitb("^[a-z-_]+$", width = 20, ignore_ws = FALSE, regex = TRUE)`  `r fitb("<-", width = 2, regex = TRUE)`  `r fitb("^[\"][a-zA-ZÀ-ú0-9\r!@#$%^&*()_+-=?',;.:/}{~´]+\"$", width = 50, regex = TRUE)`
+`r fitb("^[a-z-_]+$", width = 20, ignore_ws = FALSE, regex = TRUE)`  `r fitb("<-", width = 2, regex = TRUE)`  `r fitb("^[\"][a-zA-ZÀ-ú0-9\r!@#$%^&*()_+-=?',;.:/}{~´]+\"$", width = 45, regex = TRUE)`
 
 ### O seguinte comando executado no console:
 
@@ -141,7 +141,7 @@ minha_soma <- 1 + '1'
 ```{r, echo = FALSE}
 opts_p <- c(
    'Armazena o texto "1 + 1" no objeto `minha_soma`.',
-   'Vai gerar um erro. É preciso colocar o comando entre aspas duplas (" 1 + \'1\' ") para a operação de soma seja possível.',
+   'Vai gerar um erro. É preciso colocar o comando entre aspas duplas (" 1 + \'1\' ") para que a operação de soma seja possível.',
    answer = "Gera um erro pois não é possível fazer operação de soma entre objeto to tipo `numeric` e `character`.",
    "Nenhuma das alternativas."
 )
@@ -201,7 +201,7 @@ opts_p <- c(
 ```{r, echo = FALSE}
 opts_p <- c(
     "Vai armazenar o objeto `my_number` na sessão atual do R contendo o valor 2. Esse objeto será listado na aba ambiente do RStudio.",
-    answer = "Imprime um erro pois o parênteses precisa ser fechado. Os parênteses representam uma função primitiva do R cujo uso semântico correto é ( ... ).",
+    answer = "Imprime um erro pois é necessário um segundo parêntese para fechamento de função. Os parênteses representam uma função primitiva do R cujo uso semântico correto é ( ... ).",
     "Imprime o comando e o valor 2.",
     "Vai fazer com que o R aguarde o fechamento dos parênteses na aba Console do RStudio."
 )
@@ -251,7 +251,7 @@ print(number)
 print(fruit)
 ```
 
-`r hide("Preciso de ajuda!")`
+`r hide("Preciso de ajuda")`
 
 Veja a documentação de  `c()`
 

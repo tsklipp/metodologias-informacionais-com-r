@@ -40,3 +40,4 @@ exercícios-avançado
 o-seguinte-comando-executado-no-console
 o-seguinte-comando-executado-no-console-1
 o-seguinte-comando-executado-no-console-2
+complete-as-sentenças-ou-responda-conforme-os-enunciados

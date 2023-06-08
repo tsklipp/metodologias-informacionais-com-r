@@ -141,7 +141,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="tópico---objetos.html"><a href="tópico---objetos.html#exercícios-básicos"><i class="fa fa-check"></i><b>1.1</b> Exercícios básicos</a>
 <ul>
 <li class="chapter" data-level="1.1.1" data-path="tópico---objetos.html"><a href="tópico---objetos.html#escolha-uma-alternativa-para-cada-afirmação"><i class="fa fa-check"></i><b>1.1.1</b> Escolha uma alternativa para cada afirmação:</a></li>
-<li class="chapter" data-level="1.1.2" data-path="tópico---objetos.html"><a href="tópico---objetos.html#complete-as-sentenças-conforme-os-enunciados"><i class="fa fa-check"></i><b>1.1.2</b> Complete as sentenças conforme os enunciados:</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tópico---objetos.html"><a href="tópico---objetos.html#complete-as-sentenças-ou-responda-conforme-os-enunciados"><i class="fa fa-check"></i><b>1.1.2</b> Complete as sentenças ou responda conforme os enunciados:</a></li>
 <li class="chapter" data-level="1.1.3" data-path="tópico---objetos.html"><a href="tópico---objetos.html#teste-um-nome-para-um-objeto"><i class="fa fa-check"></i><b>1.1.3</b> Teste um nome para um objeto</a></li>
 <li class="chapter" data-level="1.1.4" data-path="tópico---objetos.html"><a href="tópico---objetos.html#armazene-dados-na-forma-nome_do_objeto---valor"><i class="fa fa-check"></i><b>1.1.4</b> Armazene dados na forma <code>nome_do_objeto &lt;- valor</code></a></li>
 <li class="chapter" data-level="1.1.5" data-path="tópico---objetos.html"><a href="tópico---objetos.html#o-seguinte-comando-executado-no-console"><i class="fa fa-check"></i><b>1.1.5</b> O seguinte comando executado no console:</a></li>
@@ -216,10 +216,10 @@ check_func = function() {
   var cl = this.parentElement.classList;
   if (cl.contains('unchecked')) {
     cl.remove("unchecked");
-    this.innerHTML = "Hide Answers";
+    this.innerHTML = "Esconda as respostas";
   } else {
     cl.add("unchecked");
-    this.innerHTML = "Show Answers";
+    this.innerHTML = "Verifique as respostas";
   }
 }
 
@@ -329,7 +329,7 @@ window.onload = function() {
     check_sections[i].classList.add("unchecked");
 
     let btn = document.createElement("button");
-    btn.innerHTML = "Show Answers";
+    btn.innerHTML = "Verifique as respostas";
     btn.classList.add("webex-check-button");
     btn.onclick = check_func;
     check_sections[i].appendChild(btn);
