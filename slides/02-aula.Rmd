@@ -690,7 +690,7 @@ class: left, top
 
 ```{r, load_refs, echo=FALSE}
 library(RefManageR)
-bib <- ReadBib("./files/my-bib.bib", check = FALSE)
+bib <- ReadBib("./files/01-mybib.bib", check = FALSE)
 generateReferences <- function(bib) {
   for(i in 1:length(bib)) {
     print(bib[i], .opts = list(check.entries = FALSE, style = "html", bib.style = "authoryear"))
