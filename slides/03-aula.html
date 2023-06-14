@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Metodologias Informacionais com R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Telmo dos Santos Klipp (telmo.klipp@inpe.br) " />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <b>Metodologias Informacionais com R</b>
+]
+.subtitle[
+## <br/>Módulo I: Introdução à Linguagem R
+]
+.author[
+### <br/><b>Telmo dos Santos Klipp</b> (<a href="mailto:telmo.klipp@inpe.br" class="email">telmo.klipp@inpe.br</a>)<br/>
+]
+
+---
+
+layout: true
+
+background-image: url(figures/template_middlepage.png)
+background-size: cover
+
+
+
+---
+exclude: TRUE
+class: center, top
+
+&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+.orange[&lt;b&gt;Telmo dos Santos Klipp&lt;/b&gt;]
+
+.small[
+Graduação em Tecnologias da Informação e Comunicação (UFSC, 2009-2013) &lt;br/&gt;
+Mestrado em Engenharia de Computação (FURG, 2013-2015) &lt;br/&gt;
+Bolsista CNPq no Laboratório de Computação para Clima Espacial (LCCE/INPE, 2015-2020) &lt;br/&gt;
+Doutorando em Computação Aplicada (INPE, 2020-atual) &lt;br/&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Informações Gerais sobre o Curso]
+
+- &lt;p class="jst"&gt;Materiais disponibilizados via &lt;A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3"&gt;Classroom&lt;/A&gt;;&lt;/p&gt; 
+- &lt;p class="jst"&gt;O aprendizado requer a prática que será constante nas aulas;&lt;/p&gt;
+- &lt;p class="jst"&gt;Será cobrado ao menos uma atividade semanal &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:black;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M298.028 214.267L285.793 96H328c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v48c0 13.255 10.745 24 24 24h42.207L85.972 214.267C37.465 236.82 0 277.261 0 328c0 13.255 10.745 24 24 24h136v104.007c0 1.242.289 2.467.845 3.578l24 48c2.941 5.882 11.364 5.893 14.311 0l24-48a8.008 8.008 0 0 0 .845-3.578V352h136c13.255 0 24-10.745 24-24-.001-51.183-37.983-91.42-85.973-113.733z"&gt;&lt;/path&gt;&lt;/svg&gt;.&lt;/p&gt; 
+
+.pull-left[
+Bibliografia Básica:
+
+ .tiny[- &lt;p class="jst"&gt;Kennedy, R., &amp; Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.&lt;/p&gt;
+
+&lt;img src="figures/basicblibliograph.png" width="48%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+.pull-right[
+Bibliografia Complementar:
+
+ .tiny[- &lt;p class="jst"&gt;Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). R for data science (2e): import, tidy, transform, visualize, and model data. "O'Reilly Media, Inc.". Disponível em: &lt;A href="https://r4ds.hadley.nz/"&gt;https://r4ds.hadley.nz/&lt;/A&gt;. Acesso em: 14 de junho, 2023. (Online) &lt;/p&gt;
+- &lt;p class="jst"&gt;Damiani, A. et. al., (2022). Ciência de Dados em R. Curso-R. Disponível em: &lt;A href="https://livro.curso-r.com"&gt;https://livro.curso-r.com&lt;/A&gt;. Acesso em: 12 de maio, 2023. (Online)&lt;/p&gt;
+-  &lt;p class="jst"&gt;de Aquino, J. A. (2014). R para cientistas sociais. Editora da UESC (editus). Disponível em: &lt;A href="http://www.uesc.br/editora/index.php?item=conteudo_livros_digitais.php"&gt;http://www.uesc.br/editora/&lt;/A&gt;. Acesso em: 12 de maio, 2023. &lt;/p&gt;
+-  &lt;p class="jst"&gt;de Oliveira, P. F., Guerra, S., McDonnell, R. (2018). Ciência de Dados com R: Introdução. Editora IBPAD. Disponível em: &lt;A href="https://cdr.ibpad.com.br/index.html"&gt;https://cdr.ibpad.com.br/index.html&lt;/A&gt;. Acesso em: 12 de maio, 2023. (Online) &lt;/p&gt; ] 
+]
+
+---
+
+### .orange[Nas últimas aulas vimos:]
+- Representação de dados no R (objetos).
+
+- Persistência de dados na memória.
+
+- Como declarar funções no R.
+
+- Como e porque inserir comentários.
+
+---
+
+## .orange[Fundamentos do R - &lt;svg viewBox="0 0 581 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"&gt;&lt;/path&gt;&lt;/svg&gt; session]
+
+&lt;p class="jst"&gt;&lt;b&gt;Literalmente o ambiente de execução do R&lt;/b&gt;. Todos os objetos que criamos, bibliotecas que importamos, comandos que usamos acontecem no contexto de uma .purple[&lt;i&gt;R session&lt;/i&gt;]. O RStudio, por sua vez, inicia uma .purple[&lt;i&gt;R session&lt;/i&gt;] ao ser executado e passa a interagir com a mesma. Podemos salvar objetos e o histórico de comandos da sessão R em arquivos, conforme: &lt;/p&gt; 
+  
+  ```r
+  save.image(file = ".RData")     # salva todos os objetos
+  load(file = ".RData")           # carrega todos os objetos
+  savehistory(file = ".Rhistory") # salva o histórico de comandos
+  loadhistory(file = ".Rhistory") # carrega o histórico de comandos
+  ```
+&lt;b&gt;Como configurar para salvar esses arquivos no RStudio?&lt;/b&gt; 
+&lt;p class="jst"&gt; No menu principal: &lt;i&gt;Tools&lt;/i&gt; `-&gt;` &lt;i&gt;Global Options&lt;/i&gt; (menu &lt;i&gt;General&lt;/i&gt;, aba &lt;i&gt;Basic&lt;/i&gt;).&lt;/p&gt;
+
+--
+
+&lt;/br&gt;
+
+&gt; .center[&lt;b&gt;Isso nos mantém organizados e seguros sobre nossos dados e atividades no R?&lt;/b&gt;]
+
+---
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+&lt;p class="jst"&gt;Projetos permitem organização, seja em algum trabalho, seja na vida no geral.  No R isso não é diferente. &lt;b&gt;O que pretendemos organizar?&lt;/b&gt;&lt;/p&gt;
+
+- Diferentes tipos de arquivos (ex: .R, .csv, .png ...).
+
+- Diferentes tipos de dados, salvos em arquivos.
+
+- Arquivos especiais do R (ex: `.RData` e `.RHistory` ...).
+
+- Outros arquivos com informações relativas  ao projeto.
+
+--
+
+&lt;b&gt;Ganhos?&lt;/b&gt;
+
+- Gestão e controle das etapas do projeto.
+- Gestão e controle dos recursos do projeto (ex: dados, &lt;i&gt;R scripts&lt;/i&gt;). 
+- Produtividade e gerenciamento de tempo.
+
+---
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+&lt;img src="figures/rstudio_project_files.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.left[.footnote[.small[Créditos: &lt;A href="https://datacarpentry.org/r-socialsci/00-intro.html"&gt; Erin Becker (2023)&lt;/A&gt;.]] ]
+
+---
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+&lt;b&gt;Por onde começar?&lt;/b&gt;
+
+- Escolher um diretório de trabalho/pasta para o projeto. 
+
+--
+
+&lt;p class="jst"&gt;&lt;b&gt;Diretórios?&lt;/b&gt; Subdivisões de um sistema de arquivos que permitem organização hierárquica. Diretórios podem ter:&lt;/p&gt;
+
+- Caminhos absolutos
+  - C:/Users/username/meus_programas/... ; D:/meus_dados/ ... (Windows)
+  - /home/usuario/meus_dados/ ... (linux)
+  
+- Caminhos relativos 
+  - ~/projeto1
+  - ~/projeto2 &lt;/br&gt; . &lt;/br&gt; . &lt;/br&gt; .
+  - ~/projetoN
+  
+---
+
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+&lt;p class="jst"&gt;O RStudio permite a configuração de um diretório de trabalho padrão.&lt;/p&gt;
+
+&lt;img src="figures/default_WorkDirectory.png" width="58%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+&lt;p class="jst"&gt;Criar um projeto no R é uma boa prática. Para isso é importante entender sobre manipulação e definição do diretório de trabalho. Considere as funções:  &lt;/p&gt;
+  
+  ```r
+  getwd()      # Retorna (imprime) o diretório de trabalho atual
+  setwd()      # Muda o diretório atual para o indicado no argumento
+  dir.create() # Cria um diretório ou apenas uma pasta
+  list.files() # Lista as pastas e arquivos contidas no diretório de
+               # trabalho atual
+  setwd(choose.dir()) # Escolha por interface gráfica
+  setwd("meu_diretorio/pasta_do_meu_projeto") # Um exemplo de uso
+  ```
+&gt; &lt;p class="center"&gt;Obs:  .purple[&lt;b&gt;setwd("../")&lt;/b&gt;] dir. anterior  `\leftarrow` `-&gt;` .purple[&lt;b&gt;setwd("./")&lt;/b&gt;] dir. atual&lt;/p&gt;
+
+&lt;p class="jst"&gt;Na aba principal do RStudio: Session `-&gt;` Set Working Directory `-&gt;` Choose Directory (ou Ctrl + Shift + H).&lt;/p&gt;
+
+--
+
+&lt;br&gt;
+
+&gt; .center[&lt;b&gt;Mãos a obra! Escolha um diretório onde ficaram seus .purple[`R Project`].&lt;/b&gt;]
+
+---
+
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+&lt;p class="jst"&gt;Na menu principal do RStudio: File `-&gt;` New Project `-&gt;` New Directory `-&gt;` New Project. &lt;/p&gt;
+
+&lt;img src="figures/rproject1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+&lt;p class="jst"&gt;No menu secundário do RStudio, canto superior direito e acima do painel contendo a aba Ambiente, há um menu para projetos.&lt;/p&gt;
+
+.pull-left[
+&lt;img src="figures/rproject.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="figures/rproject3.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+---
+
+## .orange[Fundamentos do R - &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M19.69 13.419h-2.527l-2.667-4.555a1.292 1.292 0 001.035-1.28V4.16c0-.725-.576-1.312-1.302-1.312H9.771c-.726 0-1.312.576-1.312 1.301v3.435c0 .619.426 1.152 1.034 1.28l-2.666 4.555H4.309c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312h4.458c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312h-.437l2.645-4.523h2.059l2.656 4.523h-.438c-.725 0-1.312.576-1.312 1.301v3.435c0 .725.576 1.312 1.302 1.312H19.7c.726 0 1.312-.576 1.312-1.302v-3.434c0-.726-.576-1.312-1.301-1.312zM24 22.976c0 .565-.459 1.024-1.013 1.024H1.024A1.022 1.022 0 010 22.987V1.024C0 .459.459 0 1.013 0h21.963C23.541 0 24 .459 24 1.013z"&gt;&lt;/path&gt;&lt;/svg&gt; projeto]
+
+O arquivo principal do .purple[`R Project`] tem como extensão .purple[`.Rproj`].
+
+&lt;img src="figures/rproject2.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;/br&gt;
+&gt; .center.large[&lt;b&gt;Certo! E agora?&lt;/b&gt; ] 
+
+&lt;!--  odysee--&gt;
+
+---
+## .orange[Fundamentos do R - &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M425.7 256c-16.9 0-32.8-9-41.4-23.4L320 126l-64.2 106.6c-8.7 14.5-24.6 23.5-41.5 23.5-4.5 0-9-.6-13.3-1.9L64 215v178c0 14.7 10 27.5 24.2 31l216.2 54.1c10.2 2.5 20.9 2.5 31 0L551.8 424c14.2-3.6 24.2-16.4 24.2-31V215l-137 39.1c-4.3 1.3-8.8 1.9-13.3 1.9zm212.6-112.2L586.8 41c-3.1-6.2-9.8-9.8-16.7-8.9L320 64l91.7 152.1c3.8 6.3 11.4 9.3 18.5 7.3l197.9-56.5c9.9-2.9 14.7-13.9 10.2-23.1zM53.2 41L1.7 143.8c-4.6 9.2.3 20.2 10.1 23l197.9 56.5c7.1 2 14.7-1 18.5-7.3L320 64 69.8 32.1c-6.9-.8-13.5 2.7-16.6 8.9z"&gt;&lt;/path&gt;&lt;/svg&gt; pacotes]
+
+
+ &lt;p class="jst"&gt; &lt;b&gt;Essenciais no R, pacotes podem conter conjunto de outros de pacotes, biblioteca de funções e estruturas de dados.&lt;/b&gt; Pacotes permitem customização (ao gosto de cada um), assim como instalar apenas o que é necessário. Pacotes são formas de distribuir soluções (funcionalidades) que outras pessoas produziram.&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Existem inúmeros pacotes no repositório official &lt;A href="https://cran.r-project.org/"&gt;CRAN&lt;/A&gt;.&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Existem inúmeros pacotes em repositórios não oficiais (ex: Github).&lt;/p&gt;
+
+--
+
+&lt;/br&gt;
+
+&lt;p class="jst"&gt; &lt;b&gt;Por onde começar?&lt;/b&gt; Instalar um pacote desejado segundo alguma opção. É comum proceder por linha de comando (no console ou terminal) usando a função .purple[`install.packages()`], conforme:&lt;/p&gt;
+  
+  ```r
+  install.packages("tidyverse")
+  ```
+
+---
+## .orange[Fundamentos do R - &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M425.7 256c-16.9 0-32.8-9-41.4-23.4L320 126l-64.2 106.6c-8.7 14.5-24.6 23.5-41.5 23.5-4.5 0-9-.6-13.3-1.9L64 215v178c0 14.7 10 27.5 24.2 31l216.2 54.1c10.2 2.5 20.9 2.5 31 0L551.8 424c14.2-3.6 24.2-16.4 24.2-31V215l-137 39.1c-4.3 1.3-8.8 1.9-13.3 1.9zm212.6-112.2L586.8 41c-3.1-6.2-9.8-9.8-16.7-8.9L320 64l91.7 152.1c3.8 6.3 11.4 9.3 18.5 7.3l197.9-56.5c9.9-2.9 14.7-13.9 10.2-23.1zM53.2 41L1.7 143.8c-4.6 9.2.3 20.2 10.1 23l197.9 56.5c7.1 2 14.7-1 18.5-7.3L320 64 69.8 32.1c-6.9-.8-13.5 2.7-16.6 8.9z"&gt;&lt;/path&gt;&lt;/svg&gt; pacotes]
+
+&lt;p class="jst"&gt;&lt;b&gt;Por onde começar?&lt;/b&gt; Na aba Pacotes (&lt;i&gt;Packages&lt;/i&gt;) do RStudio (ao lado da aba Ajuda) clicar em  `Install` e depois procurar/digitar o nome do pacote desejado. &lt;/p&gt;
+
+.pull-left[
+&lt;img src="figures/install_packages1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="figures/install_packages2.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+&lt;/br&gt;
+
+&gt; .center[&lt;b&gt;Ao longo do curso, trabalharemos com alguns pacotes, mas vamos instalá-los conforme forem necessários.&lt;/b&gt;]
+
+---
+## .orange[Fundamentos do R - &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M425.7 256c-16.9 0-32.8-9-41.4-23.4L320 126l-64.2 106.6c-8.7 14.5-24.6 23.5-41.5 23.5-4.5 0-9-.6-13.3-1.9L64 215v178c0 14.7 10 27.5 24.2 31l216.2 54.1c10.2 2.5 20.9 2.5 31 0L551.8 424c14.2-3.6 24.2-16.4 24.2-31V215l-137 39.1c-4.3 1.3-8.8 1.9-13.3 1.9zm212.6-112.2L586.8 41c-3.1-6.2-9.8-9.8-16.7-8.9L320 64l91.7 152.1c3.8 6.3 11.4 9.3 18.5 7.3l197.9-56.5c9.9-2.9 14.7-13.9 10.2-23.1zM53.2 41L1.7 143.8c-4.6 9.2.3 20.2 10.1 23l197.9 56.5c7.1 2 14.7-1 18.5-7.3L320 64 69.8 32.1c-6.9-.8-13.5 2.7-16.6 8.9z"&gt;&lt;/path&gt;&lt;/svg&gt; pacotes]
+
+&lt;p class="jst"&gt;Após a instalação do pacote é possível carregá-lo na sessão do R atual, conforme:&lt;/p&gt;
+  
+  ```r
+  library(tidyverse)            # carrega o pacote
+  require(tidyverse)            # também carrega o pacote
+  library(help = tidyverse)     # documentação do pacote
+  detach("package:tidyverse")   # retira o pacote da sessão atual
+  ```
+  
+--
+
+&lt;p class="jst"&gt;Isso fará com que o conjunto de funções e dados (ou até mesmo outros pacotes) instalados fique disponível para uso.&lt;/p&gt;
+
+&lt;p class="jst"&gt;Em toda nova sessão do R, será necessário carregar o pacote. &lt;/p&gt; 
+
+&lt;p class="jst"&gt;A instalação do pacote é realizada apenas uma vez, embora possa ser necessário atualizações eventuais.&lt;/p&gt;
+
+---
+## .orange[Fundamentos do R - &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M425.7 256c-16.9 0-32.8-9-41.4-23.4L320 126l-64.2 106.6c-8.7 14.5-24.6 23.5-41.5 23.5-4.5 0-9-.6-13.3-1.9L64 215v178c0 14.7 10 27.5 24.2 31l216.2 54.1c10.2 2.5 20.9 2.5 31 0L551.8 424c14.2-3.6 24.2-16.4 24.2-31V215l-137 39.1c-4.3 1.3-8.8 1.9-13.3 1.9zm212.6-112.2L586.8 41c-3.1-6.2-9.8-9.8-16.7-8.9L320 64l91.7 152.1c3.8 6.3 11.4 9.3 18.5 7.3l197.9-56.5c9.9-2.9 14.7-13.9 10.2-23.1zM53.2 41L1.7 143.8c-4.6 9.2.3 20.2 10.1 23l197.9 56.5c7.1 2 14.7-1 18.5-7.3L320 64 69.8 32.1c-6.9-.8-13.5 2.7-16.6 8.9z"&gt;&lt;/path&gt;&lt;/svg&gt; pacotes]
+
+&lt;p class="jst"&gt;Os objetos contidos nos pacotes (ex: funções e estruturas de dados) podem ser acessados usando o operador &lt;i&gt;Double Colon&lt;/i&gt; (.purple.large[`::`]), conforme:&lt;/p&gt;
+  
+  ```r
+  tidyverse::tidyverse_packages()
+  ```
+
+--
+
+O uso de .purple.large[`::`] representa uma boa prática. &lt;b&gt;Motivo?&lt;/b&gt;
+  - Mascaramento de funções; 
+      
+      ```r
+      tidyverse::tidyverse_conflicts()
+      ```
+  
+  - Clareza de código;
+  
+  - Reprodutibilidade;
+
+---
+## .orange[Fundamentos do R - &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M425.7 256c-16.9 0-32.8-9-41.4-23.4L320 126l-64.2 106.6c-8.7 14.5-24.6 23.5-41.5 23.5-4.5 0-9-.6-13.3-1.9L64 215v178c0 14.7 10 27.5 24.2 31l216.2 54.1c10.2 2.5 20.9 2.5 31 0L551.8 424c14.2-3.6 24.2-16.4 24.2-31V215l-137 39.1c-4.3 1.3-8.8 1.9-13.3 1.9zm212.6-112.2L586.8 41c-3.1-6.2-9.8-9.8-16.7-8.9L320 64l91.7 152.1c3.8 6.3 11.4 9.3 18.5 7.3l197.9-56.5c9.9-2.9 14.7-13.9 10.2-23.1zM53.2 41L1.7 143.8c-4.6 9.2.3 20.2 10.1 23l197.9 56.5c7.1 2 14.7-1 18.5-7.3L320 64 69.8 32.1c-6.9-.8-13.5 2.7-16.6 8.9z"&gt;&lt;/path&gt;&lt;/svg&gt; pacotes]
+
+
+&lt;p class="jst"&gt; O RStudio tem várias funcionalidades interessantes. Por exemplo, é possível rodar os exemplos do uso de uma função, disponíveis na aba Ajuda. No entanto, essa funcionalidade requer o pacote .purple[`knitr`]. &lt;/p&gt;
+
+&lt;p class="jst"&gt;Faça uma consulta usando &lt;i&gt;help&lt;/i&gt; ao pacote .purple[`datasets`], na forma:&lt;/p&gt;
+  
+  ```r
+  help(package = "datasets")
+  ```
+
+&lt;p class="jst"&gt; Procure e clique no conjunto de dados .purple[`sunspots`]  e rode o exemplo apresentado clicando no &lt;i&gt;link .blue[Run examples]&lt;/i&gt;. &lt;/p&gt;
+
+--
+
+&lt;p class="jst"&gt;Muito provavelmente você não terá o pacote  .purple[`knitr`] instalado. Portanto, instale esse pacote e depois tente rodar o exemplo novamente.&lt;/p&gt;
+
+--
+
+&lt;br/&gt;
+
+&gt; .center.large[&lt;b&gt;Você acaba de instalar um pacote versátil que pode ser muito útil para usuários de R.&lt;/b&gt;]
+
+---
+## .orange[Fundamentos do R - &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M425.7 256c-16.9 0-32.8-9-41.4-23.4L320 126l-64.2 106.6c-8.7 14.5-24.6 23.5-41.5 23.5-4.5 0-9-.6-13.3-1.9L64 215v178c0 14.7 10 27.5 24.2 31l216.2 54.1c10.2 2.5 20.9 2.5 31 0L551.8 424c14.2-3.6 24.2-16.4 24.2-31V215l-137 39.1c-4.3 1.3-8.8 1.9-13.3 1.9zm212.6-112.2L586.8 41c-3.1-6.2-9.8-9.8-16.7-8.9L320 64l91.7 152.1c3.8 6.3 11.4 9.3 18.5 7.3l197.9-56.5c9.9-2.9 14.7-13.9 10.2-23.1zM53.2 41L1.7 143.8c-4.6 9.2.3 20.2 10.1 23l197.9 56.5c7.1 2 14.7-1 18.5-7.3L320 64 69.8 32.1c-6.9-.8-13.5 2.7-16.6 8.9z"&gt;&lt;/path&gt;&lt;/svg&gt; pacotes]
+
+&lt;p class="jst"&gt;Pacotes tem ampla documentação, sendo um dos requerimentos aos desenvolvedores para tornar um pacote disponível no repositório oficial. Alguns exemplos: &lt;/p&gt;
+
+- &lt;p class="jst"&gt;Manual do pacote no &lt;A href="https://cran.r-project.org/"&gt;CRAN&lt;/A&gt;.&lt;/p&gt;
+
+- &lt;p class="jst"&gt;&lt;i&gt;Vignettes&lt;/i&gt; - são documentos &lt;i&gt;html&lt;/i&gt; mostrando usos específicos de um pacote e suas funções, muitas vezes direcionado a solução de um problema.&lt;/p&gt;
+  
+  ```r
+   browseVignettes()
+  ```
+
+---
+## Questões e Prática
+
+- &lt;p class="jst"&gt;Quais pacotes compõem o tidyverse?&lt;/p&gt;
+
+- &lt;p class="jst"&gt;O tidyverse possui uma lista de pacotes, porém somente alguns (&lt;i&gt;core packages&lt;/i&gt;) são carregados automaticamente. Experimente carregar o pacote .purple[&lt;b&gt;readxl&lt;/b&gt;]. O que este pacote faz? &lt;/p&gt;
+
+- &lt;p class="jst"&gt;Após carregar o tidyverse, desejamos produzir gráficos com .purple[`ggplot()`]. Para isso, devemos carregar o pacote .purple[&lt;b&gt;ggplot2&lt;/b&gt;] com .purple[`library()`]?&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Instale o pacote .purple[&lt;b&gt;patchwork&lt;/b&gt;].&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Instale o pacote .purple[&lt;b&gt;basedosdados&lt;/b&gt;].&lt;/p&gt;
+
+---
+### .orange[Fundamentos do R - &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"&gt;&lt;/path&gt;&lt;/svg&gt; salvar/carregar]
+
+&lt;p class="jst"&gt;Existem diversas maneiras para salvar/carregar dados, sendo comum proceder por linha de comando. São exemplos de funções do pacote .purple[&lt;b&gt;base&lt;/b&gt;]:&lt;/p&gt;
+  
+  ```r
+  saveRDS(object = obj, file = "my_object.rds")  # salva um objeto
+  readRDS(file = "my_object.rds")                # carrega um objeto
+  save.image(file = ".RData")                    # salva objetos
+  load(file = ".RData")                          # carrega objetos
+  writeLines(text = "Abacate!", con = "file.txt")# salva texto
+  readLines(con = "file.txt")  # lê o texto do arquivo linha a linha
+  ```
+--
+
+&lt;/br&gt;
+
+&gt; &lt;p class="jst"&gt; &lt;b&gt; Vá em frente e descubra opções no console: &lt;/b&gt; &lt;/p&gt;
+&gt; - .purple[base::rea] ... 
+&gt; - .purple[base::write] ...
+
+---
+### .orange[Fundamentos do R - &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"&gt;&lt;/path&gt;&lt;/svg&gt; salvar/carregar]
+
+&lt;p class="jst"&gt;Para formatos do tipo tabular/retangular, o pacote .purple[&lt;b&gt;utils&lt;/b&gt;] possui uma família de funções do tipo .purple[`write.tipo-do-arquivo()`] e .purple[`read.tipo-do-arquivo()`].&lt;/p&gt;
+  
+  ```r
+  write.table; read.table()   # salva/lê arquivos do tipo tabular
+  write.csv(); read.csv()     # salva/lê arquivos do tipo CSV
+  write.csv2; read.csv2()     # salva/lê arquivos do tipo CSV
+  ```
+--
+
+&gt; &lt;p class="jst"&gt;&lt;b&gt;Comma-separated values (CSV)&lt;/b&gt;: Arquivo do tipo texto simples (&lt;i&gt;plain text&lt;/i&gt;) cujos valores são separados por vírgula. Cada linha é um registro e cada coluna é um campo, portanto, os dados terão formato tabular. É comum usar outros separadores para delimitação de campos como ponto e vírgula, espaço e tab. &lt;/p&gt;
+
+--
+
+&lt;/br&gt;
+
+&lt;p class="jst"&gt; .purple[`read.table()`] considera espaçamentos regulares (espaço, tab) como separador, enquanto .purple[`read.csv()`] a vírgula (.purple.large[&lt;b&gt;,&lt;/b&gt;]) e .purple[`read.csv2()`] o ponto e vírgula (.purple.large[&lt;b&gt;;&lt;/b&gt;]). No entanto, essas funções possuem o parâmetro .purple[sep], sendo possível informar qual o separador do arquivo. &lt;/p&gt;
+
+---
+### .orange[Fundamentos do R - &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"&gt;&lt;/path&gt;&lt;/svg&gt; salvar/carregar]
+
+&lt;p class="jst"&gt;Para formatos do tipo tabular/retangular, o pacote .purple[&lt;b&gt;readr&lt;/b&gt;] tem uma família de funções do tipo .purple[`write_tipo-do-arquivo()`] e .purple[`read_tipo-do-arquivo()`].&lt;/p&gt;
+  
+  ```r
+  write_delim(); read_delim() # salva/lê arquivos do tipo tabular
+  write_tsv(); read_tsv()     # salva/lê arquivos com espaçamento
+  write_csv(); read_csv()     # salva/lê arquivos do tipo CSV
+  write_csv2(); read_csv2()   # salva/lê arquivos do tipo CSV
+  ```
+--
+
+&lt;/br&gt;
+
+&lt;p class="jst"&gt; Somente .purple[`read_delim()`] possui um parâmetro (.purple[delim]) que permite informar qual o separador do arquivo.&lt;/p&gt;
+
+--
+
+&lt;/br&gt;
+
+.center.large[&lt;b&gt;Bom! Agora, enfim, começa a parte divertida!&lt;/b&gt;]
+
+---
+## Questões e Prática
+
+&lt;p class="jst"&gt;As funções .purple[`dir.create()`] e .purple[`download.file()`] permitem criar diretórios/pastas e baixar arquivos da internet, respectivamente. &lt;/p&gt;
+
+- &lt;p class="jst"&gt; Crie uma pasta de dados no seu .purple[R project] e faça o &lt;i&gt;download&lt;/i&gt; de dois arquivos contendo séries  históricas de desocupação (Fonte: PNAD contínua), conforme:&lt;/p&gt; 
+  
+  ```r
+  dir.create("dados")
+  download.file(url = "link 1", destfile = "dados/file-name.csv")
+  download.file(url = "link 2", destfile = "dados/file-name.xlsx")
+  ```
+
+Links:
+
+&gt; https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/taxa_desocupacao_sexo_2012-2013.csv
+&gt; https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/taxa_desocupacao_idade_2012-2013.xlsx
+
+---
+## Questões e Prática
+
+- &lt;p class="jst"&gt;Leia o arquivo .purple[.csv] salvo usando as funções .purple[`utils::read.csv2()`] e .purple[`readr::read_csv2()`] armazenando os dados em dois objetos diferentes - considere usar o parâmetro .purple[skip = 1]. Os objetos criados são da mesma classe (tipos iguais)? &lt;/p&gt;
+
+- &lt;p class="jst"&gt;Leia o arquivo .purple[.xlsx] salvo usando a função .purple[`readxl::read_excel()`] e armaze os dados em um objeto. Qual o tipo desse novo objeto? &lt;/p&gt;
+
+- &lt;p class="jst"&gt;Considerando a estruturação dos dados atual, é possível executar diferentes operações sobre os dados e tarefas de análise com facilidade?&lt;/p&gt;
+
+---
+class: center, middle
+
+&lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:560px; overflow-x: scroll; width:760px; "&gt;&lt;table class="table table-striped table-condensed" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Taxa de Desocupação&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; Taxa de desocupação, por idade &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...2 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...3 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...4 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...5 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...6 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...7 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...8 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...9 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...10 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...11 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...12 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...13 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...14 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...15 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...16 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...17 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...18 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...19 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...20 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...21 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...22 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...23 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...24 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...25 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...26 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...27 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...28 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...29 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...30 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...31 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...32 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...33 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...34 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...35 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...36 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...37 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...38 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...39 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...40 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...41 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...42 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...43 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...44 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...45 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...46 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...47 &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; ...48 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; p &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2013 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2013 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2013 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2013 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2014 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2014 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2014 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2014 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2015 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2015 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2015 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2015 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2016 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2016 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2016 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2016 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2017 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2017 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2017 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2017 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2019 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2019 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2019 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2019 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2020 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2020 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2020 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2020 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2021 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2021 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2021 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2021 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2022 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2º trimestre 2022 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3º trimestre 2022 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4º trimestre 2022 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1º trimestre 2023 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Grupo de idade &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 14 a 17 anos &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 18,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 21,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 29,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 38,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 38,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 39,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 39,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 45,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 43,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 41,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 39,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 43,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 42,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 40,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 40,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 44,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 42,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 40,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 39,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 43,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 43,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 44,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 42,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 46,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 43,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 40,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 37,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 36,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 33,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 31,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 29,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 33,1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 18 a 24 anos &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 18,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 18,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 27,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 30,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 29,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 30,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 18,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 18,0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25 a 39 anos &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 40 a 59 anos &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 60 anos ou mais &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3,9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14,2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12,6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11,1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9,3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7,9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8,8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fonte: "IBGE - Pesquisa Nacional por Amostra de Domicílios Contínua trimestral" &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+
+---
+class: center, middle
+
+&lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:560px; overflow-x: scroll; width:760px; "&gt;&lt;table class="table table-striped table-condensed" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Taxa de Desocupação&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; Sexo &lt;/th&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2012 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2012 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2012 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2012 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2013 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2013 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2013 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2013 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2014 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2014 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2014 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2014 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2015 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2015 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2015 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2015 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2016 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2016 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2016 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2016 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2017 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2017 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2017 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2017 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2018 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2018 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2018 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2018 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2019 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2019 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2019 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2019 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2020 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2020 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2020 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2020 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2021 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2021 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2021 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2021 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2022 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 2º trimestre 2022 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 3º trimestre 2022 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 4º trimestre 2022 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; 1º trimestre 2023 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Homens &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mulheres &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Brasil &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.8 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+
+---
+### .orange[Fundamentos do R - &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"&gt;&lt;/path&gt;&lt;/svg&gt; tidy data]
+
+- Cada coluna é um atributo (variável)
+- Cada linha é uma observação (instância)
+- Cada célula possui um único valor
+
+.right[.small[Créditos:  &lt;A href="https://r4ds.hadley.nz/data-tidy.html"&gt; Wickham, et al (2023)&lt;/A&gt;.]]
+&lt;img src="figures/tidy-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+&gt; &lt;p class="jst"&gt;`"Conjunto de dados organizados (tidy) são todos iguais, mas todo conjunto bagunçado é bagunçado à sua maneira."`&lt;/p&gt;
+&gt; --- Hadley Wickham 
+
+---
+### .orange[Ciclo da ciência dos dados - "whole game"]
+
+&lt;img src="figures/data-sciency-cycle.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.left[.footnote[.small[Créditos: Adaptado de  &lt;A href="https://r4ds.hadley.nz/whole-game.html"&gt; Wickham, et al (2023)&lt;/A&gt;.]] ]
+
+---
+class: left, top
+
+### .orange[Referências]
+
+
+
+.small[
+&lt;p&gt;&lt;cite&gt;Wickham, H., M. Çetinkaya-Rundel, and G. Grolemund
+(2023).
+&lt;em&gt;R for data science (2e): import, tidy, transform, visualize, and model data&lt;/em&gt;.
+Disponível em: &lt;a href="https://r4ds.hadley.nz/"&gt;https://r4ds.hadley.nz/&lt;/a&gt;, Acesso em: 14 de junho de 2023.
+O'Reilly Media, Inc.&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;Becker, E.
+(2023).
+&lt;em&gt;R for Social Scientists.&lt;/em&gt;
+Data Carpentry.
+Disponível em: &lt;a href="https://datacarpentry.org/r-socialsci/index.html"&gt;https://datacarpentry.org/r-socialsci/index.html&lt;/a&gt;, Acesso em: 14 de junho de 2023.&lt;/cite&gt;&lt;/p&gt;
+]
+
+---
+class: center, middle
+
+background-image: url(figures/template_endpage.png)
+background-size: contain
+
+.center[.large[&lt;b&gt; Metotologias Informacionais com &lt;svg role="img" viewBox="0 0 24 24" style="position:relative;display:inline-block;top:.1em;height:2em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/b&gt; ]]
+
+.xxlarge[&lt;b style="color:MidnightBlue "&gt; Muito Obrigado pela Atenção!&lt;/b&gt;]
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideClass": ["left", "top"],
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
