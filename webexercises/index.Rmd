@@ -1,0 +1,469 @@
+---
+title: "Metodologias Informacionais com R"
+subtitle: "Conteúdo de reforço e atividades extraclasse"
+author: "Telmo dos Santos klipp"
+documentclass: book
+bibliography: ["packages.bib", "docs/include/mybib.bib"]
+link-citations: yes
+colorlinks: yes
+lot: yes
+lof: yes
+site: bookdown::bookdown_site
+description: "Livro de reforço com atividades extraclasse"
+graphics: yes
+header-includes:
+  - \usepackage{tcolorbox}
+---
+
+```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = TRUE, formatR.indent = 2, width = 55, digits = 4
+)
+```
+
+```{r cite-packages, include = FALSE}
+# automatically create a bib database for R packages
+# add any packages you want to cite here
+knitr::write_bib(c(
+  .packages(), 'knitr', 'bookdown', 'webexercises'
+), 'packages.bib')
+
+```
+
+```{r, echo = FALSE, results='asis'}
+# Uncomment to change widget colours:
+#style_widgets(incorrect = "goldenrod", correct = "purple", highlight = "firebrick")
+```
+
+# Sobre {.unnumbered}
+
+Sejam bem vind\@s!
+
+<p class="jst"> Este material online pretende trazer conteúdos complementares e exercícios para reforçar o aprendizado dos assuntos apresentados nas aulas. O mesmo será produzido conforme formos avançando no curso, portanto, fique livre para fazer sugestões. A produção deste material complementar e seu conteúdo foi possível por meio dos pacotes <span style="color:purple"><b>knitr</b></span> [@R-knitr; @knitr2015], <span style="color:purple"><b>bookdown</b></span> [@R-bookdown; @bookdown2016] e <span style="color:purple"><b>webexercises</b></span> [@R-webexercises].</p>
+
+# Tópico - Objetos
+
+<p class="jst"><b>Vimos em aula que tudo no R é um objeto.</b> Além disso, vimos que objetos tem diferentes tipos (ex: numeric, integer, character, logical, function ...). No entanto, quando digitamos algum dado no console do RStudio como um número (ex: 7) ou um texto (ex: "abacate"), esses objetos não são armazenados no R automaticamente. Como desejamos trabalhar com dados de forma automatizada, precisamos indicar para o R para manter esses dados na memória do computador. Fazemos isso indicando nome e valor para um objeto, na forma:</p>
+
+::: {.content-box-green .center .large style="color: blue;"}
+nome_do_objeto \<- valor
+:::
+
+<p class="jst"> <b>Pense nesse caso da seguinte forma:</b> o R trata a memória do computador como se fosse um armário gigantesco, cheio de gavetas. Queremos guardar itens (dados) diferentes nessas gavetas. Para termos organização, precisamos dar nomes diferentes e intuitivos para cada uma das gavetas disponíveis que pretendemos usar. Isso facilitará o acesso aos nossos itens.</p>
+
+```{r echo=FALSE, out.width = "50%", out.height= "20%", fig.align = "center"}
+knitr::include_graphics("figures/armarioR.png")
+```
+
+<p class="jst"> Bom, o R também nos impõe uma restrição. Não podemos guardar itens diferentes na mesma gaveta, sendo que cada uma delas aceita apenas um tipo específico de item. Ainda assim, o armário do R consegue representar uma quantidade suficiente de tipos de itens dentre os quais desejaremos guardar e, geralmente, tem espaço de sobra.</p>
+
+
+::: {.content-box-gray .center .xlarge style="color: black;"}
+Perfeito, sigamos com uma lista de exercícios.
+:::
+
+## Exercícios básicos
+
+### Escolha uma alternativa para cada afirmação:
+
+- O operador usado para atribuir valores em objetos é: `r mcq(c("assign()", ":", answer = "<-", "?"))`
+
+- Eu uso `r mcq(c("<-", answer = "help(\">=\")", "=", answer = "?\">=\"", "nenhuma opção"))` para obter informação sobre o operador lógico **>=**.
+
+- Com a função `class()` eu posso descobrir o `r mcq(c("tamanho", "nome", "comportamento", answer =  "tipo"))` de um objeto.
+
+- Os objetos que criamos ficam listados e disponíveis na aba `r mcq(c("Console", "Pacotes", "Ajuda", answer = "Ambiente", "em nenhuma aba"))` do RStudio.
+
+### Complete as sentenças ou responda conforme os enunciados:
+
+- Qual operador permite que um objeto receba dados? `r fitb(c("<-", "->", "="))`
+
+- Armazene o valor 2 no objeto `number` usando o operador de atribuição : `r fitb(c("number <- 2", "2 -> number", "number = 2"), ignore_ws = FALSE)`
+
+- Na aba **Histórico** do RStudio são listados os `r fitb("comandos", ignore_case = TRUE, width = "10")`  enviados ao R.
+
+- Digite um operador de comparação: `r fitb(c("<", ">", "<=", ">=" , "==", "!="))`
+
+- Digite um operador aritmético: `r fitb(c("+", "-", "*", "/", "^" , "%%", "%/%"))`
+
+- Digite um operador lógico: `r fitb(c("!", "&", "&&", "|", "||" , "xor", "isTRUE", "isFALSE"))`
+
+### Teste um nome para um objeto
+
+<p class="jst">Existem "boas páticas" que ajudam na clareza de código. Algumas se referem a forma "ideal" de nomear objetos. No próximo campo, você pode testar nomes de objetos. Obs: de preferência a nomes intuitivos e curtos.</p>
+
+::: {.center .xlarge style="color: black;"}
+ `r fitb("^[a-z-_]+$", width = 25, ignore_ws = FALSE, regex = TRUE)`
+:::
+
+### Armazene dados na forma `nome_do_objeto <- valor`
+
+- Um número real
+
+`r fitb("^[a-z-_]+$", width = 20, ignore_ws = FALSE, regex = TRUE)`  `r fitb("<-", width = 2, regex = TRUE)`  `r fitb("^[+-]?([0-9]*[.])?[0-9]+$", width = 10, regex = TRUE)`
+
+- Um número inteiro
+
+`r fitb("^[a-z-_]+$", width = 20, ignore_ws = FALSE, regex = TRUE)`  `r fitb("<-", width = 2, regex = TRUE)`  `r fitb("^[0-9]+L$", width = 10, regex = TRUE)`
+
+- Um valor lógico
+
+`r fitb("^[a-z-_]+$", width = 20, ignore_ws = FALSE, regex = TRUE)`  `r fitb("<-", width = 2, regex = TRUE)`  `r fitb(c("TRUE", "FALSE", "T", "F"),width = 20, regex = FALSE)`
+
+- Um texto
+
+`r fitb("^[a-z-_]+$", width = 20, ignore_ws = FALSE, regex = TRUE)`  `r fitb("<-", width = 2, regex = TRUE)`  `r fitb("^[\"][a-zA-ZÀ-ú0-9\r!@#$%^&*()_+-=?',;.:/}{~´]+\"$", width = 45, regex = TRUE)`
+
+### O seguinte comando executado no console:
+
+```{r, eval=FALSE}
+ditado_popular <- "De grâo em grão a galinha enche o papo
+```
+
+```{r, echo = FALSE}
+opts_p <- c(
+   "Imprime o texto do ditado popular.",
+   answer = 'Vai fazer o  R aguardar `"` ser digitado. As aspas duplas ou simples tem a função de delimitar textos. Para isso é necessário sempre indicar o inicio e final do texto, abrindo e fechando com `"`.',
+   "Gera um erro interno no R.",
+   "Nenhuma das alternativas."
+)
+```
+
+`r longmcq(opts_p)`
+
+
+### O seguinte comando executado no console:
+
+```{r, eval=FALSE}
+minha_soma <- 1 + '1'
+```
+
+```{r, echo = FALSE}
+opts_p <- c(
+   'Armazena o texto "1 + 1" no objeto `minha_soma`.',
+   'Vai gerar um erro. É preciso colocar o comando entre aspas duplas (" 1 + \'1\' ") para que a operação de soma seja possível.',
+   answer = "Gera um erro pois não é possível fazer operação de soma entre objeto to tipo `numeric` e `character`.",
+   "Nenhuma das alternativas."
+)
+```
+
+`r longmcq(opts_p)`
+
+## Exercícios intermediários
+
+### Selecione verdadeiro (TRUE) ou falso (FALSE)
+
+- Uma função no R também é um objeto. `r torf(TRUE)`
+
+- `class` não faz parte dos atributos que um objeto possui. `r torf(FALSE)`
+
+- <p class="jst"> Se dois objetos forem da mesma classe, qualquer operação disponível ao tipo desses objetos pode ser aplicada. `r torf(FALSE)` </p>
+
+- <p class="jst"> Um objeto básico do R pode conter mais de um elemento, garantido que todos sejam do mesmo tipo. `r torf(TRUE)` </p>
+
+- <p class="jst"> Qualquer tipo de objeto pode ser convertido para outro tipo disponível no R, resguardado que seja usado uma função de conversão existente. `r torf(FALSE)` </p>
+
+### O seguinte comando executado no console:
+
+```{r, eval=FALSE}
+my_object <- as.numeric(paste0("0004", ".500"))
+my_object
+```
+
+```{r, echo = FALSE}
+opts_p <- c(
+   'Imprime o texto "0004.500".',
+   answer = "Vai imprimir o valor numérico 4.5 pois, após a união dos textos, é feita a conversão do objeto do tipo `character` para `numeric`.",
+   "Imprime o valor inteiro 4500",
+   "Vai imprimir o tipo do objeto."
+)
+```
+
+`r longmcq(opts_p)`
+
+### Concatenação de textos
+
+<p class="jst">Forme a palavra composta alface-de-cordeiro com os elementos "alface", "de" e "cordeiro" e atribua ao objeto "palavra_composta". Para isso use a função `paste()` ou `paste0()` do R:</p>
+
+`r fitb(c("palavra_composta <- paste(\"alface\", \"de\", \"cordeiro\", sep = \"-\")", "palavra_composta <- paste('alface', 'de', 'cordeiro', sep = '-')", "palavra_composta <- paste0(c('alface', 'de', 'cordeiro'), collapse = '-')", "palavra_composta <- paste0(c(\"alface\", \"de\", \"cordeiro\"), collapse = \"-\")"), ignore_ws = FALSE, ignore_case = FALSE)`
+
+
+## Exercícios avançados
+
+::: {.webex-check .webex-box}
+
+**Considere um *R script* de nome `teste.R` que possui um único comando, conforme listado abaixo. Esse *script*, ao ser carregado com `source("teste.R", echo = TRUE)`:**
+
+```{r, eval=FALSE}
+(my_nunber <- (1 + 1)
+```
+
+```{r, echo = FALSE}
+opts_p <- c(
+    "Vai armazenar o objeto `my_number` na sessão atual do R contendo o valor 2. Esse objeto será listado na aba ambiente do RStudio.",
+    answer = "Imprime um erro pois é necessário um segundo parêntese para fechamento de função. Os parênteses representam uma função primitiva do R cujo uso semântico correto é ( ... ).",
+    "Imprime o comando e o valor 2.",
+    "Vai fazer com que o R aguarde o fechamento dos parênteses na aba Console do RStudio."
+)
+```
+
+`r longmcq(opts_p)`
+
+**O seguinte objeto:**
+
+```{r}
+print(version)
+```
+
+```{r, echo = FALSE}
+opts_p <- c(
+    answer = "É um objeto do tipo lista. Uma lista pode conter itens como vetores (tipos básicos do R), matrizes, funções ou mesmo outras listas.",
+    "É um arquivo com informações que o R lê automaticamente quando digitamos `version`.",
+    "É uma função que imprime informações básicas sobre a versão do R instalada.",
+    "Nenhuma das anteriores."
+)
+```
+
+`r longmcq(opts_p)`
+
+:::
+
+## Nossos itens, nossas gavetas
+
+<p class="jst">Aprofundaremos detalhes sobre estruturas de dados no R no terceiro módulo do curso. Antes disso, segue uma demostração em forma de exercício.</p>
+
+**Armazene conjuntos de dados em objetos**
+
+```{r echo = FALSE}
+number <- 1:5
+fruit <- c("abacate", "banana", "laranja")
+```
+
+- Os valores numéricos de 1 a 5 em `number`, cuja impressão mostre:
+
+```{r echo = TRUE}
+print(number)
+```
+
+- Os elementos "abacate", "banana", "laranja" em `fruit`, cuja impressão mostre:
+
+```{r echo = TRUE}
+print(fruit)
+```
+
+`r hide("Preciso de ajuda")`
+
+Veja a documentação de  `c()`
+
+`r unhide()`
+
+```{r eval = FALSE, webex.hide="Clique para ver a solução"}
+number <- c(1, 2, 3, 4, 5) # ou number <- seq(1, 5) ou number <- 1:5
+fruit <- c("abacate", "banana", "laranja")
+```
+
+# Tópico - Funções
+
+<p class="jst"><b>Funções são os blocos de construção do R [@wickham2014advanced].</b> Elas provêm funcionalidades, manipulam dados, evitam redundância de código, dentre outros benefícios. Porém, antes de podermos executar qualquer função, é necessário criá-las em processo chamado de <b>definição</b> (declaração) de função. A definição de uma função pode seguir um protótipo (esboço), conforme:</p>
+
+::: {.content-box-green .large style="color: blue;"}
+nome_da_funcao <- function(arg 1, arg 2, ..., arg N) {
+<p class="center">comando 1
+</br>comando 2
+</br>.
+</br>.
+</br>.
+</br>comando N</p>}
+:::
+
+<p class="jst"> Para manipular dados uma função precisa dispor de objetos que foram criados, podendo ser passados para a função por meio de <span style="color:purple"><b>`argumentos`</b></span> ou ser gerados dentro da própria função. Geralmente, desejaremos que uma função receba um ou mais objetos através dos argumentos e faça operações com os dados contidos nesses objetos. Veja a definição de uma função para somar dois números:</p>
+```{r}
+soma <- function(a = 1, b = 10) # Entre parênteses ficam os arqumentos da função que podem ter valores padrão (default)
+{                               # Entre chaves seguem os comandos (operações) da função, também conhecido como corpo da função
+   resultado <- a + b
+   return(resultado)            # return() indica que um objeto será retornado, sendo considerado uma boa prática
+}
+```
+
+<p class="jst">Perceba alguns elementos da função <span style="color:purple">`soma()`</span> acima. Ela possui os argumentos <b>a</b> e <b>b</b> (entre parênteses) para os quais foram atribuídos valores padrão com o sinal de igualdade (<span style="color:purple">=</span>). Também possui um <span style="color:purple"><b>`corpo`</b></span> (entre chaves), onde é feita a atribuição da soma dos valores de <b>a</b> e <b>b</b> ao objeto <b>resultado</b> e, retornado esse objeto pelo comando <span style="color:purple">`return()`</span>.  Após ser definida e carregada em uma sessão do R (ex: inserida no console do RStudio), uma função pode ser <b>invocada</b>, conforme:</p>
+```{r}
+soma() # Invocação sem passar nada, usa valores padrão (1 e 10)
+soma(a = 2) # Invocação informando apenas o valor de 'a'
+soma(b = 1) # Invocação informando apenas o valor de 'b'
+```
+<p class="jst">Como você pode ver os argumentos <b>a</b> e <b>b</b> da função  <span style="color:purple">`soma()`</span> fornecem canais que podemos usar para passar objetos (nesse caso números) para a função. No entanto, não é obrigatório passar os números já que os argumentos possuem valores padrão permitindo a operação de soma no corpo da função. Não obstante, podemos usar os dois argumentos:</p>
+ 
+```{r}
+soma(1, 1) # Invocações informando os valores de 'a' e 'b'
+soma(3 + 4, 3)
+```
+
+<p class="jst">Podemos informar os valores dos argumentos considerando a posição dos mesmos - conforme os exemplos acima - ou fazer isso usando os nomes dos argumentos. Nesse caso, a posição dos argumentos não importa, conforme:</p>
+
+```{r}
+soma(a = 4, b = 3)
+soma(b = 10, a = 5)
+```
+
+ 
+É possível persistir objetos na sessão do R e passá-los como argumentos:
+
+```{r}
+num_a <- -30
+num_b <- 20
+```
+
+```{r}
+soma(a = num_a, b = num_b)
+soma(a = num_b, b = num_a + 30)
+```
+
+<p class="jst"> <b>Uma função é um pedaço contido de código que executa uma ou mais funcionalidades.</b> Além disso, todos os objetos criados dentro de uma função, incluindo seus argumentos, só existiram enquanto a função estiver executando. Dessa forma, nenhum objeto da função <span style="color:purple">`soma()`</span> passará a existir no ambiente do R (<i>global environment</i>) - disponível na aba Ambiente do RStudio - após sua execução. Uma função no R possui um ambiente próprio (<span style="color:purple"><b>`function environment`</b></span>), tendo a função <span style="color:purple">`soma()`</span> seu próprio armário de objetos que existirá apenas na execução da mesma, conforme. </p>
+
+```{r echo=FALSE, out.width = "50%", out.height= "20%", fig.align = "center"}
+knitr::include_graphics("figures/armarioRfunction.png")
+```
+
+<p class="jst"> <b>Não obstante, ao ser executada, uma função retornará sempre ao menos um  novo objeto.</b> Caso não exista um comando de <span style="color:purple">`return()`</span> no corpo da função, o objeto retornado será aquele gerado pelo último comando. Observe a definição da seguinte função e sua invocação: </p>
+
+```{r}
+calcula <- function(a = 0, b = 1) {
+  # Imprime operações matemáticas básicas
+  print(paste("A soma do número", a, "com o número", b, "é:", a + b))
+  print(paste("A subtração do número", a, "pelo o número", b, "é:", a - b))
+  print(paste("A multiplicação do número", a, "pelo número", b, "é:", a * b))
+  print(paste("A divisão do número", a, "pelo número", b, "é:", a / b))
+}
+retorno <- calcula(3, 2)
+```
+
+<p class="jst">Qual valor está armazenado no objeto <b>retorno</b>? Justamente a concatenação gerada pela função <span style="color:purple">`paste()`</span>  no último comando:</p>
+
+```{r}
+retorno
+```
+
+<p class="jst">Observe que o retorno do objeto gerado no último comando ocorre mesmo se houver atribuição, conforme: </p>
+
+```{r}
+soma <- function(a = 0, b = 0) {                         
+   resultado <- a + b
+}
+```
+
+A seguinte invocação não imprime nada.
+```{r}
+soma(4, 3) 
+```
+
+E agora?
+
+```{r}
+retorno <- soma(4, 3) # o objeto 'retorno' recebe o valor da soma
+retorno
+```
+
+
+::: {.content-box-gray .center .xlarge style="color: black;"}
+Perfeito, sigamos com uma lista de exercícios.
+:::
+
+## Exercícios básicos
+
+### Selecione verdadeiro (TRUE) ou falso (FALSE)
+
+- `function()` é uma diretiva que permite declarar os parâmetros de uma função. `r torf(TRUE)`
+
+- <p class="jst"> Nomes de funções são palavras reservados no R. `r torf(FALSE)` </p>
+
+- <p class="jst"> O `return()` indica qual objeto será retornado por uma função, sendo considerado uma boa prática. Na ausência de `return()`, o objeto criado no último comando será retornado. `r torf(TRUE)` </p>
+
+- <p class="jst"> Entre as chaves ficam dispostos os comandos de uma função, também conhecido como `corpo`  da função. `r torf(TRUE)` </p>
+
+- <p class="jst">Uma função pode ser considerada um bloco de construção do R mas não é um objeto. `r torf(FALSE)` </p>
+
+- <p class="jst">Uma função pode ser definida sem possuir argumentos ou comandos. `r torf(TRUE)`</p>
+
+- <p class="jst">A seguinte declaração `soma = function(a, b) a + b` também é uma função. `r torf(TRUE)`</p>
+
+- <p class="jst">Com a função `class()` eu posso identificar se um objeto é uma função. `r torf(TRUE)`</p>
+
+### Escolha uma alternativa para cada afirmação:
+
+- <p class="jst">Uma declaração de uma função com mais de um comando tem seu corpo delimitado por: `r mcq(c("parenteses: ()", "Aspas duplas", "Aspas simples", answer = "chaves: {}"))`</p>
+
+- <p class="jst">Eu uso `r mcq(c(answer = "<-", ":", answer = "=", "==", "nenhuma opção"))` para atribuir a declaração de uma função ao nome que identificará a mesma.</p>
+
+- <p class="jst">Uma função carregada ficará listada na aba `r mcq(c("Source", "Files", "Help", answer = "Environment", "em nenhuma aba"))` do RStudio.</p>
+
+## Exercícios intermediários
+
+### Observe a definição da seguinte função:
+
+```{r}
+diferenca_absoluta <- function(a, b) abs(a - b)
+```
+
+**A invocação da função na forma `diferenca_absoluta(b = 7)`:**
+
+```{r, echo = FALSE}
+opts_p <- c(
+   'Imprime o número -7',
+   answer = "Vai gerar um erro pois um valor para o argumento 'a' precisa ser informado",
+   "Não será possível pois a definição anterior da função esta incorreta e a função não será criada",
+   "Nenhuma das opções"
+)
+```
+
+`r longmcq(opts_p)`
+
+### Escolha uma opção sobre as funções do R base:
+
+::: {.webex-check .webex-box}
+
+```{r, eval=FALSE}
+seq()
+```
+
+```{r, echo = FALSE}
+opts_p <- c(
+    "Não é uma função do pacote `base`",
+    "Gera sequências de números apenas",
+    answer = "Gera sequências regulares para alguns tipos de objetos do R como números e datas",
+    "Gera sequências de DNA aleatórias"
+)
+```
+
+`r longmcq(opts_p)`
+
+```{r, eval=FALSE}
+c()
+```
+
+```{r, echo = FALSE}
+opts_p <- c(
+    answer = "Serve para concatenar objetos em um vetor ou lista",
+    "Produz uma matrix",
+    "É uma função que imprime coleções de pacotes do R",
+    "Nenhuma das anteriores."
+)
+```
+
+`r longmcq(opts_p)`
+
+:::
+
+###  Crie uma função
+
+- <p class="jst">Que retorne a multiplicação entre dois números</p>
+
+- <p class="jst">Que retorne a raiz quadrada do quadrado da diferença de dois números</p>
+
+`r unhide()`
+
+```{r eval = FALSE, webex.hide="Clique para ver possíveis soluções"}
+multiplica <- function(a, b) a * b
+diferenca_quadratica <- function(a, b) sqrt((a - b )^2)
+```
+
+`r if (knitr::is_html_output()) '# Referências {-}'`

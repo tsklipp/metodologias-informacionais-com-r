@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Tópico - Funções | Metodologias Informacionais com R</title>
+  <meta name="description" content="Livro de reforço com atividades extraclasse" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Tópico - Funções | Metodologias Informacionais com R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Livro de reforço com atividades extraclasse" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Tópico - Funções | Metodologias Informacionais com R" />
+  
+  <meta name="twitter:description" content="Livro de reforço com atividades extraclasse" />
+  
+
+<meta name="author" content="Telmo dos Santos klipp" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tópico---objetos.html"/>
+<link rel="next" href="referências.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="include/webex.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Sobre</a></li>
+<li class="chapter" data-level="1" data-path="tópico---objetos.html"><a href="tópico---objetos.html"><i class="fa fa-check"></i><b>1</b> Tópico - Objetos</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="tópico---objetos.html"><a href="tópico---objetos.html#exercícios-básicos"><i class="fa fa-check"></i><b>1.1</b> Exercícios básicos</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="tópico---objetos.html"><a href="tópico---objetos.html#escolha-uma-alternativa-para-cada-afirmação"><i class="fa fa-check"></i><b>1.1.1</b> Escolha uma alternativa para cada afirmação:</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tópico---objetos.html"><a href="tópico---objetos.html#complete-as-sentenças-ou-responda-conforme-os-enunciados"><i class="fa fa-check"></i><b>1.1.2</b> Complete as sentenças ou responda conforme os enunciados:</a></li>
+<li class="chapter" data-level="1.1.3" data-path="tópico---objetos.html"><a href="tópico---objetos.html#teste-um-nome-para-um-objeto"><i class="fa fa-check"></i><b>1.1.3</b> Teste um nome para um objeto</a></li>
+<li class="chapter" data-level="1.1.4" data-path="tópico---objetos.html"><a href="tópico---objetos.html#armazene-dados-na-forma-nome_do_objeto---valor"><i class="fa fa-check"></i><b>1.1.4</b> Armazene dados na forma <code>nome_do_objeto &lt;- valor</code></a></li>
+<li class="chapter" data-level="1.1.5" data-path="tópico---objetos.html"><a href="tópico---objetos.html#o-seguinte-comando-executado-no-console"><i class="fa fa-check"></i><b>1.1.5</b> O seguinte comando executado no console:</a></li>
+<li class="chapter" data-level="1.1.6" data-path="tópico---objetos.html"><a href="tópico---objetos.html#o-seguinte-comando-executado-no-console-1"><i class="fa fa-check"></i><b>1.1.6</b> O seguinte comando executado no console:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="tópico---objetos.html"><a href="tópico---objetos.html#exercícios-intermediários"><i class="fa fa-check"></i><b>1.2</b> Exercícios intermediários</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="tópico---objetos.html"><a href="tópico---objetos.html#selecione-verdadeiro-true-ou-falso-false"><i class="fa fa-check"></i><b>1.2.1</b> Selecione verdadeiro (TRUE) ou falso (FALSE)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tópico---objetos.html"><a href="tópico---objetos.html#o-seguinte-comando-executado-no-console-2"><i class="fa fa-check"></i><b>1.2.2</b> O seguinte comando executado no console:</a></li>
+<li class="chapter" data-level="1.2.3" data-path="tópico---objetos.html"><a href="tópico---objetos.html#concatenação-de-textos"><i class="fa fa-check"></i><b>1.2.3</b> Concatenação de textos</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="tópico---objetos.html"><a href="tópico---objetos.html#exercícios-avançados"><i class="fa fa-check"></i><b>1.3</b> Exercícios avançados</a></li>
+<li class="chapter" data-level="1.4" data-path="tópico---objetos.html"><a href="tópico---objetos.html#nossos-itens-nossas-gavetas"><i class="fa fa-check"></i><b>1.4</b> Nossos itens, nossas gavetas</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tópico---funções.html"><a href="tópico---funções.html"><i class="fa fa-check"></i><b>2</b> Tópico - Funções</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="tópico---funções.html"><a href="tópico---funções.html#exercícios-básicos-1"><i class="fa fa-check"></i><b>2.1</b> Exercícios básicos</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="tópico---funções.html"><a href="tópico---funções.html#selecione-verdadeiro-true-ou-falso-false-1"><i class="fa fa-check"></i><b>2.1.1</b> Selecione verdadeiro (TRUE) ou falso (FALSE)</a></li>
+<li class="chapter" data-level="2.1.2" data-path="tópico---funções.html"><a href="tópico---funções.html#escolha-uma-alternativa-para-cada-afirmação-1"><i class="fa fa-check"></i><b>2.1.2</b> Escolha uma alternativa para cada afirmação:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="tópico---funções.html"><a href="tópico---funções.html#exercícios-intermediários-1"><i class="fa fa-check"></i><b>2.2</b> Exercícios intermediários</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tópico---funções.html"><a href="tópico---funções.html#observe-a-definição-da-seguinte-função"><i class="fa fa-check"></i><b>2.2.1</b> Observe a definição da seguinte função:</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tópico---funções.html"><a href="tópico---funções.html#escolha-uma-opção-sobre-as-funções-do-r-base"><i class="fa fa-check"></i><b>2.2.2</b> Escolha uma opção sobre as funções do R base:</a></li>
+<li class="chapter" data-level="2.2.3" data-path="tópico---funções.html"><a href="tópico---funções.html#crie-uma-função"><i class="fa fa-check"></i><b>2.2.3</b> Crie uma função</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Metodologias Informacionais com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tópico---funções" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Tópico - Funções<a href="tópico---funções.html#tópico---funções" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p class="jst">
+<b>Funções são os blocos de construção do R <span class="citation">(<a href="#ref-wickham2014advanced" role="doc-biblioref">Wickham 2014</a>)</span>.</b> Elas provêm funcionalidades, manipulam dados, evitam redundância de código, dentre outros benefícios. Porém, antes de podermos executar qualquer função, é necessário criá-las em processo chamado de <b>definição</b> (declaração) de função. A definição de uma função pode seguir um protótipo (esboço), conforme:
+</p>
+<div class="content-box-green large" style="color: blue;">
+nome_da_funcao &lt;- function(arg 1, arg 2, ..., arg N) {
+<p class="center">
+comando 1
+</br>comando 2
+</br>.
+</br>.
+</br>.
+</br>comando N
+</p>
+<p>}</p>
+</div>
+<p class="jst">
+Para manipular dados uma função precisa dispor de objetos que foram criados, podendo ser passados para a função por meio de <span style="color:purple"><b><code>argumentos</code></b></span> ou ser gerados dentro da própria função. Geralmente, desejaremos que uma função receba um ou mais objetos através dos argumentos e faça operações com os dados contidos nesses objetos. Veja a definição de uma função para somar dois números:
+</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="tópico---funções.html#cb12-1" aria-hidden="true" tabindex="-1"></a>soma <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">10</span>) <span class="co"># Entre parênteses ficam os arqumentos da função que podem ter valores padrão (default)</span></span>
+<span id="cb12-2"><a href="tópico---funções.html#cb12-2" aria-hidden="true" tabindex="-1"></a>{                               <span class="co"># Entre chaves seguem os comandos (operações) da função, também conhecido como corpo da função</span></span>
+<span id="cb12-3"><a href="tópico---funções.html#cb12-3" aria-hidden="true" tabindex="-1"></a>   resultado <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
+<span id="cb12-4"><a href="tópico---funções.html#cb12-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(resultado)            <span class="co"># return() indica que um objeto será retornado, sendo considerado uma boa prática</span></span>
+<span id="cb12-5"><a href="tópico---funções.html#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p class="jst">
+Perceba alguns elementos da função <span style="color:purple"><code>soma()</code></span> acima. Ela possui os argumentos <b>a</b> e <b>b</b> (entre parênteses) para os quais foram atribuídos valores padrão com o sinal de igualdade (<span style="color:purple">=</span>). Também possui um <span style="color:purple"><b><code>corpo</code></b></span> (entre chaves), onde é feita a atribuição da soma dos valores de <b>a</b> e <b>b</b> ao objeto <b>resultado</b> e, retornado esse objeto pelo comando <span style="color:purple"><code>return()</code></span>. Após ser definida e carregada em uma sessão do R (ex: inserida no console do RStudio), uma função pode ser <b>invocada</b>, conforme:
+</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tópico---funções.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>() <span class="co"># Invocação sem passar nada, usa valores padrão (1 e 10)</span></span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tópico---funções.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="at">a =</span> <span class="dv">2</span>) <span class="co"># Invocação informando apenas o valor de &#39;a&#39;</span></span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="tópico---funções.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="at">b =</span> <span class="dv">1</span>) <span class="co"># Invocação informando apenas o valor de &#39;b&#39;</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p class="jst">
+Como você pode ver os argumentos <b>a</b> e <b>b</b> da função <span style="color:purple"><code>soma()</code></span> fornecem canais que podemos usar para passar objetos (nesse caso números) para a função. No entanto, não é obrigatório passar os números já que os argumentos possuem valores padrão permitindo a operação de soma no corpo da função. Não obstante, podemos usar os dois argumentos:
+</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="tópico---funções.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># Invocações informando os valores de &#39;a&#39; e &#39;b&#39;</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tópico---funções.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p class="jst">
+Podemos informar os valores dos argumentos considerando a posição dos mesmos - conforme os exemplos acima - ou fazer isso usando os nomes dos argumentos. Nesse caso, a posição dos argumentos não importa, conforme:
+</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="tópico---funções.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="at">a =</span> <span class="dv">4</span>, <span class="at">b =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="tópico---funções.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="at">b =</span> <span class="dv">10</span>, <span class="at">a =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<p>É possível persistir objetos na sessão do R e passá-los como argumentos:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="tópico---funções.html#cb27-1" aria-hidden="true" tabindex="-1"></a>num_a <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">30</span></span>
+<span id="cb27-2"><a href="tópico---funções.html#cb27-2" aria-hidden="true" tabindex="-1"></a>num_b <span class="ot">&lt;-</span> <span class="dv">20</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="tópico---funções.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="at">a =</span> num_a, <span class="at">b =</span> num_b)</span></code></pre></div>
+<pre><code>## [1] -10</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="tópico---funções.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="at">a =</span> num_b, <span class="at">b =</span> num_a <span class="sc">+</span> <span class="dv">30</span>)</span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<p class="jst">
+<b>Uma função é um pedaço contido de código que executa uma ou mais funcionalidades.</b> Além disso, todos os objetos criados dentro de uma função, incluindo seus argumentos, só existiram enquanto a função estiver executando. Dessa forma, nenhum objeto da função <span style="color:purple"><code>soma()</code></span> passará a existir no ambiente do R (<i>global environment</i>) - disponível na aba Ambiente do RStudio - após sua execução. Uma função no R possui um ambiente próprio (<span style="color:purple"><b><code>function environment</code></b></span>), tendo a função <span style="color:purple"><code>soma()</code></span> seu próprio armário de objetos que existirá apenas na execução da mesma, conforme.
+</p>
+<p><img src="figures/armarioRfunction.png" width="50%" height="20%" style="display: block; margin: auto;" /></p>
+<p class="jst">
+<b>Não obstante, ao ser executada, uma função retornará sempre ao menos um novo objeto.</b> Caso não exista um comando de <span style="color:purple"><code>return()</code></span> no corpo da função, o objeto retornado será aquele gerado pelo último comando. Observe a definição da seguinte função e sua invocação:
+</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="tópico---funções.html#cb32-1" aria-hidden="true" tabindex="-1"></a>calcula <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>) {</span>
+<span id="cb32-2"><a href="tópico---funções.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Imprime operações matemáticas básicas</span></span>
+<span id="cb32-3"><a href="tópico---funções.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;A soma do número&quot;</span>, a, <span class="st">&quot;com o número&quot;</span>, b, <span class="st">&quot;é:&quot;</span>, a <span class="sc">+</span> b))</span>
+<span id="cb32-4"><a href="tópico---funções.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;A subtração do número&quot;</span>, a, <span class="st">&quot;pelo o número&quot;</span>, b, <span class="st">&quot;é:&quot;</span>, a <span class="sc">-</span> b))</span>
+<span id="cb32-5"><a href="tópico---funções.html#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;A multiplicação do número&quot;</span>, a, <span class="st">&quot;pelo número&quot;</span>, b, <span class="st">&quot;é:&quot;</span>, a <span class="sc">*</span> b))</span>
+<span id="cb32-6"><a href="tópico---funções.html#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;A divisão do número&quot;</span>, a, <span class="st">&quot;pelo número&quot;</span>, b, <span class="st">&quot;é:&quot;</span>, a <span class="sc">/</span> b))</span>
+<span id="cb32-7"><a href="tópico---funções.html#cb32-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-8"><a href="tópico---funções.html#cb32-8" aria-hidden="true" tabindex="-1"></a>retorno <span class="ot">&lt;-</span> <span class="fu">calcula</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;A soma do número 3 com o número 2 é: 5&quot;
+## [1] &quot;A subtração do número 3 pelo o número 2 é: 1&quot;
+## [1] &quot;A multiplicação do número 3 pelo número 2 é: 6&quot;
+## [1] &quot;A divisão do número 3 pelo número 2 é: 1.5&quot;</code></pre>
+<p class="jst">
+Qual valor está armazenado no objeto <b>retorno</b>? Justamente a concatenação gerada pela função <span style="color:purple"><code>paste()</code></span> no último comando:
+</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="tópico---funções.html#cb34-1" aria-hidden="true" tabindex="-1"></a>retorno</span></code></pre></div>
+<pre><code>## [1] &quot;A divisão do número 3 pelo número 2 é: 1.5&quot;</code></pre>
+<p class="jst">
+Observe que o retorno do objeto gerado no último comando ocorre mesmo se houver atribuição, conforme:
+</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="tópico---funções.html#cb36-1" aria-hidden="true" tabindex="-1"></a>soma <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>) {                         </span>
+<span id="cb36-2"><a href="tópico---funções.html#cb36-2" aria-hidden="true" tabindex="-1"></a>   resultado <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
+<span id="cb36-3"><a href="tópico---funções.html#cb36-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>A seguinte invocação não imprime nada.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tópico---funções.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soma</span>(<span class="dv">4</span>, <span class="dv">3</span>) </span></code></pre></div>
+<p>E agora?</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="tópico---funções.html#cb38-1" aria-hidden="true" tabindex="-1"></a>retorno <span class="ot">&lt;-</span> <span class="fu">soma</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="co"># o objeto &#39;retorno&#39; recebe o valor da soma</span></span>
+<span id="cb38-2"><a href="tópico---funções.html#cb38-2" aria-hidden="true" tabindex="-1"></a>retorno</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="content-box-gray center xlarge" style="color: black;">
+<p>Perfeito, sigamos com uma lista de exercícios.</p>
+</div>
+<div id="exercícios-básicos-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Exercícios básicos<a href="tópico---funções.html#exercícios-básicos-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="selecione-verdadeiro-true-ou-falso-false-1" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Selecione verdadeiro (TRUE) ou falso (FALSE)<a href="tópico---funções.html#selecione-verdadeiro-true-ou-falso-false-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><code>function()</code> é uma diretiva que permite declarar os parâmetros de uma função. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p></li>
+<li><p class="jst">
+<p>Nomes de funções são palavras reservados no R. <select class='webex-select'><option value='blank'></option><option value=''>TRUE</option><option value='answer'>FALSE</option></select></p>
+</p></li>
+<li><p class="jst">
+<p>O <code>return()</code> indica qual objeto será retornado por uma função, sendo considerado uma boa prática. Na ausência de <code>return()</code>, o objeto criado no último comando será retornado. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p>
+</p></li>
+<li><p class="jst">
+<p>Entre as chaves ficam dispostos os comandos de uma função, também conhecido como <code>corpo</code> da função. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p>
+</p></li>
+<li><p class="jst">
+<p>Uma função pode ser considerada um bloco de construção do R mas não é um objeto. <select class='webex-select'><option value='blank'></option><option value=''>TRUE</option><option value='answer'>FALSE</option></select></p>
+</p></li>
+<li><p class="jst">
+<p>Uma função pode ser definida sem possuir argumentos ou comandos. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p>
+</p></li>
+<li><p class="jst">
+<p>A seguinte declaração <code>soma = function(a, b) a + b</code> também é uma função. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p>
+</p></li>
+<li><p class="jst">
+<p>Com a função <code>class()</code> eu posso identificar se um objeto é uma função. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p>
+</p></li>
+</ul>
+</div>
+<div id="escolha-uma-alternativa-para-cada-afirmação-1" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Escolha uma alternativa para cada afirmação:<a href="tópico---funções.html#escolha-uma-alternativa-para-cada-afirmação-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p class="jst">
+Uma declaração de uma função com mais de um comando tem seu corpo delimitado por: <select class='webex-select'><option value='blank'></option><option value=''>parenteses: ()</option><option value=''>Aspas duplas</option><option value=''>Aspas simples</option><option value='answer'>chaves: {}</option></select>
+</p></li>
+<li><p class="jst">
+Eu uso <select class='webex-select'><option value='blank'></option><option value='answer'>&lt;-</option><option value=''>:</option><option value='answer'>=</option><option value=''>==</option><option value=''>nenhuma opção</option></select> para atribuir a declaração de uma função ao nome que identificará a mesma.
+</p></li>
+<li><p class="jst">
+Uma função carregada ficará listada na aba <select class='webex-select'><option value='blank'></option><option value=''>Source</option><option value=''>Files</option><option value=''>Help</option><option value='answer'>Environment</option><option value=''>em nenhuma aba</option></select> do RStudio.
+</p></li>
+</ul>
+</div>
+</div>
+<div id="exercícios-intermediários-1" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Exercícios intermediários<a href="tópico---funções.html#exercícios-intermediários-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="observe-a-definição-da-seguinte-função" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Observe a definição da seguinte função:<a href="tópico---funções.html#observe-a-definição-da-seguinte-função" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="tópico---funções.html#cb40-1" aria-hidden="true" tabindex="-1"></a>diferenca_absoluta <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) <span class="fu">abs</span>(a <span class="sc">-</span> b)</span></code></pre></div>
+<p><strong>A invocação da função na forma <code>diferenca_absoluta(b = 7)</code>:</strong></p>
+<div id="radio_UQKHVLBGUE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_UQKHVLBGUE" value=""></input> <span>Imprime o número -7</span></label><label><input type="radio" autocomplete="off" name="radio_UQKHVLBGUE" value="answer"></input> <span>Vai gerar um erro pois um valor para o argumento 'a' precisa ser informado</span></label><label><input type="radio" autocomplete="off" name="radio_UQKHVLBGUE" value=""></input> <span>Não será possível pois a definição anterior da função esta incorreta e a função não será criada</span></label><label><input type="radio" autocomplete="off" name="radio_UQKHVLBGUE" value=""></input> <span>Nenhuma das opções</span></label>
+</div>
+</div>
+<div id="escolha-uma-opção-sobre-as-funções-do-r-base" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Escolha uma opção sobre as funções do R base:<a href="tópico---funções.html#escolha-uma-opção-sobre-as-funções-do-r-base" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="webex-check webex-box">
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="tópico---funções.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>()</span></code></pre></div>
+<div id="radio_QEREALSDSF" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_QEREALSDSF" value=""></input> <span>Não é uma função do pacote <code>base</code></span></label><label><input type="radio" autocomplete="off" name="radio_QEREALSDSF" value=""></input> <span>Gera sequências de números apenas</span></label><label><input type="radio" autocomplete="off" name="radio_QEREALSDSF" value="answer"></input> <span>Gera sequências regulares para alguns tipos de objetos do R como números e datas</span></label><label><input type="radio" autocomplete="off" name="radio_QEREALSDSF" value=""></input> <span>Gera sequências de DNA aleatórias</span></label>
+</div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="tópico---funções.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>()</span></code></pre></div>
+<div id="radio_TKLOXSGJEZ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_TKLOXSGJEZ" value="answer"></input> <span>Serve para concatenar objetos em um vetor ou lista</span></label><label><input type="radio" autocomplete="off" name="radio_TKLOXSGJEZ" value=""></input> <span>Produz uma matrix</span></label><label><input type="radio" autocomplete="off" name="radio_TKLOXSGJEZ" value=""></input> <span>É uma função que imprime coleções de pacotes do R</span></label><label><input type="radio" autocomplete="off" name="radio_TKLOXSGJEZ" value=""></input> <span>Nenhuma das anteriores.</span></label>
+</div>
+</div>
+</div>
+<div id="crie-uma-função" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Crie uma função<a href="tópico---funções.html#crie-uma-função" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p class="jst">
+Que retorne a multiplicação entre dois números
+</p></li>
+<li><p class="jst">
+Que retorne a raiz quadrada do quadrado da diferença de dois números
+</p></li>
+</ul>
+</div>
+<div class="webex-solution">
+<button>
+Clique para ver possíveis soluções
+</button>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="tópico---funções.html#cb43-1" aria-hidden="true" tabindex="-1"></a>multiplica <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">*</span> b</span>
+<span id="cb43-2"><a href="tópico---funções.html#cb43-2" aria-hidden="true" tabindex="-1"></a>diferenca_quadratica <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) <span class="fu">sqrt</span>((a <span class="sc">-</span> b )<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h3>Referências<a href="referências.html#referências" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-wickham2014advanced" class="csl-entry">
+Wickham, Hadley. 2014. <em>Advanced r</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://adv-r.had.co.nz/">http://adv-r.had.co.nz/</a>.
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Esconda as respostas";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Verifique as respostas";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Verifique as respostas";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tópico---objetos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referências.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+</body>
+
+</html>
