@@ -186,8 +186,6 @@ knitr::include_graphics("figures/default_WorkDirectory.png")
 
 --
 
-<br>
-
 > .center[<b>Mãos a obra! Escolha um diretório onde ficaram seus .purple[`R Project`].</b>]
 
 ---
@@ -485,12 +483,13 @@ knitr::include_graphics("figures/tidy-1.png")
 ```
 
 > <p class="jst">`"Conjunto de dados organizados (tidy) são todos iguais, mas todo conjunto bagunçado é bagunçado à sua maneira."`</p>
-> --- Hadley Wickham 
+> — Hadley Wickham 
 
 ---
 ### .orange[Ciclo da ciência dos dados - "whole game"]
 
 ```{r out.width = '100%', echo=FALSE, fig.align = "center"}
+knitr::include_graphics("figures/data-sciency-cycle1.png")
 knitr::include_graphics("figures/data-sciency-cycle.png") 
 ```
 
