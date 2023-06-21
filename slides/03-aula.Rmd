@@ -227,15 +227,14 @@ knitr::include_graphics("figures/rproject2.png")
 --
 
 </br>
-> .center.large[<b>Certo! E agora?</b> ] 
+.center.large[<b>Certo! E agora?</b> `r  icons::icon_style(icons::simple_icons("odysee"), scale = 2)`] 
 
-<!--  odysee-->
 
 ---
 ## .orange[Fundamentos do R - `r icons::fontawesome("box-open")` pacotes]
 
 
- <p class="jst"> <b>Essenciais no R, pacotes podem conter conjunto de outros de pacotes, biblioteca de funções e estruturas de dados.</b> Pacotes permitem customização (ao gosto de cada um), assim como instalar apenas o que é necessário. Pacotes são formas de distribuir soluções (funcionalidades) que outras pessoas produziram.</p>
+ <p class="jst"> <b>Essenciais no R, pacotes podem conter conjunto de outros pacotes, biblioteca de funções e estruturas de dados.</b> Pacotes permitem customização (ao gosto de cada um), assim como instalar apenas o que é necessário. Pacotes são formas de distribuir soluções (funcionalidades) que outras pessoas produziram.</p>
 
 - <p class="jst">Existem inúmeros pacotes no repositório official <A href="https://cran.r-project.org/">CRAN</A>.</p>
 
@@ -345,6 +344,7 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
   ```{r, eval=FALSE}
    browseVignettes()
   ```
+- <p class="jst"> <i>Cheatsheets</i> - são doumentos com notas curtas e exemplos de uso para consultas rápidas.</p>
 
 ---
 ## Questões e Prática
@@ -380,7 +380,7 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
 > - .purple[base::write] ...
 
 ---
-### .orange[Fundamentos do R - `r icons::fontawesome("database")` salvar/carregar]
+### .orange[Fundamentos do R - `r icons::fontawesome("table")` salvar/carregar]
 
 <p class="jst">Para formatos do tipo tabular/retangular, o pacote .purple[<b>utils</b>] possui uma família de funções do tipo .purple[`write.tipo-do-arquivo()`] e .purple[`read.tipo-do-arquivo()`].</p>
   ```{r, eval=FALSE}
@@ -399,7 +399,7 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
 <p class="jst"> .purple[`read.table()`] considera espaçamentos regulares (espaço, tab) como separador, enquanto .purple[`read.csv()`] a vírgula (.purple.large[<b>,</b>]) e .purple[`read.csv2()`] o ponto e vírgula (.purple.large[<b>;</b>]). No entanto, essas funções possuem o parâmetro .purple[sep], sendo possível informar qual o separador do arquivo. </p>
 
 ---
-### .orange[Fundamentos do R - `r icons::fontawesome("database")` salvar/carregar]
+### .orange[Fundamentos do R - `r icons::fontawesome("table")` salvar/carregar]
 
 <p class="jst">Para formatos do tipo tabular/retangular, o pacote .purple[<b>readr</b>] tem uma família de funções do tipo .purple[`write_tipo-do-arquivo()`] e .purple[`read_tipo-do-arquivo()`].</p>
   ```{r, eval=FALSE}
@@ -418,7 +418,7 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
 
 </br>
 
-.center.large[<b>Bom! Agora, enfim, começa a parte divertida!</b>]
+.center.large[<b>Bom! Agora, enfim, começa a parte divertida!</b> `r  icons::icon_style(icons::simple_icons("odysee"), scale = 2)`]
 
 ---
 ## Questões e Prática
@@ -471,7 +471,7 @@ dt %>%
 ```
 
 ---
-### .orange[Fundamentos do R - `r icons::fontawesome("database")` tidy data]
+### .orange[Fundamentos do R - `r icons::fontawesome("table")` tidy data]
 
 - Cada coluna é um atributo (variável)
 - Cada linha é uma observação (instância)
