@@ -93,12 +93,54 @@ Bibliografia Complementar:
 - Onde ficaremos no ciclo da ciência dos dados?
 
 ---
+### .orange[Ciclo da ciência dos dados - "whole game"]
+
+.right[.small[Créditos: Adaptado de <A href="https://r4ds.hadley.nz/data-tidy.html"> Wickham, et al (2023)</A>.]]
+```{r out.width = '100%', echo=FALSE, fig.align = "center"}
+knitr::include_graphics("figures/data-sciency-cycle2.png") 
+```
+
+</br>
+>.center[<b>Vamos fazer gestão e manipulação de dados considerando .purple[R project] e <i>Data Wrangling</i></b>.]
+
+---
+
+### .orange[Fundamentos do R - `r icons::simple_icons("diagramsdotnet")` projeto]
+
+<p class="jst">Projetos permitem organização, seja em algum trabalho, seja na vida no geral.  No R isso não é diferente. <b>O que pretendemos organizar?</b></p>
+
+- Diferentes tipos de arquivos (ex: .R, .csv, .png ...).
+
+- Diferentes tipos de dados, salvos em arquivos.
+
+- Arquivos especiais do R (ex: `.RData` e `.RHistory` ...).
+
+- Outros arquivos com informações relativas  ao projeto.
+
+--
+
+<b>Ganhos?</b>
+
+- Gestão e controle das etapas do projeto.
+- Gestão e controle dos recursos do projeto (ex: dados, <i>R scripts</i>). 
+- Produtividade e gerenciamento de tempo.
+
+---
+### .orange[Fundamentos do R - `r icons::simple_icons("diagramsdotnet")` projeto]
+
+```{r out.width = '100%', echo=FALSE, fig.align = "center"}
+knitr::include_graphics("figures/rstudio_project_files.png") 
+```
+
+.left[.footnote[.small[Créditos: <A href="https://datacarpentry.org/r-socialsci/00-intro.html"> Erin Becker (2023)</A>.]] ]
+
+---
 background-image: url(figures/tidyverse2.png)
 background-size: contain
 
 ### .orange[Tidyverse]
 
-<p class="jst"><b>Coleção de pacotes que pussuem filosofia de design, gramática e estrutura de dados em comum e, permitem trabalho conjunto, clareza de código, reprodutibilidade, dentre outros benefícios.</p> 
+<p class="jst"><b>Coleção de pacotes que possuem filosofia de design, gramática e estrutura de dados em comum e, permitem trabalho conjunto, clareza de código, reprodutibilidade, dentre outros benefícios.</p> 
 
 ---
 ### .orange[Gestão e Manipulação de `r icons::fontawesome("table")` dados]
@@ -145,7 +187,7 @@ Vamos usar:
 - o operador .purple[pipe]
 - .purple[`readr::write_csv()`]
 
-Salve as operações em um .purple[R script]
+Salvar as operações em um .purple[R script]
 
 ---
 ### .orange[Gestão e Manipulação de `r icons::fontawesome("database")` dados]
@@ -163,45 +205,6 @@ Vamos vislumbrar:
 Salvaremos os passos em um .purple[R script].
 
 Salvaremos as figuras produzidas em uma nova pasta.
-
----
-### .orange[Ciclo da ciência dos dados - "whole game"]
-
-```{r out.width = '100%', echo=FALSE, fig.align = "center"}
-knitr::include_graphics("figures/data-sciency-cycle1.png") 
-```
-
-.left[.footnote[.small[Créditos: Adaptado de  <A href="https://r4ds.hadley.nz/whole-game.html"> Wickham, et al (2023)</A>.]] ]
-
----
-## .orange[Fundamentos do R - `r icons::simple_icons("diagramsdotnet")` projeto]
-
-<p class="jst">Projetos permitem organização, seja em algum trabalho, seja na vida no geral.  No R isso não é diferente. <b>O que pretendemos organizar?</b></p>
-
-- Diferentes tipos de arquivos (ex: .R, .csv, .png ...).
-
-- Diferentes tipos de dados, salvos em arquivos.
-
-- Arquivos especiais do R (ex: `.RData` e `.RHistory` ...).
-
-- Outros arquivos com informações relativas  ao projeto.
-
---
-exclude: TRUE
-<b>Ganhos?</b>
-
-- Gestão e controle das etapas do projeto.
-- Gestão e controle dos recursos do projeto (ex: dados, <i>R scripts</i>). 
-- Produtividade e gerenciamento de tempo.
-
----
-## .orange[Fundamentos do R - `r icons::simple_icons("diagramsdotnet")` projeto]
-
-```{r out.width = '100%', echo=FALSE, fig.align = "center"}
-knitr::include_graphics("figures/rstudio_project_files.png") 
-```
-
-.left[.footnote[.small[Créditos: <A href="https://datacarpentry.org/r-socialsci/00-intro.html"> Erin Becker (2023)</A>.]] ]
 
 ---
 class: left, top
