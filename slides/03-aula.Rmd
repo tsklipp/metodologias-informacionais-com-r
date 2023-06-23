@@ -192,7 +192,7 @@ knitr::include_graphics("figures/default_WorkDirectory.png")
 
 ## .orange[Fundamentos do R - `r icons::simple_icons("diagramsdotnet")` projeto]
 
-<p class="jst">Na menu principal do RStudio: File `->` New Project `->` New Directory `->` New Project. </p>
+<p class="jst">No menu principal do RStudio: File `->` New Project `->` New Directory `->` New Project. </p>
 
 ```{r out.width = '70%', echo=FALSE, fig.align = "center"}
 knitr::include_graphics("figures/rproject1.png") 
@@ -314,18 +314,18 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
 ## .orange[Fundamentos do R - `r icons::fontawesome("box-open")` pacotes]
 
 
-<p class="jst"> O RStudio tem várias funcionalidades interessantes. Por exemplo, é possível rodar os exemplos do uso de uma função, disponíveis na aba Ajuda. No entanto, essa funcionalidade requer o pacote .purple[`knitr`]. </p>
+<p class="jst"> O RStudio tem várias funcionalidades interessantes. Por exemplo, é possível rodar os exemplos do uso de uma função, disponíveis na aba Ajuda. No entanto, essa funcionalidade requer o pacote .purple[<b>`knitr`</b>]. </p>
 
-<p class="jst">Faça uma consulta usando <i>help</i> ao pacote .purple[`datasets`], na forma:</p>
+<p class="jst">Faça uma consulta usando <i>help</i> ao pacote .purple[<b>`datasets`</b>], na forma:</p>
   ```{r, eval=FALSE}
   help(package = "datasets")
   ```
 
-<p class="jst"> Procure e clique no conjunto de dados .purple[`sunspots`]  e rode o exemplo apresentado clicando no <i>link .blue[Run examples]</i>. </p>
+<p class="jst"> Procure e clique no conjunto de dados .purple[<b>`sunspots`</b>]  e rode o exemplo apresentado clicando no <i>link .blue[Run examples]</i>. </p>
 
 --
 
-<p class="jst">Muito provavelmente você não terá o pacote  .purple[`knitr`] instalado. Portanto, instale esse pacote e depois tente rodar o exemplo novamente.</p>
+<p class="jst">Muito provavelmente você não terá o pacote  .purple[<b>`knitr`</b>] instalado. Portanto, instale esse pacote e depois tente rodar o exemplo novamente.</p>
 
 --
 
@@ -344,7 +344,7 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
   ```{r, eval=FALSE}
    browseVignettes()
   ```
-- <p class="jst"> <i>Cheatsheets</i> - são doumentos com notas curtas e exemplos de uso para consultas rápidas.</p>
+- <p class="jst"> <i>Cheatsheets</i> - são doumentos com notas curtas e exemplos de uso para consultas rápidas. Ex: <A href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"><i>Data Wrangling Cheatsheet</i></A>.</p>
 
 ---
 ## Questões e Prática
@@ -429,7 +429,9 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
   ```{r, eval=FALSE}
   dir.create("dados")
   download.file(url = "link 1", destfile = "dados/file-name.csv")
-  download.file(url = "link 2", destfile = "dados/file-name.xlsx")
+  # Use mode = "wd" para baixar o arquivo excel no Windows
+  download.file(url = "link 2",
+                destfile = "dados/file-name.xlsx", mode = "wd")
   ```
 
 Links:
