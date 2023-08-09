@@ -145,24 +145,30 @@ background-size: contain
 ---
 ### .orange[Gestão e Manipulação de `r icons::fontawesome("table")` dados]
 
-<p class="jst">Crie um .purple[R project]. Vamos trabalhar com dados da PNAD contínua do IBGE relativos à população brasileira. Para isso presisaremos: </p>
+<p class="jst">Crie um .purple[R project]. Vamos trabalhar com dados da PNAD contínua do IBGE relativos à população brasileira. Para isso precisaremos: </p>
 
 </br>
 
-- Criar uma pasta para dados e uma para <i>script</i> no .purple[R project].
+- Criar uma pasta para dados e outra para <i>scripts</i> na pasta principal (raiz) do .purple[R project].
 
-- Aprender a usar o pacote <A href="https://basedosdados.org/dataset/9fa532fb-5681-4903-b99d-01dc45fd527a?table=9e4ab8f4-3ad4-47fb-9919-5658d2e09c4f">basedosdados</A>.
+- Baixar os dados (use a tecla .purple[P] para obter informações).
 
-- Baixar os dados.
+- <p class="jst">Obs: Parte dos dados que serão usados foram baixados por meio do pacote <A href="https://basedosdados.org/dataset/9fa532fb-5681-4903-b99d-01dc45fd527a?table=9e4ab8f4-3ad4-47fb-9919-5658d2e09c4f">basedosdados</A>. Existem outras alternativas de dados disponíveis nessa base, sendo necessário seguir alguns passos para o uso do pacote conforme o <A href="https://dev.to/basedosdados/como-usar-a-biblioteca-basedosdados-no-r-capitulo-1-46kb">tutorial de uso</A> e  <A href="https://basedosdados.github.io/mais/api_reference_r/">documentação específica</A>.</p>
+
 
 ???
 Criar uma pasta:
-- .purple[`dir.create()`]
+- .purple[`dir.create()`], ou
+- usar a interface gráfica do RStudio
 
-Para download dos arquivos, proceda os passos da <A href="https://basedosdados.org/dataset/9fa532fb-5681-4903-b99d-01dc45fd527a?table=9e4ab8f4-3ad4-47fb-9919-5658d2e09c4f">basedosdados</A>, mas em último caso use .purple[`dowload.file()`]:
+Para download dos arquivos, proceda os passos da <A href="https://basedosdados.org/dataset/9fa532fb-5681-4903-b99d-01dc45fd527a?table=9e4ab8f4-3ad4-47fb-9919-5658d2e09c4f">basedosdados</A>, ou apenas faça o download diretamente clicando nos links:
 
-- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/popupacao_brasil_pnadc.csv
-- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/popupacao_brasil_pnadc_cor.csv
+- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/populacao_brasil_pnadc.csv
+- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/populacao_brasil_pnadc_cor.csv
+
+Baixe também dados que foram obtidos no <A href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html?=&t=series-historicas">site</A> do IBGE: 
+
+- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/taxa_desocupacao_idade_2012-2013.xlsx
 
 ---
 ### .orange[Gestão e Manipulação de `r icons::fontawesome("table")` dados]
@@ -182,12 +188,14 @@ knitr::include_graphics("figures/tidy-1.png")
 ???
 
 Vamos usar:
-- .purple[`readr::read_csv()`]
-- .purple[`dplyr::filter()`]
-- o operador .purple[pipe]
+- .purple[`readr::read_csv()`] e .purple[`readxl::read_excel()`]
+- o operador pipe .purple[|>] 
+- .purple[`dplyr::filter()`], .purple[`dplyr::select()`], .purple[`dplyr::mutate()`] e .purple[`dplyr::summarise()`]
+- .purple[`tidyr::drop_na()`] e .purple[`tidyr::pivot_longer()`]
+- .purple[`stringr::str_replace()`]
 - .purple[`readr::write_csv()`]
 
-Salvar as operações em um .purple[R script]
+Salvar as operações em .purple[R scripts]
 
 ---
 ### .orange[Gestão e Manipulação de `r icons::fontawesome("database")` dados]

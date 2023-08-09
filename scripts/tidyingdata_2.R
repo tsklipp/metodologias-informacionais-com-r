@@ -3,7 +3,7 @@ library(tidyverse)
 
 # Lendo série histórica referente à taxa de desocupação da população brasileira por grupo de idade.
 # Fonte: PNAD Continua do IBGE
-dt <- readxl::read_excel("slides/files/taxa_desocupacao_idade_2012-2013.xlsx", skip = 1)
+dt <- readxl::read_excel("dados/taxa_desocupacao_idade_2012-2013.xlsx", skip = 1)
 
 # Iniciaremos a limpeza dos dados com dois passos:
 #   1) Removendo 2 colunas com dplyr::select()  e;
@@ -34,4 +34,4 @@ dt <- dt |>
   dplyr::mutate(taxa_desocupacao = as.numeric(stringr::str_replace(taxa_desocupacao, ',', '.')))
 
 # Salvar o novo data frame, agora com dados já no formato tidy, para posterior uso
-readr::write_csv(dt, "slides/files/taxa_desocupacao_idade_2012-2013_tidy.csv")
+readr::write_csv(dt, "dados/taxa_desocupacao_idade_2012-2013_tidy.csv")
