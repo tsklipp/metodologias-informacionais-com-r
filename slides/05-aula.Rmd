@@ -1,0 +1,319 @@
+---
+class: inverse 
+title: "<b>Metodologias Informacionais com R</b>"
+subtitle: "<br/>Módulo I: Introdução à Linguagem R"
+author: "<br/><b>Telmo dos Santos Klipp</b> (telmo.klipp@inpe.br)<br/>"
+output:
+  xaringan::moon_reader:
+    css: [default, ninjutsu, ki-fonts, my-theme.css]
+    yolo: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideClass: ["left", "top"]
+      slideNumberFormat: "%current%"
+      ratio: '16:9' # 
+---
+layout: true
+
+background-image: url(figures/template_middlepage_2.png)
+background-size: cover
+
+```{r libririesandcustoms, include=FALSE, warning=FALSE}
+  library(xaringanthemer)
+  library(icons)
+  colors = c(
+    red = "#f34213",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF",
+    midnightblue = "#191970"
+  )
+```
+
+---
+exclude: TRUE
+class: center, top
+
+<br/><br/><br/><br/><br/><br/><br/>
+
+.orange[<b>Telmo dos Santos Klipp</b>]
+
+.small[
+Graduação em Tecnologias da Informação e Comunicação (UFSC, 2009-2013) <br/>
+Mestrado em Engenharia de Computação (FURG, 2013-2015) <br/>
+Bolsista CNPq no Laboratório de Computação para Clima Espacial (LCCE/INPE, 2015-2020) <br/>
+Doutorando em Computação Aplicada (INPE, 2020-atual) <br/>
+]
+
+---
+### .orange[`r icons::fontawesome("info-circle")` Informações Gerais sobre o Curso]
+
+- <p class="jst">Materiais disponibilizados via <A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3">Classroom</A>;</p> 
+- <p class="jst">O aprendizado requer a prática que será constante nas aulas;</p>
+
+.pull-left[
+Bibliografia Básica:
+
+ .tiny2[- <p class="jst">Kennedy, R., & Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.</p>
+
+```{r out.width = '39%', echo=FALSE, fig.align = "center"}
+knitr::include_graphics("figures/basicblibliograph.png") 
+```
+]
+]
+
+.pull-right[
+Bibliografia Complementar:
+
+ .tiny2[- <p class="jst">Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for data science (2e): import, tidy, transform, visualize, and model data. "O'Reilly Media, Inc.". Disponível em: <A href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</A>. Acesso em: 14 de junho, 2023. (Online) </p>
+- <p class="jst">Damiani, A. et. al., (2022). Ciência de Dados em R. Curso-R. Disponível em: <A href="https://livro.curso-r.com">https://livro.curso-r.com</A>. Acesso em: 12 de maio, 2023. (Online)</p>
+-  <p class="jst">de Aquino, J. A. (2014). R para cientistas sociais. Editora da UESC (editus). Disponível em: <A href="http://www.uesc.br/editora/index.php?item=conteudo_livros_digitais.php">http://www.uesc.br/editora/</A>. Acesso em: 12 de maio, 2023. </p>
+-  <p class="jst">de Oliveira, P. F., Guerra, S., McDonnell, R. (2018). Ciência de Dados com R: Introdução. Editora IBPAD. Disponível em: <A href="https://cdr.ibpad.com.br/index.html">https://cdr.ibpad.com.br/index.html</A>. Acesso em: 12 de maio, 2023. (Online) </p> ] 
+]
+
+---
+
+### .orange[Nas últimas aulas vimos:]
+
+- Como nos manter organizados usando .purple[R project].
+
+- Salvar e carregar dados (arquivos csv, <i>sripts</i> e figuras).
+
+- Conceitos iniciais de dados brutos e tratados (arrumados/organizados).
+
+- Conceitos iniciais de <i>Data Wrangling</i>.
+
+- Exemplos de gráficos usando .purple[<b>ggplot2</b>].
+
+---
+background-image: url(figures/tidyverse3.png)
+background-size: contain
+
+### .orange[Tidyverse]
+
+<p class="jst"><b>Coleção de pacotes que possuem filosofia de design, gramática e estrutura de dados em comum e, permitem trabalho conjunto, clareza de código, reprodutibilidade, dentre outros benefícios.</p> 
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados]
+
+Dados tratados no formato tidy permitem: 
+
+- <p class="jst"> uma série de operações e manipulações (<i>Data Wrangling</i>).  </p>
+- <p class="jst"> prosseguir com outras etapas da ciência de dados como exploração, modelagem e análise. </p>
+
+<p class="jst"> Nesse momento, é comum usar o pacote .purple[<b>dplyr</b>]. Este provém uma lista intuitiva de verbos que permitem executar as tarefas mais comuns da manipulação de dados. </p>
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados]
+
+<p class="jst">As principais funções do .purple[<b>dplyr</b>] são: </p>
+
+- .purple[select()] - seleciona colunas usando os nomes
+- .purple[filter()] - filtra linhas verificando condições lógicas sobre os valores
+- .purple[slice()] - seleciona linhas usando as posições (índices)
+- .purple[arrange()] - ordena (reorganiza) as linhas
+- .purple[mutate()] - cria/modifica colunas
+- .purple[summarise()] - sumarização de valores
+- .purple[group_by()] - agrupamento de dados 
+
+<p class="jst">O primeiro argumento de qualquer uma das funções acima é o <i>dataframe</i> ou <i>tibble</i> de dados.  Ex:</p>
+  ```{r}
+  dplyr::slice(mtcars, 1:2)
+  ```
+  
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados]
+
+<p class="jst">Vejamos exemplos de uso das funções do .purple[<b>dplyr</b>]. Para isso, faremos uso do dataframe `mtcars` que vem junto com o R, mas, antes, iremos convertê-lo para o tipo tibble, conforme: </p>
+  ```{r}
+  mtcars <- tibble::as_tibble(mtcars, rownames = 'model')
+  dplyr::glimpse(mtcars) # Observar colunas de forma transposta e parte dos valores  
+  ```
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - seleção]
+
+Importaremos o pacote .purple[<b>dplyr</b>] para usar as funções diretamente. Para selecionar colunas usamos a função .purple[select()].
+  ```{r message=FALSE}
+  library(dplyr)
+  ```
+  ```{r}
+  select(mtcars, gear)
+  ```
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - seleção]
+
+Como selecionar multiplas colunas? 
+  
+  ```{r}
+  # select(mtcars, c(mpg, cyl, gear))
+  select(mtcars, mpg, cyl, gear)
+  ```
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - seleção]
+
+Como excluir colunas da seleção? 
+  
+  ```{r}
+  # select(mtcars, -mpg, -cyl, -gear)
+  select(mtcars, -c(mpg, cyl, gear))
+  ```
+  
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - seleção]
+
+Selecionar colunas consecutivas? Use o operador .purple.xlarge[:] (<i>Colon</i>).
+  
+  ```{r}
+  select(mtcars, 1:5)
+  ```
+  
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - seleção]
+
+Mais informações?
+  
+  ```{r message=FALSE}
+  ?select
+  ```
+
+Leia mais sobre em <A href="https://livro.curso-r.com/7-2-dplyr.html#selecionando-colunas">Curso R</A>.</p>
+
+---
+### Exercícios
+
+- Crie uma tabela apenas com as colunas 'model' e 'hp' atribuindo-a um objeto de nome modelo_potencia.
+
+- Exclua as colunas que possuem valores igual a zero (obs: não precisa atribuir a um novo objeto).
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - filtragem]
+
+ Para filtrar de linhas usamos a função .purple[filter()].
+ 
+  ```{r}
+  filter(mtcars, gear > 4)
+  filter(mtcars, gear > 4, hp < 100) # ou filter(mtcars, gear > 4 & hp < 100)
+  ```
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - filtragem]
+
+ Podemos filtrar linhas categóricas, conforme:
+ 
+  ```{r}
+  filter(mtcars, model %in% c('Mazda RX4', 'Toyota Corona', 'Pontiac Firebird'))
+  ```
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - filtragem]
+
+ Podemos combinar .purple[filter()] e .purple[stringr::str_detect()] para filtrar linhas categóricas sem correspondência exata, conforme:
+ 
+  ```{r}
+  filter(mtcars, stringr::str_detect(model, 'Mazda|Hornet'))
+  ```
+---
+### Exercícios
+
+- Quais modelos de veículos possuem 8 cilindros?
+
+- Quais modelos de veículos possuem potência maior que 300 cavalos?
+
+- Quais modelos de veículos possuem menos de 100 cavalos de potência?
+
+- Retorne todos os veículos do tipo 'Merc' que possuem 180 cavalos de potência?
+
+- Quais modelos de veículos possuem entre 200 e 300 cavalos de potência e pesam (coluna 'wt') mais de 5000 libras?
+
+---
+
+### .orange[Operador pipe]
+
+- O operador pipe serve para encadear operações:
+  - a saída da operação à esquerda serve de entrada para a operação à direita.
+  
+- São opções básicas para o uso do pipe:
+  - .purple.xlarge[|>] proveniente do pacote .purple[<b>rbase</b>];
+  - .purple.xlarge[%>%] proveniente do pacote .purple[<b>magrittr</b>].
+
+- Vantagens:
+  - organização de código e fluxo de operações;
+  - facilitar entendimento de código;
+  - reprodutibilidade.
+
+Leia mais sobre na boa descrição em <A href="https://livro.curso-r.com/6-pipe.html">Curso R</A>.</p>
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - ordenação]
+
+ Podemos ordenar as linhas com .purple[arrange()].
+ 
+  
+  ```{r}
+  mtcars |> arrange(desc(hp))
+  ```
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - ordenação]
+
+ Podem ser usadas duas o mais colunas na ordenação.
+ 
+  ```{r}
+  mtcars |> arrange(mpg, desc(hp))
+  ```
+
+---
+### Exercícios
+
+- Retorne os modelos da marca da Mercedes Benz e ordene-os de forma decrescente segundo seu peso.
+
+- Retorne os veículos que possuem menos de 100 cavalos de potência e ordene-os de forma crescente segundo sua potência.
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - criaçã/modificação]
+
+  Para criar/modificar colunas usamos a função .purple[mutate()].
+ 
+   ```{r}
+  mtcars_new <- mtcars |> 
+  mutate(power_to_weight =  hp / (wt*1000)) |>
+  select( -c(qsec, vs, am))
+  mtcars_new
+  ```
+  
+---
+exclude: TRUE
+class: left, top
+
+### .orange[Referências]
+
+```{r, load_refs, echo=FALSE}
+library(RefManageR)
+bib <- ReadBib("./files/02-mybib.bib", check = FALSE)
+generateReferences <- function(bib) {
+  for(i in 1:length(bib)) {
+    print(bib[i], .opts = list(check.entries = FALSE, style = "html", bib.style = "authoryear"))
+  }
+}
+```
+
+```{r, print_refs, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+writeLines('.small[')
+generateReferences(bib)
+writeLines(']')
+```
+
+---
+class: center, middle
+
+background-image: url(figures/template_endpage_2.png)
+background-size: contain
+
+.center[.large[<b> Metotologias Informacionais com `r icon_style( icons::simple_icons("r"), scale = 2)`</b> ]]
+
+.xxlarge[<b style="color:MidnightBlue "> Muito Obrigado pela Atenção!</b>]
+  

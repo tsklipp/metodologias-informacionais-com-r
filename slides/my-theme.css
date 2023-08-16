@@ -28,6 +28,7 @@
 .xlarge { font-size: 145% }
 .large{ font-size: 130% }
 .small{ font-size: 85% }
+.tiny2{ font-size: 75% }
 .tiny{ font-size: 60% }
 
 pre{ font-size: 12px; } /* Text size for outputs of code chunck */
