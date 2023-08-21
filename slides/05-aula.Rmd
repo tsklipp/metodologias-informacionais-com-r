@@ -35,21 +35,6 @@ background-size: cover
 ```
 
 ---
-exclude: TRUE
-class: center, top
-
-<br/><br/><br/><br/><br/><br/><br/>
-
-.orange[<b>Telmo dos Santos Klipp</b>]
-
-.small[
-Graduação em Tecnologias da Informação e Comunicação (UFSC, 2009-2013) <br/>
-Mestrado em Engenharia de Computação (FURG, 2013-2015) <br/>
-Bolsista CNPq no Laboratório de Computação para Clima Espacial (LCCE/INPE, 2015-2020) <br/>
-Doutorando em Computação Aplicada (INPE, 2020-atual) <br/>
-]
-
----
 ### .orange[`r icons::fontawesome("info-circle")` Informações Gerais sobre o Curso]
 
 - <p class="jst">Materiais disponibilizados via <A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3">Classroom</A>;</p> 
@@ -105,7 +90,7 @@ Dados tratados no formato tidy permitem:
 - <p class="jst"> uma série de operações e manipulações (<i>Data Wrangling</i>).  </p>
 - <p class="jst"> prosseguir com outras etapas da ciência de dados como exploração, modelagem e análise. </p>
 
-<p class="jst"> Nesse momento, é comum usar o pacote .purple[<b>dplyr</b>]. Este provém uma lista intuitiva de verbos que permitem executar as tarefas mais comuns da manipulação de dados. </p>
+<p class="jst"> Nesse momento, é comum usar o pacote .purple[<b>dplyr</b>]. Este provém uma lista intuitiva de verbos que permitem executar as tarefas mais comuns da manipulação de dados. O .purple[<b>dplyr</b>] possui um <A href="https://dplyr.tidyverse.org/">site</A> próprio, onde podem ser encontradas informações desse pacote, bem como, alguns <i>vignettes</i> e <i>cheat Sheets<i>.</p>
 
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados]
@@ -114,13 +99,13 @@ Dados tratados no formato tidy permitem:
 
 - .purple[select()] - seleciona colunas usando os nomes
 - .purple[filter()] - filtra linhas verificando condições lógicas sobre os valores
-- .purple[slice()] - seleciona linhas usando as posições (índices)
+- .purple[slice()] - seleciona linhas usando as posições (índices) das mesmas
 - .purple[arrange()] - ordena (reorganiza) as linhas
 - .purple[mutate()] - cria/modifica colunas
 - .purple[summarise()] - sumarização de valores
 - .purple[group_by()] - agrupamento de dados 
 
-<p class="jst">O primeiro argumento de qualquer uma das funções acima é o <i>dataframe</i> ou <i>tibble</i> de dados.  Ex:</p>
+<p class="jst">O primeiro argumento de qualquer uma das funções acima é o <b>dataframe</b> ou <b>tibble</b> de dados.  Ex:</p>
   ```{r}
   dplyr::slice(mtcars, 1:2)
   ```
@@ -128,18 +113,18 @@ Dados tratados no formato tidy permitem:
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados]
 
-<p class="jst">Vejamos exemplos de uso das funções do .purple[<b>dplyr</b>]. Para isso, faremos uso do dataframe `mtcars` que vem junto com o R, mas, antes, iremos convertê-lo para o tipo tibble, conforme: </p>
+<p class="jst">Vejamos exemplos de uso das funções do .purple[<b>dplyr</b>] através do dataframe <b>mtcars</b>. Informações sobre este conjunto de dados ficam disponíveis com <b>?mtcars</b>. O <b>mtcars</b> possui a classe  <b>data.frame</b>, mas iremos convertê-lo para a classe <b>tibble</b> que é a estrutura de dados comum aos pacotes do .purple[<b>tidyverse</b>]. </p>
   ```{r}
   mtcars <- tibble::as_tibble(mtcars, rownames = 'model')
-  dplyr::glimpse(mtcars) # Observar colunas de forma transposta e parte dos valores  
+  dplyr::glimpse(mtcars) # glimpse mostra as colunas e parte dos valores de forma transposta   
   ```
 
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados - seleção]
 
-Importaremos o pacote .purple[<b>dplyr</b>] para usar as funções diretamente. Para selecionar colunas usamos a função .purple[select()].
+Para selecionar colunas usamos a função .purple[select()].
   ```{r message=FALSE}
-  library(dplyr)
+  library(dplyr) # Importação para uso direto das funções, ou seja, sem indição do pacote
   ```
   ```{r}
   select(mtcars, gear)
@@ -170,7 +155,7 @@ Como excluir colunas da seleção?
 Selecionar colunas consecutivas? Use o operador .purple.xlarge[:] (<i>Colon</i>).
   
   ```{r}
-  select(mtcars, 1:5)
+  select(mtcars, model:hp) # ou select(mtcars, 1:5)
   ```
   
 ---
@@ -187,14 +172,22 @@ Leia mais sobre em <A href="https://livro.curso-r.com/7-2-dplyr.html#selecionand
 ---
 ### Exercícios
 
-- Crie uma tabela apenas com as colunas 'model' e 'hp' atribuindo-a um objeto de nome modelo_potencia.
+1. Crie uma tabela somente com as colunas <b>model</b> e <b>hp</b> (cavalos de potência) atribuindo-a a um objeto de nome <b>modelo_potencia</b>.
 
-- Exclua as colunas que possuem valores igual a zero (obs: não precisa atribuir a um novo objeto).
+2. Exclua as colunas que possuem valores iguais a zero (obs: não precisa atribuir a um novo objeto).
+
+???
+
+Possíveis Respostas:
+
+1. .purple[select(mtcars, model, hp)]
+
+2. .purple[select(mtcars, -vs, -am)]
 
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados - filtragem]
 
- Para filtrar de linhas usamos a função .purple[filter()].
+ Para filtrar linhas usamos a função .purple[filter()].
  
   ```{r}
   filter(mtcars, gear > 4)
@@ -211,7 +204,7 @@ Leia mais sobre em <A href="https://livro.curso-r.com/7-2-dplyr.html#selecionand
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados - filtragem]
 
- Podemos combinar .purple[filter()] e .purple[stringr::str_detect()] para filtrar linhas categóricas sem correspondência exata, conforme:
+<p class="jst">Podemos combinar as funções .purple[filter()] e .purple[stringr::str_detect()] para realizar uma filtragem. Nesse caso, .purple[stringr::str_detect()] retornará os índices das linhas cujos textos possuam correspondências parciais, ou seja, possuem o texto que se deseja encontrar. A função .purple[filter()], por sua vez, fará a filtragem das linhas baseado nesses índices, conforme:</p>
  
   ```{r}
   filter(mtcars, stringr::str_detect(model, 'Mazda|Hornet'))
@@ -219,16 +212,30 @@ Leia mais sobre em <A href="https://livro.curso-r.com/7-2-dplyr.html#selecionand
 ---
 ### Exercícios
 
-- Quais modelos de veículos possuem 8 cilindros?
+1. Quais modelos de veículos possuem 8 cilindros (coluna <b>cyl</b>) ?
 
-- Quais modelos de veículos possuem potência maior que 300 cavalos?
+2. Quais modelos de veículos possuem potência maior que 300 cavalos (coluna <b>hp</b>)?
 
-- Quais modelos de veículos possuem menos de 100 cavalos de potência?
+3. Quais modelos de veículos possuem menos de 100 cavalos de potência?
 
-- Retorne todos os veículos do tipo 'Merc' que possuem 180 cavalos de potência?
+4. Retorne todos os veículos do tipo 'Merc' (abreviação de Mercedes Benz) que possuem 180 cavalos de potência.
 
-- Quais modelos de veículos possuem entre 200 e 300 cavalos de potência e pesam (coluna 'wt') mais de 5000 libras?
+5. Quais modelos de veículos possuem entre 200 e 300 cavalos de potência e pesam (coluna <b>wt</b>) mais de 5000 libras?
 
+???
+
+Possíveis Respostas:
+
+1. .purple[filter(mtcars, cyl == 8)]
+
+2. .purple[filter(mtcars, hp > 300)]
+
+3. .purple[filter(mtcars, hp < 100)]
+
+4. .purple[filter(mtcars, stringr::str_detect(model, 'Merc'), hp == 180)]
+
+5. .purple[filter(mtcars, hp >= 200 & hp <= 300, wt > 5)] ou 
+   .purple[filter(mtcars, between(hp, 200, 300), wt > 5)]
 ---
 
 ### .orange[Operador pipe]
@@ -250,11 +257,11 @@ Leia mais sobre na boa descrição em <A href="https://livro.curso-r.com/6-pipe.
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados - ordenação]
 
- Podemos ordenar as linhas com .purple[arrange()].
+ Podemos ordenar as linhas com a função .purple[arrange()].
  
   
   ```{r}
-  mtcars |> arrange(desc(hp))
+  mtcars |> arrange(desc(hp)) # para ordenar de forma crescente basta não usar desc()
   ```
 
 ---
@@ -263,7 +270,8 @@ Leia mais sobre na boa descrição em <A href="https://livro.curso-r.com/6-pipe.
  Podem ser usadas duas o mais colunas na ordenação.
  
   ```{r}
-  mtcars |> arrange(mpg, desc(hp))
+  mtcars |> 
+    arrange(cyl, desc(hp))
   ```
 
 ---
@@ -273,18 +281,183 @@ Leia mais sobre na boa descrição em <A href="https://livro.curso-r.com/6-pipe.
 
 - Retorne os veículos que possuem menos de 100 cavalos de potência e ordene-os de forma crescente segundo sua potência.
 
----
-### .orange[Manipulação de `r icons::fontawesome("table")` dados - criaçã/modificação]
+???
 
-  Para criar/modificar colunas usamos a função .purple[mutate()].
+Possíveis Respostas:
+
+1. .purple[mtcars |> filter(stringr::str_detect(model, 'Merc')) |> arrange(desc(wt))]
+
+2. .purple[mtcars |> filter(hp < 100) |> arrange(hp)]
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - criação/modificação]
+
+<p class="jst">Para modificar colunas existentes ou criar colunas novas usamos a função .purple[mutate()], conforme: </p> 
  
-   ```{r}
-  mtcars_new <- mtcars |> 
-  mutate(power_to_weight =  hp / (wt*1000)) |>
-  select( -c(qsec, vs, am))
-  mtcars_new
+  ```{r}
+  mtcars |>
+    mutate(wt =  wt * 1000) 
   ```
-  
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - criação/modificação]
+
+<p class="jst">Nesse exemplo, transformaremos as colunas <b>vs</b> e <b>am</b> de numéricas para categóricas. Enquanto <b>vs</b> indica o tipo de motor (0 = V-shaped,  1 = straight), <b>am</b> indica o tipo de transmissão (0 = automatic, 1 = manual).</p>
+ 
+  ```{r}
+  mtcars |>
+    mutate(vs = factor(vs, labels = c("V", "S")),
+           am = factor(am, labels = c("automatic", "manual")))
+  ```
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - criação/modificação]
+
+<p class="jst">Aqui criaremos uma nova coluna (<b>power_to_weight</b>), dada a razão entre a potência em cavalos e o peso do veículo, conforme:</p>
+ 
+  ```{r}
+  mtcars |>
+    select( -c(vs, am)) |> # excluindo algumas colunas para melhorar a visualização abaixo
+    mutate(power_to_weight =  hp / (wt * 1000)) 
+  ```
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - criação/modificação]
+
+<p class="jst">Podemos criar colunas categóricas considerando valores de outras colunas com .purple[if_else()] ou .purple[case_when()]. A título apenas de demonstração (sem abordagem técnica ou ciêntifica) segue um exemplo:</p>
+ 
+  ```{r}
+  mtcars |> select(-c(qsec, vs, am)) |>
+    mutate(wt =  wt * 1000, wt_class = case_when(wt < 2581 ~ "lightweight",
+                        between(wt, 2581, 3610)  ~ "middleweight", wt > 3610 ~ "heavyweight" )) 
+  ```
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - criação/modificação]
+
+Por fim todas as operações anteriores serão persistidas em um novo conjunto de dados. 
+ 
+  ```{r}
+  mtcars_new <- mtcars |>
+    mutate(
+      wt =  wt * 1000,
+      vs = if_else(vs == 0, "V", "S"),
+      am = if_else(am == 0, "automatic", "manual"),
+      # variáveis novas
+      power_to_weight =  hp / wt, 
+      wt_class = case_when(
+        wt < 2581 ~ "lightweight", 
+        between(wt, 2581, 3610)  ~ "middleweight",
+        wt > 3610 ~ "heavyweight" 
+      )
+    ) |>
+    mutate(
+      # o pacote forcats oferece funcionalidades para trabalhar com dados categóricos
+      vs = forcats::as_factor(vs),    
+      am = forcats::as_factor(am),
+      wt_class = forcats::as_factor(wt_class)
+    )
+  ```
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - criação/modificação]
+
+  Como ficou o novo conjunto de dados?
+ 
+  ```{r}
+  #summary(mtcars_new) # sumarização de dados do rbase. Teste essa opção!
+  glimpse(mtcars_new)
+  ``` 
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - sumarização]
+
+<p class="jst">A sumarização de valores é  obtida com a função .purple[summarize()]. Sumarizar significa usar alguma métrica (média, variância, désvio padrão, mediana, moda, mínimo, máximo, soma total, número de ocorrências, ...) para obter um único valor representativo sobre os valores de um conjunto ou subconjuntos - estes, por sua vez, podem ser obtidos por agrupamento. As métricas fornecerão informações sobre uma variável. Vejamos no seguinte exemplo:</p>
+
+  ```{r}
+  mtcars_new |>
+    summarize(min_hp = min(hp), mean_hp = mean(hp), max_hp = max(hp), number_of_models = n())
+  ``` 
+
+<p class="jst">As funções .purple[min()], .purple[max()], e .purple[mean()] usadas acima são do pacote .purple[<b>rbase</b>]. Já a função .purple[n()] é do pacote .purple[<b>dplyr</b>] e retorna o número de elementos de um conjunto ou subconjuntos (grupos). Além disso, essa função pode ser usada somente dentro de .purple[summarize()] e .purple[mutate()].</p>
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - sumarização]
+
+<p class="jst"> Podemos fazer agrupamentos considerando valores de uma ou mais colunas usando o parâmetro .purple[.by], vide:</p>
+
+  ```{r}
+  mtcars_new |>
+    summarize(
+      min_hp = min(hp), 
+      mean_hp = mean(hp), 
+      max_hp = max(hp),
+      number_of_models = n(),
+      .by = cyl
+    )
+  ``` 
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - sumarização]
+
+<p class="jst"> Podemos fazer agrupamentos considerando valores de uma ou mais colunas usando o parâmetro .purple[.by], vide:</p>
+
+  ```{r}
+  mtcars_new |>
+    summarize(
+      min_hp = min(hp), 
+      mean_hp = mean(hp), 
+      max_hp = max(hp),
+      number_of_models = n(), 
+      .by = c(cyl, vs, am)
+    )
+  ``` 
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - agrupamento]
+
+<p class="jst"> A função .purple[group_by()] permite agrupamentos baseados nos valores de uma ou mais colunas. Os grupos são persistidos no conjunto de dados, mas podem ser desfeitos com .purple[ungroup()]. Todas as funções que vimos podem ser usadas em combinação com .purple[group_by()]. Vejamos o exemplo:</p>
+
+  ```{r}
+  mtcars_new |>
+    group_by(wt_class) |>
+    summarize(median_wt = median(wt), mean_wt = mean(wt), sd_wt = sd(wt), 
+              number_of_models = n())
+  ``` 
+<p class="jst"> Obs:  O parâmetro .purple[.by] que vimos anteriormente é uma alternativa a .purple[group_by()], porém opera internamente em algumas funções como .purple[filter()], .purple[mutate()] e .purple[summarize()].</p>
+
+---
+### Exercícios
+
+- <p class="jst">Encontre a mediana, valor mínimo, média, valor máximo e desvio padrão das cilindradas de um motor (indica quanto de combustível e ar cada pistão de um motor pode deslocar em um cilindro  - coluna <b>disp</b>), agrupando essas métricas por quantidade de cilindros (coluna <b>cyl</b>).</p>
+
+- <p class="jst">Obtenha as mesmas métricas anteriores, porém, agrupando por quantidade de cilindros (coluna <b>cyl</b>) e a classificação segundo o peso (coluna <b>wt_class</b>).</p>
+
+- <p class="jst">Encontre a mediana, valor mínimo, média, valor máximo e desvio padrão para o consumo de combustível ( milhas por galão - coluna <b>mpg</b>). Teste os mesmos agrupamentos: por <b>cyl</b>, <b>wt_class</b> e ambas.</p>
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - contagem]
+
+<p class="jst">Podemos obter o número de elementos de um conjunto ou subconjuntos (grupos) com a função .purple[count()].</p>
+
+  ```{r}
+  mtcars_new |>
+    count(cyl, vs, wt_class)
+  ```
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - contagem]
+
+<p class="jst">A mesma contagem pode ser obtida combinando .purple[group_by()], .purple[summarize()] e .purple[n()].</p>
+
+```{r message=FALSE, warning=FALSE}
+  mtcars_new |> 
+    group_by(cyl, vs, wt_class) |>
+    summarize(number_of_model = n())
+``` 
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados]
+
+<p class="jst">Vimos que o .purple[<b>dplyr</b>] possui uma série de funções (verbos principais) mais comulmente usadas. Porém, o .purple[<b>dplyr</b>] possui uma lista maior de funções que geralmente servem de forma auxiliar. Dentre estas, vimos: .purple[between()],  .purple[if_else()], .purple[case_when()]. Também existem funções auxiliares que funcionam internamente as funções principais como .purple[n()] e os <i>selection helpers</i> - .purple[starts_with()], .purple[ends_with()], .purple[contains()].</p>
+
+<p class="jst"> <b>Não se preocupe!</b> Tanto as funções principais, como as auxiliares, vão aos poucos fazendo parte de nosso vocabulário conforme nossas necessidades de operar sobre dados aparecem. Não obstante, não é necessário lembrar de tudo, já que o material de consulta é vasto.</p>
+
 ---
 exclude: TRUE
 class: left, top

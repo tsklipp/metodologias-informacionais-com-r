@@ -34,21 +34,6 @@ background-size: cover
 
 
 ---
-exclude: TRUE
-class: center, top
-
-&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
-
-.orange[&lt;b&gt;Telmo dos Santos Klipp&lt;/b&gt;]
-
-.small[
-Graduação em Tecnologias da Informação e Comunicação (UFSC, 2009-2013) &lt;br/&gt;
-Mestrado em Engenharia de Computação (FURG, 2013-2015) &lt;br/&gt;
-Bolsista CNPq no Laboratório de Computação para Clima Espacial (LCCE/INPE, 2015-2020) &lt;br/&gt;
-Doutorando em Computação Aplicada (INPE, 2020-atual) &lt;br/&gt;
-]
-
----
 ### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Informações Gerais sobre o Curso]
 
 - &lt;p class="jst"&gt;Materiais disponibilizados via &lt;A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3"&gt;Classroom&lt;/A&gt;;&lt;/p&gt; 
@@ -102,7 +87,7 @@ Dados tratados no formato tidy permitem:
 - &lt;p class="jst"&gt; uma série de operações e manipulações (&lt;i&gt;Data Wrangling&lt;/i&gt;).  &lt;/p&gt;
 - &lt;p class="jst"&gt; prosseguir com outras etapas da ciência de dados como exploração, modelagem e análise. &lt;/p&gt;
 
-&lt;p class="jst"&gt; Nesse momento, é comum usar o pacote .purple[&lt;b&gt;dplyr&lt;/b&gt;]. Este provém uma lista intuitiva de verbos que permitem executar as tarefas mais comuns da manipulação de dados. &lt;/p&gt;
+&lt;p class="jst"&gt; Nesse momento, é comum usar o pacote .purple[&lt;b&gt;dplyr&lt;/b&gt;]. Este provém uma lista intuitiva de verbos que permitem executar as tarefas mais comuns da manipulação de dados. O .purple[&lt;b&gt;dplyr&lt;/b&gt;] possui um &lt;A href="https://dplyr.tidyverse.org/"&gt;site&lt;/A&gt; próprio, onde podem ser encontradas informações desse pacote, bem como, alguns &lt;i&gt;vignettes&lt;/i&gt; e &lt;i&gt;cheat Sheets&lt;i&gt;.&lt;/p&gt;
 
 ---
 ### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados]
@@ -111,13 +96,13 @@ Dados tratados no formato tidy permitem:
 
 - .purple[select()] - seleciona colunas usando os nomes
 - .purple[filter()] - filtra linhas verificando condições lógicas sobre os valores
-- .purple[slice()] - seleciona linhas usando as posições (índices)
+- .purple[slice()] - seleciona linhas usando as posições (índices) das mesmas
 - .purple[arrange()] - ordena (reorganiza) as linhas
 - .purple[mutate()] - cria/modifica colunas
 - .purple[summarise()] - sumarização de valores
 - .purple[group_by()] - agrupamento de dados 
 
-&lt;p class="jst"&gt;O primeiro argumento de qualquer uma das funções acima é o &lt;i&gt;dataframe&lt;/i&gt; ou &lt;i&gt;tibble&lt;/i&gt; de dados.  Ex:&lt;/p&gt;
+&lt;p class="jst"&gt;O primeiro argumento de qualquer uma das funções acima é o &lt;b&gt;dataframe&lt;/b&gt; ou &lt;b&gt;tibble&lt;/b&gt; de dados.  Ex:&lt;/p&gt;
   
   ```r
   dplyr::slice(mtcars, 1:2)
@@ -132,11 +117,11 @@ Dados tratados no formato tidy permitem:
 ---
 ### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados]
 
-&lt;p class="jst"&gt;Vejamos exemplos de uso das funções do .purple[&lt;b&gt;dplyr&lt;/b&gt;]. Para isso, faremos uso do dataframe `mtcars` que vem junto com o R, mas, antes, iremos convertê-lo para o tipo tibble, conforme: &lt;/p&gt;
+&lt;p class="jst"&gt;Vejamos exemplos de uso das funções do .purple[&lt;b&gt;dplyr&lt;/b&gt;] através do dataframe &lt;b&gt;mtcars&lt;/b&gt;. Informações sobre este conjunto de dados ficam disponíveis com &lt;b&gt;?mtcars&lt;/b&gt;. O &lt;b&gt;mtcars&lt;/b&gt; possui a classe  &lt;b&gt;data.frame&lt;/b&gt;, mas iremos convertê-lo para a classe &lt;b&gt;tibble&lt;/b&gt; que é a estrutura de dados comum aos pacotes do .purple[&lt;b&gt;tidyverse&lt;/b&gt;]. &lt;/p&gt;
   
   ```r
   mtcars &lt;- tibble::as_tibble(mtcars, rownames = 'model')
-  dplyr::glimpse(mtcars) # Observar colunas de forma transposta e parte dos valores  
+  dplyr::glimpse(mtcars) # glimpse mostra as colunas e parte dos valores de forma transposta   
   ```
   
   ```
@@ -159,10 +144,10 @@ Dados tratados no formato tidy permitem:
 ---
 ### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - seleção]
 
-Importaremos o pacote .purple[&lt;b&gt;dplyr&lt;/b&gt;] para usar as funções diretamente. Para selecionar colunas usamos a função .purple[select()].
+Para selecionar colunas usamos a função .purple[select()].
   
   ```r
-  library(dplyr)
+  library(dplyr) # Importação para uso direto das funções, ou seja, sem indição do pacote
   ```
   
   ```r
@@ -248,7 +233,7 @@ Selecionar colunas consecutivas? Use o operador .purple.xlarge[:] (&lt;i&gt;Colo
   
   
   ```r
-  select(mtcars, 1:5)
+  select(mtcars, model:hp) # ou select(mtcars, 1:5)
   ```
   
   ```
@@ -283,14 +268,22 @@ Leia mais sobre em &lt;A href="https://livro.curso-r.com/7-2-dplyr.html#selecion
 ---
 ### Exercícios
 
-- Crie uma tabela apenas com as colunas 'model' e 'hp' atribuindo-a um objeto de nome modelo_potencia.
+1. Crie uma tabela somente com as colunas &lt;b&gt;model&lt;/b&gt; e &lt;b&gt;hp&lt;/b&gt; (cavalos de potência) atribuindo-a a um objeto de nome &lt;b&gt;modelo_potencia&lt;/b&gt;.
 
-- Exclua as colunas que possuem valores igual a zero (obs: não precisa atribuir a um novo objeto).
+2. Exclua as colunas que possuem valores iguais a zero (obs: não precisa atribuir a um novo objeto).
+
+???
+
+Possíveis Respostas:
+
+1. .purple[select(mtcars, model, hp)]
+
+2. .purple[select(mtcars, -vs, -am)]
 
 ---
 ### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - filtragem]
 
- Para filtrar de linhas usamos a função .purple[filter()].
+ Para filtrar linhas usamos a função .purple[filter()].
  
   
   ```r
@@ -339,7 +332,7 @@ Leia mais sobre em &lt;A href="https://livro.curso-r.com/7-2-dplyr.html#selecion
 ---
 ### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - filtragem]
 
- Podemos combinar .purple[filter()] e .purple[stringr::str_detect()] para filtrar linhas categóricas sem correspondência exata, conforme:
+&lt;p class="jst"&gt;Podemos combinar as funções .purple[filter()] e .purple[stringr::str_detect()] para realizar uma filtragem. Nesse caso, .purple[stringr::str_detect()] retornará os índices das linhas cujos textos possuam correspondências parciais, ou seja, possuem o texto que se deseja encontrar. A função .purple[filter()], por sua vez, fará a filtragem das linhas baseado nesses índices, conforme:&lt;/p&gt;
  
   
   ```r
@@ -358,16 +351,30 @@ Leia mais sobre em &lt;A href="https://livro.curso-r.com/7-2-dplyr.html#selecion
 ---
 ### Exercícios
 
-- Quais modelos de veículos possuem 8 cilindros?
+1. Quais modelos de veículos possuem 8 cilindros (coluna &lt;b&gt;cyl&lt;/b&gt;) ?
 
-- Quais modelos de veículos possuem potência maior que 300 cavalos?
+2. Quais modelos de veículos possuem potência maior que 300 cavalos (coluna &lt;b&gt;hp&lt;/b&gt;)?
 
-- Quais modelos de veículos possuem menos de 100 cavalos de potência?
+3. Quais modelos de veículos possuem menos de 100 cavalos de potência?
 
-- Retorne todos os veículos do tipo 'Merc' que possuem 180 cavalos de potência?
+4. Retorne todos os veículos do tipo 'Merc' (abreviação de Mercedes Benz) que possuem 180 cavalos de potência.
 
-- Quais modelos de veículos possuem entre 200 e 300 cavalos de potência e pesam (coluna 'wt') mais de 5000 libras?
+5. Quais modelos de veículos possuem entre 200 e 300 cavalos de potência e pesam (coluna &lt;b&gt;wt&lt;/b&gt;) mais de 5000 libras?
 
+???
+
+Possíveis Respostas:
+
+1. .purple[filter(mtcars, cyl == 8)]
+
+2. .purple[filter(mtcars, hp &gt; 300)]
+
+3. .purple[filter(mtcars, hp &lt; 100)]
+
+4. .purple[filter(mtcars, stringr::str_detect(model, 'Merc'), hp == 180)]
+
+5. .purple[filter(mtcars, hp &gt;= 200 &amp; hp &lt;= 300, wt &gt; 5)] ou 
+   .purple[filter(mtcars, between(hp, 200, 300), wt &gt; 5)]
 ---
 
 ### .orange[Operador pipe]
@@ -389,12 +396,12 @@ Leia mais sobre na boa descrição em &lt;A href="https://livro.curso-r.com/6-pi
 ---
 ### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ordenação]
 
- Podemos ordenar as linhas com .purple[arrange()].
+ Podemos ordenar as linhas com a função .purple[arrange()].
  
   
   
   ```r
-  mtcars |&gt; arrange(desc(hp))
+  mtcars |&gt; arrange(desc(hp)) # para ordenar de forma crescente basta não usar desc()
   ```
   
   ```
@@ -421,23 +428,24 @@ Leia mais sobre na boa descrição em &lt;A href="https://livro.curso-r.com/6-pi
  
   
   ```r
-  mtcars |&gt; arrange(mpg, desc(hp))
+  mtcars |&gt; 
+    arrange(cyl, desc(hp))
   ```
   
   ```
   ## # A tibble: 32 × 12
   ##    model         mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
   ##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-  ##  1 Lincoln Co…  10.4     8  460    215  3     5.42  17.8     0     0     3     4
-  ##  2 Cadillac F…  10.4     8  472    205  2.93  5.25  18.0     0     0     3     4
-  ##  3 Camaro Z28   13.3     8  350    245  3.73  3.84  15.4     0     0     3     4
-  ##  4 Duster 360   14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
-  ##  5 Chrysler I…  14.7     8  440    230  3.23  5.34  17.4     0     0     3     4
-  ##  6 Maserati B…  15       8  301    335  3.54  3.57  14.6     0     1     5     8
-  ##  7 Merc 450SLC  15.2     8  276.   180  3.07  3.78  18       0     0     3     3
-  ##  8 AMC Javelin  15.2     8  304    150  3.15  3.44  17.3     0     0     3     2
-  ##  9 Dodge Chal…  15.5     8  318    150  2.76  3.52  16.9     0     0     3     2
-  ## 10 Ford Pante…  15.8     8  351    264  4.22  3.17  14.5     0     1     5     4
+  ##  1 Lotus Euro…  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2
+  ##  2 Volvo 142E   21.4     4 121     109  4.11  2.78  18.6     1     1     4     2
+  ##  3 Toyota Cor…  21.5     4 120.     97  3.7   2.46  20.0     1     0     3     1
+  ##  4 Merc 230     22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2
+  ##  5 Datsun 710   22.8     4 108      93  3.85  2.32  18.6     1     1     4     1
+  ##  6 Porsche 91…  26       4 120.     91  4.43  2.14  16.7     0     1     5     2
+  ##  7 Fiat 128     32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1
+  ##  8 Fiat X1-9    27.3     4  79      66  4.08  1.94  18.9     1     1     4     1
+  ##  9 Toyota Cor…  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1
+  ## 10 Merc 240D    24.4     4 147.     62  3.69  3.19  20       1     0     4     2
   ## # ℹ 22 more rows
   ```
 
@@ -448,36 +456,347 @@ Leia mais sobre na boa descrição em &lt;A href="https://livro.curso-r.com/6-pi
 
 - Retorne os veículos que possuem menos de 100 cavalos de potência e ordene-os de forma crescente segundo sua potência.
 
----
-### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - criaçã/modificação]
+???
 
-  Para criar/modificar colunas usamos a função .purple[mutate()].
+Possíveis Respostas:
+
+1. .purple[mtcars |&gt; filter(stringr::str_detect(model, 'Merc')) |&gt; arrange(desc(wt))]
+
+2. .purple[mtcars |&gt; filter(hp &lt; 100) |&gt; arrange(hp)]
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - criação/modificação]
+
+&lt;p class="jst"&gt;Para modificar colunas existentes ou criar colunas novas usamos a função .purple[mutate()], conforme: &lt;/p&gt; 
  
-   
-   ```r
-     mtcars_new &lt;- mtcars |&gt; 
-     mutate(power_to_weight =  hp / (wt*1000)) |&gt;
-     select( -c(qsec, vs, am))
-     mtcars_new
-   ```
-   
-   ```
-   ## # A tibble: 32 × 10
-   ##    model           mpg   cyl  disp    hp  drat    wt  gear  carb power_to_weight
-   ##    &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;
-   ##  1 Mazda RX4      21       6  160    110  3.9   2.62     4     4          0.0420
-   ##  2 Mazda RX4 Wag  21       6  160    110  3.9   2.88     4     4          0.0383
-   ##  3 Datsun 710     22.8     4  108     93  3.85  2.32     4     1          0.0401
-   ##  4 Hornet 4 Dri…  21.4     6  258    110  3.08  3.22     3     1          0.0342
-   ##  5 Hornet Sport…  18.7     8  360    175  3.15  3.44     3     2          0.0509
-   ##  6 Valiant        18.1     6  225    105  2.76  3.46     3     1          0.0303
-   ##  7 Duster 360     14.3     8  360    245  3.21  3.57     3     4          0.0686
-   ##  8 Merc 240D      24.4     4  147.    62  3.69  3.19     4     2          0.0194
-   ##  9 Merc 230       22.8     4  141.    95  3.92  3.15     4     2          0.0302
-   ## 10 Merc 280       19.2     6  168.   123  3.92  3.44     4     4          0.0358
-   ## # ℹ 22 more rows
-   ```
   
+  ```r
+  mtcars |&gt;
+    mutate(wt =  wt * 1000) 
+  ```
+  
+  ```
+  ## # A tibble: 32 × 12
+  ##    model         mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  ##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  ##  1 Mazda RX4    21       6  160    110  3.9   2620  16.5     0     1     4     4
+  ##  2 Mazda RX4 …  21       6  160    110  3.9   2875  17.0     0     1     4     4
+  ##  3 Datsun 710   22.8     4  108     93  3.85  2320  18.6     1     1     4     1
+  ##  4 Hornet 4 D…  21.4     6  258    110  3.08  3215  19.4     1     0     3     1
+  ##  5 Hornet Spo…  18.7     8  360    175  3.15  3440  17.0     0     0     3     2
+  ##  6 Valiant      18.1     6  225    105  2.76  3460  20.2     1     0     3     1
+  ##  7 Duster 360   14.3     8  360    245  3.21  3570  15.8     0     0     3     4
+  ##  8 Merc 240D    24.4     4  147.    62  3.69  3190  20       1     0     4     2
+  ##  9 Merc 230     22.8     4  141.    95  3.92  3150  22.9     1     0     4     2
+  ## 10 Merc 280     19.2     6  168.   123  3.92  3440  18.3     1     0     4     4
+  ## # ℹ 22 more rows
+  ```
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - criação/modificação]
+
+&lt;p class="jst"&gt;Nesse exemplo, transformaremos as colunas &lt;b&gt;vs&lt;/b&gt; e &lt;b&gt;am&lt;/b&gt; de numéricas para categóricas. Enquanto &lt;b&gt;vs&lt;/b&gt; indica o tipo de motor (0 = V-shaped,  1 = straight), &lt;b&gt;am&lt;/b&gt; indica o tipo de transmissão (0 = automatic, 1 = manual).&lt;/p&gt;
+ 
+  
+  ```r
+  mtcars |&gt;
+    mutate(vs = factor(vs, labels = c("V", "S")),
+           am = factor(am, labels = c("automatic", "manual")))
+  ```
+  
+  ```
+  ## # A tibble: 32 × 12
+  ##    model         mpg   cyl  disp    hp  drat    wt  qsec vs    am     gear  carb
+  ##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+  ##  1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 V     manu…     4     4
+  ##  2 Mazda RX4 …  21       6  160    110  3.9   2.88  17.0 V     manu…     4     4
+  ##  3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 S     manu…     4     1
+  ##  4 Hornet 4 D…  21.4     6  258    110  3.08  3.22  19.4 S     auto…     3     1
+  ##  5 Hornet Spo…  18.7     8  360    175  3.15  3.44  17.0 V     auto…     3     2
+  ##  6 Valiant      18.1     6  225    105  2.76  3.46  20.2 S     auto…     3     1
+  ##  7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 V     auto…     3     4
+  ##  8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   S     auto…     4     2
+  ##  9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 S     auto…     4     2
+  ## 10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 S     auto…     4     4
+  ## # ℹ 22 more rows
+  ```
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - criação/modificação]
+
+&lt;p class="jst"&gt;Aqui criaremos uma nova coluna (&lt;b&gt;power_to_weight&lt;/b&gt;), dada a razão entre a potência em cavalos e o peso do veículo, conforme:&lt;/p&gt;
+ 
+  
+  ```r
+  mtcars |&gt;
+    select( -c(vs, am)) |&gt; # excluindo algumas colunas para melhorar a visualização abaixo
+    mutate(power_to_weight =  hp / (wt * 1000)) 
+  ```
+  
+  ```
+  ## # A tibble: 32 × 11
+  ##    model     mpg   cyl  disp    hp  drat    wt  qsec  gear  carb power_to_weight
+  ##    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;
+  ##  1 Mazda …  21       6  160    110  3.9   2.62  16.5     4     4          0.0420
+  ##  2 Mazda …  21       6  160    110  3.9   2.88  17.0     4     4          0.0383
+  ##  3 Datsun…  22.8     4  108     93  3.85  2.32  18.6     4     1          0.0401
+  ##  4 Hornet…  21.4     6  258    110  3.08  3.22  19.4     3     1          0.0342
+  ##  5 Hornet…  18.7     8  360    175  3.15  3.44  17.0     3     2          0.0509
+  ##  6 Valiant  18.1     6  225    105  2.76  3.46  20.2     3     1          0.0303
+  ##  7 Duster…  14.3     8  360    245  3.21  3.57  15.8     3     4          0.0686
+  ##  8 Merc 2…  24.4     4  147.    62  3.69  3.19  20       4     2          0.0194
+  ##  9 Merc 2…  22.8     4  141.    95  3.92  3.15  22.9     4     2          0.0302
+  ## 10 Merc 2…  19.2     6  168.   123  3.92  3.44  18.3     4     4          0.0358
+  ## # ℹ 22 more rows
+  ```
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - criação/modificação]
+
+&lt;p class="jst"&gt;Podemos criar colunas categóricas considerando valores de outras colunas com .purple[if_else()] ou .purple[case_when()]. A título apenas de demonstração (sem abordagem técnica ou ciêntifica) segue um exemplo:&lt;/p&gt;
+ 
+  
+  ```r
+  mtcars |&gt; select(-c(qsec, vs, am)) |&gt;
+    mutate(wt =  wt * 1000, wt_class = case_when(wt &lt; 2581 ~ "lightweight",
+                        between(wt, 2581, 3610)  ~ "middleweight", wt &gt; 3610 ~ "heavyweight" )) 
+  ```
+  
+  ```
+  ## # A tibble: 32 × 10
+  ##    model               mpg   cyl  disp    hp  drat    wt  gear  carb wt_class   
+  ##    &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      
+  ##  1 Mazda RX4          21       6  160    110  3.9   2620     4     4 middleweig…
+  ##  2 Mazda RX4 Wag      21       6  160    110  3.9   2875     4     4 middleweig…
+  ##  3 Datsun 710         22.8     4  108     93  3.85  2320     4     1 lightweight
+  ##  4 Hornet 4 Drive     21.4     6  258    110  3.08  3215     3     1 middleweig…
+  ##  5 Hornet Sportabout  18.7     8  360    175  3.15  3440     3     2 middleweig…
+  ##  6 Valiant            18.1     6  225    105  2.76  3460     3     1 middleweig…
+  ##  7 Duster 360         14.3     8  360    245  3.21  3570     3     4 middleweig…
+  ##  8 Merc 240D          24.4     4  147.    62  3.69  3190     4     2 middleweig…
+  ##  9 Merc 230           22.8     4  141.    95  3.92  3150     4     2 middleweig…
+  ## 10 Merc 280           19.2     6  168.   123  3.92  3440     4     4 middleweig…
+  ## # ℹ 22 more rows
+  ```
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - criação/modificação]
+
+Por fim todas as operações anteriores serão persistidas em um novo conjunto de dados. 
+ 
+  
+  ```r
+  mtcars_new &lt;- mtcars |&gt;
+    mutate(
+      wt =  wt * 1000,
+      vs = if_else(vs == 0, "V", "S"),
+      am = if_else(am == 0, "automatic", "manual"),
+      # variáveis novas
+      power_to_weight =  hp / wt, 
+      wt_class = case_when(
+        wt &lt; 2581 ~ "lightweight", 
+        between(wt, 2581, 3610)  ~ "middleweight",
+        wt &gt; 3610 ~ "heavyweight" 
+      )
+    ) |&gt;
+    mutate(
+      # o pacote forcats oferece funcionalidades para trabalhar com dados categóricos
+      vs = forcats::as_factor(vs),    
+      am = forcats::as_factor(am),
+      wt_class = forcats::as_factor(wt_class)
+    )
+  ```
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - criação/modificação]
+
+  Como ficou o novo conjunto de dados?
+ 
+  
+  ```r
+  #summary(mtcars_new) # sumarização de dados do rbase. Teste essa opção!
+  glimpse(mtcars_new)
+  ```
+  
+  ```
+  ## Rows: 32
+  ## Columns: 14
+  ## $ model           &lt;chr&gt; "Mazda RX4", "Mazda RX4 Wag", "Datsun 710", "Hornet 4 …
+  ## $ mpg             &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, …
+  ## $ cyl             &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, …
+  ## $ disp            &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7…
+  ## $ hp              &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 18…
+  ## $ drat            &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, …
+  ## $ wt              &lt;dbl&gt; 2620, 2875, 2320, 3215, 3440, 3460, 3570, 3190, 3150, …
+  ## $ qsec            &lt;dbl&gt; 16.46, 17.02, 18.61, 19.44, 17.02, 20.22, 15.84, 20.00…
+  ## $ vs              &lt;fct&gt; V, V, S, S, V, S, V, S, S, S, S, V, V, V, V, V, V, S, …
+  ## $ am              &lt;fct&gt; manual, manual, manual, automatic, automatic, automati…
+  ## $ gear            &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, …
+  ## $ carb            &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, …
+  ## $ power_to_weight &lt;dbl&gt; 0.04198473, 0.03826087, 0.04008621, 0.03421462, 0.0508…
+  ## $ wt_class        &lt;fct&gt; middleweight, middleweight, lightweight, middleweight,…
+  ```
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - sumarização]
+
+&lt;p class="jst"&gt;A sumarização de valores é  obtida com a função .purple[summarize()]. Sumarizar significa usar alguma métrica (média, variância, désvio padrão, mediana, moda, mínimo, máximo, soma total, número de ocorrências, ...) para obter um único valor representativo sobre os valores de um conjunto ou subconjuntos - estes, por sua vez, podem ser obtidos por agrupamento. As métricas fornecerão informações sobre uma variável. Vejamos no seguinte exemplo:&lt;/p&gt;
+
+  
+  ```r
+  mtcars_new |&gt;
+    summarize(min_hp = min(hp), mean_hp = mean(hp), max_hp = max(hp), number_of_models = n())
+  ```
+  
+  ```
+  ## # A tibble: 1 × 4
+  ##   min_hp mean_hp max_hp number_of_models
+  ##    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;            &lt;int&gt;
+  ## 1     52    147.    335               32
+  ```
+
+&lt;p class="jst"&gt;As funções .purple[min()], .purple[max()], e .purple[mean()] usadas acima são do pacote .purple[&lt;b&gt;rbase&lt;/b&gt;]. Já a função .purple[n()] é do pacote .purple[&lt;b&gt;dplyr&lt;/b&gt;] e retorna o número de elementos de um conjunto ou subconjuntos (grupos). Além disso, essa função pode ser usada somente dentro de .purple[summarize()] e .purple[mutate()].&lt;/p&gt;
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - sumarização]
+
+&lt;p class="jst"&gt; Podemos fazer agrupamentos considerando valores de uma ou mais colunas usando o parâmetro .purple[.by], vide:&lt;/p&gt;
+
+  
+  ```r
+  mtcars_new |&gt;
+    summarize(
+      min_hp = min(hp), 
+      mean_hp = mean(hp), 
+      max_hp = max(hp),
+      number_of_models = n(),
+      .by = cyl
+    )
+  ```
+  
+  ```
+  ## # A tibble: 3 × 5
+  ##     cyl min_hp mean_hp max_hp number_of_models
+  ##   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;            &lt;int&gt;
+  ## 1     6    105   122.     175                7
+  ## 2     4     52    82.6    113               11
+  ## 3     8    150   209.     335               14
+  ```
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - sumarização]
+
+&lt;p class="jst"&gt; Podemos fazer agrupamentos considerando valores de uma ou mais colunas usando o parâmetro .purple[.by], vide:&lt;/p&gt;
+
+  
+  ```r
+  mtcars_new |&gt;
+    summarize(
+      min_hp = min(hp), 
+      mean_hp = mean(hp), 
+      max_hp = max(hp),
+      number_of_models = n(), 
+      .by = c(cyl, vs, am)
+    )
+  ```
+  
+  ```
+  ## # A tibble: 7 × 7
+  ##     cyl vs    am        min_hp mean_hp max_hp number_of_models
+  ##   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;            &lt;int&gt;
+  ## 1     6 V     manual       110   132.     175                3
+  ## 2     4 S     manual        52    80.6    113                7
+  ## 3     6 S     automatic    105   115.     123                4
+  ## 4     8 V     automatic    150   194.     245               12
+  ## 5     4 S     automatic     62    84.7     97                3
+  ## 6     4 V     manual        91    91       91                1
+  ## 7     8 V     manual       264   300.     335                2
+  ```
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - agrupamento]
+
+&lt;p class="jst"&gt; A função .purple[group_by()] permite agrupamentos baseados nos valores de uma ou mais colunas. Os grupos são persistidos no conjunto de dados, mas podem ser desfeitos com .purple[ungroup()]. Todas as funções que vimos podem ser usadas em combinação com .purple[group_by()]. Vejamos o exemplo:&lt;/p&gt;
+
+  
+  ```r
+  mtcars_new |&gt;
+    group_by(wt_class) |&gt;
+    summarize(median_wt = median(wt), mean_wt = mean(wt), sd_wt = sd(wt), 
+              number_of_models = n())
+  ```
+  
+  ```
+  ## # A tibble: 3 × 5
+  ##   wt_class     median_wt mean_wt sd_wt number_of_models
+  ##   &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;            &lt;int&gt;
+  ## 1 middleweight     3325    3228.  313.               16
+  ## 2 lightweight      2038.   2003.  337.                8
+  ## 3 heavyweight      3958.   4410.  777.                8
+  ```
+&lt;p class="jst"&gt; Obs:  O parâmetro .purple[.by] que vimos anteriormente é uma alternativa a .purple[group_by()], porém opera internamente em algumas funções como .purple[filter()], .purple[mutate()] e .purple[summarize()].&lt;/p&gt;
+
+---
+### Exercícios
+
+- &lt;p class="jst"&gt;Encontre a mediana, valor mínimo, média, valor máximo e desvio padrão das cilindradas de um motor (indica quanto de combustível e ar cada pistão de um motor pode deslocar em um cilindro  - coluna &lt;b&gt;disp&lt;/b&gt;), agrupando essas métricas por quantidade de cilindros (coluna &lt;b&gt;cyl&lt;/b&gt;).&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Obtenha as mesmas métricas anteriores, porém, agrupando por quantidade de cilindros (coluna &lt;b&gt;cyl&lt;/b&gt;) e a classificação segundo o peso (coluna &lt;b&gt;wt_class&lt;/b&gt;).&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Encontre a mediana, valor mínimo, média, valor máximo e desvio padrão para o consumo de combustível ( milhas por galão - coluna &lt;b&gt;mpg&lt;/b&gt;). Teste os mesmos agrupamentos: por &lt;b&gt;cyl&lt;/b&gt;, &lt;b&gt;wt_class&lt;/b&gt; e ambas.&lt;/p&gt;
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - contagem]
+
+&lt;p class="jst"&gt;Podemos obter o número de elementos de um conjunto ou subconjuntos (grupos) com a função .purple[count()].&lt;/p&gt;
+
+  
+  ```r
+  mtcars_new |&gt;
+    count(cyl, vs, wt_class)
+  ```
+  
+  ```
+  ## # A tibble: 7 × 4
+  ##     cyl vs    wt_class         n
+  ##   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;        &lt;int&gt;
+  ## 1     4 V     lightweight      1
+  ## 2     4 S     middleweight     3
+  ## 3     4 S     lightweight      7
+  ## 4     6 V     middleweight     3
+  ## 5     6 S     middleweight     4
+  ## 6     8 V     middleweight     6
+  ## 7     8 V     heavyweight      8
+  ```
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - contagem]
+
+&lt;p class="jst"&gt;A mesma contagem pode ser obtida combinando .purple[group_by()], .purple[summarize()] e .purple[n()].&lt;/p&gt;
+
+
+```r
+  mtcars_new |&gt; 
+    group_by(cyl, vs, wt_class) |&gt;
+    summarize(number_of_model = n())
+```
+
+```
+## # A tibble: 7 × 4
+## # Groups:   cyl, vs [5]
+##     cyl vs    wt_class     number_of_model
+##   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;                  &lt;int&gt;
+## 1     4 V     lightweight                1
+## 2     4 S     middleweight               3
+## 3     4 S     lightweight                7
+## 4     6 V     middleweight               3
+## 5     6 S     middleweight               4
+## 6     8 V     middleweight               6
+## 7     8 V     heavyweight                8
+```
+
+---
+### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados]
+
+&lt;p class="jst"&gt;Vimos que o .purple[&lt;b&gt;dplyr&lt;/b&gt;] possui uma série de funções (verbos principais) mais comulmente usadas. Porém, o .purple[&lt;b&gt;dplyr&lt;/b&gt;] possui uma lista maior de funções que geralmente servem de forma auxiliar. Dentre estas, vimos: .purple[between()],  .purple[if_else()], .purple[case_when()]. Também existem funções auxiliares que funcionam internamente as funções principais como .purple[n()] e os &lt;i&gt;selection helpers&lt;/i&gt; - .purple[starts_with()], .purple[ends_with()], .purple[contains()].&lt;/p&gt;
+
+&lt;p class="jst"&gt; &lt;b&gt;Não se preocupe!&lt;/b&gt; Tanto as funções principais, como as auxiliares, vão aos poucos fazendo parte de nosso vocabulário conforme nossas necessidades de operar sobre dados aparecem. Não obstante, não é necessário lembrar de tudo, já que o material de consulta é vasto.&lt;/p&gt;
+
 ---
 exclude: TRUE
 class: left, top
