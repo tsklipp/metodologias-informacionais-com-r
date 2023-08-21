@@ -163,12 +163,12 @@ Criar uma pasta:
 
 Para download dos arquivos, proceda os passos da <A href="https://basedosdados.org/dataset/9fa532fb-5681-4903-b99d-01dc45fd527a?table=9e4ab8f4-3ad4-47fb-9919-5658d2e09c4f">basedosdados</A>, ou apenas faça o download diretamente clicando nos links:
 
-- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/populacao_brasil_pnadc.csv
-- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/populacao_brasil_pnadc_cor.csv
+- https://tsklipp.github.io/metodologias-informacionais-com-r/dados/populacao_brasil_pnadc.csv
+- https://tsklipp.github.io/metodologias-informacionais-com-r/dados/populacao_brasil_pnadc_cor.csv
 
 Baixe também dados que foram obtidos no <A href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html?=&t=series-historicas">site</A> do IBGE: 
 
-- https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/taxa_desocupacao_idade_2012-2013.xlsx
+- https://tsklipp.github.io/metodologias-informacionais-com-r/dados/taxa_desocupacao_idade_2012-2013.xlsx
 
 ---
 ### .orange[Gestão e Manipulação de `r icons::fontawesome("table")` dados]

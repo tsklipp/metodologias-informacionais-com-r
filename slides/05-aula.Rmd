@@ -90,7 +90,7 @@ Dados tratados no formato tidy permitem:
 - <p class="jst"> uma série de operações e manipulações (<i>Data Wrangling</i>).  </p>
 - <p class="jst"> prosseguir com outras etapas da ciência de dados como exploração, modelagem e análise. </p>
 
-<p class="jst"> Nesse momento, é comum usar o pacote .purple[<b>dplyr</b>]. Este provém uma lista intuitiva de verbos que permitem executar as tarefas mais comuns da manipulação de dados. O .purple[<b>dplyr</b>] possui um <A href="https://dplyr.tidyverse.org/">site</A> próprio, onde podem ser encontradas informações desse pacote, bem como, alguns <i>vignettes</i> e <i>cheat Sheets<i>.</p>
+<p class="jst"> Nesse momento, é comum usar o pacote .purple[<b>dplyr</b>]. Este provém uma lista intuitiva de verbos que permitem executar as tarefas mais comuns da manipulação de dados. O .purple[<b>dplyr</b>] possui um <A href="https://dplyr.tidyverse.org/">site</A> próprio, onde podem ser encontradas informações desse pacote, bem como, alguns <i>vignettes</i> e <i>cheat sheets<i>.</p>
 
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados]

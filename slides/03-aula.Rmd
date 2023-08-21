@@ -436,8 +436,8 @@ O uso de .purple.large[`::`] representa uma boa prática. <b>Motivo?</b>
 
 Links:
 
-> https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/taxa_desocupacao_sexo_2012-2013.csv
-> https://tsklipp.github.io/metodologias-informacionais-com-r/slides/files/taxa_desocupacao_idade_2012-2013.xlsx
+> https://tsklipp.github.io/metodologias-informacionais-com-r/dados/taxa_desocupacao_sexo_2012-2013.csv
+> https://tsklipp.github.io/metodologias-informacionais-com-r/dados/taxa_desocupacao_idade_2012-2013.xlsx
 
 ---
 ## Questões e Prática
@@ -452,7 +452,7 @@ Links:
 class: center, middle
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
-dt <- readxl::read_excel("files/taxa_desocupacao_idade_2012-2013.xlsx")
+dt <- readxl::read_excel("../dados/taxa_desocupacao_idade_2012-2013.xlsx")
 library(kableExtra)
 dt %>%
     kable(caption = 'Taxa de Desocupação') %>%
@@ -464,7 +464,7 @@ dt %>%
 class: center, middle
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
-dt <- readr::read_delim("files/taxa_desocupacao_sexo_2012-2013.csv", delim = ";",skip = 1)
+dt <- readr::read_delim("../dados/taxa_desocupacao_sexo_2012-2013.csv", delim = ";",skip = 1)
 library(kableExtra)
 dt %>%
     kable(caption = 'Taxa de Desocupação') %>%
