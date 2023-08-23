@@ -348,7 +348,7 @@ O correspondente no pacote .purple[<b>base</b>] é:
 
 1. Construa um gráfico de dispersão relacionando quaisquer variáveis do dataframe <b>mtcars</b>.
 
-2. Construa um gráfico de linhas relacionando as colunas <b>speed<b> e <b>dist<b> do dataframe <b>cars</b>.
+2. Construa um gráfico de linhas relacionando as colunas <b>speed</b> e <b>dist</b> do dataframe <b>cars</b>.
 
 ???
 
