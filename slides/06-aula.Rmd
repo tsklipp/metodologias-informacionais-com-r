@@ -1,0 +1,392 @@
+---
+class: inverse 
+title: "<b>Metodologias Informacionais com R</b>"
+subtitle: "<br/>Módulo II: Visualização de dados"
+author: "<br/><b>Telmo dos Santos Klipp</b> (telmo.klipp@inpe.br)<br/>"
+output:
+  xaringan::moon_reader:
+    css: [default, ninjutsu, ki-fonts, my-theme.css]
+    yolo: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideClass: ["left", "top"]
+      slideNumberFormat: "%current%"
+      ratio: '16:9' # 
+---
+layout: true
+
+background-image: url(figures/template_middlepage_2.png)
+background-size: cover
+
+```{r libririesandcustoms, include=FALSE, warning=FALSE}
+  library(xaringanthemer)
+  library(icons)
+  colors = c(
+    red = "#f34213",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF",
+    midnightblue = "#191970"
+  )
+```
+
+---
+### .orange[`r icons::fontawesome("info-circle")` Informações Gerais sobre o Curso]
+
+- <p class="jst">Materiais disponibilizados via <A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3">Classroom</A>;</p> 
+- <p class="jst">O aprendizado requer a prática que será constante nas aulas;</p>
+
+.pull-left[
+Bibliografia Básica:
+
+ .tiny2[- <p class="jst">Kennedy, R., & Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.</p>
+
+```{r out.width = '39%', echo=FALSE, fig.align = "center"}
+knitr::include_graphics("figures/basicblibliograph.png") 
+```
+]
+]
+
+.pull-right[
+Bibliografia Complementar:
+
+ .tiny2[- <p class="jst">Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for data science (2e): import, tidy, transform, visualize, and model data. "O'Reilly Media, Inc.". Disponível em: <A href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</A>. Acesso em: 14 de junho, 2023. (Online) </p>
+- <p class="jst">Damiani, A. et. al., (2022). Ciência de Dados em R. Curso-R. Disponível em: <A href="https://livro.curso-r.com">https://livro.curso-r.com</A>. Acesso em: 12 de maio, 2023. (Online)</p>
+-  <p class="jst">de Aquino, J. A. (2014). R para cientistas sociais. Editora da UESC (editus). Disponível em: <A href="http://www.uesc.br/editora/index.php?item=conteudo_livros_digitais.php">http://www.uesc.br/editora/</A>. Acesso em: 12 de maio, 2023. </p>
+-  <p class="jst">de Oliveira, P. F., Guerra, S., McDonnell, R. (2018). Ciência de Dados com R: Introdução. Editora IBPAD. Disponível em: <A href="https://cdr.ibpad.com.br/index.html">https://cdr.ibpad.com.br/index.html</A>. Acesso em: 12 de maio, 2023. (Online) </p> ] 
+]
+
+---
+
+### .orange[Nas últimas aulas vimos:]
+
+- Manipulação de dados usando o pacote .purple[<b>dplyr</b>].
+
+- O uso do operador pipe.
+
+- Operações mais comuns sobre dados e respectivas funções do .purple[<b>dplyr</b>].
+
+- O uso de algumas funções auxiliares do .purple[<b>dplyr</b>].
+
+---
+background-image: url(figures/tidyverse3.png)
+background-size: contain
+
+### .orange[Tidyverse]
+
+<p class="jst"><b>Coleção de pacotes que possuem filosofia de design, gramática e estrutura de dados em comum e, permitem trabalho conjunto, clareza de código, reprodutibilidade, dentre outros benefícios.</p> 
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados]
+
+<p class="jst"> A visualização de gráficos pode ser crucial para a fase de análise exploratória de dados - obter informações, entender os dados, relações entre variáveis, desenvolver ou validar hipóteses. Não obstante, também é importante em etapas posteriores de comunicação e divulgação - em relatórios, documentos científicos, páginas na internet, entre outros. </p>
+
+<p class="jst"> O R possui como pacote gráfico básico o .purple[<b>graphics</b>] (vem pré-instalado). Outros pacotes gráficos são:</p>
+
+- <p class="jst">Gráficos estáticos: <A href="https://ggplot2.tidyverse.org/">.purple[<b>ggplot2</b>]</A>  (gráficos de tipos diversos), <A href="https://lattice.r-forge.r-project.org/">.purple[<b>lattice</b>]</b></A>  (gráficos essencialmente do tipo <i>trellis</i>);</p>
+- <p class="jst">Gráficos interativos: <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A>, <A href="https://rstudio.github.io/dygraphs/">.purple[<b>dygraphs</b>]</b></A>, <A href="https://jkunst.com/highcharter/">.purple[<b>highcharter</b>]</A>, <A href="https://ggvis.rstudio.com/">.purple[<b>ggvis</b>]</A>, <A href="https://gganimate.com/">.purple[<b>gganimate</b>]</A> (gera animações);</p>
+- <p class="jst">Mapas estáticos: <A href="https://ggplot2.tidyverse.org/">.purple[<b>ggplot2</b>]</A>, <A href="https://r-tmap.github.io/tmap/">.purple[<b>tmap</b>]</A>, <A href="https://github.com/dkahle/ggmap">.purple[<b>ggmap</b>]</A> (mapas oriundos de serviços populares como <i>Google Maps</i>);</p>
+- <p class="jst">Mapas interativos: <A href="https://rstudio.github.io/leaflet/">.purple[<b>leaflet</b>]</A>, <A href="https://r-spatial.github.io/mapview/">.purple[<b>mapview</b>]</A>, <A href="https://r-tmap.github.io/tmap/">.purple[<b>tmap</b>]</A>;</p>
+- <p class="jst">Gráficos 3D:   .purple[<b>graphics</b>], <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A>, <A href="http://www.sthda.com/english/wiki/impressive-package-for-3d-and-4d-graph-r-software-and-data-visualization">.purple[<b>plot3d</b>]</A>, <A href="http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization">.purple[<b>scatterplot3d</b>]</A>, <A href="https://lattice.r-forge.r-project.org/">.purple[<b>lattice</b>]</b></A>, <A href="https://github.com/AckerDWM/gg3D">.purple[<b>gg3D</b>]</b></A>, <A href="https://github.com/cran/rgl">.purple[<b>RGL</b>]</A>, <A href="https://github.com/coolbutuseless/ggrgl">.purple[<b>ggrgl</b>]</A>,  <A href="https://www.rayshader.com/">.purple[<b>rayshader</b>]</A>, <A href="https://www.rayrender.net/">.purple[<b>rayrender</b>]</A>  (gera cenas 3D).</p>
+
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+
+<p class="jst"><b>Qual o melhor lugar para começar?</b> Certamente o .purple[<b>ggplot2</b>] popularizou-se como o pacote gráfico mais usado por usuários do R. Não obstante, esse pacote faz parte do .purple[<b>tidyverse</b>], sendo baseado na fisosofia <i>"Grammar of Graphics"</i>, conquistou muitos adeptos, bem como, influenciou outros pacotes. O .purple[<b>ggplot2</b>]  possui um <A href="https://ggplot2.tidyverse.org/">site</A> próprio, onde podem ser encontradas informações, <i>vignettes</i> e <i>cheat sheets</i>. Também existe uma extensa <A href="https://exts.ggplot2.tidyverse.org/gallery/">lista</A> de pacotes que estendem as capacidades do .purple[<b>ggplot2</b>]</p>
+
+<p class="jst"><b>Mas o que é <i>"Grammar of Graphics"</i>?</b> Um conceito filosófico para criação de gráficos com descrição concisa dos seus componentes que permite a produção de um gráfico em camadas complementares.</p>
+
+<p class="jst">A descrição sólida dos elementos do .purple[<b>ggplot2</b>] através de <A href="https://vita.had.co.nz/papers/layered-grammar.html"><i>"Layored Grammar"</i></A>, permitiu uma padronização que favoreceu o desenvolvimento de extensões. Não obstante, essa padronização, favorece a intuição humana, o aprendizado, e a gestão dos pacotes gráficos ao longo do tempo.</p>
+
+
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+<b>Os cinco componentes de um gráfico segundo a interpretação de "Layered Grammar"</i> no .purple[<b>ggplot2</b>] são:</b>
+
+1. Camada(s) - representação física dos dados:
+  - Dados (<i><b>data</b></i>);
+  - Mapeamento de objetos (<i><b>aesthetic</b></i>) - define as variáveis que compõem o gráfico; divisões categóricas dos dados que são traduzidas em cores, formatos e tamanhos; elementos da legenda e agrupamentos;
+  - Geometria dos objetos (<i><b>geom</b></i>) - basicamente o tipo do gráfico;
+  - Transformações estatísticas (<i><b>stat</b></i>) - basicamente sumarização de dados;
+  - Posicionamento dos objetos - deslocamento de elementos gráficos caso houver sobreposição.
+  
+2. <p class="jst">Escalas  (<i><b>scales</b></i>) - define dimensões dos dados, cores e formas dos objetos mapeados, elementos gráficos dos eixos e legenda como espaçamento e disposição dos <i>labels</i>.</p>
+3. Sistema de coordenadas (<i><b>coord</b></i>) - mapeamento das posições dos objetos no plano do gráfico.
+
+4. <p class="jst">Facetamento/tabulamento (<i><b>faceting</b></i>) - gerar painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos terão as mesmas especificações.</p>
+
+5. Tema (<i><b>theme</b></i>) - Define elementos gerais como cor do plano de fundo, tamanho de texto e tipo de fonte.
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Um gráfico do .purple[<b>ggplot2</b>] pode ter uma ou mais camadas. Além disso:</p>
+
+- Podem ser geradas combinações de camadas;
+- Elementos gráficos podem ser alterados individualmente;
+
+<p class="jst">Essa flexibilidade permite personalizações gráficas e até criação de novos conceitos. Vejamos um exemplo básico de gráfico:</p>
+
+```{r, message=FALSE}
+library(ggplot2) # Importar as bibliotecas
+library(dplyr)   # que serão usadas
+library(MASS)
+```
+
+```{r p1, eval=FALSE, message=FALSE, warning=FALSE}
+ggplot(mtcars, aes(x = wt, y = mpg))
+```
+]
+
+.pull-right[
+```{r p1_out, ref.label="p1", echo=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Vamos adicionar uma camada para criar um gráfico de dispersão (<i>scatter plot</i>). Estes representam graficamente com pontos a relação entre duas variáveis numéricas. </p>
+
+```{r p2, message=FALSE, eval=FALSE}
+mtcars |> ggplot(aes(x = wt, y = mpg)) +
+  geom_point()
+```
+
+O correspondente no pacote .purple[<b>base</b>] é:
+```{r message=FALSE, eval=FALSE}
+plot(mtcars$wt, mtcars$mpg)
+```
+
+</br>
+<p class="jst"><b>Que observações podemos fazer sobre o gráfico gerado?</b></p>
+
+]
+
+.pull-right[
+```{r p2_out, ref.label="p2", echo=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Vamos adicionar duas camadas para criar um gráfico de linhas. Estes tipicamente mostram as mudanças de uma variável em relação a outra.</p>
+
+```{r p3, message=FALSE, eval=FALSE}
+  pressure |> ggplot(aes(x = temperature,
+                         y = pressure)) +
+    geom_line() +
+    geom_point()
+```
+
+O correspondente no pacote .purple[<b>base</b>] é:
+```{r message=FALSE, eval=FALSE}
+  plot(pressure$temperature,
+       pressure$pressure, type = "l")
+  points(pressure$temperature,
+         pressure$pressure)
+```
+
+</br>
+<p class="jst"><b>Você consegue distinguir as camadas do gráfico?</b></p>
+
+]
+
+.pull-right[
+```{r p3_out, ref.label="p3", echo=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Vamos produzir um gráfico de barras. Estes representam a contagem dos elementos de uma variável, com o eixo x na forma discreta. Obs: o eixo x como contínuo representa tipicamente um histograma.</p>
+
+```{r, message=FALSE, eval=FALSE}
+  # x como variável contínua
+  mtcars |> ggplot(aes(x = cyl)) +
+    geom_bar() 
+```
+
+```{r p4, message=FALSE, eval=FALSE}
+  # x como variável discreta
+  mtcars |> ggplot(aes(x=as.factor(cyl))) +
+    geom_bar()
+```
+
+O correspondente no pacote .purple[<b>base</b>] é:
+```{r message=FALSE, eval=FALSE}
+  df <- as.data.frame(table(mtcars$cyl))
+  barplot(df$count, names.arg = df$cyl)
+```
+
+]
+
+.pull-right[
+```{r p4_out, ref.label="p4", echo=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Podemos produzir o mesmo gráfico de barras usando .purple[<b>geom_col()</b>]. Porém, este, requer as variáveis correspondentes nos eixos x e y. Resolveremos isso com .purple[summarise()] e .purple[n()].</p>
+
+```{r p5, message=FALSE, eval=FALSE}
+  mtcars |>
+    summarise(count = n(), .by = cyl) |>
+    ggplot(aes(x = as.factor(cyl),
+               y = count)) +
+    geom_col() 
+```
+
+]
+
+.pull-right[
+```{r p5_out, ref.label="p5", echo=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Vamos produzir um histograma (distribuição de frequências). Estes representam a contagem dos elementos de uma variável e sua distribuição.</p>
+
+```{r p6, message=FALSE, eval=FALSE}
+  mtcars |> ggplot(aes(x = mpg)) +
+    geom_histogram(binwidth = 4)
+```
+
+O correspondente no pacote .purple[<b>base</b>] é:
+```{r message=FALSE, eval=FALSE}
+  hist(mtcars$mpg, breaks = 10) 
+```
+
+]
+
+.pull-right[
+```{r p6_out, ref.label="p6", echo=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Vamos produzir um gráfico de densidade. Estes mostram a distribuição de uma variável númerica.</p>
+
+```{r p7, message=FALSE, eval=FALSE}
+  mtcars |> ggplot(aes(x = wt)) +
+    geom_density() + geom_rug()
+```
+
+O correspondente no pacote .purple[<b>base</b>] é:
+```{r message=FALSE, eval=FALSE}
+  plot(density(mtcars$wt)) 
+```
+
+]
+
+.pull-right[
+```{r p7_out, ref.label="p7", echo=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
+
+.pull-left[
+<p class="jst">Vamos produzir um diagrama de caixas (<i>Box Plot<i>). Estes representam conjuntos de dados por meio de diferentes medidas descritivas.</p>
+
+```{r p8, message=FALSE, eval=FALSE}
+  cats |> ggplot(aes(x = Sex,
+                     y = Bwt)) +
+    geom_boxplot()
+```
+
+O correspondente no pacote .purple[<b>base</b>] é:
+```{r message=FALSE, eval=FALSE}
+  boxplot(cats$Sex, cats$Bwt)
+  # boxplot(len ~ supp, data = ToothGrowth)  
+```
+
+</br>
+<p class="jst"><b>Como interpretar um diagrama de caixas?</b> O seguinte <A href="https://statplace.com.br/blog/como-interpretar-um-boxplot/">video</A> pode ajudar bastante.</p>
+]
+
+.pull-right[
+```{r p8_out, ref.label="p8", echo=FALSE}
+```
+]
+
+---
+### .orange[Manipulação de `r icons::fontawesome("table")` dados - seleção]
+
+<b>Quantos tipo de plots existem?</b> 
+
+- Descubra algumas opções digitando .purple[ggplot::geom] ou .purple[ggplot::stat] e presionando <b>TAB</b>.
+  
+- Veja exemplos em <A href="https://r-graph-gallery.com/">R Graph Gallery</A>.</p>
+
+---
+### Exercícios
+
+1. Construa um gráfico de dispersão relacionando quaisquer variáveis do dataframe <b>mtcars</b>.
+
+2. Construa um gráfico de linhas relacionando as colunas <b>speed<b> e <b>dist<b> do dataframe <b>cars</b>.
+
+???
+
+Possíveis Respostas:
+
+1. > mtcars |> ggplot(aes(x = wt, y = disp)) +  geom_point()
+
+2. .purple[cars |> ggplot(aes(x = speed, y = dist)) + geom_line()]
+
+---
+exclude: TRUE
+class: left, top
+
+### .orange[Referências]
+
+```{r, load_refs, echo=FALSE}
+library(RefManageR)
+bib <- ReadBib("./files/02-mybib.bib", check = FALSE)
+generateReferences <- function(bib) {
+  for(i in 1:length(bib)) {
+    print(bib[i], .opts = list(check.entries = FALSE, style = "html", bib.style = "authoryear"))
+  }
+}
+```
+
+```{r, print_refs, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+writeLines('.small[')
+generateReferences(bib)
+writeLines(']')
+```
+
+---
+class: center, middle
+
+background-image: url(figures/template_endpage_2.png)
+background-size: contain
+
+.center[.large[<b> Metotologias Informacionais com `r icon_style( icons::simple_icons("r"), scale = 2)`</b> ]]
+
+.xxlarge[<b style="color:MidnightBlue "> Muito Obrigado pela Atenção!</b>]
+  
