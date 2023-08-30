@@ -108,17 +108,17 @@ background-size: contain
 
 &lt;b&gt;Os cinco componentes de um gráfico segundo a interpretação de "Layered Grammar"&lt;/i&gt; no .purple[&lt;b&gt;ggplot2&lt;/b&gt;] são:&lt;/b&gt;
 
-1. Camada(s) - representação física dos dados:
+1. Camada(s) - representação visual das propriedades físicas dos dados:
   - Dados (&lt;i&gt;&lt;b&gt;data&lt;/b&gt;&lt;/i&gt;);
   - Mapeamento de objetos (&lt;i&gt;&lt;b&gt;aesthetic&lt;/b&gt;&lt;/i&gt;) - define as variáveis que compõem o gráfico; divisões categóricas dos dados que são traduzidas em cores, formatos e tamanhos; elementos da legenda e agrupamentos;
   - Geometria dos objetos (&lt;i&gt;&lt;b&gt;geom&lt;/b&gt;&lt;/i&gt;) - basicamente o tipo do gráfico;
   - Transformações estatísticas (&lt;i&gt;&lt;b&gt;stat&lt;/b&gt;&lt;/i&gt;) - basicamente sumarização de dados;
-  - Posicionamento dos objetos - deslocamento de elementos gráficos caso houver sobreposição.
+  - Posicionamento (&lt;i&gt;&lt;b&gt;position&lt;/b&gt;&lt;/i&gt;) - permite o deslocamento dos elementos gráficos se houver sobreposição.
   
-2. &lt;p class="jst"&gt;Escalas  (&lt;i&gt;&lt;b&gt;scales&lt;/b&gt;&lt;/i&gt;) - define dimensões dos dados, cores e formas dos objetos mapeados, elementos gráficos dos eixos e legenda como espaçamento e disposição dos &lt;i&gt;labels&lt;/i&gt;.&lt;/p&gt;
-3. Sistema de coordenadas (&lt;i&gt;&lt;b&gt;coord&lt;/b&gt;&lt;/i&gt;) - mapeamento das posições dos objetos no plano do gráfico.
+2. &lt;p class="jst"&gt;Escalas  (&lt;i&gt;&lt;b&gt;scales&lt;/b&gt;&lt;/i&gt;) - permite controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos &lt;i&gt;labels&lt;/i&gt; nos eixos e legenda, entre outros.&lt;/p&gt;
+3. Sistema de coordenadas (&lt;i&gt;&lt;b&gt;coord&lt;/b&gt;&lt;/i&gt;) - permite definir posição/aparência dos objetos mapeados no plano.
 
-4. &lt;p class="jst"&gt;Facetamento/tabulamento (&lt;i&gt;&lt;b&gt;faceting&lt;/b&gt;&lt;/i&gt;) - gerar painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos terão as mesmas especificações.&lt;/p&gt;
+4. &lt;p class="jst"&gt;Facetamento/tabulamento (&lt;i&gt;&lt;b&gt;faceting&lt;/b&gt;&lt;/i&gt;) - gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos possuem os mesmos atributos estéticos.&lt;/p&gt;
 
 5. Tema (&lt;i&gt;&lt;b&gt;theme&lt;/b&gt;&lt;/i&gt;) - Define elementos gerais como cor do plano de fundo, tamanho de texto e tipo de fonte.
 
@@ -126,12 +126,12 @@ background-size: contain
 ### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2]
 
 .pull-left[
-&lt;p class="jst"&gt;Um gráfico do .purple[&lt;b&gt;ggplot2&lt;/b&gt;] pode ter uma ou mais camadas. Além disso:&lt;/p&gt;
+&lt;p class="jst"&gt;Um gráfico do .purple[&lt;b&gt;ggplot2&lt;/b&gt;] pode ter um ou mais conjunto de dados e camadas . Além disso:&lt;/p&gt;
 
-- Podem ser geradas combinações de camadas;
 - Elementos gráficos podem ser alterados individualmente;
+- Podem ser geradas combinações de camadas.
 
-&lt;p class="jst"&gt;Essa flexibilidade permite personalizações gráficas e até criação de novos conceitos. Vejamos um exemplo básico de gráfico:&lt;/p&gt;
+&lt;p class="jst"&gt;Essa flexibilidade permite personalizações e até criação de novos conceitos gráficos. Vejamos um exemplo básico de gráfico:&lt;/p&gt;
 
 
 ```r
@@ -142,7 +142,10 @@ library(MASS)
 
 
 ```r
-ggplot(mtcars, aes(x = wt, y = mpg))
+ggplot(
+  data = mtcars, 
+  mapping = aes(x = wt, y = mpg)
+)
 ```
 ]
 
@@ -154,12 +157,20 @@ ggplot(mtcars, aes(x = wt, y = mpg))
 ### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2]
 
 .pull-left[
-&lt;p class="jst"&gt;Vamos adicionar uma camada para criar um gráfico de dispersão (&lt;i&gt;scatter plot&lt;/i&gt;). Estes representam graficamente com pontos a relação entre duas variáveis numéricas. &lt;/p&gt;
+&lt;p class="jst"&gt;Vamos adicionar uma camada para criar um gráfico de dispersão (&lt;i&gt;scatter plot&lt;/i&gt;). Este representa com pontos a relação entre duas variáveis numéricas, conforme o exemplo: &lt;/p&gt;
 
 
 ```r
-mtcars |&gt; ggplot(aes(x = wt, y = mpg)) +
+ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point()
+```
+
+Ou:
+
+
+```r
+ggplot() +
+  geom_point(mtcars, aes(x = wt, y = mpg))
 ```
 
 O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
@@ -167,9 +178,6 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 ```r
 plot(mtcars$wt, mtcars$mpg)
 ```
-
-&lt;/br&gt;
-&lt;p class="jst"&gt;&lt;b&gt;Que observações podemos fazer sobre o gráfico gerado?&lt;/b&gt;&lt;/p&gt;
 
 ]
 
@@ -181,23 +189,61 @@ plot(mtcars$wt, mtcars$mpg)
 ### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2]
 
 .pull-left[
+&lt;p class="jst"&gt;Vamos adicionar camadas para criar um gráfico de dispersão (&lt;i&gt;scatter plot&lt;/i&gt;), sobreposto por um modelo de regressão linear. Com isso podemos observar tendências sobre os dados, conforme: &lt;/p&gt;
+
+
+```r
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() + 
+  geom_smooth(method = lm)
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p2b_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2]
+
+.pull-left[
+&lt;p class="jst"&gt;Vamos adicionar camadas para criar um gráfico de dispersão (&lt;i&gt;scatter plot&lt;/i&gt;), sobreposto por um modelo de regressão polinomial. Com isso podemos observar tendências sobre os dados, conforme: &lt;/p&gt;
+
+
+```r
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() + 
+  geom_smooth(method = loess)
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p2c_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2]
+
+.pull-left[
 &lt;p class="jst"&gt;Vamos adicionar duas camadas para criar um gráfico de linhas. Estes tipicamente mostram as mudanças de uma variável em relação a outra.&lt;/p&gt;
 
 
 ```r
-  pressure |&gt; ggplot(aes(x = temperature,
-                         y = pressure)) +
-    geom_line() +
-    geom_point()
+ggplot(pressure, aes(x = temperature,
+                     y = pressure)) +
+  geom_line() +
+  geom_point()
 ```
 
 O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 ```r
-  plot(pressure$temperature,
-       pressure$pressure, type = "l")
-  points(pressure$temperature,
-         pressure$pressure)
+plot(pressure$temperature,
+     pressure$pressure, type = "l")
+points(pressure$temperature,
+       pressure$pressure)
 ```
 
 &lt;/br&gt;
@@ -217,23 +263,23 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 
 ```r
-  # x como variável contínua
-  mtcars |&gt; ggplot(aes(x = cyl)) +
-    geom_bar() 
+# x como variável contínua
+ggplot(mtcars, aes(x = cyl)) +
+  geom_bar() 
 ```
 
 
 ```r
-  # x como variável discreta
-  mtcars |&gt; ggplot(aes(x=as.factor(cyl))) +
-    geom_bar()
+# x como variável discreta (aqui categórica)
+ggplot(mtcars, aes(x = as.factor(cyl))) +
+  geom_bar()
 ```
 
 O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 ```r
-  df &lt;- as.data.frame(table(mtcars$cyl))
-  barplot(df$count, names.arg = df$cyl)
+df &lt;- as.data.frame(table(mtcars$cyl))
+barplot(df$count, names.arg = df$cyl)
 ```
 
 ]
@@ -246,14 +292,14 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 ### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2]
 
 .pull-left[
-&lt;p class="jst"&gt;Podemos produzir o mesmo gráfico de barras usando .purple[&lt;b&gt;geom_col()&lt;/b&gt;]. Porém, este, requer as variáveis correspondentes nos eixos x e y. Resolveremos isso com .purple[summarise()] e .purple[n()].&lt;/p&gt;
+&lt;p class="jst"&gt;Podemos produzir o mesmo gráfico de barras usando .purple[geom_col()]. Porém, este, requer as variáveis correspondentes nos eixos x e y. Resolveremos isso com .purple[summarise()] e .purple[n()].&lt;/p&gt;
 
 
 ```r
-  mtcars |&gt;
-    summarise(count = n(), .by = cyl) |&gt;
-    ggplot(aes(x = as.factor(cyl),
-               y = count)) +
+mtcars |&gt;
+  summarise(count = n(), .by = cyl) |&gt;
+  ggplot(aes(x = as.factor(cyl),
+             y = count)) +
     geom_col() 
 ```
 
@@ -271,15 +317,18 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 
 ```r
-  mtcars |&gt; ggplot(aes(x = mpg)) +
-    geom_histogram(binwidth = 4)
+ggplot(mtcars, aes(x = mpg)) +
+  geom_histogram(binwidth = 4)
 ```
 
 O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 ```r
-  hist(mtcars$mpg, breaks = 10) 
+hist(mtcars$mpg, breaks = 10) 
 ```
+
+&lt;/br&gt;
+&lt;p class="jst"&gt;Obs: &lt;b&gt;binwidth&lt;/b&gt; e &lt;b&gt;breaks&lt;/b&gt; são parâmetros que usam métricas diferentes para o particionamento das barras. As funções .purple[geom_histogram()] e .purple[hist()] são correspondentes apenas para o tipo de gráfico.&lt;/p&gt;
 
 ]
 
@@ -295,15 +344,17 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 
 ```r
-  mtcars |&gt; ggplot(aes(x = wt)) +
-    geom_density() + geom_rug()
+ggplot(mtcars, aes(x = wt)) +
+  geom_density() + geom_rug()
 ```
 
 O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 ```r
-  plot(density(mtcars$wt)) 
+plot(density(mtcars$wt)) 
 ```
+&lt;/br&gt;
+&lt;p class="jst"&gt;Obs: Também existem diferenças entre os gráficos de densidade gerados por .purple[geom_density()] e .purple[density()].&lt;/p&gt;
 
 ]
 
@@ -319,16 +370,14 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 
 ```r
-  cats |&gt; ggplot(aes(x = Sex,
-                     y = Bwt)) +
-    geom_boxplot()
+ggplot(cats, aes(x = Sex, y = Bwt)) +
+  geom_boxplot()
 ```
 
 O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 ```r
-  boxplot(cats$Sex, cats$Bwt)
-  # boxplot(len ~ supp, data = ToothGrowth)  
+boxplot(cats$Sex, cats$Bwt)
 ```
 
 &lt;/br&gt;
@@ -340,13 +389,16 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 ]
 
 ---
-### .orange[Manipulação de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - seleção]
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2]
 
-&lt;b&gt;Quantos tipo de plots existem?&lt;/b&gt; 
+&lt;b&gt;Quantos tipos de plots existem?&lt;/b&gt; 
 
-- Descubra algumas opções digitando .purple[ggplot::geom] ou .purple[ggplot::stat] e presionando &lt;b&gt;TAB&lt;/b&gt;.
-  
-- Veja exemplos em &lt;A href="https://r-graph-gallery.com/"&gt;R Graph Gallery&lt;/A&gt;.&lt;/p&gt;
+- &lt;p class="jst"&gt;Descubra algumas opções digitando .purple[geom_] ou .purple[stat_] e presionando &lt;b&gt;TAB&lt;/b&gt;.&lt;/p&gt;
+- &lt;p class="jst"&gt;Consulte os exemplos na documentação de cada função do tipo .purple[geom_] ou .purple[stat_].&lt;/p&gt;
+- &lt;p class="jst"&gt;O livro &lt;A href="https://r-graphics.org/"&gt;R Graphics Cookbook&lt;/A&gt; apresenta exemplos de construção de gráficos no R - basicamente usando o .purple[&lt;b&gt;ggplot2&lt;/b&gt;] -  de forma simples e prática para consultas rápidas.&lt;/p&gt;
+- &lt;p class="jst"&gt;Veja exemplos em &lt;A href="https://r-graph-gallery.com/"&gt;R Graph Gallery&lt;/A&gt;.&lt;/p&gt;
+- &lt;p class="jst"&gt;O livro &lt;A href="https://ggplot2-book.org/"&gt;ggplot2: Elegant Graphics for Data Analysis&lt;/A&gt; apresenta uma abordagem mais aprofundada do pacote .purple[&lt;b&gt;ggplot2&lt;/b&gt;] e seu uso.&lt;/p&gt;
+
 
 ---
 ### Exercícios
@@ -359,9 +411,795 @@ O correspondente no pacote .purple[&lt;b&gt;base&lt;/b&gt;] é:
 
 Possíveis Respostas:
 
-1. &gt; mtcars |&gt; ggplot(aes(x = wt, y = disp)) +  geom_point()
+1. .purple[ggplot(mtcars, aes(x = wt, y = disp)) +  geom_point()]
 
-2. .purple[cars |&gt; ggplot(aes(x = speed, y = dist)) + geom_line()]
+2. .purple[ggplot(cars, aes(x = speed, y = dist)) + geom_line()]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+&lt;p class="jst"&gt;&lt;b&gt;.large[Aesthetics.]&lt;/b&gt; Representa o mapeamento das propriedades físicas dos dados (tipicamente valores numéricos ou categóricos)  em aspectos visuais  - estéticos - do gráfico (forma, posição, cor e tamanho de elementos geométricos como pontos, linha e barras). Seguiremos por exemplos de &lt;b&gt;aesthetics&lt;/b&gt; usando o dataframe &lt;b&gt;mpg&lt;/b&gt; que contém dados de consumo de combustível de diferentes modelos/classes de carro.&lt;/p&gt;
+
+  
+  ```r
+  glimpse(mpg)
+  ```
+  
+  ```
+  ## Rows: 234
+  ## Columns: 11
+  ## $ manufacturer &lt;chr&gt; "audi", "audi", "audi", "audi", "audi", "audi", "audi", "…
+  ## $ model        &lt;chr&gt; "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "…
+  ## $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.…
+  ## $ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…
+  ## $ cyl          &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, …
+  ## $ trans        &lt;chr&gt; "auto(l5)", "manual(m5)", "manual(m6)", "auto(av)", "auto…
+  ## $ drv          &lt;chr&gt; "f", "f", "f", "f", "f", "f", "f", "4", "4", "4", "4", "4…
+  ## $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1…
+  ## $ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…
+  ## $ fl           &lt;chr&gt; "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p…
+  ## $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact", "c…
+  ```
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt; Os parâmetros estéticos .purple[x] e .purple[y] mapeiam os valores de uma variável para localizações/aparências dos elementos geométricos no gráfico. Portanto, podemos criar um gráfico de dispersão para as colunas &lt;b&gt;displ&lt;/b&gt; e &lt;b&gt;hwy&lt;/b&gt; que indicam respectivamente as cilindradas do motor e o consumo de combustível dos carros em rodovias, conforme:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg,
+    mapping = aes(x = displ, y = hwy))
+```
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p9_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt; Também podemos diferenciar as classes dos carros (coluna &lt;b&gt;class&lt;/b&gt;) através de cores (parâmetro .purple[color] ou .purple[colour]), conforme:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg,
+    mapping = aes(x = displ, y = hwy, 
+                  color = class)
+  )
+```
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p9b_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos diferenciar as classes dos carros por meio do tamanho (parâmetro .purple[size]) dos pontos:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg,
+    mapping = aes(x = displ, y = hwy, 
+                  size = class)
+  )
+```
+
+&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;
+&lt;b&gt;Não parece ser uma escolha muito sensata.&lt;/b&gt;
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p10_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos distinguir as classes dos carros por meio de cores e formas dos pontos (parâmetro .purple[shape]):&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg,
+    mapping = aes(x = displ, y = hwy, 
+                  color = class, 
+                  shape = class)
+  )
+```
+
+
+&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;
+&lt;p class="jst"&gt;&lt;b&gt;Existe um limite de 6 tipos de pontos que podem ser representados com &lt;i&gt;shape&lt;/i&gt;. Quantidades maiores ainda podem ser indicadas, desde que manualmente.&lt;/b&gt;&lt;/p&gt;
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p11_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos distinguir as cilindradas dos carros por meio da transparência (parâmetro .purple[alpha]) e tamanho dos pontos:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg,
+    mapping = aes(x = displ, y = hwy,
+                  size = displ,
+                  alpha = displ)
+  )
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p12_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos sobrepor um modelo de regressão polinominal para cada divisão categórica de uma variável através do parâmetro estético .purple[group], conforme:&lt;/p&gt;
+
+
+```r
+ggplot(
+  data = mpg,
+  mapping = aes(x = displ, y = hwy,
+                color = drv)) + 
+  geom_point() +
+  geom_smooth(
+    mapping = aes(linetype = drv,
+                  group = drv))
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p12b_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Algumas funções como .purple[geom_smooth()] possuem aspectos visuais de preenchimento nos elementos geométricos que geram. Portanto, podemos distinguir os modelos de regressão usando o parâmetro estético .purple[fill] que define o preenchimento do intervalo de confiança, conforme:&lt;/p&gt;
+
+
+```r
+ggplot(
+  data = mpg,
+  mapping = aes(x = displ, y = hwy, 
+                color = drv)) + 
+  geom_point() +
+  geom_smooth(
+    mapping = aes(linetype = drv,
+                  group = drv,
+                  fill = drv))
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p12c_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+&lt;p class="jst"&gt;Vimos alguns parâmetros estéticos: .purple[x], .purple[y], .purple[color], .purple[size], .purple[shape], .purple[alpha], .purple[group] e .purple[fill].  Uma vez definidos parâmetros estéticos, o .purple[ggplot2] automaticamente:&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Seleciona a transformação estatística aplicada aos dados - por padrão é definida como .blue[identity] (1:1) pelo componente gráfico &lt;b&gt;stat&lt;/b&gt;;&lt;/p&gt;
+- &lt;p class="jst"&gt;Seleciona o posicionamento dos elementos geométricos - por padrão é  definida como .blue[identity] pelo componente gráfico &lt;b&gt;position&lt;/b&gt;;&lt;/p&gt;
+- &lt;p class="jst"&gt;Gera a legenda com labels caso tenham sido mapeados valores de variáveis em níveis categóricos;&lt;/p&gt;
+- &lt;p class="jst"&gt;Seleciona a escala apropriada para os eixos x e y - ex: contínua, discreta; &lt;/p&gt;
+- &lt;p class="jst"&gt;Gera labels e marcações nos eixos x e y em conformidade com a escala.&lt;/p&gt;
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos informar manualmente (fixar) alguns aspectos visuais dos elementos geométricos. Basta dispor os parâmetros estéticos fora da função .purple[aes()], conforme:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg, 
+    aes(x = displ, y = hwy), 
+    color = "blue",
+    shape = 23
+  ) +
+  geom_point(
+    data = filter(mpg, class == "2seater"), 
+    aes(x = displ, y = hwy), 
+    color = "red",
+    size = 4 
+  )
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p13_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;&lt;b&gt;Atenção!&lt;/b&gt; Conforme vimos, parâmetros estéticos mapeiam os valores das variáveis em aspectos visuais. Portanto, na seguinte situação:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg, 
+    aes(x = displ, y = hwy,
+        color = "blue")) +
+  geom_point(
+    data = filter(mpg, class == "2seater"), 
+    aes(x = displ, y = hwy,
+        color = "red"),
+    size = 4
+  )
+```
+
+&lt;p class="jst"&gt;As cores atribuídas no parâmetro .purple[color] são assumidas como categorias (labels) para os pontos e não como aspecto visual.&lt;/p&gt;
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p13b_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt; Alguns elementos geométricos possuem parâmetros estéticos próprios, conforme:&lt;/p&gt;
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(
+    mapping = aes(x = displ, y = hwy)
+  ) +
+  geom_vline(
+    mapping = aes(xintercept = displ),
+    color = "darkgreen",
+    linetype = "dashed"
+  ) + 
+  geom_hline(
+    mapping = aes(yintercept = hwy),
+    color = "blue",
+    linetype = "longdash"
+  )
+```
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p9c_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt; Alguns elementos geométricos possuem parâmetros estéticos próprios, conforme:&lt;/p&gt;
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(
+    mapping = aes(x = cty, y = hwy)) +
+  geom_abline(
+    mapping = aes(slope = -displ,
+                  intercept = hwy + cty),
+    color = "orange",
+    linetype = "twodash"
+  )
+```
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p9d_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+.pull-left[
+
+&lt;p class="jst"&gt;  Perceba que os parâmetros estéticos usados anteriormente tem comportamento diferente quando fixados manualmente pois são tratados como parâmetros das próprias funções. Observe:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(
+    data = mpg,
+    mapping = aes(x = displ, y = hwy)) +
+  geom_vline(xintercept = 2.6,
+             color = "green") +
+  geom_hline(yintercept = c(20, 30),
+             color = "green") +
+  geom_abline(slope = -2.3, intercept = 33,
+              color =  "red")
+```
+
+&lt;p class="jst"&gt; No entanto, .purple[xintercept], .purple[yintercept], .purple[slope] e .purple[intercept] também são parâmetros das respectivas funções acima.&lt;/p&gt;
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p9e_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - aesthetics]
+
+&lt;b&gt;Resumo:&lt;/b&gt;
+
+- &lt;p class="jst"&gt;Parâmetros estéticos permitem mapear atributos físicos dos dados em aspectos visuais.&lt;/p&gt;
+- &lt;p class="jst"&gt;Quando os parâmetros estéticos são usados fora de .purple[aes()] são tratados como parâmetros da própria função .purple[geom_] acionada. Assim os aspectos visuais assumem os valores fixos informados.&lt;/p&gt;
+
+&lt;b&gt;Quais são os parâmetros estéticos existentes para cada elemento geométrico?&lt;/b&gt;
+
+- &lt;p class="jst"&gt;Consulte a lista de elementos estéticos na documentação de cada função (ex: ?.purple[geom_line]).&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Consulte materiais online como esse &lt;A href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html"&gt;Vignette&lt;/A&gt;.&lt;/p&gt;
+
+---
+### Exercícios
+
+&lt;p class="jst"&gt;(1) Usando o dataframe &lt;b&gt;mtcars&lt;/b&gt;, construa o seguinte gráfico:&lt;/p&gt;
+
+&lt;img src="06-aula_files/figure-html/unnamed-chunk-12-1.png" width="600px" height="450px" style="display: block; margin: auto;" /&gt;
+
+???
+
+Possível Resposta:
+
+(1) .purple[]
+
+---
+### Exercícios
+
+&lt;p class="jst"&gt;(2) Usando o dataframe &lt;b&gt;mpg&lt;/b&gt;, gere um gráfico para contar os modelos de carro por fabricante, conforme:&lt;/p&gt;
+
+&lt;img src="06-aula_files/figure-html/unnamed-chunk-13-1.png" width="600px" height="450px" style="display: block; margin: auto;" /&gt;
+
+???
+
+Possível Resposta:
+
+(2) .purple[]
+
+---
+### Exercícios
+
+&lt;p class="jst"&gt; (3) Considerando o gráfico do exercício anterior, diferencie os modelos e produza o seguinte gráfico:&lt;/p&gt;
+
+&lt;img src="06-aula_files/figure-html/unnamed-chunk-14-1.png" width="600px" height="450px" style="display: block; margin: auto;" /&gt;
+
+???
+
+Possível Resposta:
+
+(3) .purple[]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - geom]
+
+&lt;p class="jst"&gt;&lt;b&gt;.large[Geom.]&lt;/b&gt; Define uma camada de representação visual dos dados ou simplificadamente um tipo de gráfico. Cada &lt;b&gt;geom&lt;/b&gt; geralmente engloba: um conjunto de dados (&lt;b&gt;data&lt;/b&gt;), atributos estéticos &lt;b&gt;aes&lt;/b&gt;, tranformações estatísticas dos dados (&lt;b&gt;stat&lt;/b&gt;) e posicionamento (&lt;b&gt;position&lt;/b&gt;) dos objetos no plano. Conforme vimos, várias dessas camadas (&lt;b&gt;geom&lt;/b&gt;) podem ser combinadas para formar um gráfico, assim como, existe uma familia de funções do tipo .purple[geom_tipo-de-elemento-geometrico].&lt;/p&gt;
+
+&lt;/br&gt;
+&lt;p class="jst"&gt;Descubra algumas opções digitando .purple[geom_] e presionando &lt;b&gt;TAB&lt;/b&gt;.&lt;/p&gt;
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - geom]
+
+.pull-left[
+
+Combinações variadas podem ser usadas:
+
+
+```r
+ggplot(data = mpg,
+       aes(x = displ, y = hwy)) + 
+    geom_point(aes(color = class)) +
+    geom_smooth() + 
+    geom_rug(color = "brown") +
+    theme(legend.position = c(.87, .83))
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p14_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - geom]
+
+.pull-left[
+
+Combinações variadas podem ser usadas:
+
+
+```r
+ggplot(data = iris,
+       aes(x = Petal.Length,
+           y = Petal.Width)) + 
+  geom_point(aes(color = Species)) + 
+  geom_density2d() +
+  theme(legend.position = "top")
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p14b_out-1.png)&lt;!-- --&gt;
+]
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - geom]
+
+&lt;b&gt;Resumo:&lt;/b&gt;
+
+- &lt;p class="jst"&gt;Geoms permitem varios objetos geométricos e tipos de gráficos.&lt;/p&gt;
+- &lt;p class="jst"&gt;Geoms Permitem certa liberdade criativa, devido à possibilidade de combinar camadas.&lt;/p&gt;
+
+&lt;p class="jst"&gt;&lt;b&gt;Quais formas geométricas e tipos de gráficos existem?&lt;/b&gt; Existe vasto material na internet. Vamos relembrar algumas opções:&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Consulte os exemplos na documentação de cada função do tipo .purple[geom_].&lt;/p&gt;
+- &lt;p class="jst"&gt;O livro &lt;A href="https://r-graphics.org/"&gt;R Graphics Cookbook&lt;/A&gt; apresenta exemplos de construção de gráficos no R - basicamente usando o .purple[&lt;b&gt;ggplot2&lt;/b&gt;] -  de forma simples e prática para consultas rápidas.&lt;/p&gt;
+- &lt;p class="jst"&gt;Veja exemplos em &lt;A href="https://r-graph-gallery.com/"&gt;R Graph Gallery&lt;/A&gt;.&lt;/p&gt;
+- &lt;p class="jst"&gt;O livro &lt;A href="https://ggplot2-book.org/"&gt;ggplot2: Elegant Graphics for Data Analysis&lt;/A&gt; apresenta uma abordagem mais aprofundada do pacote .purple[&lt;b&gt;ggplot2&lt;/b&gt;] e seu uso.&lt;/p&gt;
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - scale]
+
+&lt;p class="jst"&gt;&lt;b&gt;.large[Scale.]&lt;/b&gt; Esse componente gráfico permite o controle sobre aspectos visuais. Diversos atributos estéticos tem uma ou mais escalas correspondentes que formam uma familia de funções do tipo .purple[scale_atributo-estetico]. Cada uma destas funções permite alterar um conjunto de aspectos visuais conforme seu atributo estético.&lt;/p&gt;
+
+&lt;/br&gt;
+
+Descubra algumas opções digitando .purple[scale_] e presionando TAB.
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - scale]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos usar o componente gráfico escala para alterar tipos de pontos:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(data = mpg, 
+             aes(x = displ,
+                 y = hwy,
+                 shape = class) 
+  ) +
+  scale_shape_manual(values = c(8,15,16,17,
+                                18,19,25)) +
+  theme(legend.position = "top")
+```
+
+&lt;/br&gt; 
+Quantos tipos de pontos ou linhas existem? &lt;A href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html"&gt;Consultar&lt;/A&gt; 
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p15_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - scale]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos usar o componente gráfico escala para alterar as cores:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_point(data = mpg, 
+             aes(x = displ,
+                 y = hwy,
+                 color = class) 
+  ) +
+  scale_color_manual(
+    values = c("red","brown","blue",
+               "cyan","green","darkgreen",
+               "darkgoldenrod")
+  ) +
+  theme(legend.position = "top")
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p15b_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - scale]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos especificar (fixar) um elemento categórico e atribuir cores específicas:&lt;/p&gt;
+
+
+```r
+type &lt;- c("Outros" = "blue",
+          "Dois lugares" = "darkgreen")
+two_seater &lt;- filter(mpg, 
+                     class == "2seater")
+ggplot() + 
+  geom_point(data = mpg, 
+    aes(x = displ, y = hwy,
+        color = "Outros")) +
+  geom_point(data = two_seater, 
+    aes(x = displ, y = hwy,
+        color = "Dois lugares"),
+  ) +
+  scale_color_manual(values = type) +
+  theme(legend.position = "top",
+        legend.title = element_blank())
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p15c_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - scale]
+
+&lt;b&gt;Resumo:&lt;/b&gt;
+
+- &lt;p class="jst"&gt;Escalas permitem especificar conjuntos de aspectos visuais personalisados conforme o mapeamento de categórias níveis dos dados.&lt;/p&gt;
+- Geralmente, para cada atributo estético, existe uma escala correspondente.
+
+&lt;b&gt;Quais são as escalas existentes e o que elas modificam?&lt;/b&gt;
+
+- &lt;p class="jst"&gt;Consulte as funções (ex: .purple[scale_ + TAB]) e veja exemplos na documentação de cada função (ex: ?.purple[scale_shape_manual]).&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Consulte materiais online como &lt;A href="http://www.sthda.com/english/wiki/ggplot2-colors-how-to-change-colors-automatically-and-manually"&gt;ggplot2 colors&lt;/A&gt;.&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Faça pequisas em buscadores na internet ou fóruns especializados.&lt;/p&gt;
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - coord]
+
+&lt;p class="jst"&gt;&lt;b&gt;.large[Coord.]&lt;/b&gt; Permite definir posição e aparência dos objetos mapeados no plano gráfico, dentre outras disposições, orientações e perpectivas dos elementos gráficos. Existe uma familia de funções do tipo .purple[coord_tipo-de-operacao] ou .purple[coord_sistema-de-coordenadas].&lt;/p&gt;
+
+&lt;/br&gt;
+
+Descubra algumas opções digitando .purple[coord_] e presionando TAB.
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - coord]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos especificar a orientação dos eixos no gráfico, conforme:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_bar(
+    data=mpg,
+    mapping = aes(x = manufacturer,
+                  fill = class)) +
+  coord_flip()
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/pcoord_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - coord]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos especificar o sistemas de coordenadas do gráfico, conforme:&lt;/p&gt;
+
+
+```r
+ggplot() + 
+  geom_bar(
+    data=mpg,
+    mapping = aes(x = manufacturer,
+                  fill = class)) +
+  coord_polar()
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/coord_polar_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - faceting]
+
+&lt;p class="jst"&gt;&lt;b&gt;.large[Faceting.]&lt;/b&gt; Gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos possuem os mesmos atributos estéticos. O .purple[&lt;b&gt;ggplot2&lt;/b&gt;] possui duas funções para gerar facetamento: .purple[facet_wrap()] e .purple[facet_grid()].&lt;/p&gt;
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - faceting]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos aplicar o facetamento, conforme:&lt;/p&gt;
+
+
+```r
+ggplot(data = iris,
+       aes(x = Petal.Length,
+           y = Petal.Width)) + 
+  geom_point(aes(color = Species)) + 
+  theme(legend.position = "top") +
+  facet_wrap(~Species)
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p16_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - theme]
+
+&lt;p class="jst"&gt;&lt;b&gt;.large[Theme.]&lt;/b&gt;  Define diversos elementos  gerais de um gráfico como: cor do plano de fundo; tamanho e cores das bordas externas; tamanho de texto e tipo de fonte dos eixos, legenda, titulos e demais anotações; posicinamento e orientação de legendas; posicionamento e orientação de labels nos eixos; entre outros.&lt;/p&gt;
+
+- Permite personalizações e refinamento do gráfico.
+- Uma vez descritas as personalizações podem ser aplicadas em gráficos diversos.
+
+&lt;b&gt;Por onde começar?&lt;/b&gt; 
+- Existem temas gráficos prontos. Consulte com .purple[theme_] + &lt;b&gt;TAB&lt;/b&gt;.
+
+&lt;b&gt;Quantos elementos um tema gráfico possui?&lt;/b&gt; 
+- Observe esse &lt;A href="https://isabella-b.com/blog/ggplot2-theme-elements-reference/"&gt;cheat sheet&lt;/A&gt;.
+- Observe esse &lt;A href="https://henrywang.nl/ggplot2-theme-elements-demonstration/"&gt;material online&lt;/A&gt;.
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - theme]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos aplicar um tema, conforme:&lt;/p&gt;
+
+
+```r
+ggplot(data = mpg,
+       aes(x = displ, y = hwy)) + 
+    geom_point(aes(color = class)) +
+    geom_smooth() + 
+    geom_rug(color = "brown") +
+    theme_classic() +
+    theme(legend.position = c(.87, .83))
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p17_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - theme]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos aplicar um tema, conforme:&lt;/p&gt;
+
+
+```r
+ggplot(data = mpg,
+       aes(x = displ, y = hwy)) + 
+    geom_point(aes(color = class)) +
+    geom_smooth() + 
+    geom_rug(color = "brown") +
+    theme_minimal() +
+    theme(legend.position = "top",
+          legend.direction = "horizontal")
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p17b_out-1.png)&lt;!-- --&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - annotations]
+
+&lt;p class="jst"&gt;&lt;b&gt;.large[Annotations]&lt;/b&gt; Permitem definer elementos textuais como títulos dos eixos, gráfico e legendas, assim como, inserções textuais no plano do gráfico e em elementos geómetricos espécificos (pontos, linhas e barras). O ggplo2 possui funções diversas para isso como .purple[labs()], .purple[ylab()], .purple[xlab()], .purple[geom_text()], .purple[geom_label()] e .purple[annotate()].&lt;/p&gt;
+
+&lt;b&gt;Por onde começar?&lt;/b&gt;
+
+- Testando as funções mais simples como .purple[labs()] e .purple[xlab()].
+
+&lt;b&gt;Conteúdo mais aprofundado?&lt;/b&gt;
+- Materiais online como o capitúlo do livro &lt;A href="https://ggplot2-book.org/annotations.html"&gt;Annotations&lt;/A&gt;.
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - ggplot2 - annotations]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Vejamos exemplos de anotações:&lt;/p&gt;
+
+
+```r
+my_title &lt;- paste0("Consumo de Combustível",
+                 " por Tipos de Carros em",
+                 " Rodovias")
+my_colors &lt;- c("red","magenta","blue",
+"cyan","green","darkgreen","darkgoldenrod")
+ggplot(data = mpg,
+       aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class)) +
+  geom_smooth() + 
+  geom_rug(color = "brown") +
+  scale_color_manual(values = my_colors) +
+  theme_minimal() +
+  theme(legend.position = "top",
+        legend.direction = "horizontal") +
+  ylab("Distância Percorrida (milhas)") +
+  xlab("Cilindradas (litros)") +
+  labs(title = my_title)
+```
+
+]
+
+.pull-right[
+![](06-aula_files/figure-html/p18_out-1.png)&lt;!-- --&gt;
+]
 
 ---
 exclude: TRUE

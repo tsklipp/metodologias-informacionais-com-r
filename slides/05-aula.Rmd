@@ -267,7 +267,7 @@ Leia mais sobre na boa descrição em <A href="https://livro.curso-r.com/6-pipe.
 ---
 ### .orange[Manipulação de `r icons::fontawesome("table")` dados - ordenação]
 
- Podem ser usadas duas o mais colunas na ordenação.
+ Podem ser usadas duas ou mais colunas na ordenação.
  
   ```{r}
   mtcars |> 
