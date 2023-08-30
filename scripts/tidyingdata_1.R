@@ -14,16 +14,6 @@ dt <- dt |>
 dt <- dt |>
   dplyr::mutate(sexo = as.factor(sexo), grupo_idade = as.factor(grupo_idade))
 
-# Criando uma ordenação manual para os níveis do tipo 'factor' da coluna grupo_idade
-faixa_etaria <- c("0 a 4 anos", "5 a 9 anos", "5 a 13 anos", "10 a 13 anos", "14 a 15 anos",
-                  "14 a 17 anos", "16 a 17 anos",    "18 a 19 anos",    "20 a 24 anos",
-                  "25 a 29 anos", "30 a 39 anos", "40 a 49 anos", "50 a 59 anos",
-                  "60 a 64 anos", "60 anos ou mais", "65 anos ou mais")
-
-# Aplicando a ordenação manual ao converter novamente a variável para o tipo 'factor', mas informando os níveis
-dt <- dt |>
-  dplyr::mutate(grupo_idade = factor(grupo_idade, levels = faixa_etaria))
-
 # Salvar o novo data frame, agora com dados já no formato tidy, para posterior uso
 readr::write_csv(dt, "dados/popupacao_brasil_pnadc_tidy.csv")
 
