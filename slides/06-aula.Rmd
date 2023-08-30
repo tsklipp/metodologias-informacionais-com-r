@@ -976,10 +976,22 @@ ggplot() +
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - scale]
 
+<b>Quais as cores padrão do .purple[<b>ggplot2</b>]?</b>
+
+```{r, out.height="250px"}
+library(scales)
+show_col(hue_pal()(6))
+```
+
+<p class="jst">Existem muitos pacotes que fornecem paletas de cores como .purple[<b>ggsci</b>]. Veja as possibilidades desse pacote no <A href="https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html">vignette.</A></p>
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - scale]
+
 <b>Resumo:</b>
 
 - <p class="jst">Escalas permitem especificar conjuntos de aspectos visuais personalisados conforme o mapeamento de categórias níveis dos dados.</p>
-- Geralmente, para cada atributo estético, existe uma escala correspondente.
+- <p class="jst">Geralmente, para cada atributo estético, existe uma escala correspondente.</p>
 
 <b>Quais são as escalas existentes e o que elas modificam?</b>
 
@@ -1141,14 +1153,14 @@ ggplot(data = mpg,
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - annotations]
 
-<p class="jst"><b>.large[Annotations]</b> Permitem definer elementos textuais como títulos dos eixos, gráfico e legendas, assim como, inserções textuais no plano do gráfico e em elementos geómetricos espécificos (pontos, linhas e barras). O ggplo2 possui funções diversas para isso como .purple[labs()], .purple[ylab()], .purple[xlab()], .purple[geom_text()], .purple[geom_label()] e .purple[annotate()].</p>
+<p class="jst"><b>.large[Annotations]</b> Permitem definer elementos textuais como títulos dos eixos, gráfico e legendas, assim como, inserções textuais no plano do gráfico e em elementos geométricos específicos (pontos, linhas e barras). O ggplo2 possui funções diversas para isso como .purple[labs()], .purple[ylab()], .purple[xlab()], .purple[geom_text()], .purple[geom_label()] e .purple[annotate()].</p>
 
 <b>Por onde começar?</b>
 
 - Testando as funções mais simples como .purple[labs()] e .purple[xlab()].
 
 <b>Conteúdo mais aprofundado?</b>
-- Materiais online como o capitúlo do livro <A href="https://ggplot2-book.org/annotations.html">Annotations</A>.
+- Materiais online como o capítulo <A href="https://ggplot2-book.org/annotations.html">Annotations</A> do livro ggplot2: Elegant Graphics for Data Analysis.
 
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - annotations]
@@ -1159,8 +1171,8 @@ ggplot(data = mpg,
 
 ```{r p18, message=FALSE, eval=FALSE}
 my_title <- paste0("Consumo de Combustível",
-                 " por Tipos de Carros em",
-                 " Rodovias")
+                 " em Rodovias por Tipos",
+                 " de Carros")
 my_colors <- c("red","magenta","blue",
 "cyan","green","darkgreen","darkgoldenrod")
 ggplot(data = mpg,
@@ -1183,6 +1195,32 @@ ggplot(data = mpg,
 ```{r p18_out, ref.label="p18", echo=FALSE, warning=FALSE, message=FALSE}
 ```
 ]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - gráficos interativos]
+
+<b>Como criar um gráfico interativo?</b>
+
+<p class="jst">Um modo fácil e prático para obter um gráfico interativo é converter um gráfico gerado a partir do pacote .purple[<b>ggplot2</b>] usando a função de converção .purple[ggplotly()] fornecida pelo pacote .purple[<b>plotly</b>]. Primeiro, precisamos desse pacote instalado e carregado:</p>
+  ```{r, message=FALSE}
+  # install.packages("plotly")
+  library(plotly)
+  ```
+Também criaremos um gráfico com .purple[ggplot()] e faremos a conversão com .purple[ggplotly()]:
+  ```{r, p19, message=FALSE, eval=FALSE}
+  my_plot <- ggplot(data = mpg, aes(x = displ, y = hwy)) + geom_point(aes(color = class)) + 
+    geom_smooth() + geom_rug(color = "brown") + scale_color_manual(values = my_colors) +
+    theme_minimal() + theme(legend.position = "top", legend.direction = "horizontal") +
+    ylab("Distância Percorrida (milhas)") + xlab("Cilindradas (litros)") +
+    labs(title = my_title)
+  ggplotly(my_plot)
+  ```
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - gráficos interativos]
+
+```{r p19_out, ref.label="p19", out.width="1000px", echo=FALSE, warning=FALSE, message=FALSE}
+```
 
 ---
 exclude: TRUE
