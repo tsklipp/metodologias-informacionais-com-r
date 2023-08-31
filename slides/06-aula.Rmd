@@ -121,7 +121,7 @@ background-size: contain
 2. <p class="jst">Escalas  (<i><b>scales</b></i>) - permite controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos <i>labels</i> nos eixos e legenda, entre outros.</p>
 3. Sistema de coordenadas (<i><b>coord</b></i>) - permite definir posição/aparência dos objetos mapeados no plano.
 
-4. <p class="jst">Facetamento/tabulamento (<i><b>faceting</b></i>) - gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos possuem os mesmos atributos estéticos.</p>
+4. <p class="jst">Facetamento/tabulamento (<i><b>faceting</b></i>) - gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos compartilham os mesmos atributos estéticos.</p>
 
 5. Tema (<i><b>theme</b></i>) - Define elementos gerais como cor do plano de fundo, tamanho de texto e tipo de fonte.
 
@@ -129,10 +129,11 @@ background-size: contain
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2]
 
 .pull-left[
-<p class="jst">Um gráfico do .purple[<b>ggplot2</b>] pode ter um ou mais conjunto de dados e camadas . Além disso:</p>
+<p class="jst">Um gráfico do .purple[<b>ggplot2</b>] pode ter um ou mais conjunto de dados e multiplas camadas, assim:</p>
 
+- Podem ser geradas combinações de camadas, e
 - Elementos gráficos podem ser alterados individualmente;
-- Podem ser geradas combinações de camadas.
+
 
 <p class="jst">Essa flexibilidade permite personalizações e até criação de novos conceitos gráficos. Vejamos um exemplo básico de gráfico:</p>
 
@@ -170,7 +171,8 @@ Ou:
 
 ```{r, eval=FALSE}
 ggplot() +
-  geom_point(mtcars, aes(x = wt, y = mpg))
+  geom_point(data = mtcars, 
+             aes(x = wt, y = mpg))
 ```
 
 O correspondente no pacote .purple[<b>base</b>] é:
@@ -374,7 +376,7 @@ boxplot(cats$Sex, cats$Bwt)
 ```
 
 </br>
-<p class="jst"><b>Como interpretar um diagrama de caixas?</b> O seguinte <A href="https://statplace.com.br/blog/como-interpretar-um-boxplot/">video</A> pode ajudar bastante.</p>
+<p class="jst"><b>Como interpretar um diagrama de caixas?</b> O seguinte <A href="https://statplace.com.br/blog/como-interpretar-um-boxplot/">video</A> pode ajudar.</p>
 ]
 
 .pull-right[
@@ -412,7 +414,7 @@ Possíveis Respostas:
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - aesthetics]
 
-<p class="jst"><b>.large[Aesthetics.]</b> Representa o mapeamento das propriedades físicas dos dados (tipicamente valores numéricos ou categóricos)  em aspectos visuais  - estéticos - do gráfico (forma, posição, cor e tamanho de elementos geométricos como pontos, linha e barras). Seguiremos por exemplos de <b>aesthetics</b> usando o dataframe <b>mpg</b> que contém dados de consumo de combustível de diferentes modelos/classes de carro.</p>
+<p class="jst"><b>.large[Aesthetics.]</b> Representa o mapeamento das propriedades físicas dos dados (tipicamente valores numéricos ou categóricos)  em aspectos visuais  - estéticos - do gráfico (ex: forma, cor e tamanho de elementos geométricos como pontos, linha e barras). Seguiremos por exemplos de <b>aesthetics</b> usando o dataframe <b>mpg</b> que contém dados de consumo de combustível de diferentes modelos/classes de carro.</p>
 
   ```{r}
   glimpse(mpg)
@@ -476,8 +478,8 @@ ggplot() +
   )
 ```
 
-</br></br></br></br></br></br></br>
-<b>Não parece ser uma escolha muito sensata.</b>
+</br></br></br></br></br>
+<p class="jst">Perceba que usar .purple[size] para representar variáveis discretas não é uma escolha sensata.</p>
 ]
 
 .pull-right[
@@ -503,8 +505,8 @@ ggplot() +
 ```
 
 
-</br></br></br>
-<p class="jst"><b>Existe um limite de 6 tipos de pontos que podem ser representados com <i>shape</i>. Quantidades maiores ainda podem ser indicadas, desde que manualmente.</b></p>
+</br></br>
+<p class="jst">Perceba que a classe <b>suv</b> ficou sem ponto. Há um limite de 6 tipos de pontos para representação automatica com <i>shape</i>. Quantidades maiores ainda podem ser indicadas, desde que manualmente.</p>
 
 ]
 
@@ -542,7 +544,7 @@ ggplot() +
 
 .pull-left[
 
-<p class="jst">Podemos sobrepor um modelo de regressão polinominal para cada divisão categórica de uma variável através do parâmetro estético .purple[group], conforme:</p>
+<p class="jst">Podemos sobrepor um modelo de regressão polinomial para cada divisão categórica de uma variável através do parâmetro estético .purple[group], conforme:</p>
 
 ```{r p12b, message=FALSE, eval=FALSE}
 ggplot(
@@ -591,7 +593,7 @@ ggplot(
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - aesthetics]
 
-<p class="jst">Vimos alguns parâmetros estéticos: .purple[x], .purple[y], .purple[color], .purple[size], .purple[shape], .purple[alpha], .purple[group] e .purple[fill].  Uma vez definidos parâmetros estéticos, o .purple[ggplot2] automaticamente:</p>
+<p class="jst">Vimos alguns parâmetros estéticos: .purple[x], .purple[y], .purple[color], .purple[size], .purple[shape], .purple[alpha], .purple[group] e .purple[fill].  Uma vez definidos os parâmetros estéticos e gerado o gráfico, o .purple[ggplot2] automaticamente:</p>
 
 - <p class="jst">Seleciona a transformação estatística aplicada aos dados - por padrão é definida como .blue[identity] (1:1) pelo componente gráfico <b>stat</b>;</p>
 - <p class="jst">Seleciona o posicionamento dos elementos geométricos - por padrão é  definida como .blue[identity] pelo componente gráfico <b>position</b>;</p>
@@ -610,16 +612,14 @@ ggplot(
 ggplot() + 
   geom_point(
     data = mpg, 
-    aes(x = displ, y = hwy), 
+    mapping = aes(x = displ, y = hwy), 
     color = "blue",
-    shape = 23
-  ) +
+    shape = 23) +
   geom_point(
     data = filter(mpg, class == "2seater"), 
-    aes(x = displ, y = hwy), 
+    mapping = aes(x = displ, y = hwy), 
     color = "red",
-    size = 4 
-  )
+    size = 4 )
 ```
 
 ]
@@ -640,14 +640,13 @@ ggplot() +
 ggplot() + 
   geom_point(
     data = mpg, 
-    aes(x = displ, y = hwy,
-        color = "blue")) +
+    mapping = aes(x = displ, y = hwy,
+                  color = "blue")) +
   geom_point(
     data = filter(mpg, class == "2seater"), 
-    aes(x = displ, y = hwy,
-        color = "red"),
-    size = 4
-  )
+    mapping = aes(x = displ, y = hwy,
+                  color = "red"), 
+    size = 4)
 ```
 
 <p class="jst">As cores atribuídas no parâmetro .purple[color] são assumidas como categorias (labels) para os pontos e não como aspecto visual.</p>
@@ -718,7 +717,7 @@ ggplot(data = mpg) +
 
 .pull-left[
 
-<p class="jst">  Perceba que os parâmetros estéticos usados anteriormente tem comportamento diferente quando fixados manualmente pois são tratados como parâmetros das próprias funções. Observe:</p>
+<p class="jst">  Perceba que os parâmetros estéticos usados anteriormente tem comportamento diferente quando fixados manualmente fora de .purple[aes()], pois são tratados como parâmetros das próprias funções. Observe:</p>
 
 ```{r p9e, message=FALSE, eval=FALSE}
 ggplot() + 
@@ -733,7 +732,7 @@ ggplot() +
               color =  "red")
 ```
 
-<p class="jst"> No entanto, .purple[xintercept], .purple[yintercept], .purple[slope] e .purple[intercept] também são parâmetros das respectivas funções acima.</p>
+<p class="jst"> Porém, .purple[xintercept], .purple[yintercept], .purple[slope] e .purple[intercept] também são parâmetros das funções acima.</p>
 
 ]
 
@@ -748,7 +747,7 @@ ggplot() +
 <b>Resumo:</b>
 
 - <p class="jst">Parâmetros estéticos permitem mapear atributos físicos dos dados em aspectos visuais.</p>
-- <p class="jst">Quando os parâmetros estéticos são usados fora de .purple[aes()] são tratados como parâmetros da própria função .purple[geom_] acionada. Assim os aspectos visuais assumem os valores fixos informados.</p>
+- <p class="jst">Quando os parâmetros estéticos são usados fora de .purple[aes()] são tratados como parâmetros da própria função .purple[geom_] acionada. Assim, os aspectos visuais assumem os valores fixos informados.</p>
 
 <b>Quais são os parâmetros estéticos existentes para cada elemento geométrico?</b>
 
@@ -762,14 +761,14 @@ ggplot() +
 <p class="jst">(1) Usando o dataframe <b>mtcars</b>, construa o seguinte gráfico:</p>
 
 ```{r echo=FALSE, fig.align='center', out.height='450px', out.width='600px'}
-ggplot() + geom_point(mtcars, mapping = aes(x = disp, y = mpg, color = factor(cyl)))
+ggplot() + geom_point(data = mtcars, aes(x = disp, y = mpg, color = factor(cyl)))
 ```
 
 ???
 
 Possível Resposta:
 
-(1) .purple[]
+(1) .purple[ggplot() + geom_point(data = mtcars, aes(x = disp, y = mpg, color = factor(cyl)))]
 
 ---
 ### Exercícios
@@ -777,14 +776,14 @@ Possível Resposta:
 <p class="jst">(2) Usando o dataframe <b>mpg</b>, gere um gráfico para contar os modelos de carro por fabricante, conforme:</p>
 
 ```{r, echo=FALSE, fig.align='center',  out.height='450px', out.width='600px'}
-ggplot() + geom_bar(mpg, mapping = aes(x = manufacturer))
+ggplot() + geom_bar(data = mpg, aes(x = manufacturer))
 ```
 
 ???
 
 Possível Resposta:
 
-(2) .purple[]
+(2) .purple[ggplot() + geom_bar(data = mpg, aes(x = manufacturer))]
 
 ---
 ### Exercícios
@@ -792,19 +791,19 @@ Possível Resposta:
 <p class="jst"> (3) Considerando o gráfico do exercício anterior, diferencie os modelos e produza o seguinte gráfico:</p>
 
 ```{r, echo=FALSE, fig.align='center',  out.height='450px', out.width='600px'}
-ggplot() + geom_bar(mpg, mapping = aes(y = manufacturer, fill = class))
+ggplot() + geom_bar(data = mpg, aes(y = manufacturer, fill = class))
 ```
 
 ???
 
 Possível Resposta:
 
-(3) .purple[]
+(3) .purple[ggplot() + geom_bar(data = mpg, aes(y = manufacturer, fill = class))]
 
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - geom]
 
-<p class="jst"><b>.large[Geom.]</b> Define uma camada de representação visual dos dados ou simplificadamente um tipo de gráfico. Cada <b>geom</b> geralmente engloba: um conjunto de dados (<b>data</b>), atributos estéticos <b>aes</b>, tranformações estatísticas dos dados (<b>stat</b>) e posicionamento (<b>position</b>) dos objetos no plano. Conforme vimos, várias dessas camadas (<b>geom</b>) podem ser combinadas para formar um gráfico, assim como, existe uma familia de funções do tipo .purple[geom_tipo-de-elemento-geometrico].</p>
+<p class="jst"><b>.large[Geom.]</b> Define uma camada de representação visual dos dados ou simplificadamente um tipo de gráfico. Cada <b>geom</b> geralmente engloba: um conjunto de dados (<b>data</b>), atributos estéticos (<b>aes</b>), tranformações estatísticas dos dados (<b>stat</b>) e posicionamento (<b>position</b>) dos objetos no plano. Conforme vimos, várias dessas camadas (<b>geoms</b>) podem ser combinadas para formar um gráfico, assim como, existe uma família de funções do tipo .purple[geom_tipo-de-elemento-geometrico].</p>
 
 </br>
 <p class="jst">Descubra algumas opções digitando .purple[geom_] e presionando <b>TAB</b>.</p>
@@ -818,12 +817,13 @@ Possível Resposta:
 Combinações variadas podem ser usadas:
 
 ```{r p14, message=FALSE, eval=FALSE}
-ggplot(data = mpg,
-       aes(x = displ, y = hwy)) + 
-    geom_point(aes(color = class)) +
-    geom_smooth() + 
-    geom_rug(color = "brown") +
-    theme(legend.position = c(.87, .83))
+ggplot(
+  data = mpg,
+  mapping = aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class)) +
+  geom_smooth() + 
+  geom_rug(color = "brown") +
+  theme(legend.position = c(.87, .83))
 ```
 
 ]
@@ -841,10 +841,12 @@ ggplot(data = mpg,
 Combinações variadas podem ser usadas:
 
 ```{r p14b, message=FALSE, eval=FALSE}
-ggplot(data = iris,
-       aes(x = Petal.Length,
-           y = Petal.Width)) + 
-  geom_point(aes(color = Species)) + 
+ggplot(
+  data = iris,
+  mapping = aes(x = Petal.Length,
+                y = Petal.Width)) + 
+  geom_point(
+    mapping = aes(color = Species)) + 
   geom_density2d() +
   theme(legend.position = "top")
 ```
@@ -862,10 +864,10 @@ ggplot(data = iris,
 
 <b>Resumo:</b>
 
-- <p class="jst">Geoms permitem varios objetos geométricos e tipos de gráficos.</p>
-- <p class="jst">Geoms Permitem certa liberdade criativa, devido à possibilidade de combinar camadas.</p>
+- <p class="jst">Geoms permitem vários elementos geométricos e tipos de gráficos.</p>
+- <p class="jst">Também permitem certa liberdade criativa devido à possibilidade de combinar camadas.</p>
 
-<p class="jst"><b>Quais formas geométricas e tipos de gráficos existem?</b> Existe vasto material na internet. Vamos relembrar algumas opções:</p>
+<p class="jst"><b>Quais formas geométricas e tipos de gráficos existem?</b> Há vasto material na internet. Vamos relembrar algumas opções:</p>
 
 - <p class="jst">Consulte os exemplos na documentação de cada função do tipo .purple[geom_].</p>
 - <p class="jst">O livro <A href="https://r-graphics.org/">R Graphics Cookbook</A> apresenta exemplos de construção de gráficos no R - basicamente usando o .purple[<b>ggplot2</b>] -  de forma simples e prática para consultas rápidas.</p>
@@ -876,11 +878,11 @@ ggplot(data = iris,
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - scale]
 
-<p class="jst"><b>.large[Scale.]</b> Esse componente gráfico permite o controle sobre aspectos visuais. Diversos atributos estéticos tem uma ou mais escalas correspondentes que formam uma familia de funções do tipo .purple[scale_atributo-estetico]. Cada uma destas funções permite alterar um conjunto de aspectos visuais conforme seu atributo estético.</p>
+<p class="jst"><b>.large[Scale.]</b> Esse componente gráfico permite o controle sobre aspectos visuais. Diversos atributos estéticos tem uma ou mais escalas correspondentes que formam uma família de funções do tipo .purple[scale_atributo-estetico]. Cada uma dessas funções permite alterar aspectos visuais conforme seu atributo estético.</p>
 
 </br>
 
-Descubra algumas opções digitando .purple[scale_] e presionando TAB.
+Descubra algumas opções digitando .purple[scale_] e presionando <b>TAB</b>.
 
 
 ---
@@ -892,18 +894,17 @@ Descubra algumas opções digitando .purple[scale_] e presionando TAB.
 
 ```{r p15, message=FALSE, eval=FALSE}
 ggplot() + 
-  geom_point(data = mpg, 
-             aes(x = displ,
-                 y = hwy,
-                 shape = class) 
-  ) +
+  geom_point(
+    data = mpg, 
+    mapping = aes(x = displ, y = hwy,
+                  shape = class)) +
   scale_shape_manual(values = c(8,15,16,17,
                                 18,19,25)) +
   theme(legend.position = "top")
 ```
 
 </br> 
-Quantos tipos de pontos ou linhas existem? <A href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">Consultar</A> 
+<p class="jst"><b>Quantos tipos de pontos ou linhas existem?</b> Consulte no <A href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html"> material online</A>.</p>
 
 ]
 
@@ -921,16 +922,14 @@ Quantos tipos de pontos ou linhas existem? <A href="https://ggplot2.tidyverse.or
 
 ```{r p15b, message=FALSE, eval=FALSE}
 ggplot() + 
-  geom_point(data = mpg, 
-             aes(x = displ,
-                 y = hwy,
-                 color = class) 
-  ) +
+  geom_point(
+    data = mpg, 
+    mapping = aes(x = displ, y = hwy,
+                  color = class)) +
   scale_color_manual(
-    values = c("red","brown","blue",
-               "cyan","green","darkgreen",
-               "darkgoldenrod")
-  ) +
+    values = c("red","brown","blue","cyan",
+               "green","darkgreen",
+               "darkgoldenrod")) +
   theme(legend.position = "top")
 ```
 
@@ -950,17 +949,17 @@ ggplot() +
 
 ```{r p15c, message=FALSE, eval=FALSE}
 type <- c("Outros" = "blue",
-          "Dois lugares" = "darkgreen")
+          "Dois lugares" = "red")
 two_seater <- filter(mpg, 
                      class == "2seater")
 ggplot() + 
-  geom_point(data = mpg, 
-    aes(x = displ, y = hwy,
-        color = "Outros")) +
+  geom_point(
+    data = mpg, 
+    mapping = aes(x = displ, y = hwy,
+                  color = "Outros")) +
   geom_point(data = two_seater, 
-    aes(x = displ, y = hwy,
-        color = "Dois lugares"),
-  ) +
+    mapping = aes(x = displ, y = hwy,
+                  color = "Dois lugares")) +
   scale_color_manual(values = type) +
   theme(legend.position = "top",
         legend.title = element_blank())
@@ -977,11 +976,10 @@ ggplot() +
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - scale]
 
 <b>Quais as cores padrão do .purple[<b>ggplot2</b>]?</b>
-
-```{r, out.height="250px"}
-library(scales)
-show_col(hue_pal()(6))
-```
+  ```{r, out.height="250px"}
+    library(scales)
+    show_col(hue_pal()(6))
+  ```
 
 <p class="jst">Existem muitos pacotes que fornecem paletas de cores como .purple[<b>ggsci</b>]. Veja as possibilidades desse pacote no <A href="https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html">vignette.</A></p>
 
@@ -990,12 +988,12 @@ show_col(hue_pal()(6))
 
 <b>Resumo:</b>
 
-- <p class="jst">Escalas permitem especificar conjuntos de aspectos visuais personalisados conforme o mapeamento de categórias níveis dos dados.</p>
+- <p class="jst">Escalas permitem especificar/alterar os aspectos visuais do gráfico referentes aos dados mapeados.</p>
 - <p class="jst">Geralmente, para cada atributo estético, existe uma escala correspondente.</p>
 
 <b>Quais são as escalas existentes e o que elas modificam?</b>
 
-- <p class="jst">Consulte as funções (ex: .purple[scale_ + TAB]) e veja exemplos na documentação de cada função (ex: ?.purple[scale_shape_manual]).</p>
+- <p class="jst">Consulte as funções (ex: .purple[scale_] + <b>TAB</b>) e veja exemplos na documentação de cada função (ex: ?.purple[scale_shape_manual]).</p>
 
 - <p class="jst">Consulte materiais online como <A href="http://www.sthda.com/english/wiki/ggplot2-colors-how-to-change-colors-automatically-and-manually">ggplot2 colors</A>.</p>
 
@@ -1004,7 +1002,7 @@ show_col(hue_pal()(6))
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - coord]
 
-<p class="jst"><b>.large[Coord.]</b> Permite definir posição e aparência dos objetos mapeados no plano gráfico, dentre outras disposições, orientações e perpectivas dos elementos gráficos. Existe uma familia de funções do tipo .purple[coord_tipo-de-operacao] ou .purple[coord_sistema-de-coordenadas].</p>
+<p class="jst"><b>.large[Coord.]</b> Permite definir posição e aparência dos objetos mapeados no plano gráfico, dentre outras disposições, orientações e perpectivas dos elementos gráficos. Existe uma família de funções do tipo .purple[coord_tipo-de-operacao] ou .purple[coord_sistema-de-coordenadas].</p>
 
 </br>
 
@@ -1021,7 +1019,7 @@ Descubra algumas opções digitando .purple[coord_] e presionando TAB.
 ```{r pcoord, message=FALSE, eval=FALSE}
 ggplot() + 
   geom_bar(
-    data=mpg,
+    data = mpg,
     mapping = aes(x = manufacturer,
                   fill = class)) +
   coord_flip()
@@ -1039,12 +1037,12 @@ ggplot() +
 
 .pull-left[
 
-<p class="jst">Podemos especificar o sistemas de coordenadas do gráfico, conforme:</p>
+<p class="jst">Podemos especificar o sistema de coordenadas do gráfico, conforme:</p>
 
 ```{r coord_polar, message=FALSE, eval=FALSE}
 ggplot() + 
   geom_bar(
-    data=mpg,
+    data = mpg,
     mapping = aes(x = manufacturer,
                   fill = class)) +
   coord_polar()
@@ -1060,7 +1058,7 @@ ggplot() +
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - faceting]
 
-<p class="jst"><b>.large[Faceting.]</b> Gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos possuem os mesmos atributos estéticos. O .purple[<b>ggplot2</b>] possui duas funções para gerar facetamento: .purple[facet_wrap()] e .purple[facet_grid()].</p>
+<p class="jst"><b>.large[Faceting.]</b> Gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos compartilham os mesmos atributos estéticos. O .purple[<b>ggplot2</b>] possui duas funções para gerar facetamento: .purple[facet_wrap()] e .purple[facet_grid()].</p>
 
 
 ---
@@ -1072,8 +1070,8 @@ ggplot() +
 
 ```{r p16, message=FALSE, eval=FALSE}
 ggplot(data = iris,
-       aes(x = Petal.Length,
-           y = Petal.Width)) + 
+       mapping = aes(x = Petal.Length,
+                     y = Petal.Width)) + 
   geom_point(aes(color = Species)) + 
   theme(legend.position = "top") +
   facet_wrap(~Species)
@@ -1087,12 +1085,35 @@ ggplot(data = iris,
 ]
 
 ---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - faceting]
+
+.pull-left[
+
+<p class="jst">Podemos aplicar o facetamento, conforme:</p>
+
+```{r p16b, message=FALSE, eval=FALSE}
+ggplot(data = mpg, 
+       mapping = aes(x = displ,
+                     y = cty)) + 
+  geom_point(aes(color = manufacturer)) + 
+  theme(legend.position = "top") +
+  facet_grid(drv~class)
+```
+
+]
+
+.pull-right[
+```{r p16b_out, ref.label="p16b", echo=FALSE, warning=FALSE, message=FALSE}
+```
+]
+
+---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - theme]
 
-<p class="jst"><b>.large[Theme.]</b>  Define diversos elementos  gerais de um gráfico como: cor do plano de fundo; tamanho e cores das bordas externas; tamanho de texto e tipo de fonte dos eixos, legenda, titulos e demais anotações; posicinamento e orientação de legendas; posicionamento e orientação de labels nos eixos; entre outros.</p>
+<p class="jst"><b>.large[Theme.]</b> Define diversos elementos  gerais de um gráfico como: cor do plano de fundo; tamanho e cores das bordas externas; tamanho do texto e tipo de fonte dos eixos, legenda, títulos e demais anotações; posicionamento e orientação de legendas; posicionamento e orientação de labels nos eixos; entre outros.</p>
 
 - Permite personalizações e refinamento do gráfico.
-- Uma vez descritas as personalizações podem ser aplicadas em gráficos diversos.
+- Uma vez descritas, as personalizações podem ser aplicadas em gráficos diversos.
 
 <b>Por onde começar?</b> 
 - Existem temas gráficos prontos. Consulte com .purple[theme_] + <b>TAB</b>.
@@ -1110,7 +1131,7 @@ ggplot(data = iris,
 
 ```{r p17, message=FALSE, eval=FALSE}
 ggplot(data = mpg,
-       aes(x = displ, y = hwy)) + 
+       mapping = aes(x = displ, y = hwy)) + 
     geom_point(aes(color = class)) +
     geom_smooth() + 
     geom_rug(color = "brown") +
@@ -1134,7 +1155,7 @@ ggplot(data = mpg,
 
 ```{r p17b, message=FALSE, eval=FALSE}
 ggplot(data = mpg,
-       aes(x = displ, y = hwy)) + 
+       mapping = aes(x = displ, y = hwy)) + 
     geom_point(aes(color = class)) +
     geom_smooth() + 
     geom_rug(color = "brown") +
@@ -1153,11 +1174,11 @@ ggplot(data = mpg,
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - ggplot2 - annotations]
 
-<p class="jst"><b>.large[Annotations]</b> Permitem definer elementos textuais como títulos dos eixos, gráfico e legendas, assim como, inserções textuais no plano do gráfico e em elementos geométricos específicos (pontos, linhas e barras). O ggplo2 possui funções diversas para isso como .purple[labs()], .purple[ylab()], .purple[xlab()], .purple[geom_text()], .purple[geom_label()] e .purple[annotate()].</p>
+<p class="jst"><b>.large[Annotations.]</b> Permitem definir elementos textuais como títulos do gráfico, eixos e legendas, assim como, inserções textuais no plano gráfico ou em elementos geométricos específicos (pontos, linhas e barras). O .purple[<b>ggplot2</b>] possui algumas funções para isso como .purple[labs()], .purple[ylab()], .purple[xlab()], .purple[geom_text()], .purple[geom_label()] e .purple[annotate()].</p>
 
 <b>Por onde começar?</b>
 
-- Testando as funções mais simples como .purple[labs()] e .purple[xlab()].
+- Testando funções mais simples como .purple[labs()], .purple[xlab()] e .purple[ylab()].
 
 <b>Conteúdo mais aprofundado?</b>
 - Materiais online como o capítulo <A href="https://ggplot2-book.org/annotations.html">Annotations</A> do livro ggplot2: Elegant Graphics for Data Analysis.
@@ -1176,7 +1197,7 @@ my_title <- paste0("Consumo de Combustível",
 my_colors <- c("red","magenta","blue",
 "cyan","green","darkgreen","darkgoldenrod")
 ggplot(data = mpg,
-       aes(x = displ, y = hwy)) + 
+       mapping = aes(x = displ, y = hwy)) + 
   geom_point(aes(color = class)) +
   geom_smooth() + 
   geom_rug(color = "brown") +
@@ -1201,18 +1222,19 @@ ggplot(data = mpg,
 
 <b>Como criar um gráfico interativo?</b>
 
-<p class="jst">Um modo fácil e prático para obter um gráfico interativo é converter um gráfico gerado a partir do pacote .purple[<b>ggplot2</b>] usando a função de converção .purple[ggplotly()] fornecida pelo pacote .purple[<b>plotly</b>]. Primeiro, precisamos desse pacote instalado e carregado:</p>
+<p class="jst">Um modo fácil e prático para obter um gráfico interativo é converter um gráfico gerado a partir do pacote .purple[<b>ggplot2</b>] usando a função de conversão .purple[ggplotly()] do pacote .purple[<b>plotly</b>]. Primeiro, precisamos desse pacote instalado e carregado:</p>
   ```{r, message=FALSE}
   # install.packages("plotly")
   library(plotly)
   ```
 Também criaremos um gráfico com .purple[ggplot()] e faremos a conversão com .purple[ggplotly()]:
   ```{r, p19, message=FALSE, eval=FALSE}
-  my_plot <- ggplot(data = mpg, aes(x = displ, y = hwy)) + geom_point(aes(color = class)) + 
-    geom_smooth() + geom_rug(color = "brown") + scale_color_manual(values = my_colors) +
-    theme_minimal() + theme(legend.position = "top", legend.direction = "horizontal") +
-    ylab("Distância Percorrida (milhas)") + xlab("Cilindradas (litros)") +
-    labs(title = my_title)
+  my_plot <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+             geom_point(aes(color = class)) + geom_smooth() + geom_rug(color = "brown") +
+             scale_color_manual(values = my_colors) + theme_minimal() +
+             theme(legend.position = "top", legend.direction = "horizontal") +
+             ylab("Distância Percorrida (milhas)") + xlab("Cilindradas (litros)") +
+             labs(title = my_title)
   ggplotly(my_plot)
   ```
 
