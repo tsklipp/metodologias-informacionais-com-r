@@ -1218,7 +1218,17 @@ ggplot(data = mpg,
 ]
 
 ---
-### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - gráficos interativos]
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - plotly]
+
+<p class="jst">O pacote <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A> permite a criação de gráficos interativos diversos. Essa bibliteca é fornecida pela empresa Plotly (sede em Quebec, Canadá) que produz serviços para análise e visualização de dados online. Também são fornecidas bibliotecas para outras linguagens de programação como MATLAB, python, entre outras. O pacote  .purple[<b>plotly</b>] tem como principais características:</p>
+
+- Tem licença aberta, ou seja, pode ser usada livremente.
+- Renderiza os gráficos através da biblioteca <i>JavaScript</i> .purple[plotly.js].
+- Baseado na fisosofia <i>"Grammar of Graphics"</i>.
+- Permite converter gráficos estáticos gerados pelo .purple[<b>ggplot2</b>] em interativos.
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - plotly - ggplotly]
 
 <b>Como criar um gráfico interativo?</b>
 
@@ -1239,10 +1249,53 @@ Também criaremos um gráfico com .purple[ggplot()] e faremos a conversão com .
   ```
 
 ---
-### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - gráficos interativos]
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - plotly - ggplotly]
 
 ```{r p19_out, ref.label="p19", out.width="1000px", echo=FALSE, warning=FALSE, message=FALSE}
 ```
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - plotly]
+
+.pull-left[
+
+<p class="jst">Vejamos um exemplo básico de gráfico:</p>
+
+```{r p20, message=FALSE, eval=FALSE}
+mtcars <- as_tibble(mtcars,
+                    rownames = 'model')
+plot_ly(
+  data = mtcars,
+  x = ~disp,
+  y = ~mpg,
+  color = ~factor(cyl),
+  text = ~model,
+  type = "scatter",
+  mode = "markers"
+) |>
+layout(
+  xaxis = list(
+    title = "Cilindradas (litros)"),
+  yaxis = list(
+    title = "Distância Percorrida (milhas)")
+) 
+```
+
+]
+
+.pull-right[
+```{r p20_out, ref.label="p20", echo=FALSE, warning=FALSE, message=FALSE}
+```
+]
+
+---
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - plotly]
+
+Mais informações:
+
+- No próprio <A href="https://plotly.com/r/">.purple[site]</b></A> do pacote.
+
+- Materiais online <A href="https://site.statplace.com.br/blog/como-usar-o-pacote-plotly-no-r/">.purple[online]</b></A>. 
 
 ---
 exclude: TRUE
