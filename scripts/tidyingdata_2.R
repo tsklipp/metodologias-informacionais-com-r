@@ -23,10 +23,6 @@ dt <- dt |>
         tidyr::pivot_longer(cols = `1º trimestre 2012`:`1º trimestre 2023`,
                             names_to = "trimestre", values_to = "taxa_desocupacao")
 
-# Converter a classe da coluna trimestre de 'character' para 'factor' com dplyr::mutate() e as.factor()
-dt <- dt |>
-  dplyr::mutate(trimestre = as.factor(trimestre))
-
 # Converter a classe da coluna taxa_desocupacao de 'character' para 'numeric' com dplyr::mutate() e as.numeric(),
 # porém, é necessário substituir nos valores o caractere vírgula por ponto para que a conversão seja possível
 # usando stringr::str_replace()
