@@ -1295,7 +1295,7 @@ Mais informações:
 
 - No próprio <A href="https://plotly.com/r/">.purple[site]</b></A> do pacote.
 
-- Materiais online <A href="https://site.statplace.com.br/blog/como-usar-o-pacote-plotly-no-r/">.purple[online]</b></A>. 
+- Materiais <A href="https://site.statplace.com.br/blog/como-usar-o-pacote-plotly-no-r/">.purple[online]</b></A>. 
 
 ---
 exclude: TRUE

@@ -1,0 +1,133 @@
+---
+class: inverse 
+title: "<b>Metodologias Informacionais com R</b>"
+subtitle: "<br/>Modulo IV: PNAD Contínua do IBGE"
+author: "<br/><b>Telmo dos Santos Klipp</b> (telmo.klipp@inpe.br)<br/>"
+output:
+  xaringan::moon_reader:
+    css: [default, ninjutsu, ki-fonts, my-theme.css]
+    yolo: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideClass: ["left", "top"]
+      slideNumberFormat: "%current%"
+      ratio: '16:9' # 
+---
+layout: true
+
+background-image: url(figures/template_middlepage_2.png)
+background-size: cover
+
+```{r libririesandcustoms, include=FALSE, warning=FALSE}
+  library(xaringanthemer)
+  library(icons)
+  colors = c(
+    red = "#f34213",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF",
+    midnightblue = "#191970"
+  )
+```
+
+---
+### .orange[`r icons::fontawesome("info-circle")` Informações Gerais sobre o Curso]
+
+- <p class="jst">Materiais disponibilizados via <A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3">Classroom</A>;</p> 
+- <p class="jst">O aprendizado requer a prática que será constante nas aulas;</p>
+
+.pull-left[
+Bibliografia Básica:
+
+ .tiny2[- <p class="jst">Kennedy, R., & Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.</p>
+
+```{r out.width = '39%', echo=FALSE, fig.align = "center"}
+knitr::include_graphics("figures/basicblibliograph.png") 
+```
+]
+]
+
+.pull-right[
+Bibliografia Complementar:
+
+ .tiny2[- <p class="jst">Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for data science (2e): import, tidy, transform, visualize, and model data. "O'Reilly Media, Inc.". Disponível em: <A href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</A>. Acesso em: 14 de junho, 2023. (Online) </p>
+- <p class="jst">Damiani, A. et. al., (2022). Ciência de Dados em R. Curso-R. Disponível em: <A href="https://livro.curso-r.com">https://livro.curso-r.com</A>. Acesso em: 12 de maio, 2023. (Online)</p>
+-  <p class="jst">de Aquino, J. A. (2014). R para cientistas sociais. Editora da UESC (editus). Disponível em: <A href="http://www.uesc.br/editora/index.php?item=conteudo_livros_digitais.php">http://www.uesc.br/editora/</A>. Acesso em: 12 de maio, 2023. </p>
+-  <p class="jst">de Oliveira, P. F., Guerra, S., McDonnell, R. (2018). Ciência de Dados com R: Introdução. Editora IBPAD. Disponível em: <A href="https://cdr.ibpad.com.br/index.html">https://cdr.ibpad.com.br/index.html</A>. Acesso em: 12 de maio, 2023. (Online) </p> ] 
+]
+
+---
+### .orange[Microdados da PNAD Contínua]
+
+> <p class="jst"><i>"Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País."</i> (IBGE)</b> 
+
+Algumas características da PNAD Contínua:
+
+- As pesquisas possuem periodicidade mensal (dada por trimestre móvel), trimestral, anual e variável (feita com maior periodicidade ou ocasionalmente).
+- As pesquisas apresentam uma amostragem complexa.
+
+---
+### .orange[Microdados da PNAD Contínua]
+
+<p class="jst">Para trabalhar com os microdados da PNAD Contínua vamos fazer uso dos pacotes: </p>
+
+- .purple[<b>PNADcIBGE</b>] - possibilita baixar dados da PNAD Contínua
+- .purple[<b>survey</b>] - possibilita produzir estatísticas em dados com amostragem complexa
+- .purple[<b>srvyr</b>]
+
+Para o momento é suficiente a instalação de:
+
+```{r p2b, message=FALSE, eval=FALSE}
+install.packages("PNADcIBGE") 
+install.packages("survey")
+library(PNADcIBGE)
+library(survey)
+```
+
+---
+### .orange[Microdados da PNAD Contínua]
+
+<p class="jst">Os seguintes links formam um rico acervo de materiais que orientam o uso dos microdados da PNAD Contínua através do R. </p>
+
+- <p class="jst">Material <A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc">.purple[<b>online</b>]</A> desenvolvido pelo criador do pacote PNADcIBGE.
+
+- <p class="jst">Livro "POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R": <A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf">.purple[disponível em]</A>.
+- <p class="jst">Curso de R disponível no repositório do Git Hub: <A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master">.purple[Introdução à Programação em R]</b></A>. 
+- <p class="jst">Material <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[online]</A>.
+
+---
+exclude: TRUE
+class: left, top
+
+### .orange[Referências]
+
+```{r, load_refs, echo=FALSE}
+library(RefManageR)
+bib <- ReadBib("./files/02-mybib.bib", check = FALSE)
+generateReferences <- function(bib) {
+  for(i in 1:length(bib)) { 
+    print(bib[i], .opts = list(check.entries = FALSE, style = "html", bib.style = "authoryear"))
+  }
+}
+```
+
+```{r, print_refs, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+writeLines('.small[')
+generateReferences(bib)
+writeLines(']')
+```
+
+---
+class: center, middle
+
+background-image: url(figures/template_endpage_2.png)
+background-size: contain
+
+.center[.large[<b> Metotologias Informacionais com `r icon_style( icons::simple_icons("r"), scale = 2)`</b> ]]
+
+.xxlarge[<b style="color:MidnightBlue "> Muito Obrigado pela Atenção!</b>]
+  
