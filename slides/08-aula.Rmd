@@ -61,41 +61,240 @@ Bibliografia Complementar:
 ]
 
 ---
-### .orange[Microdados da PNAD Contínua]
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
 
-> <p class="jst"><i>"Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País."</i> (IBGE)</b> 
+<p class="jst">A <A href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html?=&t=o-que-e
+">Pesquisa Nacional por Amostra de Domicílios Contínua (PNADC)</A>  realizada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) visa:</p>
+
+> <p class="jst"><i>"Acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País."</i> (IBGE)</b> 
 
 Algumas características da PNAD Contínua:
 
-- As pesquisas possuem periodicidade mensal (dada por trimestre móvel), trimestral, anual e variável (feita com maior periodicidade ou ocasionalmente).
-- As pesquisas apresentam uma amostragem complexa.
-
+- <p class="jst">As pesquisas possuem periodicidade mensal (dada por trimestre móvel), trimestral, anual e variável (feita com maior periodicidade ou ocasionalmente).</p>
+- <p class="jst">As pesquisas apresentam uma amostragem complexa</p>.
 ---
-### .orange[Microdados da PNAD Contínua]
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
 
 <p class="jst">Para trabalhar com os microdados da PNAD Contínua vamos fazer uso dos pacotes: </p>
 
-- .purple[<b>PNADcIBGE</b>] - possibilita baixar dados da PNAD Contínua
-- .purple[<b>survey</b>] - possibilita produzir estatísticas em dados com amostragem complexa
-- .purple[<b>srvyr</b>]
+- <A href="https://cran.r-project.org/web/packages/PNADcIBGE/index.html">.purple[<b>PNADcIBGE</b>]</A> - possibilita baixar dados da PNAD Contínua.
+- <A href="https://cran.r-project.org/web/packages/survey/index.html">.purple[<b>survey</b>]</A> - possibilita produzir diversas operações estatísticas em dados com amostragem complexa.
+- <A href="https://cran.r-project.org/web/packages/srvyr/index.html">.purple[<b>srvyr</b>]</A> - uma extensão do pacote .purple[<b>survey</b>] que permite o uso de funções do .purple[<b>dplyr</b>] e sua sintaxe.
+
 
 Para o momento é suficiente a instalação de:
 
 ```{r p2b, message=FALSE, eval=FALSE}
-install.packages("PNADcIBGE") 
-install.packages("survey")
-library(PNADcIBGE)
-library(survey)
+  install.packages("PNADcIBGE") 
+  install.packages("survey")
+```
+
+E carregar os referidos pacotes:
+
+```{r, message=FALSE}
+  library(PNADcIBGE)
+  library(survey)
 ```
 
 ---
-### .orange[Microdados da PNAD Contínua]
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
-<p class="jst">Os seguintes links formam um rico acervo de materiais que orientam o uso dos microdados da PNAD Contínua através do R. </p>
+<p class="jst">Permite a importação e a análise de dados amostrais (microdados) da PNAD Contínua do IBGE. A importação de dados pode ser feita de duas formas:</p>
 
-- <p class="jst">Material <A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc">.purple[<b>online</b>]</A> desenvolvido pelo criador do pacote PNADcIBGE.
+- <b>Online</b> - usando a função  .purple[get_pnadc()]
+  - Observe <b>?get_pnadc</b>
+- <b>Offline</b> - (dados previamente baixados) - usando a função  .purple[read_pnadc()]
+  - Observe <b>?read_pnadc</b>
 
-- <p class="jst">Livro "POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R": <A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf">.purple[disponível em]</A>.
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - .purple[<b>PNADcIBGE</b>]]
+
+Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baixá-los de três formas basicas:
+
+- Microdados trimestrais.
+
+```{r, eval=FALSE}
+  dados_2022q1 <- get_pnadc(year = 2022, quarter = 4)
+  # Obtém para variáveis específicas:
+  #  VD4001 - Condição em relação à força de trabalho
+  #  VD4002 - Condição de ocupação
+  dados_2022q1 <- get_pnadc(year = 2017, quarter = 4, vars=c("VD4001","VD4002"))
+```
+
+- Microdados anuais acumulados em determinada visita.
+
+```{r, eval=FALSE}
+  dados_2022_interview_1 <- get_pnadc(year = 2022, interview = 1)
+```
+
+- Microdados anuais concentrados em determinado trimestre.
+
+```{r, eval=FALSE}
+  dados_2022_anual_trimestre <- get_pnadc(year=2022, topic=2)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst">Vamos trabalhar com microdados do primeiro trimestre de 2023. Para baixar os dados de um trimestre do servidor do IBGE através do pacote .purple[<b>PNADcIBGE</b>], procedemos na forma:</p>
+
+```{r, cache=TRUE, eval=FALSE}
+  pnadc_2023q1 <- get_pnadc(year = 2023, quarter = 1)
+```
+
+<p class="jst">No entanto, como se trata de uma quantidade considerável de dados, podemos escolher baixar uma variável específica como a condição de ocupação (<b>VD4002</b>):</p>
+
+```{r, eval=FALSE}
+  desocupacao_2023q1 <- get_pnadc(year = 2023, quarter = 1, vars = "VD4002")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst">Conforme mencionado, é possível carregar dados da PNAD Contínua diretamente (<i>offline</i>) com a função .purple[read_pnadc()], caso os dados já tenham sido baixados para o computador.</p>
+
+```{r, eval=TRUE}
+  # Lendo algumas variáveis
+  pnadc_2023q1 <- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
+                             input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt",
+                             vars = c("Ano", "Trimestre", "UF", "Capital", 
+                                      "V2009", "VD3005", "VD4002"))
+  # Atribuindo labels as variáveis categóricas
+  pnadc_2023q1 <- pnadc_labeller(
+    data_pnadc=pnadc_2023q1,
+    dictionary.file="../dados/PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
+  )
+  # Aplicando a deflação nos dados caso deseja-se variáveis de rendimento em valor real.
+  pnadc_2023q1 <- pnadc_deflator(
+    data_pnadc=pnadc_2023q1,
+    deflator.file="../dados/PNADC20231/deflator_PNADC_2023_trimestral_040506.xls"
+  )
+  # Criação do plano amostral para obter estatísticas coerentes com pacote 'survey'
+  pnadc_2023q1 <- pnadc_design(data_pnadc=pnadc_2023q1)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
+
+Qual a taxa de Ocupados/Desocupados em nível nacional?
+
+```{r, cache=TRUE}
+  svymean(~VD4002, pnadc_2023q1, na.rm=T)
+```
+
+Como gerar intervalos de confiança da proporção de Ocupados/Desocupados?
+
+```{r, cache=TRUE}
+  confint(svymean(~VD4002, pnadc_2023q1, na.rm=T), level=.99)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
+
+Qual a taxa de Ocupados/Desocupados no Rio Grande do Sul?
+
+```{r, cache=TRUE}
+  svymean(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T)
+```
+
+Como gerar intervalos de confiança da proporção de Ocupados/Desocupados?
+
+```{r, cache=TRUE}
+  confint(svymean(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T), level=.99)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
+
+Qual o total de Ocupados/Desocupados no Rio Grande do Sul?
+
+```{r, cache=TRUE}
+  svytotal(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T)
+```
+
+Como gerar intervalos de confiança do total de Ocupados/Desocupados?
+
+```{r, cache=TRUE}
+  confint(svytotal(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T), level=.99)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
+
+<p class="jst">A variável <b>V2009</b> refere-se a idade dos entrevistados, enquanto <b>VD3005</b> refere-se a quantidade de anos de estudo. Portanto, qual é a média de anos de estudos da população de 25 anos ou mais de idade no Rio Grande do Sul?</p>
+
+```{r, cache=TRUE}
+  svymean(~as.numeric(VD3005), 
+          subset(pnadc_2023q1, V2009 >= 25, UF=='Rio Grande do Sul'), na.rm = T)
+```
+
+```{r, cache=TRUE}
+  confint(svymean(~as.numeric(VD3005),
+                  subset(pnadc_2023q1, V2009 >= 25, UF=='Rio Grande do Sul'), na.rm = T),
+          level=.99)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
+
+ Qual é a média de anos de estudos da população de 25 anos ou mais de idade na capital Porto Alegre?
+ 
+```{r, cache=TRUE}
+  svymean(~as.numeric(VD3005),
+          subset(pnadc_2023q1,
+                 V2009 >= 25 & Capital=="Município de Porto Alegre (RS)"), na.rm = T)
+```
+
+```{r, cache=TRUE}
+  confint(svymean(~as.numeric(VD3005), 
+                  subset(pnadc_2023q1,
+                         V2009 >= 25 & Capital=="Município de Porto Alegre (RS)"), na.rm = T),
+          level=.99)
+```
+ 
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
+
+Nos próximos exemplos trabalharemos com os seguintes dados:
+
+```{r, eval=FALSE}
+  pnadc2023_1trim <- get_pnadc(2023, quarter = 1, design = TRUE, labels = T, 
+                             vars = c("Ano","Trimestre","UF","UPA","Estrato","V1028",
+                                      "V2007","V2009","V2010","V3007","VD3004","VD4001",
+                                      "VD4002","VD4005","VD4019","VD4020","VD4035",
+                                      "Habitual","Efetivo"))
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
+
+Para carregar diretamente:
+
+```{r, eval=TRUE}
+  pnadc2023_1trim <- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
+                             input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt",
+                             vars = c("Ano","Trimestre","UF","UPA","Estrato","V1028",
+                                      "V2007","V2009","V2010","V3007","VD3004","VD4001",
+                                      "VD4002","VD4005","VD4019","VD4020","VD4035"))
+  pnadc2023_1trim <- pnadc_labeller(
+    data_pnadc=pnadc2023_1trim,
+    dictionary.file="../dados/PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
+  )
+  pnadc2023_1trim <- pnadc_deflator(
+    data_pnadc=pnadc2023_1trim,
+    deflator.file="../dados/PNADC20231/deflator_PNADC_2023_trimestral_040506.xls"
+  )
+  pnadc2023_1trim <- pnadc_design(pnadc2023_1trim)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
+
+<p class="jst">Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: </p>
+
+- <p class="jst">Material <A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc">.purple[online]</A> desenvolvido por um dos criadores do pacote .purple[<b>PNADcIBGE</b>].
+
+- <p class="jst"> Livro  <A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf">.purple["POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R"]</A>.
 - <p class="jst">Curso de R disponível no repositório do Git Hub: <A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master">.purple[Introdução à Programação em R]</b></A>. 
 - <p class="jst">Material <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[online]</A>.
 

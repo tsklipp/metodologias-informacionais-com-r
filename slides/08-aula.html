@@ -58,42 +58,316 @@ Bibliografia Complementar:
 ]
 
 ---
-### .orange[Microdados da PNAD Contínua]
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt;]
 
-&gt; &lt;p class="jst"&gt;&lt;i&gt;"Visa acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País."&lt;/i&gt; (IBGE)&lt;/b&gt; 
+&lt;p class="jst"&gt;A &lt;A href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html?=&amp;t=o-que-e
+"&gt;Pesquisa Nacional por Amostra de Domicílios Contínua (PNADC)&lt;/A&gt;  realizada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) visa:&lt;/p&gt;
+
+&gt; &lt;p class="jst"&gt;&lt;i&gt;"Acompanhar as flutuações trimestrais e a evolução, no curto, médio e longo prazos, da força de trabalho, e outras informações necessárias para o estudo do desenvolvimento socioeconômico do País."&lt;/i&gt; (IBGE)&lt;/b&gt; 
 
 Algumas características da PNAD Contínua:
 
-- As pesquisas possuem periodicidade mensal (dada por trimestre móvel), trimestral, anual e variável (feita com maior periodicidade ou ocasionalmente).
-- As pesquisas apresentam uma amostragem complexa.
-
+- &lt;p class="jst"&gt;As pesquisas possuem periodicidade mensal (dada por trimestre móvel), trimestral, anual e variável (feita com maior periodicidade ou ocasionalmente).&lt;/p&gt;
+- &lt;p class="jst"&gt;As pesquisas apresentam uma amostragem complexa&lt;/p&gt;.
 ---
-### .orange[Microdados da PNAD Contínua]
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt;]
 
 &lt;p class="jst"&gt;Para trabalhar com os microdados da PNAD Contínua vamos fazer uso dos pacotes: &lt;/p&gt;
 
-- .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;] - possibilita baixar dados da PNAD Contínua
-- .purple[&lt;b&gt;survey&lt;/b&gt;] - possibilita produzir estatísticas em dados com amostragem complexa
-- .purple[&lt;b&gt;srvyr&lt;/b&gt;]
+- &lt;A href="https://cran.r-project.org/web/packages/PNADcIBGE/index.html"&gt;.purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;]&lt;/A&gt; - possibilita baixar dados da PNAD Contínua.
+- &lt;A href="https://cran.r-project.org/web/packages/survey/index.html"&gt;.purple[&lt;b&gt;survey&lt;/b&gt;]&lt;/A&gt; - possibilita produzir diversas operações estatísticas em dados com amostragem complexa.
+- &lt;A href="https://cran.r-project.org/web/packages/srvyr/index.html"&gt;.purple[&lt;b&gt;srvyr&lt;/b&gt;]&lt;/A&gt; - uma extensão do pacote .purple[&lt;b&gt;survey&lt;/b&gt;] que permite o uso de funções do .purple[&lt;b&gt;dplyr&lt;/b&gt;] e sua sintaxe.
+
 
 Para o momento é suficiente a instalação de:
 
 
 ```r
-install.packages("PNADcIBGE") 
-install.packages("survey")
-library(PNADcIBGE)
-library(survey)
+  install.packages("PNADcIBGE") 
+  install.packages("survey")
+```
+
+E carregar os referidos pacotes:
+
+
+```r
+  library(PNADcIBGE)
+  library(survey)
 ```
 
 ---
-### .orange[Microdados da PNAD Contínua]
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - pacote .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;]]
 
-&lt;p class="jst"&gt;Os seguintes links formam um rico acervo de materiais que orientam o uso dos microdados da PNAD Contínua através do R. &lt;/p&gt;
+&lt;p class="jst"&gt;Permite a importação e a análise de dados amostrais (microdados) da PNAD Contínua do IBGE. A importação de dados pode ser feita de duas formas:&lt;/p&gt;
 
-- &lt;p class="jst"&gt;Material &lt;A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc"&gt;.purple[&lt;b&gt;online&lt;/b&gt;]&lt;/A&gt; desenvolvido pelo criador do pacote PNADcIBGE.
+- &lt;b&gt;Online&lt;/b&gt; - usando a função  .purple[get_pnadc()]
+  - Observe &lt;b&gt;?get_pnadc&lt;/b&gt;
+- &lt;b&gt;Offline&lt;/b&gt; - (dados previamente baixados) - usando a função  .purple[read_pnadc()]
+  - Observe &lt;b&gt;?read_pnadc&lt;/b&gt;
 
-- &lt;p class="jst"&gt;Livro "POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R": &lt;A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf"&gt;.purple[disponível em]&lt;/A&gt;.
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;]]
+
+Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baixá-los de três formas basicas:
+
+- Microdados trimestrais.
+
+
+```r
+  dados_2022q1 &lt;- get_pnadc(year = 2022, quarter = 4)
+  # Obtém para variáveis específicas:
+  #  VD4001 - Condição em relação à força de trabalho
+  #  VD4002 - Condição de ocupação
+  dados_2022q1 &lt;- get_pnadc(year = 2017, quarter = 4, vars=c("VD4001","VD4002"))
+```
+
+- Microdados anuais acumulados em determinada visita.
+
+
+```r
+  dados_2022_interview_1 &lt;- get_pnadc(year = 2022, interview = 1)
+```
+
+- Microdados anuais concentrados em determinado trimestre.
+
+
+```r
+  dados_2022_anual_trimestre &lt;- get_pnadc(year=2022, topic=2)
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;]]
+
+&lt;p class="jst"&gt;Vamos trabalhar com microdados do primeiro trimestre de 2023. Para baixar os dados de um trimestre do servidor do IBGE através do pacote .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;], procedemos na forma:&lt;/p&gt;
+
+
+```r
+  pnadc_2023q1 &lt;- get_pnadc(year = 2023, quarter = 1)
+```
+
+&lt;p class="jst"&gt;No entanto, como se trata de uma quantidade considerável de dados, podemos escolher baixar uma variável específica como a condição de ocupação (&lt;b&gt;VD4002&lt;/b&gt;):&lt;/p&gt;
+
+
+```r
+  desocupacao_2023q1 &lt;- get_pnadc(year = 2023, quarter = 1, vars = "VD4002")
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - pacote .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;]]
+
+&lt;p class="jst"&gt;Conforme mencionado, é possível carregar dados da PNAD Contínua diretamente (&lt;i&gt;offline&lt;/i&gt;) com a função .purple[read_pnadc()], caso os dados já tenham sido baixados para o computador.&lt;/p&gt;
+
+
+```r
+  # Lendo algumas variáveis
+  pnadc_2023q1 &lt;- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
+                             input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt",
+                             vars = c("Ano", "Trimestre", "UF", "Capital", 
+                                      "V2009", "VD3005", "VD4002"))
+  # Atribuindo labels as variáveis categóricas
+  pnadc_2023q1 &lt;- pnadc_labeller(
+    data_pnadc=pnadc_2023q1,
+    dictionary.file="../dados/PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
+  )
+  # Aplicando a deflação nos dados caso deseja-se variáveis de rendimento em valor real.
+  pnadc_2023q1 &lt;- pnadc_deflator(
+    data_pnadc=pnadc_2023q1,
+    deflator.file="../dados/PNADC20231/deflator_PNADC_2023_trimestral_040506.xls"
+  )
+  # Criação do plano amostral para obter estatísticas coerentes com pacote 'survey'
+  pnadc_2023q1 &lt;- pnadc_design(data_pnadc=pnadc_2023q1)
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - estatísticas com .purple[&lt;b&gt;survey&lt;/b&gt;]]
+
+Qual a taxa de Ocupados/Desocupados em nível nacional?
+
+
+```r
+  svymean(~VD4002, pnadc_2023q1, na.rm=T)
+```
+
+```
+##                               mean    SE
+## VD4002Pessoas ocupadas    0.912064 0.001
+## VD4002Pessoas desocupadas 0.087936 0.001
+```
+
+Como gerar intervalos de confiança da proporção de Ocupados/Desocupados?
+
+
+```r
+  confint(svymean(~VD4002, pnadc_2023q1, na.rm=T), level=.99)
+```
+
+```
+##                                0.5 %     99.5 %
+## VD4002Pessoas ocupadas    0.90942664 0.91470188
+## VD4002Pessoas desocupadas 0.08529812 0.09057336
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - estatísticas com .purple[&lt;b&gt;survey&lt;/b&gt;]]
+
+Qual a taxa de Ocupados/Desocupados no Rio Grande do Sul?
+
+
+```r
+  svymean(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T)
+```
+
+```
+##                               mean     SE
+## VD4002Pessoas ocupadas    0.946226 0.0027
+## VD4002Pessoas desocupadas 0.053774 0.0027
+```
+
+Como gerar intervalos de confiança da proporção de Ocupados/Desocupados?
+
+
+```r
+  confint(svymean(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T), level=.99)
+```
+
+```
+##                                0.5 %     99.5 %
+## VD4002Pessoas ocupadas    0.93922775 0.95322405
+## VD4002Pessoas desocupadas 0.04677595 0.06077225
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - estatísticas com .purple[&lt;b&gt;survey&lt;/b&gt;]]
+
+Qual o total de Ocupados/Desocupados no Rio Grande do Sul?
+
+
+```r
+  svytotal(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T)
+```
+
+```
+##                             total    SE
+## VD4002Pessoas ocupadas    5925147 50197
+## VD4002Pessoas desocupadas  336727 16845
+```
+
+Como gerar intervalos de confiança do total de Ocupados/Desocupados?
+
+
+```r
+  confint(svytotal(~VD4002, subset(pnadc_2023q1, UF=='Rio Grande do Sul'), na.rm=T), level=.99)
+```
+
+```
+##                             0.5 %    99.5 %
+## VD4002Pessoas ocupadas    5795849 6054444.3
+## VD4002Pessoas desocupadas  293338  380115.2
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - estatísticas com .purple[&lt;b&gt;survey&lt;/b&gt;]]
+
+&lt;p class="jst"&gt;A variável &lt;b&gt;V2009&lt;/b&gt; refere-se a idade dos entrevistados, enquanto &lt;b&gt;VD3005&lt;/b&gt; refere-se a quantidade de anos de estudo. Portanto, qual é a média de anos de estudos da população de 25 anos ou mais de idade no Rio Grande do Sul?&lt;/p&gt;
+
+
+```r
+  svymean(~as.numeric(VD3005), 
+          subset(pnadc_2023q1, V2009 &gt;= 25, UF=='Rio Grande do Sul'), na.rm = T)
+```
+
+```
+##                      mean     SE
+## as.numeric(VD3005) 10.914 0.0245
+```
+
+
+```r
+  confint(svymean(~as.numeric(VD3005),
+                  subset(pnadc_2023q1, V2009 &gt;= 25, UF=='Rio Grande do Sul'), na.rm = T),
+          level=.99)
+```
+
+```
+##                       0.5 %   99.5 %
+## as.numeric(VD3005) 10.85075 10.97682
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - estatísticas com .purple[&lt;b&gt;survey&lt;/b&gt;]]
+
+ Qual é a média de anos de estudos da população de 25 anos ou mais de idade na capital Porto Alegre?
+ 
+
+```r
+  svymean(~as.numeric(VD3005),
+          subset(pnadc_2023q1,
+                 V2009 &gt;= 25 &amp; Capital=="Município de Porto Alegre (RS)"), na.rm = T)
+```
+
+```
+##                      mean     SE
+## as.numeric(VD3005) 13.013 0.2179
+```
+
+
+```r
+  confint(svymean(~as.numeric(VD3005), 
+                  subset(pnadc_2023q1,
+                         V2009 &gt;= 25 &amp; Capital=="Município de Porto Alegre (RS)"), na.rm = T),
+          level=.99)
+```
+
+```
+##                       0.5 %   99.5 %
+## as.numeric(VD3005) 12.45191 13.57431
+```
+ 
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt;]
+
+Nos próximos exemplos trabalharemos com os seguintes dados:
+
+
+```r
+  pnadc2023_1trim &lt;- get_pnadc(2023, quarter = 1, design = TRUE, labels = T, 
+                             vars = c("Ano","Trimestre","UF","UPA","Estrato","V1028",
+                                      "V2007","V2009","V2010","V3007","VD3004","VD4001",
+                                      "VD4002","VD4005","VD4019","VD4020","VD4035",
+                                      "Habitual","Efetivo"))
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt;]
+
+Para carregar diretamente:
+
+
+```r
+  pnadc2023_1trim &lt;- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
+                             input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt",
+                             vars = c("Ano","Trimestre","UF","UPA","Estrato","V1028",
+                                      "V2007","V2009","V2010","V3007","VD3004","VD4001",
+                                      "VD4002","VD4005","VD4019","VD4020","VD4035"))
+  pnadc2023_1trim &lt;- pnadc_labeller(
+    data_pnadc=pnadc2023_1trim,
+    dictionary.file="../dados/PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
+  )
+  pnadc2023_1trim &lt;- pnadc_deflator(
+    data_pnadc=pnadc2023_1trim,
+    deflator.file="../dados/PNADC20231/deflator_PNADC_2023_trimestral_040506.xls"
+  )
+  pnadc2023_1trim &lt;- pnadc_design(pnadc2023_1trim)
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt;]
+
+&lt;p class="jst"&gt;Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: &lt;/p&gt;
+
+- &lt;p class="jst"&gt;Material &lt;A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc"&gt;.purple[online]&lt;/A&gt; desenvolvido por um dos criadores do pacote .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;].
+
+- &lt;p class="jst"&gt; Livro  &lt;A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf"&gt;.purple["POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R"]&lt;/A&gt;.
 - &lt;p class="jst"&gt;Curso de R disponível no repositório do Git Hub: &lt;A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master"&gt;.purple[Introdução à Programação em R]&lt;/b&gt;&lt;/A&gt;. 
 - &lt;p class="jst"&gt;Material &lt;A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/"&gt;.purple[online]&lt;/A&gt;.
 
