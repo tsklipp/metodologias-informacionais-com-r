@@ -61,7 +61,7 @@ Bibliografia Complementar:
 ]
 
 ---
-### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
+### .orange[`r icons::fontawesome("table")`Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
 
 <p class="jst">A <A href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html?=&t=o-que-e
 ">Pesquisa Nacional por Amostra de Domicílios Contínua (PNADC)</A>  realizada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) visa:</p>
@@ -71,7 +71,8 @@ Bibliografia Complementar:
 Algumas características da PNAD Contínua:
 
 - <p class="jst">As pesquisas possuem periodicidade mensal (dada por trimestre móvel), trimestral, anual e variável (feita com maior periodicidade ou ocasionalmente).</p>
-- <p class="jst">As pesquisas apresentam uma amostragem complexa</p>.
+- <p class="jst">As pesquisas apresentam uma amostragem complexa.</p>
+
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
 
@@ -107,34 +108,53 @@ E carregar os referidos pacotes:
   - Observe <b>?read_pnadc</b>
 
 ---
-### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - .purple[<b>PNADcIBGE</b>]]
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
-Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baixá-los de três formas basicas:
+Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baixá-los de quatro formas básicas:
 
-- Microdados trimestrais.
-
+- Dados trimestrais usando o parâmetro <b>quarter</b> que permite baixar um trimestre (1 à 4) por vez.
 ```{r, eval=FALSE}
   dados_2022q1 <- get_pnadc(year = 2022, quarter = 4)
-  # Obtém para variáveis específicas:
-  #  VD4001 - Condição em relação à força de trabalho
-  #  VD4002 - Condição de ocupação
-  dados_2022q1 <- get_pnadc(year = 2017, quarter = 4, vars=c("VD4001","VD4002"))
 ```
-
-- Microdados anuais acumulados em determinada visita.
-
+- Dados anuais acumulados em determinada visita (entre 1 e 5 por vez) usando o parâmetro <b>interview</b>.
 ```{r, eval=FALSE}
   dados_2022_interview_1 <- get_pnadc(year = 2022, interview = 1)
 ```
-
-- Microdados anuais concentrados em determinado trimestre.
-
+- Dados anuais concentrados em determinado trimestre (entre 1 e 4 por vez) usando o parâmetro <b>topic</b>.
 ```{r, eval=FALSE}
   dados_2022_anual_trimestre <- get_pnadc(year=2022, topic=2)
 ```
+- Dados de temas e tópicos suplementares (questionários específicos) aplicados a morador selecionado.
+```{r, eval=FALSE}
+  # Dados do módulo de Sensação de Segurança aplicado ao morador selecionado no 4º trimestre.
+  dados_2022_anual_trimestre <- get_pnadc(year=2022, topic=4, selected=TRUE)
+```
 
 ---
-### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - .purple[<b>PNADcIBGE</b>]]
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+Outros argumentos da função .purple[get_pnadc()] são:
+
+- <b>vars</b>: Permite baixar variáveis específicas.
+
+```{r, eval=FALSE}
+  # Obtendo as  variáveis:
+  #  VD4001 - Condição em relação à força de trabalho
+  #  VD4002 - Condição de ocupação
+  dados_2022q1 <- get_pnadc(year = 2022, quarter = 4, vars=c("VD4001","VD4002"))
+```
+- <b>labels</b> (lógico `TRUE` ou `FALSE`): incluir ou não nomes categóricos nos valores de determinadas variáveis.
+
+- <b>deflator</b> (lógico `TRUE` ou `FALSE`): incluir ou não as variáveis que permitem aplicar deflacionamento.
+
+- <b>design</b> (lógico `TRUE` ou `FALSE`): retorna ou não os dados como <b>`survey.design/svyrep.design`</b>.
+
+- <b>defyear</b> e <b>defperiod</b>: Ano ou trimestre considerados nas variáveis de deflacionamento, respectivamente. Se <b>defyear</b> ou <b>defperiod</b> forem indicados como `NULL` e o <b>deflator</b> como `TRUE`, será considerado o ano mais recente, o ano ou, o trimestre dos dados conforme a alternativa de requisição de dados usada.
+
+- <b>savedir</b>: Diretório para salvar os microdados e a documentação necessária ao processamento e leitura.
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
 <p class="jst">Vamos trabalhar com microdados do primeiro trimestre de 2023. Para baixar os dados de um trimestre do servidor do IBGE através do pacote .purple[<b>PNADcIBGE</b>], procedemos na forma:</p>
 
@@ -142,7 +162,7 @@ Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baix�
   pnadc_2023q1 <- get_pnadc(year = 2023, quarter = 1)
 ```
 
-<p class="jst">No entanto, como se trata de uma quantidade considerável de dados, podemos escolher baixar uma variável específica como a condição de ocupação (<b>VD4002</b>):</p>
+<p class="jst">Lembrando que como se trata de uma quantidade considerável de dados, podemos escolher baixar uma variável específica como a condição de ocupação (<b>VD4002</b>):</p>
 
 ```{r, eval=FALSE}
   desocupacao_2023q1 <- get_pnadc(year = 2023, quarter = 1, vars = "VD4002")
@@ -151,14 +171,25 @@ Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baix�
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
-<p class="jst">Conforme mencionado, é possível carregar dados da PNAD Contínua diretamente (<i>offline</i>) com a função .purple[read_pnadc()], caso os dados já tenham sido baixados para o computador.</p>
+<p class="jst">Conforme mencionado, é possível carregar dados da PNAD Contínua diretamente (<i>offline</i>) com a função .purple[read_pnadc()], caso os dados já tenham sido baixados para o computador. Para isso basta informar o arquivo dos microdados (ex: PNADC_012023.txt) e o arquivo de input (um programa de leitura em SAS).</p>
 
-```{r, eval=TRUE}
+```{r, cache=TRUE, eval=TRUE}
   # Lendo algumas variáveis
   pnadc_2023q1 <- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
                              input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt",
                              vars = c("Ano", "Trimestre", "UF", "Capital", 
                                       "V2009", "VD3005", "VD4002"))
+  class(pnadc_2023q1)
+```
+
+<p class="jst">Nesse caso, os dados serão retornados em um objeto do tipo <b>tibble</b>, sendo necessário aplicar outras operações aos dados para obter labels categóricos em determinadas variáveis, as variáveis de deflacionamento, bem como, transformar o objeto do tipo <b>tibble</b> para <b>survey.design</b> ou <b>svyrep.design</b>, caso seja de interesse obter estatísticas considerando o plano amostral. Essas operações são possíveis através das funções .purple[pnadc_labeller()], .purple[pnadc_deflator()] e  .purple[pnadc_design()] ...</p>
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst">... Dessa forma, para obter os labels categóricos, as variáveis de deflacionamento e produzir um objeto do tipo <b>svyrep.design</b> procedemos com:</p>
+
+```{r, cache=TRUE, eval=TRUE}
   # Atribuindo labels as variáveis categóricas
   pnadc_2023q1 <- pnadc_labeller(
     data_pnadc=pnadc_2023q1,
@@ -172,6 +203,50 @@ Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baix�
   # Criação do plano amostral para obter estatísticas coerentes com pacote 'survey'
   pnadc_2023q1 <- pnadc_design(data_pnadc=pnadc_2023q1)
 ```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst">Os arquivos de microdados e auxiliares (input, dicionários, indicadores de deflação) usados para aplicar as operações anteriores são fornecidos pelo IBGE.</p>
+
+<p class="jst">Esses arquivos podem ser obtidos diretamente no servidor <b>ftp</b> do IBGE (<A href="https://ftp.ibge.gov.br">.purple[https://ftp.ibge.gov.br]</A>).</p>
+
+<p class="jst">No entanto, é muito mais comodo obtê-los fazendo uma requisição com a função .purple[get_pnadc()]. Nesse caso, não é necessário procurar os dados desejados na hierarquia de pastas do servidor <b>ftp</b>.</p>
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst">Após as operações realizadas, nosso objeto passa a ser do tipo <b>svyrep.design</b>:</p>
+
+```{r, cache=TRUE, eval=TRUE}
+  class(pnadc_2023q1)
+```
+
+Esse objeto é uma lista cujos elementos são:
+
+```{r, cache=TRUE, eval=TRUE}
+  names(pnadc_2023q1)
+```
+
+Os nomes das variáveis podem ser obtidos com:
+
+```{r, cache=TRUE, eval=FALSE}
+  names(pnadc_2023q1$variables)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst"> O plano amostral é necessário para obter estatísticas coerentes e métricas sobre essas estatísticas como intervalos de confiança.</p>
+
+Para maiores informações veja os vídeos sobre microdados:
+
+- <A href="https://youtu.be/k3rLK8V_38s">.purple[Vídeo 1 - teórico]</A>
+
+- <A href="https://www.youtube.com/watch?v=qC22jz0FA0U">.purple[Vídeo 2 - sobre PNADC]</A>
+
+- <A href="https://www.youtube.com/watch?v=hhNA8MR__aA">.purple[Vídeo 3 - sobre Pesquisa de Orçamentos Familiares (POF)]</A>
+
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
@@ -259,10 +334,11 @@ Nos próximos exemplos trabalharemos com os seguintes dados:
 
 ```{r, eval=FALSE}
   pnadc2023_1trim <- get_pnadc(2023, quarter = 1, design = TRUE, labels = T, 
-                             vars = c("Ano","Trimestre","UF","UPA","Estrato","V1028",
-                                      "V2007","V2009","V2010","V3007","VD3004","VD4001",
-                                      "VD4002","VD4005","VD4019","VD4020","VD4035",
-                                      "Habitual","Efetivo"))
+                             vars = c("Ano","Trimestre","UF", "UPA","Estrato",
+                                      "V1028","V2007","V2009","V2010", "V3007",
+                                      "VD3004","VD4001", "VD4002","VD4005",
+                                      "VD4019", "VD4020","VD4035",
+                                      "Habitual", "Efetivo"))
 ```
 
 ---
