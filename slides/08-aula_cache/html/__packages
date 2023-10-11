@@ -4,3 +4,17 @@ PNADcIBGE
 Matrix
 survival
 survey
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+lubridate
+DT
+kableExtra
+patchwork
+srvyr
