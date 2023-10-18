@@ -83,18 +83,22 @@ Algumas características da PNAD Contínua:
 - <A href="https://cran.r-project.org/web/packages/srvyr/index.html">.purple[<b>srvyr</b>]</A> - uma extensão do pacote .purple[<b>survey</b>] que permite o uso de funções do .purple[<b>dplyr</b>] e sua sintaxe.
 
 
-Para o momento é suficiente a instalação de:
+E necessário a instalação de:
 
 ```{r, message=FALSE, eval=FALSE}
-  install.packages("PNADcIBGE") 
-  install.packages("survey")
+  install.packages(c("PNADcIBGE", "survey", "srvyr", "tidyverse"))
+  # Outros pacotes que serão usados
+  install.packages(c("kableExtra", "patchwork"))
 ```
 
-E carregar os referidos pacotes:
+E carregar alguns dos referidos pacotes:
 
 ```{r, message=FALSE}
   library(PNADcIBGE)
   library(survey)
+  library(tidyverse)
+  library(kableExtra)
+  library(patchwork)
 ```
 
 ```{r, echo=FALSE}
@@ -121,7 +125,7 @@ Existem divisões nos microdados da PNAD Contínua. Portanto, é possível baix�
 
 - Dados trimestrais usando o parâmetro <b>quarter</b> que permite baixar um trimestre (1 à 4) por vez.
 ```{r, eval=FALSE}
-  dados_2022q1 <- get_pnadc(year = 2022, quarter = 4)
+  dados_2022q4 <- get_pnadc(year = 2022, quarter = 4)
 ```
 - Dados anuais acumulados em determinada visita (entre a 1ª e 5ª cada vez) usando o parâmetro <b>interview</b>.
 ```{r, eval=FALSE}
@@ -148,13 +152,13 @@ Outros argumentos da função .purple[get_pnadc()] são:
   # Obtendo as  variáveis:
   #  VD4001 - Condição em relação à força de trabalho
   #  VD4002 - Condição de ocupação
-  dados_2022q1 <- get_pnadc(year = 2022, quarter = 4, vars=c("VD4001","VD4002"))
+  dados_2022q4 <- get_pnadc(year = 2022, quarter = 4, vars=c("VD4001","VD4002"))
 ```
 - <b>labels</b> (lógico `TRUE` ou `FALSE`): incluir ou não nomes categóricos nos valores de determinadas variáveis.
 
 - <b>deflator</b> (lógico `TRUE` ou `FALSE`): incluir ou não as variáveis que permitem aplicar deflacionamento.
 
-- <b>design</b> (lógico `TRUE` ou `FALSE`): retorna ou não os dados como objeto do tipo <b>`svyrep.design`</b>.
+- <b>design</b> (lógico `TRUE` ou `FALSE`): retorna ou não os dados como objeto do tipo <b>`survey.design`</b>.
 
 - <b>defyear</b> e <b>defperiod</b>: Ano ou trimestre considerados nas variáveis de deflacionamento, respectivamente. Se <b>defyear</b> ou <b>defperiod</b> forem indicados como `NULL` e o <b>deflator</b> como `TRUE`, serão considerado o ano mais recente, o ano ou o trimestre dos dados, conforme a alternativa de requisição de dados usada.
 
@@ -169,41 +173,84 @@ Outros argumentos da função .purple[get_pnadc()] são:
   pnadc_2023q1 <- get_pnadc(year = 2023, quarter = 1)
 ```
 
-<p class="jst">Lembrando que como se trata de uma quantidade considerável de dados, podemos escolher carregar apenas variáveis específicas como a condição de ocupação (<b>VD4002</b>):</p>
+<p class="jst">Lembrando que como se trata de uma quantidade considerável de dados, podemos escolher carregar apenas variáveis específicas como  o ano (<b>Ano</b>), o trimestre (<b>Trimestre</b>),  a condição de ocupação (<b>VD4002</b>), entre outras:</p>
 
 ```{r, eval=FALSE}
-  desocupacao_2023q1 <- get_pnadc(year = 2023, quarter = 1, vars = "VD4002")
+  pnadc_2023q1 <- get_pnadc(year = 2023, quarter = 1,
+                                  vars = c("Ano","Trimestre","UF","Capital","Estrato","UPA",
+                                           "posest","V1027","V1028","V1029",
+                                           "2003","V2009","VD3005","VD4002", 
+                                           "ID_DOMICILIO","Habitual","Efetivo"))
+  class(pnadc_2023q1)
 ```
+
+<p class="jst">O objeto retornado é do tipo  <b>`survey.design`</b>, ou seja, inclui o plano amostral, bem como, os <i>labels</i> categóricos e as variáveis de deflacionamento.</p>
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
-<p class="jst">Conforme mencionado, é possível carregar dados da PNAD Contínua diretamente (<i>offline</i>) com a função .purple[read_pnadc()], caso os dados já tenham sido baixados para o computador. Para isso basta informar o arquivo dos microdados (ex: PNADC_012023.txt) e o arquivo de <i>input</i> (um programa de leitura em SAS).</p>
+<p class="jst">Conforme mencionado, é possível carregar dados da PNAD Contínua diretamente (<i>offline</i>) com a função .purple[read_pnadc()], caso os dados já tenham sido baixados. Para isso basta informar o arquivo dos microdados (ex: PNADC_012023.txt) e o arquivo de <i>input</i> (um programa de leitura na linguagem SAS).</p>
 
 ```{r cache=TRUE, include=FALSE}
   # Lendo algumas variáveis
   pnadc_2023q1 <- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
                              input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt",
-                             vars = c("Ano", "Trimestre", "UF", "Capital", 
+                             vars = c("Ano", "Trimestre", "UF", "Capital", "Estrato", "UPA",
+                                      "posest", "V1027", "V1028", "V1029",
                                       "V2009", "VD3005", "VD4002"))
   class(pnadc_2023q1)
 ```
 
 ```{r, cache=TRUE, eval=FALSE}
-  # Lendo algumas variáveis
   pnadc_2023q1 <- read_pnadc(microdata="PNADC20231/PNADC_012023.txt",
                              input_txt="PNADC20231/input_PNADC_trimestral.txt",
-                             vars = c("Ano", "Trimestre", "UF", "Capital", 
-                                      "V2009", "VD3005", "VD4002"))
+                             vars = c("Ano", "Trimestre", "UF", "Capital", "Estrato", "UPA",
+                                      "posest", "V1027", "V1028", "V1029",
+                                      "V2009", "VD3005", "VD4002", "ID_DOMICILIO"))
   class(pnadc_2023q1)
 ```
 
-<p class="jst">Nesse caso, os dados serão retornados em um objeto do tipo <b>tibble</b>, sendo necessário aplicar outras operações aos dados para obter <i>labels</i> categóricos em determinadas variáveis, as variáveis de deflacionamento, bem como, transformar o objeto do tipo <b>tibble</b> para <b>svyrep.design</b>, caso seja de interesse obter estatísticas considerando o plano amostral com o pacote .purple[<b>survey</b>]. Essas operações são possíveis através das funções .purple[pnadc_labeller()], .purple[pnadc_deflator()] e  .purple[pnadc_design()] ...</p>
+<p class="jst">Nesse caso, os dados serão retornados em um objeto do tipo <b>tibble</b>. No entanto, o parâmetro <b>vars</b> não funciona como o esperado, ou seja, não filtra (limita) as variáveis que indicamos para nosso objeto. Portanto, resolveremos isso filtranto as variáveis com a função .purple[dplyr::select()], conforme:</p>
+
+```{r cache=TRUE, cache=TRUE}
+  pnadc_2023q1 <- pnadc_2023q1 |> 
+    select(Ano, Trimestre, UF, Capital, Estrato, UPA,
+           posest, V1027, V1028, V1029,
+           V2003, V2009, VD3005, VD4002, ID_DOMICILIO) 
+```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
-<p class="jst">... Dessa forma, para obter os <i>labels</i> categóricos, as variáveis de deflacionamento e produzir um objeto do tipo <b>svyrep.design</b> procedemos com:</p>
+<p class="jst">Na filtragem, consideramos que  algumas das variáveis escolhidas são necessárias para aplicar as operações de deflacionamento e de construção do plano amostral. No caso dos dados trimestrais que carregamos (1° trimestre de 2023), estas variáveis são:</p>
+
+- Domínios de projeção geográficos (<b>posest</b>).
+
+- Peso do domicílio e das pessoas, sem calibração (<b>V1027</b>).
+
+- Peso do domicílio e das pessoas, com calibração (<b>V1028</b>).
+
+- Projeção da população por níveis geográficos (<b>V1029</b>).
+
+- Número de ordem (<b>V2003</b>).
+
+- Identificação do domicílio (<b>ID_DOMICILIO</b>).
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst">Agora, podemos aplicar as demais operações aos dados para:</p>
+
+- <p class="jst">Obter os <i>labels</i> categóricos em determinadas variáveis.</p>
+- <p class="jst">Obter as variáveis de deflacionamento.</p>
+- <p class="jst">Transformar o objeto do tipo <b>tibble</b> em <b>survey.design</b>, caso seja de interesse obter estatísticas considerando o plano amostral com o pacote .purple[<b>survey</b>].</p> 
+
+<p class="jst">Essas operações são possíveis através das funções .purple[pnadc_labeller()], .purple[pnadc_deflator()] e  .purple[pnadc_design()], sendo que ...</p>
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
+<p class="jst">... procedemos na forma:</p>
 
 ```{r cache=TRUE, include=FALSE}
   # Atribuindo labels as variáveis categóricas
@@ -237,19 +284,12 @@ Outros argumentos da função .purple[get_pnadc()] são:
   pnadc_2023q1 <- pnadc_design(data_pnadc=pnadc_2023q1)
 ```
 
----
-### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
-
-<p class="jst">Os arquivos de microdados e auxiliares (input, dicionários, indicadores de deflação) usados para aplicar as operações anteriores são fornecidos pelo IBGE.</p>
-
-<p class="jst">Esses arquivos podem ser obtidos no <A href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html?=&t=downloads">.purple[site]</A> ou em servidor <b>ftp</b> do IBGE (<A href="https://ftp.ibge.gov.br">.purple[https://ftp.ibge.gov.br]</A>).</p>
-
-<p class="jst">No entanto, é muito mais comodo obtê-los fazendo uma requisição com a função .purple[get_pnadc()]. Nesse caso, não é necessário procurar os dados desejados na hierarquia de pastas do referido site ou do servidor <b>ftp</b>.</p>
+<p class="jst">Agora o objeto é do tipo  <b>`survey.design`</b>, ou seja, inclui o plano amostral, bem como, os <i>labels</i> categóricos e as variáveis de deflacionamento. Vejamos ...</p>
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
-<p class="jst">Após as operações realizadas, nosso objeto passa a ser do tipo <b>svyrep.design</b>:</p>
+<p class="jst"> ... o tipo do nosso objeto:</p>
 
 ```{r, cache=TRUE, eval=TRUE}
   class(pnadc_2023q1)
@@ -270,6 +310,15 @@ No item "variables" está o objeto <b>tibble</b> com os microdados. Os nomes das
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
+<p class="jst">Os arquivos de microdados e auxiliares (input, dicionários, indicadores de deflação) usados para aplicar as operações anteriores são fornecidos pelo IBGE.</p>
+
+<p class="jst">Esses arquivos podem ser obtidos no <A href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html?=&t=downloads">.purple[site]</A> ou em servidor <b>ftp</b> do IBGE (<A href="https://ftp.ibge.gov.br">.purple[https://ftp.ibge.gov.br]</A>).</p>
+
+<p class="jst">No entanto, é muito mais cômodo obtê-los fazendo uma requisição com a função .purple[get_pnadc()]. Nesse caso, não é necessário procurar os dados desejados na hierarquia de pastas do referido site ou do servidor <b>ftp</b>.</p>
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
+
 <p class="jst">Relembrando:</p>
 
 - A função  .purple[get_pnadc()] permite:
@@ -278,12 +327,13 @@ No item "variables" está o objeto <b>tibble</b> com os microdados. Os nomes das
 - A função  .purple[read_pnadc()] permite:
   - <p class="jst">Ler os microdados, requerendo arquivos específicos.</p>
   - <p class="jst">A inclusão de <i>labels</i> categóricos, variáveis de deflacionamento e plano amostral requer o uso de funções auxiliares.</p>
-
+- O parâmetro <b>vars</b> não funcina como esperado:
+  - <p class="jst">Ainda é possível filtrar os dados, porém, isso requer a identificação das variáveis que são necessárias para a aplicação de outras operações como deflacionamento e a construção do plano amostral, caso estas sejam desejadas.
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - pacote .purple[<b>PNADcIBGE</b>]]
 
-<p class="jst"> O plano amostral obtido com o objeto do tipo <b>svyrep.design</b> é necessário para obter estatísticas coerentes e métricas sobre essas estatísticas como intervalos de confiança e margem de erro. Para maiores informações, veja as seguintes vídeo-aulas sobre microdados:</p>
+<p class="jst"> O plano amostral é necessário para obter estatísticas coerentes e métricas sobre essas estatísticas como intervalos de confiança e margem de erro. Para maiores informações, veja as seguintes vídeo-aulas sobre microdados:</p>
 
 - <A href="https://youtu.be/k3rLK8V_38s">.purple[Vídeo 1 - teórico]</A>
 
@@ -300,7 +350,7 @@ No item "variables" está o objeto <b>tibble</b> com os microdados. Os nomes das
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
 
-<p class="jst">O objeto <b>svyrep.design</b> permite produzir estatísticas através de funções do pacote .purple[<b>survey</b>]. Vejamos:</p>
+<p class="jst">O objeto do tipo <b>survey.design</b> permite produzir estatísticas através de funções do pacote .purple[<b>survey</b>]. Vejamos:</p>
 
 Qual a taxa de Ocupados/Desocupados em nível nacional?
 
@@ -347,16 +397,32 @@ Como gerar intervalos de confiança do total de Ocupados/Desocupados?
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
 
-<p class="jst">A variável <b>V2009</b> refere-se a idade dos entrevistados, enquanto <b>VD3005</b> refere-se a quantidade de anos de estudo. Portanto, qual é a média de anos de estudos da população de 25 anos ou mais de idade no Rio Grande do Sul?</p>
+<p class="jst">A variável <b>V2009</b> refere-se a idade dos entrevistados, enquanto <b>VD3005</b> é uma variável categórica referente a quantidade de anos de estudo. É possível extrair a informação da quantidade de anos de estudo do texto de cada categória, conforme:</p>
+
+```{r, cache=TRUE}
+  data.frame(VD3005 = pnadc_2023q1$variables$VD3005 ,
+             qtd = gsub("\\D", "", pnadc_2023q1$variables$VD3005)) |> 
+  unique() |> 
+  kable() |> 
+  kable_styling(bootstrap_options = c('striped', 'condensed')) |>
+  scroll_box(width = "1050px", height = "240px")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
+
+<p class="jst"> Perceba que a categória "<b>Sem instrução e menos de 1 ano de estudo</b>" é convertida para 1 ano de estudo, assim, será excluída. Portanto, qual é a média de anos de estudos da população de 25 anos ou mais de idade no Rio Grande do Sul?</p>
 
 ```{r, cache=TRUE}
   svymean(~as.numeric(gsub("\\D", "", VD3005)), 
-          subset(pnadc_2023q1, V2009 >= 25, UF=='Rio Grande do Sul'), na.rm = T)
+          subset(pnadc_2023q1, V2009 >= 25 & UF=='Rio Grande do Sul' 
+                 & VD3005 != "Sem instrução e menos de 1 ano de estudo"), na.rm = T)
 ```
 
 ```{r, cache=TRUE}
   confint(svymean(~as.numeric(gsub("\\D", "", VD3005)),
-                  subset(pnadc_2023q1, V2009 >= 25, UF=='Rio Grande do Sul'), na.rm = T),
+                  subset(pnadc_2023q1, V2009 >= 25 & UF=='Rio Grande do Sul'
+                         & VD3005 != "Sem instrução e menos de 1 ano de estudo"), na.rm = T),
           level=.99)
 ```
 
@@ -367,15 +433,24 @@ Como gerar intervalos de confiança do total de Ocupados/Desocupados?
  
 ```{r, cache=TRUE}
   svymean(~as.numeric(gsub("\\D", "", VD3005)),
-          subset(pnadc_2023q1,
-                 V2009 >= 25 & Capital=="Município de Porto Alegre (RS)"), na.rm = T)
+          subset(pnadc_2023q1, V2009 >= 25 & Capital=="Município de Porto Alegre (RS)"
+                 & VD3005 != "Sem instrução e menos de 1 ano de estudo"), na.rm = T)
 ```
 
 ```{r, cache=TRUE}
   confint(svymean(~as.numeric(gsub("\\D", "", VD3005)), 
-                  subset(pnadc_2023q1,
-                         V2009 >= 25 & Capital=="Município de Porto Alegre (RS)"), na.rm = T),
+                  subset(pnadc_2023q1, V2009 >= 25 & Capital=="Município de Porto Alegre (RS)"
+                         & VD3005 != "Sem instrução e menos de 1 ano de estudo"), na.rm = T),
           level=.99)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>survey</b>]]
+
+ O pacote .purple[<b>survey</b>] possui algumas funções para gerar gráficos. Por exemplo:
+ 
+```{r, cache=TRUE}
+  svyhist(formula=~V2009, design=pnadc_2023q1, main="Histograma", xlab="Idade do morador na data de referência")
 ```
  
 ---
@@ -386,8 +461,9 @@ Nos próximos exemplos trabalharemos com os seguintes dados:
 ```{r, eval=FALSE}
   pnadc2023_1trim <- get_pnadc(2023, quarter = 1, design = FALSE, labels = T, 
                              vars = c("Ano","Trimestre","UF", "RM_RIDE", "Capital","UPA",
-                                      "Estrato","V1028", "V2007","V2009","V2010","V3007",
-                                      "VD3004", "VD3005","VD4001", "VD4002","VD4005"
+                                      "Estrato", "posest", "V1027","V1028", "V1029",
+                                      "V2003","V2007","V2009","V2010",
+                                      "V3007","VD3004","VD3005","VD4020",
                                       "Habitual", "Efetivo"))
 ```
 
@@ -400,9 +476,13 @@ Para carregar diretamente:
   pnadc2023_1trim <- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
                              input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt",
                              vars = c("Ano","Trimestre","UF", "RM_RIDE", "Capital","UPA",
-                                      "Estrato","V1028", "V2007","V2009","V2010","V3007",
-                                      "VD3004", "VD3005","VD4001", "VD4002","VD4005",
-                                      "VD4019","VD4020","VD4035"))
+                                      "Estrato", "posest", "V1027","V1028", "V1029",
+                                      "V2003","V2007","V2009","V2010",
+                                      "V3007","VD3004","VD3005","VD4020"))
+  pnadc2023_1trim <- pnadc2023_1trim  |>
+    select(Ano, Trimestre, UF, RM_RIDE, Capital, UPA, Estrato, posest, V1027, V1028, V1029,
+           V2003, V2007, V2009, V2010, VD3004, VD3005, VD4020, ID_DOMICILIO) |>
+    mutate(code_state = as.numeric(UF))
   pnadc2023_1trim <- pnadc_labeller(
     data_pnadc=pnadc2023_1trim,
     dictionary.file="../dados/PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
@@ -414,15 +494,31 @@ Para carregar diretamente:
 ```
 
 ```{r cache=TRUE, eval=FALSE}
+  # Ler os dados
   pnadc2023_1trim <- read_pnadc(microdata="PNADC20231/PNADC_012023.txt",
                              input_txt="PNADC20231/input_PNADC_trimestral.txt",
                              vars = c("Ano","Trimestre","UF", "RM_RIDE", "Capital","UPA",
-                                      "Estrato","V1028", "V2007","V2009","V2010","V3007",
-                                      "VD3004", "VD3005","VD4001", "VD4002","VD4005",
-                                      "VD4019","VD4020","VD4035"))
+                                      "Estrato", "posest", "V1027","V1028", "V1029",
+                                      "V2003","V2007","V2009","V2010",
+                                      "V3007","VD3004","VD3005", 
+                                      "VD4001","VD4002","VD4005","VD4020"))
+  # Filtrar as variáveis desejadas
+  pnadc2023_1trim <- pnadc2023_1trim  |>
+    select(Ano, Trimestre, UF, RM_RIDE, Capital, UPA, Estrato, posest, V1027, V1028, V1029,
+           V2003, V2007, V2009, V2010, VD3004, VD3005, VD4020, ID_DOMICILIO) |>
+    mutate(code_state = as.numeric(UF))
+```
+
+Para atribuir <i>labels</i> categóricos e obter variáveis de deflação ...
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas manualmente]
+
+```{r cache=TRUE, eval=FALSE}
+  # obtendo labels categóricos e variáveis de deflação
   pnadc2023_1trim <- pnadc_labeller(
     data_pnadc=pnadc2023_1trim,
-    dictionary.file="PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
+    dictionary.file="PNADC20231/dicionario_PNADC_microdados_trimestral.xls" 
   )
   pnadc2023_1trim <- pnadc_deflator(
     data_pnadc=pnadc2023_1trim,
@@ -430,17 +526,12 @@ Para carregar diretamente:
   )
 ```
 
-```{r, message=FALSE}
-  library(tidyverse)
-  library(kableExtra)
-  library(patchwork)
-```
-
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas manualmente]
 
 ```{r, cache=TRUE}
-  rendimento_mensal_estados <- pnadc2023_1trim |>
+  rendimento_mensal_estados <- pnadc2023_1trim |> 
+    filter(VD3005 != "Sem instrução e menos de 1 ano de estudo") |>
     mutate(anos_de_estudo = as.numeric(gsub("\\D", "", VD3005))) |>
     summarise("rendimento_medio" = weighted.mean(VD4020, w = V1028, na.rm = TRUE),
               "anos_de_estudo" = weighted.mean(anos_de_estudo, w = V1028, na.rm = TRUE),
@@ -449,7 +540,7 @@ Para carregar diretamente:
     arrange(desc(rendimento_medio))
   rendimento_mensal_estados |> kable() |> 
     kable_styling(bootstrap_options = c('striped', 'condensed')) |>
-    scroll_box(width = "1050px", height = "250px")
+    scroll_box(width = "1050px", height = "210px")
 ```
 
 ---
@@ -503,6 +594,7 @@ Para carregar diretamente:
 
 ```{r, cache=TRUE}
   rendimento_mensal_capitais <- pnadc2023_1trim |>
+    filter(VD3005 != "Sem instrução e menos de 1 ano de estudo") |>
     mutate(anos_de_estudo = as.numeric(gsub("\\D", "", VD3005))) |>
     summarise("rendimento_medio" = weighted.mean(VD4020, w = V1028, na.rm = TRUE),
               "anos_de_estudo" = weighted.mean(anos_de_estudo, w = V1028, na.rm = TRUE),
@@ -511,7 +603,7 @@ Para carregar diretamente:
     arrange(desc(rendimento_medio))
   rendimento_mensal_capitais |> kable() |> 
     kable_styling(bootstrap_options = c('striped', 'condensed')) |>
-    scroll_box(width = "1050px", height = "250px")
+    scroll_box(width = "1050px", height = "210px")
 ```
 
 ---
@@ -562,11 +654,7 @@ Para carregar diretamente:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
 
-Vamos usar de forma combinada .purple[<b>survey</b>] e .purple[<b>srvyr</b>]. Antes, necessitamos instalar e carregar o pacote .purple[<b>srvyr</b>]:
-
-```{r, message=FALSE, eval=FALSE}
-  install.packages("srvyr")
-```
+Vamos usar de forma combinada .purple[<b>survey</b>] e .purple[<b>srvyr</b>]. Antes, necessitamos carregar o pacote .purple[<b>srvyr</b>]:
 
 ```{r, message=FALSE}
   library(srvyr)
@@ -611,12 +699,13 @@ Observe que é possível usar funções do pacote .purple[<b>dplyr</b>] no novo 
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
 
 ```{r, cache=TRUE}
-rendimento_mensal_estados <- pnadc2023_1trim |>
-  group_by(UF) |>
-  summarise(rendimento_medio = survey_mean(VD4020, na.rm = T, vartype = "ci"))
-rendimento_mensal_estados |> kable() |> 
-  kable_styling(bootstrap_options = c('striped', 'condensed')) |>
-  scroll_box(width = "1050px", height = "250px")
+  rendimento_mensal_estados <- pnadc2023_1trim |>
+    group_by(UF) |>
+    summarise(rendimento_medio = survey_mean(VD4020, na.rm = T, vartype = "ci"))
+    rendimento_mensal_estados |>
+  kable() |> 
+    kable_styling(bootstrap_options = c('striped', 'condensed')) |>
+    scroll_box(width = "1050px", height = "250px")
 ```
 
 ---
@@ -648,11 +737,12 @@ rendimento_mensal_estados |> kable() |>
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
 
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, warning=FALSE}
   proporcao_nivel_estudo <- pnadc2023_1trim |>
     group_by(V2007, VD3004) |>
     summarise(frequencia = survey_mean())
-  proporcao_nivel_estudo |> kable() |> 
+  proporcao_nivel_estudo |> 
+    kable() |> 
     kable_styling(bootstrap_options = c('striped', 'condensed')) |>
     scroll_box(width = "1050px", height = "250px")
 ```
@@ -661,7 +751,7 @@ rendimento_mensal_estados |> kable() |>
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
 
 .pull-left[
-<p class="jst">Proporção da população, estre os entrevistados, em cada nível de estudo.</p>
+<p class="jst">Proporção da população, entre os entrevistados, em cada nível de estudo.</p>
 ```{r p4a, message=FALSE, eval=FALSE}
   proporcao_nivel_estudo |> 
     mutate(
@@ -670,11 +760,11 @@ rendimento_mensal_estados |> kable() |>
       )
     ) |>
     drop_na() |>
-    ggplot(aes(frequencia,
+    ggplot(aes(frequencia * 100,
                nivel_de_estudo)) +
     geom_col() +
     facet_wrap(~V2007, nrow = 2) +
-    theme_classic()
+    theme_minimal()
 ```
 ]
 
@@ -686,19 +776,217 @@ rendimento_mensal_estados |> kable() |>
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
 
-<b>Exercício:</b>
+<b>Exercício 1:</b> Gere o rendimento médio mensal por estado e segundo a variável <b>V2007</b> usando o pacote .purple[<b>srvyr</b>]. Faça isso considerando operações do .purple[<b>dplyr</b>].
 
-Gere o rendimento médio mensal por estado e segundo a variável <b>V2007</b> usando o pacote .purple[<b>srvyr</b>]. Faça isso considerando operações do .purple[<b>dplyr</b>].
-
-```{r, cache=TRUE, include=FALSE}
+```{r, cache=TRUE, warning=FALSE}
   rendimento_mensal <- pnadc2023_1trim |>
+    group_by(UF, V2007) |>
+    summarise("rendimento_medio" = survey_mean(VD4020, na.rm = TRUE)) |>
+    tidyr::drop_na() |> 
+    arrange(UF)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
+
+<b>Exercício 1:</b>
+
+```{r}
+  rendimento_mensal |>
+    kable() |> 
+    kable_styling(bootstrap_options = c('striped', 'condensed')) |>
+    scroll_box(width = "1050px", height = "250px")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
+
+<b>Exercício 1:</b> Gere gráficos de colunas do rendimento médio segundo a variável <b>V2007</b>, conforme:
+
+```{r echo=FALSE, cache=TRUE, fig.align='center', out.height='450px', out.width='700px'}
+  rendimento_mensal |> 
+    ggplot(aes(UF, rendimento_medio)) +
+    geom_col() +
+    facet_wrap(~V2007, nrow = 1) +
+    theme_minimal() + 
+    theme(axis.text.x = element_text(angle = 90))
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
+
+<b>Exercício 2:</b> Gere médias para o rendimento mensal e anos de estudo, conforme a tabela abaixo. Agrupe os dados por estado e pela variável <b>V2007</b>. Use os pacotes .purple[<b>srvyr</b>] e .purple[<b>dplyr</b>].
+
+```{r warning=FALSE, cache=TRUE, include=FALSE}
+  rendimento_mensal <- pnadc2023_1trim |>
+    filter(VD3005 != "Sem instrução e menos de 1 ano de estudo") |>
     mutate(anos_de_estudo = as.numeric(gsub("\\D", "", VD3005))) |> 
     group_by(UF, V2007) |>
-    summarise("rendimento_medio" = survey_mean(VD4020, na.rm = TRUE),
+    summarise("rendimento_medio" = survey_mean(VD4020, na.rm = TRUE, vartype = "ci"),
               "anos_de_estudo" = survey_mean(anos_de_estudo, na.rm = TRUE),
     ) |>
-    tidyr::drop_na() |>
-    arrange(desc(rendimento_medio))
+    tidyr::drop_na() |> arrange(UF)
+```
+
+```{r}
+  rendimento_mensal |>
+    kable() |> 
+    kable_styling(bootstrap_options = c('striped', 'condensed')) |>
+    scroll_box(width = "1050px", height = "250px")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
+
+<b>Exercício 2:</b> Gere gráficos de dispersão do rendimento médio por anos de estudo, segundo a variável <b>V2007</b>, conforme:
+
+```{r echo=FALSE, cache=TRUE, fig.align='center', out.height='430px', out.width='700px'}
+  rendimento_mensal |> 
+    ggplot(aes(anos_de_estudo, rendimento_medio)) +
+    geom_point() +
+    facet_wrap(~V2007, nrow = 2) +
+    theme_minimal()
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
+
+<b>Exercício 2:</b> Gere sub-gráficos (segundo <b>V2007</b>) contendo o rendimento médio mensal para cada estado e intervalo de confiança, conforme:
+
+```{r, message=FALSE, echo=FALSE, fig.align='center', out.height='430px', out.width='500px'}
+  rendimento_mensal |> 
+    ggplot(aes(rendimento_medio, UF)) +
+    geom_point() +
+    geom_errorbar(
+      aes(xmin = rendimento_medio_low,
+          xmax = rendimento_medio_upp),
+      width = 0.2) +
+    facet_wrap(~V2007, nrow = 2) +
+    theme_classic()
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
+
+<b>Exercício 3:</b> Compute o rendimento mensal por nível de estudo (<b>VD3004</b>), conforme a tabela abaixo. Agrupe os dados por estados. Use o pacote .purple[<b>srvyr</b>].
+
+
+```{r warning=FALSE, cache=TRUE, include=FALSE}
+  rendimento_mensal <- pnadc2023_1trim |>
+    group_by(UF, VD3004) |>
+    summarise("rendimento_medio" = survey_mean(VD4020, na.rm = TRUE, vartype = "ci")) |>
+    tidyr::drop_na() |> arrange(UF)
+```
+
+```{r}
+  rendimento_mensal |>
+    kable() |> 
+    kable_styling(bootstrap_options = c('striped', 'condensed')) |>
+    scroll_box(width = "1050px", height = "250px")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - estatísticas com .purple[<b>srvyr</b>]]
+
+<b>Exercício 3:</b> Gere gráficos de colunas (para cada estado) do rendimento médio por nível de estudo, conforme:
+
+```{r echo=FALSE, cache=TRUE, fig.align='center', out.height='430px', out.width='800px'}
+  rendimento_mensal |> 
+    ggplot(aes(rendimento_medio, VD3004)) +
+    geom_col() +
+    facet_wrap(~UF) +
+    theme_minimal() +
+    theme(axis.title.y = element_blank(), axis.text.x = element_text(angle = 90), strip.text = element_text(size = 7))
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - visualização espacial]
+
+Considere os seguintes pacotes:
+
+```{r, message=FALSE}
+  library(geobr)
+  library(sf)
+  library(ggspatial)
+```
+
+Vamos carregar um mapa do brasil com a subdivisão dos estados:
+
+```{r, cache=TRUE, message=FALSE}
+  states <- read_state( year = 2020, showProgress = FALSE)
+```
+
+```{r, cache=TRUE}
+  glimpse(states)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - visualização espacial]
+
+<p class="jst">Vamos calcular novamente o rendimento médio mensal conforme o Exercício 3, só que dessa vez, agruparemos os dados considerando a variável <b>code_state</b>.</p>
+
+```{r, cache=TRUE, warning=FALSE}
+  rendimento_mensal <- pnadc2023_1trim |>
+    group_by(code_state, VD3004) |>
+    summarise("rendimento_medio" = survey_mean(VD4020, na.rm = TRUE, vartype = "ci")) |>
+    tidyr::drop_na()
+```
+
+```{r, cache=TRUE}
+  glimpse(rendimento_mensal)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - visualização espacial]
+
+Agora adicionaremos os dados de rendimento médio mensal ao conjunto de dados do mapa.
+
+```{r, cache=TRUE}
+  states <- dplyr::left_join(states, rendimento_mensal, by = "code_state")
+```
+
+<p class="jst">Finalmente podemos produzir um mapa usando o .purple[ggplot2], conforme:</p>
+
+```{r p1, message=FALSE, eval=FALSE}
+  titulo <- "Rendimento médio mensal para indivíduos com nível superior completo,\nno primeiro trimestre de 2023"
+  states |> filter(VD3004 == "Superior completo") |> ggplot() +
+    geom_sf(data=states, aes(fill=rendimento_medio), color=NA) +
+    labs(subtitle = titulo, size=8) +
+    scale_fill_distiller(palette = "Spectral", name="Rendimento Médio") +
+    theme_minimal() + 
+    ggspatial::annotation_scale()
+```
+
+---
+class: left, top
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - visualização espacial]
+
+```{r p1_out, ref.label="p1", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - visualização espacial]
+
+<p class="jst">Finalmente podemos produzir um mapa usando o .purple[ggplot2], conforme:</p>
+
+```{r p2, message=FALSE, eval=FALSE}
+  states |> ggplot() +
+    geom_sf(data=states, aes(fill=rendimento_medio), color=NA) + 
+    facet_wrap(~VD3004) +
+    labs(subtitle="Rendimento médio mensal, no primeiro trimestre de 2023", size=8) +
+    scale_fill_distiller(palette = "Spectral", name="Rendimento Médio") +
+    theme_classic() +
+    theme(axis.text = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank(),
+          strip.text = element_text(size = 6))
+```
+
+---
+class: left, top
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - visualização espacial]
+
+```{r p2_out, ref.label="p2", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
 ```
 
 ---
