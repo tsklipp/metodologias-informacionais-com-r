@@ -14,7 +14,6 @@ dplyr
 stringr
 forcats
 lubridate
-DT
 kableExtra
 patchwork
 srvyr
