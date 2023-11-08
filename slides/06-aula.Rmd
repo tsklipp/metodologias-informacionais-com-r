@@ -1191,9 +1191,9 @@ ggplot(data = mpg,
 <p class="jst">Vejamos exemplos de anotações:</p>
 
 ```{r p18, message=FALSE, eval=FALSE}
-my_title <- paste0("Consumo de Combustível",
-                 " em Rodovias por Tipos",
-                 " de Carros")
+my_title <- paste0("Distância Percorrida",
+" em Rodovias por Tipo", " de Carro e ",
+"Cilindradas")
 my_colors <- c("red","magenta","blue",
 "cyan","green","darkgreen","darkgoldenrod")
 ggplot(data = mpg,
@@ -1205,9 +1205,9 @@ ggplot(data = mpg,
   theme_minimal() +
   theme(legend.position = "top",
         legend.direction = "horizontal") +
-  ylab("Distância Percorrida (milhas)") +
-  xlab("Cilindradas (litros)") +
-  labs(title = my_title)
+  labs(title = my_title, 
+       x = "Cilindradas (litros)",
+       y = "Milhas por Galão")
 ```
 
 ]
@@ -1220,7 +1220,7 @@ ggplot(data = mpg,
 ---
 ### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de `r icons::fontawesome("table")` dados - plotly]
 
-<p class="jst">O pacote <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A> permite a criação de gráficos interativos diversos. Essa bibliteca é fornecida pela empresa Plotly (sede em Quebec, Canadá) que produz serviços para análise e visualização de dados online. Também são fornecidas bibliotecas para outras linguagens de programação como MATLAB, python, entre outras. O pacote  .purple[<b>plotly</b>] tem como principais características:</p>
+<p class="jst">O pacote <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A> permite a criação de gráficos interativos diversos. Essa bibliteca é fornecida pela empresa Plotly (sede em Quebec, Canadá) que produz serviços para análise e visualização de dados em páginas <i>web</i>. Também são fornecidas bibliotecas para outras linguagens de programação como MATLAB, python, entre outras. O pacote  .purple[<b>plotly</b>] tem como principais características:</p>
 
 - Tem licença aberta, ou seja, pode ser usada livremente.
 - Renderiza os gráficos através da biblioteca <i>JavaScript</i> .purple[plotly.js].
@@ -1232,7 +1232,7 @@ ggplot(data = mpg,
 
 <b>Como criar um gráfico interativo?</b>
 
-<p class="jst">Um modo fácil e prático para obter um gráfico interativo é converter um gráfico gerado a partir do pacote .purple[<b>ggplot2</b>] usando a função de conversão .purple[ggplotly()] do pacote .purple[<b>plotly</b>]. Primeiro, precisamos desse pacote instalado e carregado:</p>
+<p class="jst">Um modo prático para obter um gráfico interativo é converter um gráfico gerado a partir do pacote .purple[<b>ggplot2</b>] usando a função de conversão .purple[ggplotly()] do pacote .purple[<b>plotly</b>]. Primeiro, precisamos desse pacote instalado e carregado:</p>
   ```{r, message=FALSE}
   # install.packages("plotly")
   library(plotly)
@@ -1243,7 +1243,7 @@ Também criaremos um gráfico com .purple[ggplot()] e faremos a conversão com .
              geom_point(aes(color = class)) + geom_smooth() + geom_rug(color = "brown") +
              scale_color_manual(values = my_colors) + theme_minimal() +
              theme(legend.position = "top", legend.direction = "horizontal") +
-             ylab("Distância Percorrida (milhas)") + xlab("Cilindradas (litros)") +
+             ylab("Milhas por Galão") + xlab("Cilindradas (litros)") +
              labs(title = my_title)
   ggplotly(my_plot)
   ```
@@ -1259,25 +1259,23 @@ Também criaremos um gráfico com .purple[ggplot()] e faremos a conversão com .
 
 .pull-left[
 
-<p class="jst">Vejamos um exemplo básico de gráfico:</p>
+<p class="jst">Também podemos criar o gráfico diretamente, conforme:</p>
 
 ```{r p20, message=FALSE, eval=FALSE}
 mtcars <- as_tibble(mtcars,
                     rownames = 'model')
 plot_ly(
   data = mtcars,
-  x = ~disp,
-  y = ~mpg,
-  color = ~factor(cyl),
-  text = ~model,
-  type = "scatter",
-  mode = "markers"
+  x = ~disp, y = ~mpg,
+  color = ~factor(cyl), text = ~model,
+  type = "scatter", mode = "markers"
 ) |>
-layout(
+layout( 
+  title = my_title,
   xaxis = list(
     title = "Cilindradas (litros)"),
   yaxis = list(
-    title = "Distância Percorrida (milhas)")
+    title = "Milhas por Galão")
 ) 
 ```
 

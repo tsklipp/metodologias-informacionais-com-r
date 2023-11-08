@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Metodologias Informacionais com R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Telmo dos Santos Klipp (telmo.klipp@inpe.br) " />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <b>Metodologias Informacionais com R</b>
+]
+.subtitle[
+## <br/>Modulo V: Análise espacial aplicada de dados
+]
+.author[
+### <br/><b>Telmo dos Santos Klipp</b> (<a href="mailto:telmo.klipp@inpe.br" class="email">telmo.klipp@inpe.br</a>)<br/>
+]
+
+---
+
+layout: true
+
+background-image: url(figures/template_middlepage_2.png)
+background-size: cover
+
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Informações Gerais sobre o Curso]
+
+- &lt;p class="jst"&gt;Materiais disponibilizados via &lt;A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3"&gt;Classroom&lt;/A&gt;;&lt;/p&gt; 
+- &lt;p class="jst"&gt;O aprendizado requer a prática que será constante nas aulas;&lt;/p&gt;
+
+.pull-left[
+Bibliografia Básica:
+
+ .tiny2[- &lt;p class="jst"&gt;Kennedy, R., &amp; Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.&lt;/p&gt;
+
+&lt;img src="figures/basicblibliograph.png" width="39%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+.pull-right[
+Bibliografia Complementar:
+
+ .tiny2[- &lt;p class="jst"&gt;Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). R for data science (2e): import, tidy, transform, visualize, and model data. "O'Reilly Media, Inc.". Disponível em: &lt;A href="https://r4ds.hadley.nz/"&gt;https://r4ds.hadley.nz/&lt;/A&gt;. Acesso em: 14 de junho, 2023. (Online) &lt;/p&gt;
+- &lt;p class="jst"&gt;Damiani, A. et. al., (2022). Ciência de Dados em R. Curso-R. Disponível em: &lt;A href="https://livro.curso-r.com"&gt;https://livro.curso-r.com&lt;/A&gt;. Acesso em: 12 de maio, 2023. (Online)&lt;/p&gt;
+-  &lt;p class="jst"&gt;de Aquino, J. A. (2014). R para cientistas sociais. Editora da UESC (editus). Disponível em: &lt;A href="http://www.uesc.br/editora/index.php?item=conteudo_livros_digitais.php"&gt;http://www.uesc.br/editora/&lt;/A&gt;. Acesso em: 12 de maio, 2023. &lt;/p&gt;
+-  &lt;p class="jst"&gt;de Oliveira, P. F., Guerra, S., McDonnell, R. (2018). Ciência de Dados com R: Introdução. Editora IBPAD. Disponível em: &lt;A href="https://cdr.ibpad.com.br/index.html"&gt;https://cdr.ibpad.com.br/index.html&lt;/A&gt;. Acesso em: 12 de maio, 2023. (Online) &lt;/p&gt; ] 
+]
+
+---
+
+### .orange[Nas últimas aulas vimos:]
+
+- &lt;p class="jst"&gt;Aquisição de dados da PNADC por meio do pacote .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;].&lt;/p&gt;
+- &lt;p class="jst"&gt;Construção do plano amostral para os dados da PNADC usando .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;].&lt;/p&gt;
+- &lt;p class="jst"&gt;Geração de estatísticas com .purple[&lt;b&gt;survey/srvyr&lt;/b&gt;].&lt;/p&gt;
+- &lt;p class="jst"&gt;Geração de estatísticas aplicando ponderação por pesos dos domicílios e das pessoas, ou seja, desconsiderando a totalidade do plano amostral.&lt;/p&gt;
+- &lt;p class="jst"&gt;Manipulação de dados da PNADC com .purple[&lt;b&gt;dplyr&lt;/b&gt;] sem considerar o plano amostral.&lt;/p&gt;
+- &lt;p class="jst"&gt;Manipulação de dados PNADC usando .purple[&lt;b&gt;dplyr&lt;/b&gt;] em combinação com .purple[&lt;b&gt;survey/srvyr&lt;/b&gt;], ou seja, considerando o plano amostral.&lt;/p&gt;
+- &lt;p class="jst"&gt;Geração de gráficos com .purple[&lt;b&gt;survey&lt;/b&gt;] e .purple[&lt;b&gt;ggplot2&lt;/b&gt;].&lt;/p&gt;
+
+&lt;/br&gt;
+.center[
+&gt; &lt;b&gt;Agora trataremos da visualização espacial de dados&lt;/b&gt;
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - Relembrando]
+
+&lt;p class="jst"&gt; A visualização de gráficos pode ser crucial para a fase de análise exploratória de dados - obter informações, entender os dados, relações entre variáveis, desenvolver ou validar hipóteses. Não obstante, também é importante em etapas posteriores de comunicação e divulgação - em relatórios, documentos científicos, páginas na internet, entre outros. &lt;/p&gt;
+
+&lt;p class="jst"&gt; O R possui como pacote gráfico básico o .purple[&lt;b&gt;graphics&lt;/b&gt;] (vem pré-instalado). Outros pacotes gráficos são:&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Gráficos estáticos: &lt;A href="https://ggplot2.tidyverse.org/"&gt;.purple[&lt;b&gt;ggplot2&lt;/b&gt;]&lt;/A&gt;  (gráficos de tipos diversos), &lt;A href="https://lattice.r-forge.r-project.org/"&gt;.purple[&lt;b&gt;lattice&lt;/b&gt;]&lt;/b&gt;&lt;/A&gt;  (gráficos essencialmente do tipo &lt;i&gt;trellis&lt;/i&gt;);&lt;/p&gt;
+- &lt;p class="jst"&gt;Gráficos interativos: &lt;A href="https://plotly.com/r/"&gt;.purple[&lt;b&gt;plotly&lt;/b&gt;]&lt;/b&gt;&lt;/A&gt;, &lt;A href="https://rstudio.github.io/dygraphs/"&gt;.purple[&lt;b&gt;dygraphs&lt;/b&gt;]&lt;/b&gt;&lt;/A&gt;, &lt;A href="https://jkunst.com/highcharter/"&gt;.purple[&lt;b&gt;highcharter&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://ggvis.rstudio.com/"&gt;.purple[&lt;b&gt;ggvis&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://gganimate.com/"&gt;.purple[&lt;b&gt;gganimate&lt;/b&gt;]&lt;/A&gt; (gera animações);&lt;/p&gt;
+- &lt;u&gt;&lt;p class="jst"&gt;Mapas estáticos:&lt;/u&gt; .purple[&lt;b&gt;graphics&lt;/b&gt;], &lt;A href="https://ggplot2.tidyverse.org/"&gt;.purple[&lt;b&gt;ggplot2&lt;/b&gt;]&lt;/A&gt;, .purple[&lt;b&gt;sp&lt;/b&gt;], .purple[&lt;b&gt;sf&lt;/b&gt;], &lt;A href="https://r-tmap.github.io/tmap/"&gt;.purple[&lt;b&gt;tmap&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://github.com/dkahle/ggmap"&gt;.purple[&lt;b&gt;ggmap&lt;/b&gt;]&lt;/A&gt; (mapas oriundos de serviços populares como &lt;i&gt;Google Maps&lt;/i&gt;);&lt;/p&gt;
+- &lt;u&gt;&lt;p class="jst"&gt;Mapas interativos:&lt;/u&gt; &lt;A href="https://gganimate.com/"&gt;.purple[&lt;b&gt;gganimate&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://rstudio.github.io/leaflet/"&gt;.purple[&lt;b&gt;leaflet&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://r-spatial.github.io/mapview/"&gt;.purple[&lt;b&gt;mapview&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://r-tmap.github.io/tmap/"&gt;.purple[&lt;b&gt;tmap&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://plotly.com/r/"&gt;.purple[&lt;b&gt;plotly&lt;/b&gt;]&lt;/b&gt;&lt;/A&gt;;&lt;/p&gt;
+- &lt;p class="jst"&gt;Gráficos 3D:   .purple[&lt;b&gt;graphics&lt;/b&gt;], &lt;A href="https://plotly.com/r/"&gt;.purple[&lt;b&gt;plotly&lt;/b&gt;]&lt;/b&gt;&lt;/A&gt;, &lt;A href="http://www.sthda.com/english/wiki/impressive-package-for-3d-and-4d-graph-r-software-and-data-visualization"&gt;.purple[&lt;b&gt;plot3d&lt;/b&gt;]&lt;/A&gt;, &lt;A href="http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization"&gt;.purple[&lt;b&gt;scatterplot3d&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://lattice.r-forge.r-project.org/"&gt;.purple[&lt;b&gt;lattice&lt;/b&gt;]&lt;/b&gt;&lt;/A&gt;, &lt;A href="https://github.com/AckerDWM/gg3D"&gt;.purple[&lt;b&gt;gg3D&lt;/b&gt;]&lt;/b&gt;&lt;/A&gt;, &lt;A href="https://github.com/cran/rgl"&gt;.purple[&lt;b&gt;RGL&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://github.com/coolbutuseless/ggrgl"&gt;.purple[&lt;b&gt;ggrgl&lt;/b&gt;]&lt;/A&gt;,  &lt;A href="https://www.rayshader.com/"&gt;.purple[&lt;b&gt;rayshader&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://www.rayrender.net/"&gt;.purple[&lt;b&gt;rayrender&lt;/b&gt;]&lt;/A&gt;  (gera cenas 3D).&lt;/p&gt;
+
+&lt;p class="jst"&gt;&lt;b&gt;A visualização geoespacial de dados agrega interpretabilidade às informações, permitindo a combinação de dados e metadados com subdivisões geográficas. Para isso, trabalharemos principalmente com .purple[&lt;b&gt;ggplot2&lt;/b&gt;].&lt;/b&gt;&lt;/p&gt;  
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados - .purple[&lt;b&gt;ggplot2&lt;/b&gt;] - Relembrando]
+
+&lt;b&gt;Os cinco componentes de um gráfico segundo a interpretação de "Layered Grammar"&lt;/i&gt; no .purple[&lt;b&gt;ggplot2&lt;/b&gt;] são:&lt;/b&gt;
+
+1. Camada(s) - representação visual das propriedades físicas dos dados:
+  - Dados (&lt;i&gt;&lt;b&gt;data&lt;/b&gt;&lt;/i&gt;);
+  - Mapeamento de objetos (&lt;i&gt;&lt;b&gt;aesthetic&lt;/b&gt;&lt;/i&gt;) - define as variáveis que compõem o gráfico; divisões categóricas dos dados que são traduzidas em cores, formatos e tamanhos; elementos da legenda e agrupamentos;
+  - &lt;u&gt;Geometria dos objetos (&lt;i&gt;&lt;b&gt;geom&lt;/b&gt;&lt;/i&gt;&lt;/u&gt;) - basicamente o tipo do gráfico;
+  - Transformações estatísticas (&lt;i&gt;&lt;b&gt;stat&lt;/b&gt;&lt;/i&gt;) - basicamente sumarização de dados;
+  - Posicionamento (&lt;i&gt;&lt;b&gt;position&lt;/b&gt;&lt;/i&gt;) - permite o deslocamento dos elementos gráficos se houver sobreposição.
+  
+2. &lt;p class="jst"&gt;Escalas  (&lt;i&gt;&lt;b&gt;scales&lt;/b&gt;&lt;/i&gt;) - permite controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos &lt;i&gt;labels&lt;/i&gt; nos eixos e legenda, entre outros.&lt;/p&gt;
+3. &lt;u&gt;Sistema de coordenadas (&lt;i&gt;&lt;b&gt;coord&lt;/b&gt;&lt;/i&gt;&lt;/u&gt;) - permite definir posição/aparência dos objetos mapeados no plano.
+
+4. &lt;p class="jst"&gt;Facetamento/tabulamento (&lt;i&gt;&lt;b&gt;faceting&lt;/b&gt;&lt;/i&gt;) - gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos compartilham os mesmos atributos estéticos.&lt;/p&gt;
+
+5. Tema (&lt;i&gt;&lt;b&gt;theme&lt;/b&gt;&lt;/i&gt;) - Define elementos gerais como cor do plano de fundo, tamanho de texto e tipo de fonte.
+
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+O .purple[&lt;b&gt;ggplot2&lt;/b&gt;] permite a produção de mapas estáticos segundo algumas &lt;A href="https://ggplot2-book.org/maps.html"&gt; possibilidades&lt;/A&gt;:
+
+- Representação de mapas e dados por meio de polígonos:
+  - Funções comulmente usadas: .purple[geom_polygon()] ou .purple[geom_map()] e .purple[coord_quickmap()].
+  - Requer variáveis que indiquem as coordenadas dos vértices dos polígonos.
+  - Talvez o uso seja mais simples, porém, é menos flexível nas representações espaciais e metadados.
+  - Possui limitações para certos tipos de projeções dos mapas e dados (&lt;A href="https://homepage.divms.uiowa.edu/~luke/classes/STAT4580-2021/maps.html"&gt;Observe em&lt;/A&gt;). 
+  
+- Representação de mapas e dados por meio de objetos espaciais conhecidos como &lt;i&gt;"simple features"&lt;/i&gt;:
+  - Funções comulmente usadas: .purple[geom_sf()] e .purple[coord_sf()].
+  - Flexibilidade em representações espaciais (ex: pontos, linhas e polígonos) e metadados.
+  - Padronização seguida pela &lt;i&gt;Open Geospatial Consortium&lt;/i&gt;.
+  - Diversidade e facilidade para diferentes tipos de projeções dos mapas e dados (&lt;A href="https://semba-blog.netlify.app/01/26/2020/world-map-and-map-projections/"&gt;Observe em&lt;/A&gt;).
+
+&lt;p class="jst"&gt; &lt;b&gt;Observação&lt;/b&gt;: Em uma projeção, queremos mapear o globo terrestre para uma superfície plana, o que envolve tranformações de coordenadas (latitudes e longitudes) da superficie esférica para a plana. Não obstante, existem diversas formas de projeções possíveis (ex: cilíndrica, conica, plana, Robinson e Mollweide).&lt;/p&gt;
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+A visualização espacial pode ser dividida em duas etapas:
+
+- Obter um conjunto de dados de um mapa base.
+
+- Adicionar/mapear os dados que nos interessam, assim como metadados, para o mapa base.
+
+Existem diversos pacotes no r que fornecem mapas:
+- Representação por meio de polígonos: .purple[&lt;b&gt;maps&lt;/b&gt;].
+
+- Representação por meio de objetos &lt;A href="https://r-spatial.github.io/sf/"&gt;.purple[&lt;b&gt;sf&lt;/b&gt;]&lt;/A&gt; (17 tipos de &lt;i&gt;"simple features"&lt;/i&gt;): .purple[&lt;b&gt;rnaturalearth&lt;/b&gt;], .purple[&lt;b&gt;geobr&lt;/b&gt;].
+
+- Representação por meio de objetos &lt;A href="https://cran.r-project.org/web/packages/sp/index.html"&gt;.purple[&lt;b&gt;sp&lt;/b&gt;]&lt;/A&gt; (pontos, grades, linhas, anéis e polígonos): .purple[&lt;b&gt;rworldmap&lt;/b&gt;], .purple[&lt;b&gt;rworldxtra&lt;/b&gt;], .purple[&lt;b&gt;spData&lt;/b&gt;].
+
+&lt;p class="jst"&gt;Existem diversos pacotes no r que permitem manipulação e análise de objetos e dados espaciais (ex: .purple[&lt;b&gt;sf&lt;/b&gt;], .purple[&lt;b&gt;sp&lt;/b&gt;], .purple[&lt;b&gt;raster&lt;/b&gt;], .purple[&lt;b&gt;terra&lt;/b&gt;]). Não obstante, precisaremos do .purple[&lt;b&gt;ggplot2&lt;/b&gt;] e outros pacotes do .purple[&lt;b&gt;tidyverse&lt;/b&gt;].&lt;/p&gt;
+
+
+```r
+  # install.packages("tidyverse")
+  library(tidyverse)
+```
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;p class="jst"&gt;Vamos ver exemplos de mapas construídos unicamente com polígonos. Para isso, obteremos um mapa com o pacote .purple[&lt;b&gt;maps&lt;/b&gt;]:&lt;/p&gt;
+
+
+```r
+  # install.packages("maps")
+  library(maps)
+```
+
+Então, carregamos o mapa base usando a função .purple[ggplot2::map_data()]:
+
+```r
+  world_map &lt;- map_data("world")
+```
+
+Podemos gerar esse mapa simples, na forma:
+
+
+```r
+  ggplot(data = world_map, aes(x = long, y = lat, group = group)) +
+    geom_polygon(fill="lightgray", colour = "black") +
+    labs(title = "Mapa Global", x = "Longitude", y = "Latitude") +
+    theme_bw()
+```
+
+---
+class: left, top
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;img src="09-aula_files/figure-html/p1a_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+Vejamos como filtrar e produzir um mapa dos países da América do Sul:
+
+
+```r
+  south_america &lt;- c("Brazil", "Argentina", "Chile", "Uruguay", "Paraguay", "Ecuador",
+                     "Peru", "Venezuela", "Colombia", "Bolivia", "Suriname", "Guyana")
+  south_america_countries &lt;- filter(world_map, region %in% south_america)
+  south_america_labels &lt;- summarise(south_america_countries,
+                                    long = mean(long), lat=mean(lat),
+                                    .by = region)
+```
+
+
+```r
+  ggplot(data = south_america_countries, aes(x = long, y = lat)) +
+    geom_polygon(aes(group = group, fill = region), col = "white", alpha = .9) +
+    geom_text(data = south_america_labels, aes(label = region),
+              size = 3.5, fontface = 2, color = "gray20", angle = 20, check_overlap = TRUE) +
+    labs(title = "Países da América do Sul", x = "Longitude", y = "Latitude") +
+    theme_bw() + 
+    theme(legend.position = "none")
+```
+
+---
+class: left, top
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;img src="09-aula_files/figure-html/p1b_out-1.png" width="600px" height="500px" style="display: block; margin: auto;" /&gt;
+
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+
+&lt;p class="jst"&gt;Como já temos o mapa base, podemos  adicionar/mapear dados ao mesmo. Como exemplo, vamos adquirir dados de expectativa de vida da &lt;i&gt;World Health Organization&lt;/i&gt; usando o pacote .purple[&lt;b&gt;WHO&lt;/b&gt;]. Este pacote não está disponível no &lt;b&gt;CRAN&lt;/b&gt;, mas podemos instalá-lo direto do seu repositório no GitHub através de .purple[&lt;b&gt;devtools&lt;/b&gt;].&lt;/p&gt;
+
+
+```r
+  # From Github
+  library(devtools)
+  install_github("expersso/WHO")
+```
+
+&lt;p class="jst"&gt; Agora, obtemos os dados para o ano de 2019 e fazemos algumas alterações, conforme:&lt;/p&gt;
+
+
+```r
+  library(WHO)
+  expectativa_de_vida &lt;- get_data("WHOSIS_000001") |&gt;
+    filter(year == 2019) |&gt;
+    rename(region_at = region, region = country, life_exp = value) |&gt;
+    mutate(region = ifelse(region == "United States of America", "USA", region)) 
+```
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+Podemos gerar o mapa com .purple[geom_map()], mapeando os dados de expectativa de vida, na forma:
+
+
+```r
+  expectativa_de_vida |&gt; 
+    filter(sex == "Both sexes") |&gt;
+  ggplot() +
+    geom_map(aes(fill = life_exp, map_id = region), map = world_map, col = "black") + 
+    expand_limits(x = world_map$long, y = world_map$lat) +
+    scale_fill_viridis_c(option = "C") +
+    labs(title = "Expectativa de vida em diversos países do mundo em 2019.",
+         x = "", y = "", caption = "Fonte: Organização Mundial da Saúde.") +
+    theme_bw() + 
+    theme(legend.title = element_blank())
+```
+
+---
+class: left, top
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;img src="09-aula_files/figure-html/p1c_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+Podemos gerar o mapa com .purple[geom_polygon()], adicionando os dados de expectativa de vida ao mapa base:
+
+
+```r
+  my_map &lt;- left_join(expectativa_de_vida, world_map, by = "region")
+  my_title &lt;- "Expectativa de vida (homens e mulheres) em diversos países, no ano de 2019."
+  my_cap &lt;- "Fonte: Organização Mundial da Saúde."
+  my_map |&gt; 
+    filter(sex != "Both sexes") |&gt;
+  ggplot(aes(long, lat, group = group)) +
+    geom_polygon(aes(fill = life_exp ), color = "black") + facet_wrap(~sex, nrow = 2) +
+    scale_fill_viridis_c(option = "C") +
+    labs(title = my_title, x = "", y = "", caption = my_cap) +
+    theme_bw() +
+    theme(legend.title = element_blank()) # ou usando geom_map()
+```
+
+
+```r
+  my_map |&gt; filter(sex != "Both sexes") |&gt;
+  ggplot(aes(long, lat, fill = life_exp, map_id = region)) +
+    geom_map(map = my_map, color = "black") + facet_wrap(~sex, nrow = 2) +
+    scale_fill_viridis_c(option = "C") +
+    labs(title = my_title, x = "", y = "", caption = my_cap) +
+    theme_bw() + theme(legend.title = element_blank())
+```
+
+
+---
+class: left, top
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;img src="09-aula_files/figure-html/p1d_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;p class="jst"&gt;Vamos ver exemplos de mapas baseados em &lt;i&gt;"simple features"&lt;/i&gt;. O pacote &lt;A href="https://r-spatial.github.io/sf/"&gt;.purple[&lt;b&gt;sf&lt;/b&gt;]&lt;/A&gt;, em específico, possui uma diversidade de representações espaciais, operações geométricas, transformações de projeção e suporte para outras bibliotecas geoespaciais. Como exemplos, obteremos mapas através dos pacotes .purple[&lt;b&gt;rnaturalearth&lt;/b&gt;] e .purple[&lt;b&gt;rnaturalearthdata&lt;/b&gt;]:&lt;/p&gt;
+
+
+```r
+  install.packages(c("rnaturalearth", "rnaturalearthdata"))
+  # Pacotes auxiliares para gráficos do ggplot2
+  install.packages(c("ggrepel", "ggspatial"))
+```
+
+
+```r
+  library(sf)
+  library(rnaturalearth)
+  library(rnaturalearthdata)
+  library(ggrepel)   # permite evitar a sobreposição de textos usados como labels
+  library(ggspatial) # fornece anotações (ex: escala) e outras operações em mapas
+```
+
+Carregamos um mapa base usando a função .purple[rnaturalearth::ne_countries()]:
+
+```r
+  world_map &lt;- ne_countries(scale = "medium", returnclass = "sf")
+```
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+.pull-left[
+
+Podemos gerar o mapa na forma:
+
+
+```r
+  ggplot(data = world_map) +
+    geom_sf(fill="lightgray",
+            colour = "black") +
+    coord_sf(expand = FALSE) +
+    labs(title = "Mapa Global") +
+    theme_bw()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="09-aula_files/figure-html/p2a_out-1.png"  /&gt;
+
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+Para produzir um mapa da América do Sul, filtramos os dados:
+
+
+```r
+  south_america &lt;- filter(world_map, continent == "South America") 
+```
+
+&lt;p class="jst"&gt;O pacote .purple[&lt;b&gt;sf&lt;/b&gt;] possui diversas operações sobre objetos geométricos. Dentre estas, podemos calcular os centros dos multi-polígonos que representam os países, converter para coordenadas (latitudes e longitudes) e usá-las para posicionar os nomes dos países como labels no mapa a ser gerado:&lt;/p&gt;
+
+
+```r
+  south_america$lon &lt;- sf::st_coordinates(sf::st_centroid(south_america$geom))[,1]   
+  south_america$lat &lt;- sf::st_coordinates(sf::st_centroid(south_america$geom))[,2]
+```
+
+
+```r
+  ggplot(data = south_america, aes(lon, lat)) +
+    geom_sf(aes(fill = name, colour = "black", alpha = .9)) +
+    geom_text_repel(aes(label = name), size = 3.5, fontface = 2, color = "gray20") +
+    labs(title = "América do Sul", x = "", y = "") +
+    theme_bw() +
+    theme(legend.position = "none")
+```
+
+---
+class: left, top
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;img src="09-aula_files/figure-html/p2b_out-1.png" width="600px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+.pull-left[
+
+&lt;p class="jst"&gt;O mapa base que baixamos já possui informações anexas. Observe:&lt;/p&gt;
+
+
+```r
+t1 = "Distribuição da População (estimada)"
+ggplot(data = world_map) +
+  geom_sf(aes(fill = pop_est),
+          colour = "white") +
+  coord_sf(expand = FALSE) +
+  scale_y_continuous(limits = c(-80, 80)) +
+  scale_fill_viridis_c(option = "C") +
+  labs(title = t1) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.direction = "horizontal",
+        legend.position = "bottom",
+        legend.key.width = unit(2.5,"cm"))
+```
+
+]
+
+.pull-right[
+
+&lt;img src="09-aula_files/figure-html/p2c_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+.pull-left[
+
+&lt;p class="jst"&gt;Podemos facilmente mudar a projeção. Observe:&lt;/p&gt;
+
+
+```r
+t2 = "Distribuição do PIB (estimado)"
+ggplot(data = world_map) +
+  geom_sf(aes(fill = gdp_md_est),
+          colour = "white") +
+  coord_sf(crs = "+proj=robin") +
+  scale_fill_viridis_c(option = "C") +
+  labs(title = t2) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.direction = "horizontal",
+        legend.position = "bottom",
+        legend.key.width = unit(2.5,"cm"))
+```
+
+]
+
+.pull-right[
+
+&lt;img src="09-aula_files/figure-html/p2d_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;p class="jst"&gt;Vimos algumas formas de produzir mapas. Sem embargo, o uso de objetos do tipo &lt;i&gt;"simple features"&lt;/i&gt; junto ao .purple[&lt;b&gt;ggplot2&lt;/b&gt;] tem se tornado predominante pela flexibilidade e disponibilidade de operações sobre mapas e dados. Seguiremos essa linha. Portanto, necessitaremos do pacote &lt;A href="https://github.com/ipeaGIT/geobr".purple[&lt;b&gt;geobr&lt;/b&gt;]&lt;/A&gt;:&lt;/p&gt;
+
+
+```r
+  install.packages("geobr")
+```
+
+
+```r
+  library(geobr)
+```
+
+&lt;p class="jst"&gt;O pacote .purple[&lt;b&gt;geobr&lt;/b&gt;] fornece mapas de divisões territoriais do Brasil e outros conjuntos de dados, conforme às funções que disponibiliza - ex: .purple[read_state()], .purple[read_municipality()] e .purple[read_health_facilities()]. Veja, por exemplo, a obtenção do mapa da cidade de Santa Maria segundo a ocupação territorial:&lt;/p&gt;
+
+
+```r
+  censo_sm &lt;- geobr::read_census_tract(code_tract = 4316907, year = 2020, showProgress = FALSE)
+  ggplot(data = censo_sm, aes(fill=zone)) +
+    geom_sf() +
+    labs(title = "Ocupação Territorial de Santa Maria (RS)", caption = "Fonte: IBGE") +
+    theme_bw() +
+    theme(legend.title = element_blank(),
+         legend.direction = "horizontal", legend.position = "top")
+```
+
+---
+class: left, top
+### .orange[&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualização espacial de dados &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; - .purple[&lt;b&gt;ggplot2&lt;/b&gt;]]
+
+&lt;img src="09-aula_files/figure-html/p2e_out-1.png" width="700px" height="400px" style="display: block; margin: auto;" /&gt;
+
+&lt;/br&gt;
+
+&gt; .center[&lt;b&gt;A partir de agora, trabalharemos com dados da PNADC.&lt;/b&gt;]
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - Relembrando]
+
+&lt;p class="jst"&gt;Para trabalhar com os microdados da PNAD Contínua, vamos fazer uso dos pacotes: &lt;/p&gt;
+
+- &lt;A href="https://cran.r-project.org/web/packages/PNADcIBGE/index.html"&gt;.purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;]&lt;/A&gt; - possibilita baixar dados da PNAD Contínua.
+- &lt;A href="https://cran.r-project.org/web/packages/survey/index.html"&gt;.purple[&lt;b&gt;survey&lt;/b&gt;]&lt;/A&gt; - possibilita produzir diversas operações estatísticas em dados com amostragem complexa.
+- &lt;A href="https://cran.r-project.org/web/packages/srvyr/index.html"&gt;.purple[&lt;b&gt;srvyr&lt;/b&gt;]&lt;/A&gt; - uma extensão do pacote .purple[&lt;b&gt;survey&lt;/b&gt;] que permite o uso de funções do .purple[&lt;b&gt;dplyr&lt;/b&gt;] e sua sintaxe.
+
+
+Vamos instalar e carregar os pacotes:
+
+
+```r
+  install.packages(c("PNADcIBGE", "survey", "srvyr"))
+```
+
+
+```r
+  library(PNADcIBGE)
+  library(survey)
+  library(srvyr)
+```
+
+
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; - Relembrando]
+
+&lt;p class="jst"&gt;Continuaremos trabalhando com microdados do primeiro trimestre de 2023 que podem ser baixados/carregados usando funções do pacote .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;]:&lt;/p&gt;
+
+
+```r
+  pnadc_2023q1 &lt;- get_pnadc(year = 2023, quarter = 1)
+```
+
+
+
+
+```r
+  pnadc_2023q1 &lt;- read_pnadc(microdata="PNADC20231/PNADC_012023.txt",
+                             input_txt="PNADC20231/input_PNADC_trimestral.txt")
+  pnadc_2023q1 &lt;-  pnadc_2023q1 |&gt;
+    select(-(V1028001:V1028200)) |&gt;     # Excluir pesos replicados
+    mutate(code_state = as.numeric(UF),
+           code_capital = as.numeric(Capital)) # Manter códigos numéricos 
+  pnadc_2023q1 &lt;- pnadc_labeller(
+    data_pnadc=pnadc_2023q1,
+    dictionary.file="PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
+  )
+  pnadc_2023q1 &lt;- pnadc_deflator(
+    data_pnadc=pnadc_2023q1,
+    deflator.file="PNADC20231/deflator_PNADC_2023_trimestral_040506.xls"
+  )
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+Usando funções do pacote .purple[&lt;b&gt;geobr&lt;/b&gt;] obtemos mapas do Brasil segundo estados e capitais:
+
+
+```r
+  estados_br &lt;- read_state(year = 2020, showProgress = FALSE)
+  capitais_br &lt;- read_capitals(showProgress = FALSE) |&gt; 
+    mutate(code_state = as.numeric(code_state))
+```
+
+
+```r
+  glimpse(estados_br)
+```
+
+```
+## Rows: 27
+## Columns: 6
+## $ code_state   &lt;dbl&gt; 11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25, 26, 27, 2…
+## $ abbrev_state &lt;chr&gt; "RO", "AC", "AM", "RR", "PA", "AP", "TO", "MA", "PI", "CE…
+## $ name_state   &lt;chr&gt; "Rondônia", "Acre", "Amazônas", "Roraima", "Pará", "Amapá…
+## $ code_region  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, …
+## $ name_region  &lt;chr&gt; "Norte", "Norte", "Norte", "Norte", "Norte", "Norte", "No…
+## $ geom         &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-65,38 -10,..., MULTIPOLYGON…
+```
+
+&lt;/br&gt;
+
+Perceba que o conjunto de dados do mapa possui o código de cada estado (coluna &lt;b&gt;code_state&lt;/b&gt;).
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;Agora, como exemplo, podemos gerar as estimativas do rendimento médio mensal das pesoas com 14 anos ou mais, segundo o nível de instrução (&lt;b&gt;VD3004&lt;/b&gt;) e estado da federação (&lt;b&gt;code_state&lt;/b&gt;). Não aplicaremos o plano amostral, mas sim funções ponderadas:&lt;/p&gt;
+
+
+```r
+  rendimento_mensal &lt;- pnadc_2023q1 |&gt;
+    summarise(rendimento_medio = weighted.mean(VD4020, w = V1028, na.rm = TRUE), 
+              .by = c(code_state, VD3004)) |&gt;
+    tidyr::drop_na()
+```
+
+
+```r
+  glimpse(rendimento_mensal)
+```
+
+```
+## Rows: 189
+## Columns: 3
+## $ code_state       &lt;dbl&gt; 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 1…
+## $ VD3004           &lt;fct&gt; Médio completo ou equivalente, Superior completo, Fun…
+## $ rendimento_medio &lt;dbl&gt; 2362,3, 4629,3, 2141,0, 2537,8, 1959,9, 1907,8, 1937,…
+```
+
+&lt;/br&gt;
+O conjunto de dados gerado também possui o código de cada estado devido.
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;Propositadamente, mantivemos no conjunto de dados a variável &lt;b&gt;code_state&lt;/b&gt;, usada como agrupamento na geração da estatística. Dessa forma, podemos unir o mapa base com os dados de rendimento médio:&lt;/p&gt;
+
+
+```r
+  estados_instrucao &lt;- dplyr::left_join(estados_br, rendimento_mensal, by = "code_state")
+```
+
+&lt;p class="jst"&gt;Finalmente, podemos gerar o mapa:&lt;/p&gt;
+
+
+```r
+  titulo &lt;- paste0("Rendimento médio mensal dos indivíduos (14 anos ou mais) ",
+                   "com nível superior completo.\n", "Dados acumulados por estado, ",
+                   "considerando o primeiro trimestre de 2023.")
+  estados_instrucao |&gt;
+    filter(VD3004 == "Superior completo") |&gt;
+    ggplot() +
+    geom_sf(aes(fill = rendimento_medio), color = "gray20") +
+    labs(title = titulo, size = 4, caption = "Fonte: PNADC do IBGE.") + 
+    scale_fill_distiller(palette = "Spectral", name = "Rendimento Médio") +
+    theme_minimal() + 
+    ggspatial::annotation_scale()
+```
+
+---
+class: left, top
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p3a_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;Também podemos produzir um mapa, conforme:&lt;/p&gt;
+
+
+```r
+  titulo = paste0("Rendimento médio mensal por nível de instrução das pessoas de ",
+                  "14 anos ou mais.\n", "Dados acumulados por estado, ",
+                  "considerando o primeiro trimestre de 2023.")
+  ggplot(data = estados_instrucao) +
+    geom_sf(aes(fill = rendimento_medio), color = "gray20") + 
+    facet_wrap(~VD3004) +
+    labs(title = titulo, size = 8, caption = "Fonte: PNADC do IBGE.") +
+    scale_fill_distiller(palette = "Spectral", name="Rendimento Médio") +
+    theme_classic() +
+    theme(axis.text = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank(),
+          strip.text = element_text(size = 7))
+```
+
+---
+class: left, top
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p3b_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;Vamos gerar estimativas (rendimento e anos de estudo) por estado e também para as capitais:&lt;/p&gt;
+
+
+```r
+  estatisticas_estados &lt;- pnadc_2023q1 |&gt; 
+    filter(VD3005 != "Sem instrução e menos de 1 ano de estudo") |&gt;
+    mutate(anos_de_estudo = as.numeric(gsub("\\D", "", VD3005))) |&gt;
+    summarise(rendimento_medio = weighted.mean(VD4020, w = V1028, na.rm = TRUE),
+              anos_de_estudo = weighted.mean(anos_de_estudo, w = V1028, na.rm = TRUE),
+              .by = "code_state") |&gt;
+    drop_na() |&gt;
+    right_join(estados_br, by = "code_state") |&gt; st_as_sf()
+```
+
+
+```r
+  estatisticas_capitais &lt;- pnadc_2023q1 |&gt;
+    filter(VD3005 != "Sem instrução e menos de 1 ano de estudo") |&gt;
+    mutate(anos_de_estudo = as.numeric(gsub("\\D", "", VD3005))) |&gt;
+    summarise(rendimento_medio = weighted.mean(VD4020, w = V1028, na.rm = TRUE),
+              anos_de_estudo = weighted.mean(anos_de_estudo, w = V1028, na.rm = TRUE),
+              .by = "code_capital") |&gt; 
+    drop_na() |&gt;
+    right_join(capitais_br, by = c("code_capital" = "code_state")) |&gt; st_as_sf()
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+Produziremos os seguintes gráficos:
+
+
+```r
+  my_theme = theme(axis.text = element_blank(), axis.title = element_blank(),
+                   axis.ticks = element_blank(), legend.key.width = unit(1.5,"cm"),
+                   legend.position = "bottom", legend.direction = "horizontal")
+  p1 &lt;- ggplot(data = estatisticas_estados, aes(fill = rendimento_medio)) +
+    geom_sf(color = "gray20") + 
+    geom_sf(data = estatisticas_capitais, shape = 22, size = 2) +
+    scale_fill_distiller(palette = "Spectral", name="Rendimento Médio") +
+    theme_classic() + my_theme
+  p2 &lt;- ggplot(data = estatisticas_estados, aes(fill = anos_de_estudo)) +
+    geom_sf(color = "gray20") + 
+    geom_sf(data = estatisticas_capitais, shape = 22, size = 2) +
+    scale_fill_distiller(palette = "Spectral", name="Anos de Estudo") +
+    theme_classic() + my_theme
+  # install.packages("patchwork")
+  library(patchwork)
+  p1 + p2 + plot_annotation( title = "Diferentes estatísticas em cada estado e nas capitais",
+                             caption = "Fonte: PNADC do IBGE.")
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p3c_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+Total da população por sexo em cada estado?
+
+
+```r
+  pnadc_2023q1 %&gt;%
+    summarise(total = sum(V1028)/10^6, .by = c(V2007, code_state)) |&gt;
+    right_join(estados_br, by = "code_state") |&gt; 
+    st_as_sf() |&gt;
+    ggplot() +
+    geom_sf(aes(fill = total), color = "white") + 
+    facet_wrap(~V2007) +
+    scale_fill_viridis_c(option = "C", name="Total de Habitantes (em milhões)") +
+    theme_classic() + my_theme
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p4a_out-1.png" width="700px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+Número total e proporção dos habitantes por sexo em cada estado?
+
+
+```r
+  habitantes &lt;- pnadc_2023q1 |&gt; 
+    group_by(code_state) |&gt;
+    count(V2007, wt = V1028) |&gt;
+    mutate( proporcao = n/sum(n) ) |&gt;
+    right_join(estados_br, by = "code_state") |&gt; st_as_sf()
+  p1 &lt;- ggplot(data = habitantes) + geom_sf(aes(fill = n/10^6), color = "white") +
+    facet_wrap(~V2007) +
+    scale_fill_viridis_c(option = "C", name="Total (em milhões)") +
+    theme_classic() + my_theme
+  p2 &lt;- ggplot(data = habitantes) + geom_sf(aes(fill = proporcao), color = "white") + 
+    facet_wrap(~V2007) +
+    scale_fill_viridis_c(option = "C", name="Proporção") +
+    theme_classic() + my_theme
+  p1 / p2 + plot_annotation( title = "Número de habitantes por sexo, em cada estado.",
+                             caption = "Fonte: PNADC do IBGE.")
+```
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p4b_out-1.png" width="700px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt;]
+
+&lt;p class="jst"&gt;Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: &lt;/p&gt;
+
+- &lt;p class="jst"&gt;Material &lt;A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc"&gt;.purple[online]&lt;/A&gt; desenvolvido por um dos criadores do pacote .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;].
+
+- &lt;p class="jst"&gt; Livro  &lt;A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf"&gt;.purple["POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R"]&lt;/A&gt;.
+- &lt;p class="jst"&gt;Curso de R disponível no repositório do Git Hub: &lt;A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master"&gt;.purple[Introdução à Programação em R]&lt;/b&gt;&lt;/A&gt;. 
+- &lt;p class="jst"&gt;Material &lt;A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/"&gt;.purple[online]&lt;/A&gt;.
+
+Tutorial para uso do pacote &lt;A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html"&gt;.purple[&lt;b&gt;geobr&lt;/b&gt;]&lt;/A&gt; 
+
+---
+exclude: TRUE
+class: left, top
+
+### .orange[Referências]
+
+
+
+.small[
+&lt;p&gt;&lt;cite&gt;Wickham, H., M. Çetinkaya-Rundel, and G. Grolemund
+(2023).
+&lt;em&gt;R for data science (2e): import, tidy, transform, visualize, and model data&lt;/em&gt;.
+Disponível em: &lt;a href="https://r4ds.hadley.nz/"&gt;https://r4ds.hadley.nz/&lt;/a&gt;, Acesso em: 14 de junho de 2023.
+O'Reilly Media, Inc.&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;Becker, E.
+(2023).
+&lt;em&gt;R for Social Scientists.&lt;/em&gt;
+Data Carpentry.
+Disponível em: &lt;a href="https://datacarpentry.org/r-socialsci/index.html"&gt;https://datacarpentry.org/r-socialsci/index.html&lt;/a&gt;, Acesso em: 14 de junho de 2023.&lt;/cite&gt;&lt;/p&gt;
+]
+
+---
+class: center, middle
+
+background-image: url(figures/template_endpage_2.png)
+background-size: contain
+
+.center[.large[&lt;b&gt; Metotologias Informacionais com &lt;svg role="img" viewBox="0 0 24 24" style="position:relative;display:inline-block;top:.1em;height:2em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/b&gt; ]]
+
+.xxlarge[&lt;b style="color:MidnightBlue "&gt; Muito Obrigado pela Atenção!&lt;/b&gt;]
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideClass": ["left", "top"],
+"slideNumberFormat": "%current%",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
