@@ -758,6 +758,35 @@ Número total e proporção dos habitantes por sexo em cada estado?
 ```
 
 ---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+Número total e proporção dos habitantes por sexo em cada estado?
+
+```{r, p4c, message=FALSE, eval=FALSE}
+  my_theme = theme(axis.text = element_blank(), axis.title = element_blank(),
+                   axis.ticks = element_blank(), legend.key.width = unit(1.5,"cm"))
+  escala1 <-  scale_fill_viridis_c(option = "C", name="Total (em milhões)")
+  escala2 <- scale_fill_viridis_c(option = "C", name="Proporção")
+  forca_trabalho <-   pnadc_2023q1 |>  group_by(code_state) |> count(VD4002, wt = V1028) |>
+    mutate( proporcao = n/sum(n) ) |> right_join(estados_br, by = "code_state") |> st_as_sf()
+  p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas ocupadas")) + theme_classic() 
+  p1 <- p + geom_sf(aes(fill = n/10^6), color = "white") + escala1
+  p2 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2
+  p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas desocupadas")) + theme_classic()
+  p3 <- p + geom_sf(aes(fill = n/10^6), color = "white") + escala1
+  p4 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2
+ (p1 + p2) / (p3 + p4) + plot_annotation(tag_levels = 'A', title = "Força de Trabalho.",
+                                         subtitle = "(A,B) Ocupados, (C,D) Desocupados",
+                                         caption = "Fonte: PNADC do IBGE.")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4c_out, ref.label="p4c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
 
 <p class="jst">Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: </p>
