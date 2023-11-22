@@ -64,12 +64,10 @@ Bibliografia Complementar:
 
 ### .orange[Nas últimas aulas vimos:]
 
-- <p class="jst">Aquisição de dados da PNADC por meio do pacote .purple[<b>PNADcIBGE</b>].</p>
-- <p class="jst">Construção do plano amostral para os dados da PNADC usando .purple[<b>PNADcIBGE</b>].</p>
+- <p class="jst">Aquisição de dados da PNADC por meio do pacote .purple[<b>PNADcIBGE</b>] e construção do plano amostral.</p>
 - <p class="jst">Geração de estatísticas com .purple[<b>survey/srvyr</b>].</p>
-- <p class="jst">Geração de estatísticas aplicando ponderação por pesos dos domicílios e das pessoas, ou seja, desconsiderando a totalidade do plano amostral.</p>
-- <p class="jst">Manipulação de dados da PNADC com .purple[<b>dplyr</b>] sem considerar o plano amostral.</p>
-- <p class="jst">Manipulação de dados PNADC usando .purple[<b>dplyr</b>] em combinação com .purple[<b>survey/srvyr</b>], ou seja, considerando o plano amostral.</p>
+- <p class="jst">Manipulação de dados da PNADC usando .purple[<b>dplyr</b>] e geração de estatísticas considerando ponderação por pesos dos domicílios e das pessoas.</p>
+- <p class="jst">Manipulação de dados da PNADC usando .purple[<b>dplyr</b>] em combinação com .purple[<b>survey/srvyr</b>], ou seja, considerando o plano amostral.</p>
 - <p class="jst">Geração de gráficos com .purple[<b>survey</b>] e .purple[<b>ggplot2</b>].</p>
 
 </br>
@@ -86,9 +84,9 @@ Bibliografia Complementar:
 
 - <p class="jst">Gráficos estáticos: <A href="https://ggplot2.tidyverse.org/">.purple[<b>ggplot2</b>]</A>  (gráficos de tipos diversos), <A href="https://lattice.r-forge.r-project.org/">.purple[<b>lattice</b>]</b></A>  (gráficos essencialmente do tipo <i>trellis</i>);</p>
 - <p class="jst">Gráficos interativos: <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A>, <A href="https://rstudio.github.io/dygraphs/">.purple[<b>dygraphs</b>]</b></A>, <A href="https://jkunst.com/highcharter/">.purple[<b>highcharter</b>]</A>, <A href="https://ggvis.rstudio.com/">.purple[<b>ggvis</b>]</A>, <A href="https://gganimate.com/">.purple[<b>gganimate</b>]</A> (gera animações);</p>
-- <u><p class="jst">Mapas estáticos:</u> .purple[<b>graphics</b>], <A href="https://ggplot2.tidyverse.org/">.purple[<b>ggplot2</b>]</A>, .purple[<b>sp</b>], .purple[<b>sf</b>], <A href="https://r-tmap.github.io/tmap/">.purple[<b>tmap</b>]</A>, <A href="https://github.com/dkahle/ggmap">.purple[<b>ggmap</b>]</A> (mapas oriundos de serviços populares como <i>Google Maps</i>);</p>
+- <u><p class="jst">Mapas estáticos:</u> .purple[<b>graphics</b>], <A href="https://ggplot2.tidyverse.org/">.purple[<b>ggplot2</b>]</A>, <A href="https://cran.r-project.org/web/packages/sp/index.html">.purple[<b>sp</b>]</A>, <A href="https://r-spatial.github.io/sf/">.purple[<b>sf</b>]</A>, <A href="https://r-tmap.github.io/tmap/">.purple[<b>tmap</b>]</A>, <A href="https://github.com/dkahle/ggmap">.purple[<b>ggmap</b>]</A>;</p>
 - <u><p class="jst">Mapas interativos:</u> <A href="https://gganimate.com/">.purple[<b>gganimate</b>]</A>, <A href="https://rstudio.github.io/leaflet/">.purple[<b>leaflet</b>]</A>, <A href="https://r-spatial.github.io/mapview/">.purple[<b>mapview</b>]</A>, <A href="https://r-tmap.github.io/tmap/">.purple[<b>tmap</b>]</A>, <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A>;</p>
-- <p class="jst">Gráficos 3D:   .purple[<b>graphics</b>], <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A>, <A href="http://www.sthda.com/english/wiki/impressive-package-for-3d-and-4d-graph-r-software-and-data-visualization">.purple[<b>plot3d</b>]</A>, <A href="http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization">.purple[<b>scatterplot3d</b>]</A>, <A href="https://lattice.r-forge.r-project.org/">.purple[<b>lattice</b>]</b></A>, <A href="https://github.com/AckerDWM/gg3D">.purple[<b>gg3D</b>]</b></A>, <A href="https://github.com/cran/rgl">.purple[<b>RGL</b>]</A>, <A href="https://github.com/coolbutuseless/ggrgl">.purple[<b>ggrgl</b>]</A>,  <A href="https://www.rayshader.com/">.purple[<b>rayshader</b>]</A>, <A href="https://www.rayrender.net/">.purple[<b>rayrender</b>]</A>  (gera cenas 3D).</p>
+- <p class="jst">Gráficos 3D:   .purple[<b>graphics</b>], <A href="https://plotly.com/r/">.purple[<b>plotly</b>]</b></A>, <A href="http://www.sthda.com/english/wiki/impressive-package-for-3d-and-4d-graph-r-software-and-data-visualization">.purple[<b>plot3d</b>]</A>, <A href="http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization">.purple[<b>scatterplot3d</b>]</A>, <A href="https://lattice.r-forge.r-project.org/">.purple[<b>lattice</b>]</b></A>, <A href="https://cran.r-project.org/web/packages/rgl/index.html">.purple[<b>RGL</b>]</A>, <A href="https://github.com/coolbutuseless/ggrgl">.purple[<b>ggrgl</b>]</A>,  <A href="https://www.rayshader.com/">.purple[<b>rayshader</b>]</A>, <A href="https://www.rayrender.net/">.purple[<b>rayrender</b>]</A>  (cenas 3D).</p>
 
 <p class="jst"><b>A visualização geoespacial de dados agrega interpretabilidade às informações, permitindo a combinação de dados e metadados com subdivisões geográficas. Para isso, trabalharemos principalmente com .purple[<b>ggplot2</b>].</b></p>  
 
@@ -118,18 +116,18 @@ Bibliografia Complementar:
 O .purple[<b>ggplot2</b>] permite a produção de mapas estáticos segundo algumas <A href="https://ggplot2-book.org/maps.html"> possibilidades</A>:
 
 - Representação de mapas e dados por meio de polígonos:
-  - Funções comulmente usadas: .purple[geom_polygon()] ou .purple[geom_map()] e .purple[coord_quickmap()].
+  - Funções comulmente usadas: .purple[geom_polygon()], .purple[geom_map()], .purple[coord_map()] e .purple[coord_quickmap()].
   - Requer variáveis que indiquem as coordenadas dos vértices dos polígonos.
-  - Talvez o uso seja mais simples, porém, é menos flexível nas representações espaciais e metadados.
-  - Possui limitações para certos tipos de projeções dos mapas e dados (<A href="https://homepage.divms.uiowa.edu/~luke/classes/STAT4580-2021/maps.html">Observe em</A>). 
+  - Talvez o uso seja mais simples, porém, é menos flexível nas representações espaciais.
+  - Possui limitações entre os tipos de projeções existentes (Observe em <A href="https://homepage.divms.uiowa.edu/~luke/classes/STAT4580-2021/maps.html">link 1</A> e <A href="https://rpubs.com/scalon/1045452">link 2</A>). 
   
 - Representação de mapas e dados por meio de objetos espaciais conhecidos como <i>"simple features"</i>:
   - Funções comulmente usadas: .purple[geom_sf()] e .purple[coord_sf()].
-  - Flexibilidade em representações espaciais (ex: pontos, linhas e polígonos) e metadados.
+  - Flexibilidade em representações espaciais (ex: pontos, linhas e polígonos).
   - Padronização seguida pela <i>Open Geospatial Consortium</i>.
-  - Diversidade e facilidade para diferentes tipos de projeções dos mapas e dados (<A href="https://semba-blog.netlify.app/01/26/2020/world-map-and-map-projections/">Observe em</A>).
+  - Diversidade/facilidade  entre os tipos de projeções existentes (Observe em <A href="https://semba-blog.netlify.app/01/26/2020/world-map-and-map-projections/">link 1</A> e <A href="https://www.happykhan.com/posts/map-projections-in-r/">link 2</A>).
 
-<p class="jst"> <b>Observação</b>: Em uma projeção, queremos mapear o globo terrestre para uma superfície plana, o que envolve tranformações de coordenadas (latitudes e longitudes) da superficie esférica para a plana. Não obstante, existem diversas formas de projeções possíveis (ex: cilíndrica, conica, plana, Robinson e Mollweide).</p>
+<p class="jst"> <b>Observação</b>: Em uma projeção, queremos mapear o globo terrestre para uma superfície plana, o que envolve tranformações de coordenadas (latitudes e longitudes) da superficie esférica para a plana. Existem diversas formas de projeções possíveis (ex: cilíndrica, conica, plana, Robinson e Mollweide).</p>
 
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
@@ -138,7 +136,7 @@ A visualização espacial pode ser dividida em duas etapas:
 
 - Obter um conjunto de dados de um mapa base.
 
-- Adicionar/mapear os dados que nos interessam, assim como metadados, para o mapa base.
+- Adicionar/mapear os dados e metadados que nos interessam ao mapa base.
 
 Existem diversos pacotes no r que fornecem mapas:
 - Representação por meio de polígonos: .purple[<b>maps</b>].
@@ -147,7 +145,7 @@ Existem diversos pacotes no r que fornecem mapas:
 
 - Representação por meio de objetos <A href="https://cran.r-project.org/web/packages/sp/index.html">.purple[<b>sp</b>]</A> (pontos, grades, linhas, anéis e polígonos): .purple[<b>rworldmap</b>], .purple[<b>rworldxtra</b>], .purple[<b>spData</b>].
 
-<p class="jst">Existem diversos pacotes no r que permitem manipulação e análise de objetos e dados espaciais (ex: .purple[<b>sf</b>], .purple[<b>sp</b>], .purple[<b>raster</b>], .purple[<b>terra</b>]). Não obstante, precisaremos do .purple[<b>ggplot2</b>] e outros pacotes do .purple[<b>tidyverse</b>].</p>
+<p class="jst">Existem diversos pacotes no r que permitem manipulação e análise de objetos e dados espaciais (ex: .purple[<b>sf</b>], .purple[<b>sp</b>], .purple[<b>raster</b>], .purple[<b>terra</b>]). Não obstante, começamos por carregar o .purple[<b>ggplot2</b>] e outros pacotes do .purple[<b>tidyverse</b>].</p>
 
 ```{r, message=FALSE}
   # install.packages("tidyverse")
@@ -157,23 +155,19 @@ Existem diversos pacotes no r que fornecem mapas:
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-<p class="jst">Vamos ver exemplos de mapas construídos unicamente com polígonos. Para isso, obteremos um mapa com o pacote .purple[<b>maps</b>]:</p>
+<p class="jst">Vejamos exemplos de mapas construídos com polígonos. Carregamos um mapa base do pacote .purple[<b>maps</b>], usando a função .purple[ggplot2::map_data()]:</p>
 
 ```{r, message=FALSE}
   # install.packages("maps")
   library(maps)
-```
-
-Então, carregamos o mapa base usando a função .purple[ggplot2::map_data()]:
-```{r}
   world_map <- map_data("world")
 ```
 
-Podemos gerar esse mapa simples, na forma:
+<p class="jst"> Podemos gerar esse mapa simples conforme o código abaixo. A variável <b>group</b> possui os códigos individuais dos países, que indicamos no atributo estético de mesmo nome, para unir os vértices dos polígonos (coordenadas das colunas <b>long</b> e <b>lat</b>), ou seja, para gerar as divisas territoriais de cada país. Fixamos o preenchimento dos polígonos na cor cinza e as fronteiras como linhas pretas.</p>
 
-```{r p1a, message=FALSE, eval=FALSE}
+```{r p1a, message=FALSE, eval=FALSE, cache=TRUE}
   ggplot(data = world_map, aes(x = long, y = lat, group = group)) +
-    geom_polygon(fill="lightgray", colour = "black") +
+    geom_polygon(fill="lightgray", color = "black") +
     labs(title = "Mapa Global", x = "Longitude", y = "Latitude") +
     theme_bw()
 ```
@@ -182,38 +176,38 @@ Podemos gerar esse mapa simples, na forma:
 class: left, top
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-```{r p1a_out, ref.label="p1a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```{r p1a_out, cache=TRUE, ref.label="p1a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
 ```
 
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-Vejamos como filtrar e produzir um mapa dos países da América do Sul:
+Vejamos como filtrar e produzir um mapa dos países da América do Sul.
 
-```{r, message=FALSE}
+```{r p1bdata, message=FALSE, cache=TRUE}
   south_america <- c("Brazil", "Argentina", "Chile", "Uruguay", "Paraguay", "Ecuador",
                      "Peru", "Venezuela", "Colombia", "Bolivia", "Suriname", "Guyana")
   south_america_countries <- filter(world_map, region %in% south_america)
   south_america_labels <- summarise(south_america_countries,
-                                    long = mean(long), lat=mean(lat),
-                                    .by = region)
+                                    long = mean(long), lat = mean(lat), .by = region)
 ```
 
-```{r p1b, message=FALSE, eval=FALSE}
+<p class="jst">Agora, o preenchimento dos polígonos de cada país ocorrerá com as cores básicas do .purple[<b>ggplot2</b>], ao indicar a variável <b>region</b>. Os contornos serão em linhas brancas. Com .purple[geom_text()], posicionaremos os nomes dos países (coluna <b>region</b>) como <i>labels</i>, cujas coordenadas foram calculadas como a média das longitudes e latitudes (vértices) dos polígonos.</p>
+
+```{r p1b, message=FALSE, eval=FALSE, cache=TRUE}
   ggplot(data = south_america_countries, aes(x = long, y = lat)) +
-    geom_polygon(aes(group = group, fill = region), col = "white", alpha = .9) +
+    geom_polygon(aes(group = group, fill = region), color = "white", alpha = .9) +
     geom_text(data = south_america_labels, aes(label = region),
               size = 3.5, fontface = 2, color = "gray20", angle = 20, check_overlap = TRUE) +
     labs(title = "Países da América do Sul", x = "Longitude", y = "Latitude") +
-    theme_bw() + 
-    theme(legend.position = "none")
+    theme_bw() + theme(legend.position = "none")
 ```
 
 ---
 class: left, top
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-```{r p1b_out, ref.label="p1b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="600px"}
+```{r p1b_out, cache=TRUE, ref.label="p1b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="600px"}
 ```
 
 
@@ -229,9 +223,9 @@ class: left, top
   install_github("expersso/WHO")
 ```
 
-<p class="jst"> Agora, obtemos os dados para o ano de 2019 e fazemos algumas alterações, conforme:</p>
+<p class="jst"> Agora, obtemos os dados de expectativa de vida do ano de 2019, fazendo algumas alterações, conforme:</p>
 
-```{r, warning=FALSE}
+```{r expectativa_vida, cache = TRUE , warning=FALSE}
   library(WHO)
   expectativa_de_vida <- get_data("WHOSIS_000001") |>
     filter(year == 2019) |>
@@ -239,38 +233,41 @@ class: left, top
     mutate(region = ifelse(region == "United States of America", "USA", region)) 
 ```
 
+<p class="jst">A coluna <b>region</b> contém os nomes dos países e estará presente tanto no conjunto de dados do mapa quanto no de expectativa de vida. Assim, podemos estabelecer uma relação entre as tabelas.</p> 
+
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-Podemos gerar o mapa com .purple[geom_map()], mapeando os dados de expectativa de vida, na forma:
+Podemos gerar um mapa com .purple[geom_map()], mapeando os dados de expectativa de vida, na forma:
 
-```{r p1c, message=FALSE, eval=FALSE}
+```{r p1c, message=FALSE, eval=FALSE, cache=TRUE}
   expectativa_de_vida |> 
     filter(sex == "Both sexes") |>
   ggplot() +
-    geom_map(aes(fill = life_exp, map_id = region), map = world_map, col = "black") + 
+    geom_map(aes(fill = life_exp, map_id = region), map = world_map, color = "black") + 
     expand_limits(x = world_map$long, y = world_map$lat) +
     scale_fill_viridis_c(option = "C") +
     labs(title = "Expectativa de vida em diversos países do mundo em 2019.",
          x = "", y = "", caption = "Fonte: Organização Mundial da Saúde.") +
-    theme_bw() + 
-    theme(legend.title = element_blank())
+    theme_bw() + theme(legend.title = element_blank())
 ```
+
+<p class="jst">A função .purple[expand_limits()] é necessaria para indicar as coordenadas limites nos eixos do mapa a ser gerado, já que as latitudes e longitudes não estão presentes nos dados de expectativa de vida.</p>
 
 ---
 class: left, top
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-```{r p1c_out, ref.label="p1c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```{r p1c_out, cache=TRUE, ref.label="p1c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "400px", out.width="800px"}
 ```
 
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-Podemos gerar o mapa com .purple[geom_polygon()], adicionando os dados de expectativa de vida ao mapa base:
+Podemos unir os dados com o mapa base e gerar a visualização com .purple[geom_polygon()] ou .purple[geom_map()]:
 
-```{r p1d, message=FALSE, eval=FALSE}
-  my_map <- left_join(expectativa_de_vida, world_map, by = "region")
+```{r p1d, message=FALSE, eval=FALSE, cache=TRUE}
+  my_map <- left_join(expectativa_de_vida, world_map, by = "region") # unindo os conjuntos
   my_title <- "Expectativa de vida (homens e mulheres) em diversos países, no ano de 2019."
   my_cap <- "Fonte: Organização Mundial da Saúde."
   my_map |> 
@@ -297,13 +294,13 @@ Podemos gerar o mapa com .purple[geom_polygon()], adicionando os dados de expect
 class: left, top
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-```{r p1d_out, ref.label="p1d", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', fip.cap="Fonte: Organização Mundial da Saúde..", out.height= "500px", out.width="800px"}
+```{r p1d_out, cache=TRUE, ref.label="p1d", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', fip.cap="Fonte: Organização Mundial da Saúde..", out.height= "500px", out.width="800px"}
 ```
 
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-<p class="jst">Vamos ver exemplos de mapas baseados em <i>"simple features"</i>. O pacote <A href="https://r-spatial.github.io/sf/">.purple[<b>sf</b>]</A>, em específico, possui uma diversidade de representações espaciais, operações geométricas, transformações de projeção e suporte para outras bibliotecas geoespaciais. Como exemplos, obteremos mapas através dos pacotes .purple[<b>rnaturalearth</b>] e .purple[<b>rnaturalearthdata</b>]:</p>
+<p class="jst">Agora, veremos exemplos de mapas baseados em <i>"simple features"</i>. O pacote <A href="https://r-spatial.github.io/sf/">.purple[<b>sf</b>]</A>, em específico, possui uma diversidade de representações espaciais, operações geométricas, transformações de projeção e suporte para outras bibliotecas geoespaciais. Para os exemplos, obteremos um mapa através dos pacotes .purple[<b>rnaturalearth</b>] e .purple[<b>rnaturalearthdata</b>]:</p>
 
 ```{r, message=FALSE, eval=FALSE}
   install.packages(c("rnaturalearth", "rnaturalearthdata"))
@@ -319,7 +316,7 @@ class: left, top
   library(ggspatial) # fornece anotações (ex: escala) e outras operações em mapas
 ```
 
-Carregamos um mapa base usando a função .purple[rnaturalearth::ne_countries()]:
+Carregamos o mapa base usando a função .purple[rnaturalearth::ne_countries()]:
 ```{r pre01, cache=TRUE}
   world_map <- ne_countries(scale = "medium", returnclass = "sf")
 ```
@@ -329,22 +326,24 @@ Carregamos um mapa base usando a função .purple[rnaturalearth::ne_countries()]
 
 .pull-left[
 
-Podemos gerar o mapa na forma:
+Podemos gerar o mapa, na forma:
 
-```{r p2a, message=FALSE, eval=FALSE}
+```{r p2a, message=FALSE, eval=FALSE, cache=TRUE}
   ggplot(data = world_map) +
     geom_sf(fill="lightgray",
-            colour = "black") +
+            color = "black") +
     coord_sf(expand = FALSE) +
     labs(title = "Mapa Global") +
     theme_bw()
 ```
 
+<p class="jst">A função .purple[coord_sf(expand = FALSE)] é necessária - nesse caso específico - para não expandir os limites do mapa, tornando possível  a visualização dos <i>labels</i> das coordenadas.</p>
+
 ]
 
 .pull-right[
 
-```{r p2a_out, ref.label="p2a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='top'}
+```{r p2a_out, cache=TRUE, ref.label="p2a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='top'}
 ```
 
 ]
@@ -352,33 +351,25 @@ Podemos gerar o mapa na forma:
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-Para produzir um mapa da América do Sul, filtramos os dados:
+<p class="jst"> Para produzir um mapa da América do Sul, filtramos os dados usando a variável <b>continent</b>. Como o pacote .purple[<b>sf</b>] possui operações sobre objetos geométricos, podemos calcular os centros dos multi-polígonos que representam os países (coluna <b>geometry</b>) e converter para coordenadas (latitudes e longitudes). Estas serão usadas para posicionar os nomes dos países como <i>labels</i> no mapa com a função .purple[geom_text_repel()], que corrigirá, caso ocorra, sobreposições entre os textos.</p>
 
-```{r pre02, cache=TRUE, message=FALSE}
-  south_america <- filter(world_map, continent == "South America") 
-```
-
-<p class="jst">O pacote .purple[<b>sf</b>] possui diversas operações sobre objetos geométricos. Dentre estas, podemos calcular os centros dos multi-polígonos que representam os países, converter para coordenadas (latitudes e longitudes) e usá-las para posicionar os nomes dos países como labels no mapa a ser gerado:</p>
-
-```{r pre03, cache=TRUE, message=FALSE}
-  south_america$lon <- sf::st_coordinates(sf::st_centroid(south_america$geom))[,1]   
-  south_america$lat <- sf::st_coordinates(sf::st_centroid(south_america$geom))[,2]
-```
-
-```{r p2b, message=FALSE, eval=FALSE}
-  ggplot(data = south_america, aes(lon, lat)) +
-    geom_sf(aes(fill = name, colour = "black", alpha = .9)) +
-    geom_text_repel(aes(label = name), size = 3.5, fontface = 2, color = "gray20") +
+```{r p2b, message=FALSE, eval=FALSE, cache=TRUE}
+  world_map |> 
+    filter(continent == "South America")  |>
+    mutate(lon = sf::st_coordinates(sf::st_centroid(geometry))[,1],
+           lat = sf::st_coordinates(sf::st_centroid(geometry))[,2]) |>
+  ggplot() +
+    geom_sf(aes(fill = name, alpha = .9), color = "black") +
+    geom_text_repel(aes(lon, lat, label = name), size = 3.5, fontface = 2, color = "gray20") +
     labs(title = "América do Sul", x = "", y = "") +
-    theme_bw() +
-    theme(legend.position = "none")
+    theme_bw() +  theme(legend.position = "none")    
 ```
 
 ---
 class: left, top
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-```{r p2b_out, ref.label="p2b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="600px"}
+```{r p2b_out, cache=TRUE, ref.label="p2b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="600px"}
 ```
 
 ---
@@ -388,27 +379,30 @@ class: left, top
 
 <p class="jst">O mapa base que baixamos já possui informações anexas. Observe:</p>
 
-```{r p2c, message=FALSE, eval=FALSE}
-t1 = "Distribuição da População (estimada)"
-ggplot(data = world_map) +
-  geom_sf(aes(fill = pop_est),
-          colour = "white") +
+```{r p2c, message=FALSE, eval=FALSE, cache=TRUE}
+t1 = "Distribuição da População"
+sub1 = "Censos entre 2000 e 2011"
+world_map |> filter(lastcensus >= 2000) |>
+ggplot() +
+  geom_sf(aes(fill = pop_est * 10^-9),
+          color = "white") +
   coord_sf(expand = FALSE) +
   scale_y_continuous(limits = c(-80, 80)) +
-  scale_fill_viridis_c(option = "C") +
-  labs(title = t1) +
+  scale_fill_viridis_c(
+    option = "C",
+    name = "Bilhões de Habitantes") +
+  labs(title = t1, subtitle = sub1) +
   theme_bw() +
-  theme(legend.title = element_blank(),
-        legend.direction = "horizontal",
+  theme(legend.direction = "horizontal",
         legend.position = "bottom",
-        legend.key.width = unit(2.5,"cm"))
+        legend.key.width = unit(2,"cm"))
 ```
 
 ]
 
 .pull-right[
 
-```{r p2c_out, ref.label="p2c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```{r p2c_out, cache=TRUE, ref.label="p2c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "400px", out.width="600px"}
 ```
 
 ]
@@ -418,28 +412,30 @@ ggplot(data = world_map) +
 
 .pull-left[
 
-<p class="jst">Podemos facilmente mudar a projeção. Observe:</p>
+<p class="jst">Podemos facilmente mudar a projeção com .purple[coord_sf()]. Observe:</p>
 
-```{r p2d, message=FALSE, eval=FALSE}
-t2 = "Distribuição do PIB (estimado)"
-ggplot(data = world_map) +
-  geom_sf(aes(fill = gdp_md_est),
-          colour = "white") +
+```{r p2d, message=FALSE, eval=FALSE, cache=TRUE}
+t2 = "Distribuição do PIB"
+world_map |> subset(lastcensus >= 2000) |>
+ggplot() +
+  geom_sf(aes(fill = gdp_md_est * 10^-6),
+          color = "white") +
   coord_sf(crs = "+proj=robin") +
-  scale_fill_viridis_c(option = "C") +
-  labs(title = t2) +
+  scale_fill_viridis_c(
+    option = "C",
+    name = "Trilhões de Dolares (US$)") +
+  labs(title = t2, subtitle = sub1) +
   theme_bw() +
-  theme(legend.title = element_blank(),
-        legend.direction = "horizontal",
+  theme(legend.direction = "horizontal",
         legend.position = "bottom",
-        legend.key.width = unit(2.5,"cm"))
+        legend.key.width = unit(2,"cm"))
 ```
 
 ]
 
 .pull-right[
 
-```{r p2d_out, ref.label="p2d", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```{r p2d_out, cache=TRUE, ref.label="p2d", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "400px", out.width="600px"}
 ```
 
 ]
@@ -447,9 +443,9 @@ ggplot(data = world_map) +
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-<p class="jst">Vimos algumas formas de produzir mapas. Sem embargo, o uso de objetos do tipo <i>"simple features"</i> junto ao .purple[<b>ggplot2</b>] tem se tornado predominante pela flexibilidade e disponibilidade de operações sobre mapas e dados. Seguiremos essa linha. Portanto, necessitaremos do pacote <A href="https://github.com/ipeaGIT/geobr".purple[<b>geobr</b>]</A>:</p>
+<p class="jst">Vimos algumas formas de produzir mapas. Sem embargo, o uso de objetos do tipo <i>"simple features"</i> junto ao .purple[<b>ggplot2</b>] tem se tornado predominante pela flexibilidade e disponibilidade de operações sobre mapas e dados. Seguiremos essa linha. Também precisamos de mapas do Brasil, portanto, usaremos o pacote <A href="https://github.com/ipeaGIT/geobr".purple[<b>geobr</b>]</A>:</p>
 
-```{r, message=FALSE, eval=FALSE}
+```{r, eval=FALSE}
   install.packages("geobr")
 ```
 
@@ -463,21 +459,19 @@ ggplot(data = world_map) +
   censo_sm <- geobr::read_census_tract(code_tract = 4316907, year = 2020, showProgress = FALSE)
   ggplot(data = censo_sm, aes(fill=zone)) +
     geom_sf() +
-    labs(title = "Ocupação Territorial de Santa Maria (RS)", caption = "Fonte: IBGE") +
-    theme_bw() +
-    theme(legend.title = element_blank(),
-         legend.direction = "horizontal", legend.position = "top")
+    labs(title = "Ocupação Territorial de Santa Maria-RS", caption = "Fonte: IBGE") +
+    theme_bw() + theme(legend.title = element_blank(),
+                       legend.direction = "vertical", legend.position = "bottom")
 ```
 
 ---
 class: left, top
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
-```{r p2e_out, ref.label="p2e", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "400px", out.width="700px"}
+```{r p2e_out, cache=TRUE, ref.label="p2e", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "400px", out.width="700px"}
 ```
 
 </br>
-
 > .center[<b>A partir de agora, trabalharemos com dados da PNADC.</b>]
 
 ---
@@ -509,51 +503,56 @@ options(OutDec=",", scipen=100, digits=4, big.mark = ".")
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - Relembrando]
 
-<p class="jst">Continuaremos trabalhando com microdados do primeiro trimestre de 2023 que podem ser baixados/carregados usando funções do pacote .purple[<b>PNADcIBGE</b>]:</p>
+<p class="jst">Continuaremos trabalhando com microdados do primeiro trimestre de 2023, que podem ser baixados/carregados usando funções do pacote .purple[<b>PNADcIBGE</b>].</p>
 
-```{r, eval=FALSE}
-  pnadc_2023q1 <- get_pnadc(year = 2023, quarter = 1)
+- Baixar e carregar os dados:
+
+```{r, eval=FALSE}  
+  # Baixar os dados
+  get_pnadc(year = 2023, quarter = 1, savedir = "PNADC20231") 
 ```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")` - Relembrando]
+
+- Carregar os dados dos arquivos:
 
 ```{r chunk1, cache=TRUE, include=FALSE}
-  # Lendo algumas variáveis
-  pnadc_2023q1 <- read_pnadc(microdata="../dados/PNADC20231/PNADC_012023.txt",
-                             input_txt="../dados/PNADC20231/input_PNADC_trimestral.txt")
-  pnadc_2023q1 <-  pnadc_2023q1 |>
-    select(-(V1028001:V1028200)) |>     # Excluir pesos replicados
+  # Lendo os dados, excluindo os pesos replicados e mantendo alguns códigos numéricos
+  pnadc_2023q1 <- read_pnadc(
+                    microdata = "../dados/PNADC20231/PNADC_012023.txt",
+                    input_txt = "../dados/PNADC20231/input_PNADC_trimestral.txt"
+                  ) |>
+    select(-(V1028001:V1028200)) |>      
     mutate(code_state = as.numeric(UF), 
-           code_capital = as.numeric(Capital)) # Manter códigos 
-  pnadc_2023q1 <- pnadc_labeller(
-    data_pnadc=pnadc_2023q1,
-    dictionary.file="../dados/PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
-  )
-  pnadc_2023q1 <- pnadc_deflator(
-    data_pnadc=pnadc_2023q1,
-    deflator.file="../dados/PNADC20231/deflator_PNADC_2023_trimestral_040506.xls"
-  )
+           code_capital = as.numeric(Capital),
+           anos_de_estudo = as.numeric(VD3005)) |>
+    pnadc_labeller(dictionary.file = "../dados/PNADC20231/dicionario_PNADC_microdados_trimestral.xls") |>
+    pnadc_deflator(deflator.file = "../dados/PNADC20231/deflator_PNADC_2023_trimestral_040506.xls") |>
+    mutate(VD4020_real = VD4020 * Efetivo,
+           VD4019_habitual = VD4019 * Habitual) 
 ```
 
 ```{r, eval=FALSE}
-  pnadc_2023q1 <- read_pnadc(microdata="PNADC20231/PNADC_012023.txt",
-                             input_txt="PNADC20231/input_PNADC_trimestral.txt")
-  pnadc_2023q1 <-  pnadc_2023q1 |>
-    select(-(V1028001:V1028200)) |>     # Excluir pesos replicados
-    mutate(code_state = as.numeric(UF),
-           code_capital = as.numeric(Capital)) # Manter códigos numéricos 
-  pnadc_2023q1 <- pnadc_labeller(
-    data_pnadc=pnadc_2023q1,
-    dictionary.file="PNADC20231/dicionario_PNADC_microdados_trimestral.xls"
-  )
-  pnadc_2023q1 <- pnadc_deflator(
-    data_pnadc=pnadc_2023q1,
-    deflator.file="PNADC20231/deflator_PNADC_2023_trimestral_040506.xls"
-  )
+  # Lendo os dados, excluindo os pesos replicados e mantendo alguns códigos numéricos
+  pnadc_2023q1 <- read_pnadc(
+                    microdata = "PNADC20231/PNADC_012023.txt",
+                    input_txt = "PNADC20231/input_PNADC_trimestral.txt"
+                  ) |>
+    select(-(V1028001:V1028200)) |>      
+    mutate(code_state = as.numeric(UF), 
+           code_capital = as.numeric(Capital),
+           anos_de_estudo = as.numeric(VD3005)) |>
+    pnadc_labeller(dictionary.file = "PNADC20231/dicionario_PNADC_microdados_trimestral.xls") |>
+    pnadc_deflator(deflator.file = "PNADC20231/deflator_PNADC_2023_trimestral_040506.xls") |>
+    mutate(VD4020_real = VD4020 * Efetivo,
+           VD4019_habitual = VD4019 * Habitual)
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-Usando funções do pacote .purple[<b>geobr</b>] obtemos mapas do Brasil segundo estados e capitais:
+Obtemos o mapa do Brasil e a localização das capitais usando funções do pacote .purple[<b>geobr</b>]:
 
 ```{r chunk10, cache=TRUE, message=FALSE}
   estados_br <- read_state(year = 2020, showProgress = FALSE)
@@ -566,49 +565,41 @@ Usando funções do pacote .purple[<b>geobr</b>] obtemos mapas do Brasil segundo
 ```
 
 </br>
-
-Perceba que o conjunto de dados do mapa possui o código de cada estado (coluna <b>code_state</b>).
+Perceba que o conjunto de dados do mapa possui o código dos estados (coluna <b>code_state</b>).
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst">Agora, como exemplo, podemos gerar as estimativas do rendimento médio mensal das pesoas com 14 anos ou mais, segundo o nível de instrução (<b>VD3004</b>) e estado da federação (<b>code_state</b>). Não aplicaremos o plano amostral, mas sim funções ponderadas:</p>
+<p class="jst">Agora, como exemplo, podemos gerar as estimativas do rendimento médio mensal real efetivo das pessoas com 14 anos ou mais de idade, segundo o nível de instrução (<b>VD3004</b>) e unidade da federação (<b>code_state</b>). Não aplicaremos o plano amostral, mas sim, a média ponderada pelo peso dos domicílios e das pessoas (<b>V1028</b>):</p>
 
 ```{r chunk11, cache=TRUE}
   rendimento_mensal <- pnadc_2023q1 |>
-    summarise(rendimento_medio = weighted.mean(VD4020, w = V1028, na.rm = TRUE), 
-              .by = c(code_state, VD3004)) |>
-    tidyr::drop_na()
+    summarise(rendimento_medio = weighted.mean(VD4020_real, w = V1028, na.rm = TRUE), 
+              .by = c(code_state, VD3004)) |> 
+    drop_na()
 ```
 
-```{r, cache=TRUE}
+```{r chunk12, cache=TRUE}
   glimpse(rendimento_mensal)
 ```
 
 </br>
-O conjunto de dados gerado também possui o código de cada estado devido.
+O conjunto de dados gerado também possui o código dos estados.
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst">Propositadamente, mantivemos no conjunto de dados a variável <b>code_state</b>, usada como agrupamento na geração da estatística. Dessa forma, podemos unir o mapa base com os dados de rendimento médio:</p>
-
-```{r chunk12, cache=TRUE}
-  estados_instrucao <- dplyr::left_join(estados_br, rendimento_mensal, by = "code_state")
-```
-
-<p class="jst">Finalmente, podemos gerar o mapa:</p>
+<p class="jst">Propositadamente, mantivemos no conjunto de dados a variável <b>code_state</b>, usada como agrupamento na geração da estatística. Dessa forma, podemos unir o mapa base com os dados de rendimento médio mensal real efetivo e gerar o seguinte gráfico:</p>
 
 ```{r p3a, message=FALSE, eval=FALSE}
-  titulo <- paste0("Rendimento médio mensal dos indivíduos (14 anos ou mais) ",
-                   "com nível superior completo.\n", "Dados acumulados por estado, ",
-                   "considerando o primeiro trimestre de 2023.")
-  estados_instrucao |>
+  my_cap = "Fonte: Dados da PNADC do IBGE, 1° trimestre 2023."
+  left_join(estados_br, rendimento_mensal, by = "code_state") |>
     filter(VD3004 == "Superior completo") |>
-    ggplot() +
+  ggplot() +
     geom_sf(aes(fill = rendimento_medio), color = "gray20") +
-    labs(title = titulo, size = 4, caption = "Fonte: PNADC do IBGE.") + 
+    labs(title = paste0("Rendimento médio mensal real efetivo do morador\ncom nível ",
+                        "superior completo por estado."), caption = my_cap) + 
     scale_fill_distiller(palette = "Spectral", name = "Rendimento Médio") +
-    theme_minimal() + 
+    theme_minimal() + theme(plot.title = element_text(size = 11, face = 'bold')) +
     ggspatial::annotation_scale()
 ```
 
@@ -616,62 +607,59 @@ O conjunto de dados gerado também possui o código de cada estado devido.
 class: left, top
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-```{r p3a_out, ref.label="p3a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```{r p3a_out, cache=TRUE, ref.label="p3a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst">Também podemos produzir um mapa, conforme:</p>
+<p class="jst">Também podemos gerar mapas de distribuição do rendimento, conforme o nível de instrução:</p>
 
 ```{r p3b, message=FALSE, eval=FALSE}
-  titulo = paste0("Rendimento médio mensal por nível de instrução das pessoas de ",
-                  "14 anos ou mais.\n", "Dados acumulados por estado, ",
-                  "considerando o primeiro trimestre de 2023.")
-  ggplot(data = estados_instrucao) +
+  left_join(estados_br, rendimento_mensal, by = "code_state") |>
+  ggplot() +
     geom_sf(aes(fill = rendimento_medio), color = "gray20") + 
     facet_wrap(~VD3004) +
-    labs(title = titulo, size = 8, caption = "Fonte: PNADC do IBGE.") +
-    scale_fill_distiller(palette = "Spectral", name="Rendimento Médio") +
+    labs(title = paste0("Rendimento médio mensal real efetivo do morador com 14 anos\n",
+                        "ou mais de idade por nível de instrução e unidade da federação."),
+         caption = my_cap) +
+    scale_fill_distiller(palette = "Spectral", name = "Rendimento Médio") +
     theme_classic() +
     theme(axis.text = element_blank(),
           axis.title = element_blank(),
           axis.ticks = element_blank(),
-          strip.text = element_text(size = 7))
+          strip.text = element_text(size = 6, face = "bold"),
+          plot.title = element_text(size = 11, face = "bold"))
 ```
 
 ---
 class: left, top
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-```{r p3b_out, ref.label="p3b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```{r p3b_out, cache=TRUE, ref.label="p3b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst">Vamos gerar estimativas (rendimento e anos de estudo) por estado e também para as capitais:</p>
+<p class="jst">Vamos gerar também estimativas do rendimento médio mensal real efetivo e anos de estudo por estado e para as capitais. Usamos a função .purple[st_sf()], após as demais operações, para converter o objeto gerado na junção dos conjuntos de dados ao tipo <b>sf</b>.</p>
 
 ```{r chunk13, cache=TRUE}
-  estatisticas_estados <- pnadc_2023q1 |> 
-    filter(VD3005 != "Sem instrução e menos de 1 ano de estudo") |>
-    mutate(anos_de_estudo = as.numeric(gsub("\\D", "", VD3005))) |>
-    summarise(rendimento_medio = weighted.mean(VD4020, w = V1028, na.rm = TRUE),
+  estados <- pnadc_2023q1 |> 
+    summarise(rendimento_medio = weighted.mean(VD4020_real, w = V1028, na.rm = TRUE),
               anos_de_estudo = weighted.mean(anos_de_estudo, w = V1028, na.rm = TRUE),
               .by = "code_state") |>
-    drop_na() |>
-    right_join(estados_br, by = "code_state") |> st_as_sf()
+    drop_na() |> 
+    right_join(estados_br, by = "code_state") |> st_sf()
 ```
 
 ```{r chunk14, cache=TRUE}
-  estatisticas_capitais <- pnadc_2023q1 |>
-    filter(VD3005 != "Sem instrução e menos de 1 ano de estudo") |>
-    mutate(anos_de_estudo = as.numeric(gsub("\\D", "", VD3005))) |>
-    summarise(rendimento_medio = weighted.mean(VD4020, w = V1028, na.rm = TRUE),
+  capitais <- pnadc_2023q1 |>
+    summarise(rendimento_medio = weighted.mean(VD4020_real, w = V1028, na.rm = TRUE),
               anos_de_estudo = weighted.mean(anos_de_estudo, w = V1028, na.rm = TRUE),
               .by = "code_capital") |> 
     drop_na() |>
-    right_join(capitais_br, by = c("code_capital" = "code_state")) |> st_as_sf()
+    right_join(capitais_br, by = c("code_capital" = "code_state")) |> st_sf()
 ```
 
 ---
@@ -680,124 +668,634 @@ class: left, top
 Produziremos os seguintes gráficos:
 
 ```{r p3c, message=FALSE, eval=FALSE}
-  my_theme = theme(axis.text = element_blank(), axis.title = element_blank(),
-                   axis.ticks = element_blank(), legend.key.width = unit(1.5,"cm"),
+  my_title <- paste0("Rendimento médio mensal real efetivo e anos de estudo do morador com\n",
+                     "14 anos ou mais de idade, nos estados e capitais.")
+  my_theme = theme_classic() + theme(axis.text = element_blank(), axis.title = element_blank(),
+                   axis.ticks = element_blank(), legend.key.width = unit(1,"cm"),
                    legend.position = "bottom", legend.direction = "horizontal")
-  p1 <- ggplot(data = estatisticas_estados, aes(fill = rendimento_medio)) +
+  p1 <- ggplot(data = estados, aes(fill = rendimento_medio)) +
     geom_sf(color = "gray20") + 
-    geom_sf(data = estatisticas_capitais, shape = 22, size = 2) +
-    scale_fill_distiller(palette = "Spectral", name="Rendimento Médio") +
-    theme_classic() + my_theme
-  p2 <- ggplot(data = estatisticas_estados, aes(fill = anos_de_estudo)) +
+    geom_sf(data = capitais, shape = 22, size = 2) +
+    scale_fill_distiller(palette = "Spectral", name = "Rendimento Médio") + my_theme
+  p2 <- ggplot(data = estados, aes(fill = anos_de_estudo)) +
     geom_sf(color = "gray20") + 
-    geom_sf(data = estatisticas_capitais, shape = 22, size = 2) +
-    scale_fill_distiller(palette = "Spectral", name="Anos de Estudo") +
-    theme_classic() + my_theme
+    geom_sf(data = capitais, shape = 21, size = 2) +
+    scale_fill_distiller(palette = "Spectral", name = "Anos de Estudo") + my_theme
   # install.packages("patchwork")
   library(patchwork)
-  p1 + p2 + plot_annotation( title = "Diferentes estatísticas em cada estado e nas capitais",
-                             caption = "Fonte: PNADC do IBGE.")
+  p1 + p2 + plot_annotation(title = my_title, caption = my_cap)
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-```{r p3c_out, ref.label="p3c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```{r p3c_out, cache=TRUE, ref.label="p3c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-Total da população por sexo em cada estado?
+<p class="jst"> <b>Distribuição da população por sexo e unidade da federação?</b> Ao somar os valores da coluna <b>V1028</b> (peso dos domicílios e das pessoas), estimamos o total de habitantes da população brasileira em milhões (multiplica-se por 10<sup>-6</sup>). Como a estimativa será agregada por sexo e unidade da federação, os totais irão considerar essas divisões categóricas.</p>
 
-```{r, p4a, message=FALSE, eval=FALSE}
-  pnadc_2023q1 %>%
-    summarise(total = sum(V1028)/10^6, .by = c(V2007, code_state)) |>
+```{r p4a, message=FALSE, eval=FALSE}
+  pnadc_2023q1 |>
+    summarise(total = sum(V1028) * 10^-6, .by = c(V2007, code_state)) |>
     right_join(estados_br, by = "code_state") |> 
-    st_as_sf() |>
-    ggplot() +
+    st_sf() |>
+  ggplot() +
     geom_sf(aes(fill = total), color = "white") + 
     facet_wrap(~V2007) +
-    scale_fill_viridis_c(option = "C", name="Total de Habitantes (em milhões)") +
+    labs(caption = my_cap) +
+    scale_fill_viridis_c(option = "C", name = "Distribuição da População (em milhões).") +
     theme_classic() + my_theme
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-```{r p4a_out, ref.label="p4a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```{r p4a_out, cache=TRUE, ref.label="p4a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-Número total e proporção dos habitantes por sexo em cada estado?
+<p class="jst"> <b>Número total e proporção da população por sexo e unidade da federação?</b> Podemos agregar somente por estado, para estimar com a função .purple[count()], considerndo pesos (<b>wt = V1028</b>), a distribuição da população segundo o sexo. Os valores serão armazenados na variável <b>n</b>, e a proporção pode ser obtida ao dividir o total se cada sexo (<b>n</b>) pela soma dos totais de cada estado (homens + mulheres):</p>
 
-```{r, p4b, message=FALSE, eval=FALSE}
-  habitantes <- pnadc_2023q1 |> 
+```{r p4b, message=FALSE, eval=FALSE}
+  escala1 <-  scale_fill_viridis_c(option = "C", name = "Total (em milhões)")
+  escala2 <- scale_fill_viridis_c(option = "C", name = "Proporção (%)") 
+  populacao <- pnadc_2023q1 |> 
     group_by(code_state) |>
     count(V2007, wt = V1028) |>
-    mutate( proporcao = n/sum(n) ) |>
-    right_join(estados_br, by = "code_state") |> st_as_sf()
-  p1 <- ggplot(data = habitantes) + geom_sf(aes(fill = n/10^6), color = "white") +
-    facet_wrap(~V2007) +
-    scale_fill_viridis_c(option = "C", name="Total (em milhões)") +
-    theme_classic() + my_theme
-  p2 <- ggplot(data = habitantes) + geom_sf(aes(fill = proporcao), color = "white") + 
-    facet_wrap(~V2007) +
-    scale_fill_viridis_c(option = "C", name="Proporção") +
-    theme_classic() + my_theme
-  p1 / p2 + plot_annotation( title = "Número de habitantes por sexo, em cada estado.",
-                             caption = "Fonte: PNADC do IBGE.")
+    mutate(proporcao = n/sum(n)) |>
+    right_join(estados_br, by = "code_state") |> st_sf()
+  p1 <- ggplot(data = populacao) + geom_sf(aes(fill = n * 10^-6), color = "white") +
+    facet_wrap(~V2007) + escala1 + my_theme
+  p2 <- ggplot(data = populacao) + geom_sf(aes(fill = proporcao * 100), color = "white") + 
+    facet_wrap(~V2007) + escala2 + my_theme
+  p1 / p2 + plot_annotation(title = "Distribuição da população.",
+                            caption = my_cap)
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-```{r p4b_out, ref.label="p4b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```{r p4b_out, cache=TRUE, ref.label="p4b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-Número total e proporção dos habitantes por sexo em cada estado?
+<p class="jst"> <b>Número total e proporção das pessoas com 60 anos ou mais de idade por sexo e unidade da federação?</b></p>
 
-```{r, p4c, message=FALSE, eval=FALSE}
-  my_theme = theme(axis.text = element_blank(), axis.title = element_blank(),
-                   axis.ticks = element_blank(), legend.key.width = unit(1.5,"cm"))
-  escala1 <-  scale_fill_viridis_c(option = "C", name="Total (em milhões)")
-  escala2 <- scale_fill_viridis_c(option = "C", name="Proporção")
-  forca_trabalho <-   pnadc_2023q1 |>  group_by(code_state) |> count(VD4002, wt = V1028) |>
-    mutate( proporcao = n/sum(n) ) |> right_join(estados_br, by = "code_state") |> st_as_sf()
-  p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas ocupadas")) + theme_classic() 
-  p1 <- p + geom_sf(aes(fill = n/10^6), color = "white") + escala1
-  p2 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2
-  p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas desocupadas")) + theme_classic()
-  p3 <- p + geom_sf(aes(fill = n/10^6), color = "white") + escala1
-  p4 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2
- (p1 + p2) / (p3 + p4) + plot_annotation(tag_levels = 'A', title = "Força de Trabalho.",
-                                         subtitle = "(A,B) Ocupados, (C,D) Desocupados",
-                                         caption = "Fonte: PNADC do IBGE.")
+```{r p4b2, message=FALSE, eval=FALSE}
+  populacao <- pnadc_2023q1 |> 
+    group_by(code_state) |>
+    count(V2009 > 60, wt = V1028) |>
+    mutate(proporcao = n/sum(n)) |>
+    right_join(estados_br, by = "code_state") |> st_sf()
+  p1 <- ggplot(data = filter(populacao, `V2009 > 60` == TRUE)) +
+    geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+  p2 <- ggplot(data = filter(populacao, `V2009 > 60` == TRUE)) +
+    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p1 / p2 + plot_annotation(
+              title = "Distribuição da população com idade\nigual ou superior a 60 anos.",
+              caption = my_cap
+            )
 ```
 
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-```{r p4c_out, ref.label="p4c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```{r p4b2_out, cache=TRUE, ref.label="p4b2", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
 ```
 
 ---
-### .orange[Microdados da PNAD Contínua `r icons::ionicons("bar-chart-outline")`]
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<b>Número total e proporção dos trabalhadores, segundo a condição de ocupação?</b>
+
+```{r p4c, message=FALSE, eval=FALSE}
+  my_title = "Condição da Força de Trabalho."
+  my_subtitle = "(A,B) Ocupados, (C,D) Desocupados, (E, F) Não aplicável"
+  my_theme = theme_classic() + theme(axis.text = element_blank(), axis.title = element_blank(),
+                                     axis.ticks = element_blank())
+  forca_trabalho <-   pnadc_2023q1 |> group_by(code_state) |> count(VD4002, wt = V1028) |> 
+    mutate(proporcao = n/sum(n) ) |> right_join(estados_br, by = "code_state") |> st_sf()
+  p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas ocupadas")) 
+  p1 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+  p2 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas desocupadas"))
+  p3 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+  p4 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p <- ggplot(data = filter(forca_trabalho, is.na(VD4002)))
+  p5 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+  p6 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+ (p1 + p2) / (p3 + p4) / (p5 + p6) + plot_annotation(tag_levels = 'A', title = my_title,
+                                         subtitle = my_subtitle, caption = my_cap)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4c_out, cache=TRUE, ref.label="p4c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"> <b>Número total e proporção dos subocupados (insuficiência de horas habitualmente trabalhadas) por unidade da federação?</b></p>
+
+```{r p4d, message=FALSE, eval=FALSE}
+  populacao <- pnadc_2023q1 |> 
+    group_by(code_state) |>
+    count(condicao = VD4004A, wt = V1028) |> 
+    mutate(proporcao = n/sum(n)) |>
+    filter(condicao == "Pessoas subocupadas") |>
+    right_join(estados_br, by = "code_state") |> st_sf()
+  p1 <- ggplot(data = populacao) +
+    geom_sf(aes(fill = n), color = "white") + 
+    scale_fill_viridis_c(option = "C", name = "Total") + my_theme
+  p2 <- ggplot(data = populacao) +
+    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p1 / p2 + plot_annotation(title = "Subocupados no Brasil.",
+                            caption = my_cap)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4d_out, cache=TRUE, ref.label="p4d", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"> <b>Número total e proporção dos desalentados por unidade da federação?</b></p>
+
+```{r p4e, message=FALSE, eval=FALSE}
+  populacao <- pnadc_2023q1 |> 
+    group_by(code_state) |>
+    count(condicao = VD4005, wt = V1028) |> 
+    mutate(proporcao = n/sum(n)) |>
+    filter(condicao == "Pessoas desalentadas") |>
+    right_join(estados_br, by = "code_state") |> st_sf()
+  p1 <- ggplot(data = populacao) + 
+    geom_sf(aes(fill = n), color = "white") + 
+    scale_fill_viridis_c(option = "C", name = "Total") + my_theme
+  p2 <- ggplot(data = populacao) + 
+    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p1 / p2 + plot_annotation(title = "Desalentados no Brasil.",
+                          caption = my_cap)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4e_out, cache=TRUE, ref.label="p4e", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<b>Proporção da população, com idade igual ou superior a 25 anos, por estado e segundo o nível de instrução?</b>
+
+```{r p4f, message=FALSE, eval=FALSE}
+  my_theme2 <-  theme_classic() +
+    theme(axis.text = element_blank(), axis.title = element_blank(),
+          axis.ticks = element_blank(), strip.text = element_text(size = 6, face = "bold"),
+          legend.direction = "horizontal", legend.position = "bottom",
+          legend.key.width = unit(1,"cm"))
+  pnadc_2023q1 |>
+    filter(V2009 >= 25) |> 
+    group_by(code_state) |>
+    count(VD3004, wt = V1028) |>
+    mutate(proporcao = n/sum(n)) |>
+    right_join(estados_br, by = "code_state") |> drop_na() |> st_sf() |>
+  ggplot() + 
+    geom_sf(aes(fill = proporcao * 100), color = "gray20") + facet_wrap(~VD3004) +
+    scale_fill_distiller(palette = "Spectral",
+                         name = paste0("Proporção da População (25 anos ou mais de idade)",
+                                       "\npor Nível de Instrução (%).")) +
+    labs(caption = my_cap) + my_theme2
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4f_out, cache=TRUE, ref.label="p4f", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<b>Parcela da população nos níveis de instrução: "Sem instrução e menos de 1 ano de estudo", "Superior completo"?</b>
+
+```{r, p4g, message=FALSE, eval=FALSE}
+  my_title = "Parcela da população (25 anos ou mais de idade):"
+  my_subtitle = "(A,B) Sem instrução e menos de 1 ano de estudo, (C,D) Superior completo"
+  nivel_instrucao <- pnadc_2023q1 |>
+    filter(V2009 >= 25) |>
+    group_by(code_state) |>
+    count(VD3004, wt = V1028) |>
+    mutate(proporcao = n/sum(n) ) |>
+    right_join(estados_br, by = "code_state") |> st_sf()
+  p <- ggplot(data = filter(nivel_instrucao, 
+                            VD3004 == "Sem instrução e menos de 1 ano de estudo"))  
+  p1 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+  p2 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p <- ggplot(data = filter(nivel_instrucao, VD3004 == "Superior completo"))
+  p3 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+  p4 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+ (p1|p2)/(p3+p4) + plot_annotation(tag_levels = 'A', title = my_title, subtitle = my_subtitle,
+                                   caption = my_cap)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4g_out, cache=TRUE, ref.label="p4g", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"> <b>Situação do analfabetismo das pessoas com 15 anos ou mais de idade por unidade da federação?</b></p>
+
+```{r p4h, message=FALSE, eval=FALSE}
+  populacao <- pnadc_2023q1 |>
+    filter(V2009 >= 15) |> 
+    group_by(code_state) |>
+    count(sabe_ler = V3001, wt = V1028) |>
+    mutate(proporcao = n/sum(n)) |>
+    filter(sabe_ler == "Não") |>
+    right_join(estados_br, by = "code_state") |> st_sf()
+  p1 <- ggplot(populacao) + geom_sf(aes(fill = n), color = "white") + 
+    scale_fill_viridis_c(option = "C", name = "Total") + my_theme
+  p2 <- ggplot(populacao) + geom_sf(aes(fill = proporcao * 100), color = "white") +
+    escala2 + my_theme
+  p1 / p2 + plot_annotation(title = paste0("Analfabetismo no Brasil ",
+                                           "(pessoas com 15 anos ou mais de idade)."),
+                          caption = my_cap)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4h_out, cache=TRUE, ref.label="p4h", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst">Vamos ver um exemplo de gráfico mais elaborado. Antes produziremos um conjunto de dados com o total e proporção das pessoas segundo o nível de curso que frequentam.</p>
+
+```{r p4idata, cache=TRUE, message=FALSE}
+  my_theme = theme_classic() + 
+    theme(axis.text = element_blank(), axis.title = element_blank(), 
+          axis.ticks = element_blank(), legend.position = "bottom",
+          legend.direction = "horizontal", legend.key.width = unit(.4,"cm"),
+          legend.text = element_text(size = 6), legend.title = element_text(size=7),
+          strip.text = element_text(size = 7))
+  populacao <- pnadc_2023q1 |>  
+    group_by(code_state) |>
+    count(curso = as.character(V3003A), wt = V1028) |>
+    mutate(proporcao = n/sum(n),
+           curso = case_when(
+             curso == "Educação de jovens e adultos (EJA) do ensino fundamental" ~ 
+               "EJA do ensino fundamental",
+             curso == "Educação de jovens e adultos (EJA) do ensino médio" ~
+               "EJA do ensino médio", 
+             .default = curso)
+    ) |> right_join(estados_br, by = "code_state") |> st_sf()
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"><b>Qual o total populacional cursando cada nível de ensino por unidade da federação?</b> Para isso, dividiremos nossos dados com a função .purple[base::split()], segundo o nível de ensino. Depois, usaremos a função .purple[purrr::map()] para mapear cada divisão do conjunto de dados no paínel gráfico respectivo, gerado pelo .purple[ggplot()]. Dessa forma, as escalas serão geradas individualmente para cada paínel - comportamento aqui almejado. Ainda precisamos da função .purple[cowplot::plot_grid] para recompor os painéis individuais em um único gráfico.</p>
+
+```{r p4i, message=FALSE, eval=FALSE}
+  # install.packages("cowplot")
+  populacao %>%  
+    split(.$curso) %>%
+    purrr::map(
+      ~ ggplot(., aes(fill = n * 10^-6)) +
+          geom_sf() +
+          facet_wrap(~curso) +
+          escala1 + my_theme
+    ) %>%
+    cowplot::plot_grid(plotlist = .)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4i_out, cache=TRUE, ref.label="p4i", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="1000px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<b>Qual a proporção da população em cada nível de ensino por unidade da federação?</b>
+
+```{r p4j, message=FALSE, eval=FALSE}
+  populacao %>% 
+    split(.$curso) %>%
+    purrr::map(
+      ~ ggplot(., aes(fill = proporcao * 100)) +
+          geom_sf() +
+          facet_wrap(~curso) +
+          escala2 + my_theme
+    ) %>%
+    cowplot::plot_grid(plotlist = .)    
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p4j_out, cache=TRUE, ref.label="p4j", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="1000px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+Agora, vamos aplicar o plano amostral com .purple[<b>PNADcIBGE</b>], mas antes selecionamos algumas variáveis:
+
+```{r chunk_survey1, cache=TRUE, message=FALSE}
+  pnadc_2023q1 <- pnadc_2023q1 |> 
+    select(Ano, Trimestre, UF, code_state, Capital, Estrato, UPA, posest, V1027, V1028, V1029,
+           V2009, VD3004, anos_de_estudo, VD4019_habitual, VD4020_real, ID_DOMICILIO)
+```
+
+
+```{r chunk_survey2, cache=TRUE, message=FALSE}
+  pnadc_2023q1 <- PNADcIBGE::pnadc_design(data_pnadc = pnadc_2023q1)
+```
+
+<p class="jst">O pacote .purple[<b>convey</b>] (documentação <A href="https://guilhermejacob.github.io/context/index.html">online</b></A>) permite estimar diversas medidas de concentração de renda e desigualdade em dados com amostragem complexa como o índice de Gini. Vamos carregar esse pacote e preparar os dados, sendo necessário converter o tipo do objeto com a função .purple[convey::convey_prep()]</p>
+
+```{r, message=FALSE}
+  # install.packages("convey")
+  library(convey)
+```
+
+```{r chunk_survey3, cache=TRUE, message=FALSE}
+  pnadc_2023q1 <- convey_prep(design = pnadc_2023q1)
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"><b>Assim, podemos calcular o índice de Gini do rendimento médio mensal real por unidade da federação e gerar um mapa.</b> Para isso, usaremos a função .purple[svyby()] com o parâmetro <b>FUN</b> = .purple[convey::svygini()]. O índice de Gini irá variar entre 0 e 1 quanto a concentração de renda: 0 = máxima igualdade e 1 = máxima desigualdade.</p>
+
+```{r p6a, message=FALSE, eval=FALSE}
+  svyby(formula = ~VD4020_real, by = ~code_state, design = pnadc_2023q1, 
+        FUN = svygini, na.rm = TRUE) |>
+    right_join(estados_br, by = "code_state") |> st_sf() |>
+  ggplot() + 
+    geom_sf(aes(fill = VD4020_real), color = "gray20") +
+    scale_fill_distiller(
+      palette = "Spectral",
+      name = "Índice de Gini do rendimento médio mensal real efetivo\npor unidade da federação."
+    ) +
+    labs(caption = my_cap) + my_theme2
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p6a_out, cache=TRUE, ref.label="p6a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"><b>Vamos calcular o índice de Gini por unidade da federação, considerando cada nível de instrução.</b> Combinamos as funções .purple[svyby()] e .purple[interaction()] para obter os agrupamentos desejados. Esta última permite o cruzamento de duas ou mais variáveis categóricas e produzirá a coluna <b>interaction(code_state, VD3004)</b>, contendo as combinações possíveis. Após a geração da estatística, extrairemos com .purple[gsub()] os níveis categóricos originais, armazenando os valores nas colunas <b>code_state</b> e <b>instrucao</b>, conforme.</p>
+
+```{r p6b, message=FALSE, eval=FALSE}
+  svyby(formula = ~VD4020_real, by = ~interaction(code_state, VD3004), design = pnadc_2023q1,
+        FUN = svygini, na.rm = TRUE) |>
+    mutate(code_state = as.numeric(gsub("\\D", "", `interaction(code_state, VD3004)`)),
+           instrucao = gsub(".*\\.", "", `interaction(code_state, VD3004)`)) |>
+    right_join(estados_br, by = "code_state") |> st_sf() |>
+  ggplot() + 
+    geom_sf(aes(fill = VD4020_real), color = "gray20") + facet_wrap(~instrucao) +
+    scale_fill_distiller(
+      palette = "Spectral",
+      name = paste0("Índice de Gini do rendimento médio mensal real efetivo\n",
+                    "por unidade da federação e nível de instrução.")
+    ) + 
+    labs(caption = my_cap) + my_theme2
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p6b_out, cache=TRUE, ref.label="p6b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"><b>Também podemos calcular o índice de Gini referente à educação (anos de estudo) por unidade da federação.</b> Consideraremos a média de anos estudo das pessoas com 25 anos ou mais de idade:</b></p>
+
+```{r p6c, message=FALSE, eval=FALSE}
+  svyby(formula = ~anos_de_estudo, by = ~code_state, design = subset(pnadc_2023q1, V2009 >= 25),
+        FUN = svygini, na.rm = TRUE) |>
+    right_join(estados_br, by = "code_state") |> st_sf() |>
+  ggplot() + 
+    geom_sf(aes(fill = anos_de_estudo), color = "gray20") +
+    scale_fill_distiller(
+      palette = "Spectral",
+      name = "Índice de Gini para a Educação por Unidade da Federação."
+    ) +
+    labs(caption = my_cap) + my_theme2
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p6c_out, cache=TRUE, ref.label="p6c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst">Agora, vamos obter microdados anuais acumulados na 5ª entrevista do ano de 2022, conforme:</p>
+
+- Baixar os dados:
+
+```{r, eval=FALSE}
+  get_pnadc(year = 2022, interview = 5, savedir = "PNADC2022IT5")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+- Carregar os dados dos arquivos:
+
+```{r chunk_survey4, cache=TRUE, include=FALSE}
+  # Lendo os dados, excluindo os pesos replicados e mantendo alguns códigos numéricos
+  pnadc_2022_it5 <- read_pnadc(
+                    microdata = "../dados/PNADC2022IT5/PNADC_2022_visita5.txt",
+                    input_txt = "../dados/PNADC2022IT5/input_PNADC_2022_visita5_20230811.txt",
+                    vars = c("Ano", "Trimestre", "UF", "Capital", "UPA", "Estrato", "V1008", "V1014",
+                             "V1030", "V1031", "V1032", "V1034", "posest", "posest_sxi",
+                             "V2003", "V2009", "VD3004", "VD3005", "VD5005")) |>
+    select(-(V1032001:V1032200)) |>
+    mutate(code_state = as.numeric(UF), 
+           code_capital = as.numeric(Capital),
+           anos_de_estudo = as.numeric(VD3005)) |>
+    pnadc_labeller(
+      dictionary.file = "../dados/PNADC2022IT5/dicionario_PNADC_microdados_2022_visita5_20230811.xls"
+    ) |>
+    pnadc_deflator(deflator.file = "../dados/PNADC2022IT5/deflator_PNADC_2022.xls") |>
+    mutate(VD5005_real = VD5005 * CO1e) |> # CO1e é o deflator para rendimento efetivo
+    PNADcIBGE::pnadc_design() |> convey::convey_prep()
+```
+
+```{r, eval=FALSE}
+  # Ler variáveis específicas, excluir os pesos replicados e manter alguns códigos numéricos
+  pnadc_2022_it5 <- read_pnadc(
+                    microdata = "PNADC2022IT5/PNADC_2022_visita5.txt",
+                    input_txt = "PNADC2022IT5/input_PNADC_2022_visita5_20230811.txt", 
+                    vars = c("Ano", "Trimestre", "UF", "Capital", "UPA", "Estrato",
+                             "V1008", "V1014", "V1030", "V1031", "V1032", "V1034",
+                             "posest", "posest_sxi", "V2003", "V2009",
+                             "VD3004", "VD3005", "VD5005")) |>
+    select(-(V1032001:V1032200)) |>
+    mutate(code_state = as.numeric(UF), 
+           code_capital = as.numeric(Capital),
+           anos_de_estudo = as.numeric(VD3005)) |>
+    pnadc_labeller(
+      dictionary.file = "PNADC2022IT5/dicionario_PNADC_microdados_2022_visita5_20230811.xls"
+    ) |>
+    pnadc_deflator(deflator.file = "PNADC2022IT5/deflator_PNADC_2022.xls") |>
+    mutate(VD5005_real = VD5005 * CO1e) |> # obter o rendimento efetivo corrigido
+    PNADcIBGE::pnadc_design() |> convey::convey_prep()
+```
+
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst">Com o novo conjunto de dados, podemos calcular o índice de Gini do rendimento médio mensal real domiciliar per capita (<b>VD5005_real</b>) por unidade da federação e gerar uma visualização espacial, conforme:</p>
+
+```{r p6d, message=FALSE, eval=FALSE}
+  svyby(formula = ~VD5005_real, by = ~code_state, design = pnadc_2022_it5, 
+        FUN = svygini, na.rm = TRUE) |>
+    right_join(estados_br, by = "code_state") |> st_sf() |>
+  ggplot() + 
+    geom_sf(aes(fill = VD5005_real), color = "gray20") +
+    scale_fill_distiller(
+      palette = "Spectral",
+      name = paste0("Índice de Gini do rendimento médio mensal real domiciliar per capta,",
+                    "\na preços médios do ano, por unidade da federação.")
+    ) +
+    labs(caption = "Fonte: PNADC do IBGE, 2022.") + my_theme2
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p6d_out, cache=TRUE, ref.label="p6d", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"><b>Com a função .purple[convey::svyarpt()], podemos calcular os valores limiares de rendimento para o risco de pobreza (60% da mediana do rendimento) em cada estado.</b> Rendimentos abaixo desses limiares podem indicar pessoas em risco de pobreza. Visualizaremos esses valores limiares em um mapa, conforme:
+
+```{r p6e, message=FALSE, eval=FALSE}
+  svyby(formula = ~VD5005_real, by = ~code_state, design = pnadc_2022_it5, 
+      FUN = svyarpt, na.rm = TRUE) |>
+    right_join(estados_br, by = "code_state") |> st_sf() |>
+    ggplot() + geom_sf(aes(fill = VD5005_real), color = "gray20") +
+    scale_fill_distiller(
+      palette = "Spectral",
+      name = paste0("Limiar do rendimento médio mensal real domiciliar per capta para",
+                    "\no risco de pobreza em cada estado, a preços médios do ano.")
+    ) +
+    labs(caption = "Fonte: PNADC do IBGE, 2022.") + my_theme2
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p6e_out, cache=TRUE, ref.label="p6e", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"><b>Com a função .purple[convey::svyarpr()], podemos calcular a proporção da população sob risco de pobreza em cada unidade da federação.</b> Serão considerados os rendimentos limiares de cada estado para estimar essa parcela da população. </p>
+
+```{r p6f, message=FALSE, eval=FALSE}
+  svyby(formula = ~VD5005_real, by = ~code_state, design = pnadc_2022_it5, 
+        FUN = svyarpr, na.rm = TRUE) |>
+    right_join(estados_br, by = "code_state") |> st_sf() |>
+    ggplot() + 
+    geom_sf(aes(fill = VD5005_real * 100), color = "gray20") +
+    scale_fill_distiller(
+      palette = "Spectral",
+      name = paste0("Proporção da população sob risco\nde pobreza em cada estado (%).")
+    ) +
+    labs(caption = "Fonte: PNADC do IBGE, 2022.") + my_theme2
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p6f_out, cache=TRUE, ref.label="p6f", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst"><b>Podemos estimar a proporção da população em risco de pobreza por unidade da federação.</b> No entanto, o limiar de rendimento será um valor único, calculado em nível nacional, conforme:</p>
+
+```{r p6g, message=FALSE, eval=FALSE}
+  escala3 <-  scale_fill_distiller(palette = "Spectral", name = "Total (em milhões)")
+  escala4 <- scale_fill_distiller(palette = "Spectral", name = "Proporção (%)") 
+  risco_pobreza_br <- svyarpt(~VD5005_real, pnadc_2022_it5, na.rm = TRUE)
+  populacao <- pnadc_2022_it5$variables |> 
+    group_by(code_state) |>
+    count(sob_pobreza = VD5005_real <= risco_pobreza_br, wt = V1032) |>
+    mutate(proporcao = n/sum(n)) |> 
+    filter(sob_pobreza == TRUE) |> 
+    right_join(estados_br, by = "code_state") |> st_sf()
+  p1 <- ggplot(data = populacao) + geom_sf(aes(fill = n * 10^-6), color = "black") 
+  p2 <- ggplot(data = populacao) + geom_sf(aes(fill = proporcao * 100), color = "black")
+  (p1 + escala3 + my_theme2) + (p2 + escala4 + my_theme2) +
+  plot_annotation(
+    title = paste0("População em risco de pobreza, cujo rendimento médio mensal real ",
+                   "domiciliar\nper capta esta abaixo de ", round(risco_pobreza_br, digits = 2),
+                   " reais."), caption = "Fonte: PNADC do IBGE, 2022.")
+```
+
+---
+### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p6g_out, cache=TRUE, ref.label="p6g", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+---
+### .orange[Bibliográfia Complementar]
 
 <p class="jst">Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: </p>
 
-- <p class="jst">Material <A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc">.purple[online]</A> desenvolvido por um dos criadores do pacote .purple[<b>PNADcIBGE</b>].
+- <p class="jst">Documentação <A href="https://rpubs.com/gabriel-assuncao-ibge/pnadc">.purple[online]</A> desenvolvido por um dos criadores do pacote .purple[<b>PNADcIBGE</b>].
 
 - <p class="jst"> Livro  <A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf">.purple["POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R"]</A>.
 - <p class="jst">Curso de R disponível no repositório do Git Hub: <A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master">.purple[Introdução à Programação em R]</b></A>. 
-- <p class="jst">Material <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[online]</A>.
+- <p class="jst">Materiais online sobre o pacote .purple[<b>srvyr</b>]:
+  - <A href="https://rpubs.com/leobarone/pnadc_srvyr">.purple[Link 1]</A>.
+  - <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[Link 2]</A>.
+  
+Documentação para uso do pacote <A href="https://guilhermejacob.github.io/context/index.html">.purple[<b>convey</b></b>]</A>
 
-Tutorial para uso do pacote <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A> 
+Documentação para uso do pacote <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A> 
 
 ---
 exclude: TRUE
