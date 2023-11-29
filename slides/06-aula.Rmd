@@ -116,9 +116,9 @@ background-size: contain
   - Mapeamento de objetos (<i><b>aesthetic</b></i>) - define as variáveis que compõem o gráfico; divisões categóricas dos dados que são traduzidas em cores, formatos e tamanhos; elementos da legenda e agrupamentos;
   - Geometria dos objetos (<i><b>geom</b></i>) - basicamente o tipo do gráfico;
   - Transformações estatísticas (<i><b>stat</b></i>) - basicamente sumarização de dados;
-  - Posicionamento (<i><b>position</b></i>) - permite o deslocamento dos elementos gráficos se houver sobreposição.
+  - Posicionamento (<i><b>position</b></i>) - permite o deslocamento dos elementos gráficos, se houver sobreposição.
   
-2. <p class="jst">Escalas  (<i><b>scales</b></i>) - permite controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos <i>labels</i> nos eixos e legenda, entre outros.</p>
+2. <p class="jst">Escalas  (<i><b>scales</b></i>) - permite o controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos <i>labels</i> nos eixos e legenda, entre outros.</p>
 3. Sistema de coordenadas (<i><b>coord</b></i>) - permite definir posição/aparência dos objetos mapeados no plano.
 
 4. <p class="jst">Facetamento/tabulamento (<i><b>faceting</b></i>) - gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos compartilham os mesmos atributos estéticos.</p>

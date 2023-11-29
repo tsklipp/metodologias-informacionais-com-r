@@ -100,9 +100,9 @@ Bibliografia Complementar:
   - Mapeamento de objetos (<i><b>aesthetic</b></i>) - define as variáveis que compõem o gráfico; divisões categóricas dos dados que são traduzidas em cores, formatos e tamanhos; elementos da legenda e agrupamentos;
   - <u>Geometria dos objetos (<i><b>geom</b></i></u>) - basicamente o tipo do gráfico;
   - Transformações estatísticas (<i><b>stat</b></i>) - basicamente sumarização de dados;
-  - Posicionamento (<i><b>position</b></i>) - permite o deslocamento dos elementos gráficos se houver sobreposição.
+  - Posicionamento (<i><b>position</b></i>) - permite o deslocamento dos elementos gráficos, se houver sobreposição.
   
-2. <p class="jst">Escalas  (<i><b>scales</b></i>) - permite controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos <i>labels</i> nos eixos e legenda, entre outros.</p>
+2. <p class="jst">Escalas  (<i><b>scales</b></i>) - permite o controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos <i>labels</i> nos eixos e legenda, entre outros.</p>
 3. <u>Sistema de coordenadas (<i><b>coord</b></i></u>) - permite definir posição/aparência dos objetos mapeados no plano.
 
 4. <p class="jst">Facetamento/tabulamento (<i><b>faceting</b></i>) - gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos compartilham os mesmos atributos estéticos.</p>
@@ -147,8 +147,12 @@ Existem diversos pacotes no r que fornecem mapas:
 
 <p class="jst">Existem diversos pacotes no r que permitem manipulação e análise de objetos e dados espaciais (ex: .purple[<b>sf</b>], .purple[<b>sp</b>], .purple[<b>raster</b>], .purple[<b>terra</b>]). Não obstante, começamos por carregar o .purple[<b>ggplot2</b>] e outros pacotes do .purple[<b>tidyverse</b>].</p>
 
-```{r, message=FALSE}
-  # install.packages("tidyverse")
+```{r include=FALSE}
+  library(tidyverse)
+```
+
+```{r, eval=FALSE}
+  install.packages("tidyverse")
   library(tidyverse)
 ```
 
@@ -163,7 +167,7 @@ Existem diversos pacotes no r que fornecem mapas:
   world_map <- map_data("world")
 ```
 
-<p class="jst"> Podemos gerar esse mapa simples conforme o código abaixo. A variável <b>group</b> possui os códigos individuais dos países, que indicamos no atributo estético de mesmo nome, para unir os vértices dos polígonos (coordenadas das colunas <b>long</b> e <b>lat</b>), ou seja, para gerar as divisas territoriais de cada país. Fixamos o preenchimento dos polígonos na cor cinza e as fronteiras como linhas pretas.</p>
+<p class="jst"> Podemos gerar esse mapa simples, conforme o código abaixo. A variável <b>group</b> possui os códigos individuais dos países, que indicamos no atributo estético, de mesmo nome, para unir os vértices dos polígonos (coordenadas das colunas <b>long</b> e <b>lat</b>), ou seja, para gerar as divisas territoriais de cada país. Fixamos o preenchimento dos polígonos na cor cinza e as fronteiras como linhas pretas.</p>
 
 ```{r p1a, message=FALSE, eval=FALSE, cache=TRUE}
   ggplot(data = world_map, aes(x = long, y = lat, group = group)) +
@@ -252,7 +256,7 @@ Podemos gerar um mapa com .purple[geom_map()], mapeando os dados de expectativa 
     theme_bw() + theme(legend.title = element_blank())
 ```
 
-<p class="jst">A função .purple[expand_limits()] é necessaria para indicar as coordenadas limites nos eixos do mapa a ser gerado, já que as latitudes e longitudes não estão presentes nos dados de expectativa de vida.</p>
+<p class="jst">A função .purple[expand_limits()] é necessaria para indicar as coordenadas nos eixos do mapa a ser gerado, já que as latitudes e longitudes não estão presentes nos dados de expectativa de vida.</p>
 
 ---
 class: left, top
@@ -445,11 +449,12 @@ ggplot() +
 
 <p class="jst">Vimos algumas formas de produzir mapas. Sem embargo, o uso de objetos do tipo <i>"simple features"</i> junto ao .purple[<b>ggplot2</b>] tem se tornado predominante pela flexibilidade e disponibilidade de operações sobre mapas e dados. Seguiremos essa linha. Também precisamos de mapas do Brasil, portanto, usaremos o pacote <A href="https://github.com/ipeaGIT/geobr".purple[<b>geobr</b>]</A>:</p>
 
-```{r, eval=FALSE}
-  install.packages("geobr")
+```{r, include=FALSE}
+  library(geobr)
 ```
 
-```{r, message=FALSE}
+```{r, eval=FALSE}
+  install.packages("geobr")
   library(geobr)
 ```
 
@@ -671,7 +676,7 @@ Produziremos os seguintes gráficos:
   my_title <- paste0("Rendimento médio mensal real efetivo e anos de estudo do morador com\n",
                      "14 anos ou mais de idade, nos estados e capitais.")
   my_theme = theme_classic() + theme(axis.text = element_blank(), axis.title = element_blank(),
-                   axis.ticks = element_blank(), legend.key.width = unit(1,"cm"),
+                   axis.ticks = element_blank(), legend.key.width = unit(1.2,"cm"),
                    legend.position = "bottom", legend.direction = "horizontal")
   p1 <- ggplot(data = estados, aes(fill = rendimento_medio)) +
     geom_sf(color = "gray20") + 
@@ -695,18 +700,19 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst"> <b>Distribuição da população por sexo e unidade da federação?</b> Ao somar os valores da coluna <b>V1028</b> (peso dos domicílios e das pessoas), estimamos o total de habitantes da população brasileira em milhões (multiplica-se por 10<sup>-6</sup>). Como a estimativa será agregada por sexo e unidade da federação, os totais irão considerar essas divisões categóricas.</p>
+<p class="jst"> <b>Distribuição da população por sexo e unidade da federação?</b> Ao somar os valores da coluna <b>V1028</b> (peso dos domicílios e das pessoas), estimamos o total de habitantes da população brasileira em milhões (multiplica-se por 10<sup>-6</sup>, e formataremos usando .purple[label_number()]). Como a estimativa será agregada por sexo e unidade da federação, os totais irão considerar essas divisões categóricas.</p>
 
 ```{r p4a, message=FALSE, eval=FALSE}
   pnadc_2023q1 |>
-    summarise(total = sum(V1028) * 10^-6, .by = c(V2007, code_state)) |>
+    summarise(total = sum(V1028), .by = c(V2007, code_state)) |>
     right_join(estados_br, by = "code_state") |> 
     st_sf() |>
   ggplot() +
     geom_sf(aes(fill = total), color = "white") + 
     facet_wrap(~V2007) +
     labs(caption = my_cap) +
-    scale_fill_viridis_c(option = "C", name = "Distribuição da População (em milhões).") +
+    scale_fill_viridis_c(option = "C", name = "Distribuição da População", 
+                         labels = scales::label_number(suffix = " M", scale = 1e-6)) +
     theme_classic() + my_theme
 ```
 
@@ -719,19 +725,20 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst"> <b>Número total e proporção da população por sexo e unidade da federação?</b> Podemos agregar somente por estado, para estimar com a função .purple[count()], considerndo pesos (<b>wt = V1028</b>), a distribuição da população segundo o sexo. Os valores serão armazenados na variável <b>n</b>, e a proporção pode ser obtida ao dividir o total se cada sexo (<b>n</b>) pela soma dos totais de cada estado (homens + mulheres):</p>
+<p class="jst"> <b>Número total e proporção da população por sexo e unidade da federação?</b> Podemos agregar somente por estado, para estimar com a função .purple[count()] a distribuição da população segundo o sexo, considerando pesos (<b>wt = V1028</b>). Os valores serão armazenados na variável <b>n</b>, e a proporção pode ser obtida ao dividir o total se cada sexo (<b>n</b>) pela soma dos totais de cada estado (homens + mulheres):</p>
 
 ```{r p4b, message=FALSE, eval=FALSE}
-  escala1 <-  scale_fill_viridis_c(option = "C", name = "Total (em milhões)")
-  escala2 <- scale_fill_viridis_c(option = "C", name = "Proporção (%)") 
+  escala1 <-  scale_fill_viridis_c(option = "C", name = "Total",
+                                   labels = scales::label_number(suffix = " M", scale = 1e-6))
+  escala2 <- scale_fill_viridis_c(option = "C", name = "Proporção", labels = scales::percent) 
   populacao <- pnadc_2023q1 |> 
     group_by(code_state) |>
     count(V2007, wt = V1028) |>
     mutate(proporcao = n/sum(n)) |>
     right_join(estados_br, by = "code_state") |> st_sf()
-  p1 <- ggplot(data = populacao) + geom_sf(aes(fill = n * 10^-6), color = "white") +
+  p1 <- ggplot(data = populacao) + geom_sf(aes(fill = n), color = "white") +
     facet_wrap(~V2007) + escala1 + my_theme
-  p2 <- ggplot(data = populacao) + geom_sf(aes(fill = proporcao * 100), color = "white") + 
+  p2 <- ggplot(data = populacao) + geom_sf(aes(fill = proporcao), color = "white") + 
     facet_wrap(~V2007) + escala2 + my_theme
   p1 / p2 + plot_annotation(title = "Distribuição da população.",
                             caption = my_cap)
@@ -746,7 +753,7 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst"> <b>Número total e proporção das pessoas com 60 anos ou mais de idade por sexo e unidade da federação?</b></p>
+<p class="jst"> <b>Número total e proporção das pessoas com 60 anos ou mais de idade por unidade da federação?</b></p>
 
 ```{r p4b2, message=FALSE, eval=FALSE}
   populacao <- pnadc_2023q1 |> 
@@ -755,9 +762,9 @@ Produziremos os seguintes gráficos:
     mutate(proporcao = n/sum(n)) |>
     right_join(estados_br, by = "code_state") |> st_sf()
   p1 <- ggplot(data = filter(populacao, `V2009 > 60` == TRUE)) +
-    geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+    geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
   p2 <- ggplot(data = filter(populacao, `V2009 > 60` == TRUE)) +
-    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+    geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p1 / p2 + plot_annotation(
               title = "Distribuição da população com idade\nigual ou superior a 60 anos.",
               caption = my_cap
@@ -783,14 +790,14 @@ Produziremos os seguintes gráficos:
   forca_trabalho <-   pnadc_2023q1 |> group_by(code_state) |> count(VD4002, wt = V1028) |> 
     mutate(proporcao = n/sum(n) ) |> right_join(estados_br, by = "code_state") |> st_sf()
   p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas ocupadas")) 
-  p1 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p2 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p1 <- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p2 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p <- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas desocupadas"))
-  p3 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p4 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p3 <- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p4 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p <- ggplot(data = filter(forca_trabalho, is.na(VD4002)))
-  p5 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p6 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p5 <- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p6 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
  (p1 + p2) / (p3 + p4) / (p5 + p6) + plot_annotation(tag_levels = 'A', title = my_title,
                                          subtitle = my_subtitle, caption = my_cap)
 ```
@@ -817,7 +824,7 @@ Produziremos os seguintes gráficos:
     geom_sf(aes(fill = n), color = "white") + 
     scale_fill_viridis_c(option = "C", name = "Total") + my_theme
   p2 <- ggplot(data = populacao) +
-    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+    geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p1 / p2 + plot_annotation(title = "Subocupados no Brasil.",
                             caption = my_cap)
 ```
@@ -844,7 +851,7 @@ Produziremos os seguintes gráficos:
     geom_sf(aes(fill = n), color = "white") + 
     scale_fill_viridis_c(option = "C", name = "Total") + my_theme
   p2 <- ggplot(data = populacao) + 
-    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+    geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p1 / p2 + plot_annotation(title = "Desalentados no Brasil.",
                           caption = my_cap)
 ```
@@ -865,7 +872,7 @@ Produziremos os seguintes gráficos:
     theme(axis.text = element_blank(), axis.title = element_blank(),
           axis.ticks = element_blank(), strip.text = element_text(size = 6, face = "bold"),
           legend.direction = "horizontal", legend.position = "bottom",
-          legend.key.width = unit(1,"cm"))
+          legend.key.width = unit(1.2,"cm"))
   pnadc_2023q1 |>
     filter(V2009 >= 25) |> 
     group_by(code_state) |>
@@ -873,10 +880,10 @@ Produziremos os seguintes gráficos:
     mutate(proporcao = n/sum(n)) |>
     right_join(estados_br, by = "code_state") |> drop_na() |> st_sf() |>
   ggplot() + 
-    geom_sf(aes(fill = proporcao * 100), color = "gray20") + facet_wrap(~VD3004) +
+    geom_sf(aes(fill = proporcao), color = "gray20") + facet_wrap(~VD3004) +
     scale_fill_distiller(palette = "Spectral",
                          name = paste0("Proporção da População (25 anos ou mais de idade)",
-                                       "\npor Nível de Instrução (%).")) +
+                                       "\npor Nível de Instrução."), labels = scales::percent) +
     labs(caption = my_cap) + my_theme2
 ```
 
@@ -902,11 +909,11 @@ Produziremos os seguintes gráficos:
     right_join(estados_br, by = "code_state") |> st_sf()
   p <- ggplot(data = filter(nivel_instrucao, 
                             VD3004 == "Sem instrução e menos de 1 ano de estudo"))  
-  p1 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p2 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p1 <- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p2 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p <- ggplot(data = filter(nivel_instrucao, VD3004 == "Superior completo"))
-  p3 <- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p4 <- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p3 <- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p4 <- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
  (p1|p2)/(p3+p4) + plot_annotation(tag_levels = 'A', title = my_title, subtitle = my_subtitle,
                                    caption = my_cap)
 ```
@@ -932,7 +939,7 @@ Produziremos os seguintes gráficos:
     right_join(estados_br, by = "code_state") |> st_sf()
   p1 <- ggplot(populacao) + geom_sf(aes(fill = n), color = "white") + 
     scale_fill_viridis_c(option = "C", name = "Total") + my_theme
-  p2 <- ggplot(populacao) + geom_sf(aes(fill = proporcao * 100), color = "white") +
+  p2 <- ggplot(populacao) + geom_sf(aes(fill = proporcao), color = "white") +
     escala2 + my_theme
   p1 / p2 + plot_annotation(title = paste0("Analfabetismo no Brasil ",
                                            "(pessoas com 15 anos ou mais de idade)."),
@@ -948,14 +955,14 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst">Vamos ver um exemplo de gráfico mais elaborado. Antes produziremos um conjunto de dados com o total e proporção das pessoas segundo o nível de curso que frequentam.</p>
+<p class="jst">Vamos ver exemplos mais elaborados para produzir gráficos painelizados. Antes, produziremos um conjunto de dados com o total e a proporção das pessoas segundo o nível de curso que frequentam.</p>
 
 ```{r p4idata, cache=TRUE, message=FALSE}
   my_theme = theme_classic() + 
     theme(axis.text = element_blank(), axis.title = element_blank(), 
           axis.ticks = element_blank(), legend.position = "bottom",
-          legend.direction = "horizontal", legend.key.width = unit(.4,"cm"),
-          legend.text = element_text(size = 6), legend.title = element_text(size=7),
+          legend.direction = "horizontal", legend.key.width = unit(.6,"cm"),
+          legend.text = element_text(size = 5), legend.title = element_text(size=7),
           strip.text = element_text(size = 7))
   populacao <- pnadc_2023q1 |>  
     group_by(code_state) |>
@@ -963,9 +970,9 @@ Produziremos os seguintes gráficos:
     mutate(proporcao = n/sum(n),
            curso = case_when(
              curso == "Educação de jovens e adultos (EJA) do ensino fundamental" ~ 
-               "EJA do ensino fundamental",
+               "EJA - ensino fundamental",
              curso == "Educação de jovens e adultos (EJA) do ensino médio" ~
-               "EJA do ensino médio", 
+               "EJA - ensino médio", 
              .default = curso)
     ) |> right_join(estados_br, by = "code_state") |> st_sf()
 ```
@@ -973,14 +980,14 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst"><b>Qual o total populacional cursando cada nível de ensino por unidade da federação?</b> Para isso, dividiremos nossos dados com a função .purple[base::split()], segundo o nível de ensino. Depois, usaremos a função .purple[purrr::map()] para mapear cada divisão do conjunto de dados no paínel gráfico respectivo, gerado pelo .purple[ggplot()]. Dessa forma, as escalas serão geradas individualmente para cada paínel - comportamento aqui almejado. Ainda precisamos da função .purple[cowplot::plot_grid] para recompor os painéis individuais em um único gráfico.</p>
+<p class="jst"><b>Qual o total populacional cursando cada nível de ensino por unidade da federação?</b> Para isso, dividiremos nossos dados com a função .purple[base::split()], segundo o nível de ensino. Depois, usaremos a função .purple[purrr::map()] para mapear cada divisão categórica (nível do curso) do conjunto de dados no respectivo paínel gráfico, gerado pelo .purple[ggplot()]. Dessa forma, as escalas serão geradas individualmente para cada paínel - comportamento aqui almejado. Ainda precisamos da função .purple[cowplot::plot_grid()] para recompor os painéis individuais em um único gráfico.</p>
 
 ```{r p4i, message=FALSE, eval=FALSE}
   # install.packages("cowplot")
   populacao %>%  
     split(.$curso) %>%
     purrr::map(
-      ~ ggplot(., aes(fill = n * 10^-6)) +
+      ~ ggplot(., aes(fill = n)) +
           geom_sf() +
           facet_wrap(~curso) +
           escala1 + my_theme
@@ -997,13 +1004,13 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<b>Qual a proporção da população em cada nível de ensino por unidade da federação?</b>
+<b>Qual a proporção da população cursando cada nível de ensino por unidade da federação?</b>
 
 ```{r p4j, message=FALSE, eval=FALSE}
   populacao %>% 
     split(.$curso) %>%
     purrr::map(
-      ~ ggplot(., aes(fill = proporcao * 100)) +
+      ~ ggplot(., aes(fill = proporcao)) +
           geom_sf() +
           facet_wrap(~curso) +
           escala2 + my_theme
@@ -1035,8 +1042,12 @@ Agora, vamos aplicar o plano amostral com .purple[<b>PNADcIBGE</b>], mas antes s
 
 <p class="jst">O pacote .purple[<b>convey</b>] (documentação <A href="https://guilhermejacob.github.io/context/index.html">online</b></A>) permite estimar diversas medidas de concentração de renda e desigualdade em dados com amostragem complexa como o índice de Gini. Vamos carregar esse pacote e preparar os dados, sendo necessário converter o tipo do objeto com a função .purple[convey::convey_prep()]</p>
 
-```{r, message=FALSE}
-  # install.packages("convey")
+```{r, include=FALSE}
+  library(convey)
+```
+
+```{r, eval=FALSE}
+  install.packages("convey")
   library(convey)
 ```
 
@@ -1236,10 +1247,11 @@ Agora, vamos aplicar o plano amostral com .purple[<b>PNADcIBGE</b>], mas antes s
         FUN = svyarpr, na.rm = TRUE) |>
     right_join(estados_br, by = "code_state") |> st_sf() |>
     ggplot() + 
-    geom_sf(aes(fill = VD5005_real * 100), color = "gray20") +
+    geom_sf(aes(fill = VD5005_real), color = "gray20") +
     scale_fill_distiller(
       palette = "Spectral",
-      name = paste0("Proporção da população sob risco\nde pobreza em cada estado (%).")
+      name = paste0("Proporção da população sob risco\nde pobreza em cada estado."),
+      labels = scales::percent
     ) +
     labs(caption = "Fonte: PNADC do IBGE, 2022.") + my_theme2
 ```
@@ -1256,17 +1268,17 @@ Agora, vamos aplicar o plano amostral com .purple[<b>PNADcIBGE</b>], mas antes s
 <p class="jst"><b>Podemos estimar a proporção da população em risco de pobreza por unidade da federação.</b> No entanto, o limiar de rendimento será um valor único, calculado em nível nacional, conforme:</p>
 
 ```{r p6g, message=FALSE, eval=FALSE}
-  escala3 <-  scale_fill_distiller(palette = "Spectral", name = "Total (em milhões)")
-  escala4 <- scale_fill_distiller(palette = "Spectral", name = "Proporção (%)") 
+  escala3 <-  scale_fill_distiller(palette = "Spectral", name = "Total",
+                                   labels = scales::label_number(suffix = " M", scale = 1e-6))
+  escala4 <- scale_fill_distiller(palette = "Spectral", name = "Proporção",
+                                  labels = scales::percent) 
   risco_pobreza_br <- svyarpt(~VD5005_real, pnadc_2022_it5, na.rm = TRUE)
-  populacao <- pnadc_2022_it5$variables |> 
-    group_by(code_state) |>
+  populacao <- pnadc_2022_it5$variables |> group_by(code_state) |>
     count(sob_pobreza = VD5005_real <= risco_pobreza_br, wt = V1032) |>
-    mutate(proporcao = n/sum(n)) |> 
-    filter(sob_pobreza == TRUE) |> 
+    mutate(proporcao = n/sum(n)) |> filter(sob_pobreza == TRUE) |> 
     right_join(estados_br, by = "code_state") |> st_sf()
-  p1 <- ggplot(data = populacao) + geom_sf(aes(fill = n * 10^-6), color = "black") 
-  p2 <- ggplot(data = populacao) + geom_sf(aes(fill = proporcao * 100), color = "black")
+  p1 <- ggplot(data = populacao) + geom_sf(aes(fill = n), color = "black") 
+  p2 <- ggplot(data = populacao) + geom_sf(aes(fill = proporcao), color = "black")
   (p1 + escala3 + my_theme2) + (p2 + escala4 + my_theme2) +
   plot_annotation(
     title = paste0("População em risco de pobreza, cujo rendimento médio mensal real ",
@@ -1281,6 +1293,194 @@ Agora, vamos aplicar o plano amostral com .purple[<b>PNADcIBGE</b>], mas antes s
 ```
 
 ---
+### .orange[Fontes Adicionais de Dados de Interesse Social]
+
+<p class="jst">Existem outros pacotes no r que fornecem acesso simplificado a dados como:</p>
+
+- <p class="jst">Pacote <A href="https://ipeagit.github.io/censobr/index.html">.purple[<b>censobr</b>]</A>  - dados de censos demográficos.</p>
+
+- <p class="jst">Pacote <A href="https://electionsbr.com/">.purple[<b>electionsBR</b>]</A> - dados do TSE sobre eleições no Brasil.</p>
+
+- <p class="jst">Pacote <A href="https://github.com/rfsaldanha/microdatasus">.purple[<b>microdatasus</b>]</A> - dados do Sistema Único de Saúde do Brasil (SUS), fornecidos pelo departamento de informática do SUS - o DATASUS. Obs: Este pacote não está disponível no CRAM, sendo necessário instalá-lo através de repositório no GitHub.</p>
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst">O pacote .purple[<b>censobr</b>] (documentação <A href="https://ipeagit.github.io/censobr/index.html">online</b></A>) permite baixar dados de censos demográficos realizados no Brasil. Vamos ver alguns exemplos de obtenção e visualização desses dados. Primeiro, instalamos e carregamos o pacote:</p> 
+
+```{r, include=FALSE}
+  library(censobr)
+```
+
+```{r, eval=FALSE}
+  install.packages("censobr"); library(censobr);
+```
+
+<p class="jst">Focaremos em dados domésticos de residências, que são baixados com .purple[censobr::read_households()]: </p>
+ 
+```{r p5data1, cache=TRUE, message=FALSE}
+  domestico_br <- read_households(year = 2010, add_labels = 'pt', showProgress = FALSE)
+```
+
+<p class="jst">O objeto <b>domestico_br</b> ainda não possui os dados de domicílios. Como o pacote .purple[<b>censobr</b>] foi implementado considerando o pacote .purple[<b>arrow</b>] (provém armazenamento, manipulação e acesso remoto de dados), o objeto  <b>domestico_br</b> permite baixar dados conforme à demanda do usuário - questão importante devido às possíveis limitações computacionais (principalmente memória RAM) e a grande quantidade de dados censitários.</p>
+
+```{r}
+  class(domestico_br)
+```
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst">Já que podemos baixar variáveis específicas, devemos conhecer os dados. Para fazer consultas, basta usar a função .purple[censobr::data_dictionary()].</p>
+
+```{r, eval = FALSE}
+  data_dictionary(2010, 'households')
+```
+
+<p class="jst">Vamos obter dados sobre o tipo de esgotamento sanitário (variável <b>V0207</b>) disponível nos domicílios, calculando o total e a proporção de cada tipo nos municípios. É necessário considerar o peso amostral (variável <b>V0010</b>). Com a função .purple[dplyr::collect()], coletamos nossos dados, que são fornecidos pelo objeto <b>domestico_br</b>, observe:</p>
+
+```{r p5data2, cache=TRUE, message=FALSE}
+  esgotamento_sanitario <- domestico_br |> 
+    collect() |>
+    group_by(code_muni) |>                                          
+    count(tipo = V0207, wt = V0010) |>      
+    mutate(proporcao = n / sum(n)) |> 
+    collect()  
+```
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst">Também vamos obter o mapa do Brasil com a divisão territorial dos municípios:</p>
+
+```{r p5data3, cache=TRUE, message=FALSE}
+  municipios_br <- geobr::read_municipality(year = 2010, showProgress = FALSE) |> 
+    mutate(code_muni = as.character(code_muni))
+```
+
+Agora, produziremos mapas dos dados, conforme:
+
+```{r p5a, message=FALSE, eval=FALSE}
+  left_join(esgotamento_sanitario, municipios_br, by = "code_muni") |>
+    st_sf() |>
+    drop_na() |>
+  ggplot(aes(fill = proporcao)) +
+            geom_sf(linewidth = 0) +
+            facet_wrap(~tipo) +
+            escala4 + my_theme 
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p5a_out, cache=TRUE, ref.label="p5a", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="700px"}
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<p class="jst">Podemos gerar mapas com outros pacotes gráficos, como o <A href="https://r-tmap.github.io/tmap/">.purple[<b>tmap</b>]</A>.</p> 
+
+```{r, include=FALSE}
+  library(tmap)
+```
+
+```{r, eval=FALSE}
+  install.packages(c("lwgeom", "tmap"))
+  library(tmap)
+```
+
+Vejamos um exemplo de mapa com os mesmos dados de esgotamento sanitário:
+
+```{r p5b, message=FALSE, eval=FALSE}
+  esgotamento_sanitario |> 
+    mutate(proporcao = proporcao * 100) |>
+    right_join(municipios_br, by = "code_muni") |> 
+    st_sf() |> drop_na() |>
+  tm_shape() + 
+    tmap_options(check.and.fix = TRUE) +
+    tm_fill("proporcao", 
+            n = 10,
+            palette = '-Spectral', 
+            title = "Esgotamento Sanitário (%)") + 
+    tm_facets(by = "tipo")
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p5b_out, cache=TRUE, ref.label="p5b", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<b>Somente para o estado do Rio grande do sul?</b>
+
+```{r p5c, message=FALSE, eval=FALSE}
+  esgotamento_sanitario |> 
+    mutate(proporcao = proporcao * 100) |> 
+    right_join(y = filter(municipios_br, code_state == 43), by = "code_muni") |> 
+    st_sf() |> 
+    drop_na() |>
+  tm_shape() + 
+    tmap_options(check.and.fix = TRUE) +
+    tm_fill("proporcao",
+            n = 10,
+            palette = '-Spectral',
+            title = "Esgotamento Sanitário (%)") + 
+    tm_facets(by = "tipo")
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p5c_out, cache=TRUE, ref.label="p5c", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+<b>Computador com acesso à internet (variável V0220), no estado do Rio grande do sul?</b>
+
+```{r p5d, message=FALSE, eval=FALSE}
+  domestico_br |> 
+    collect() |>
+    group_by(code_muni) |>                                          
+    count(acesso_internet = V0220, wt = V0010) |>      
+    mutate(proporcao = n / sum(n) * 100) |> 
+    collect() |>
+    right_join(y = filter(municipios_br, code_state == 43), by = "code_muni") |>
+    st_sf() |> 
+    drop_na() |>
+  tm_shape() + 
+    tmap_options(check.and.fix = TRUE) +
+    tm_fill("proporcao",
+            n = 10,
+            palette = '-Spectral',
+            title = "Acesso à Internet por\nmeio de Computador (%)") + 
+    tm_facets(by = "acesso_internet")
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE `r icons::ionicons("earth-outline")` - visualização espacial]
+
+```{r p5d_out, cache=TRUE, ref.label="p5d", echo=FALSE, warning=FALSE, message=FALSE, fig.align='center', out.height= "500px", out.width="800px"}
+```
+
+---
+### .orange[Visualização Espacial Interativa `r icons::ionicons("earth-outline")`]
+
+<p class="jst">Existem alternativas no r para visualizar mapas interativos e dinâmicos. Para simplificar, podemos continuar usando o pacote .purple[<b>tmap</b>], que fornece visualizações interativas. Veremos um breve exemplo por meio deste <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/scripts/dynamic_maps.html">tutorial</A>.</p>
+
+
+---
 ### .orange[Bibliográfia Complementar]
 
 <p class="jst">Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: </p>
@@ -1289,13 +1489,18 @@ Agora, vamos aplicar o plano amostral com .purple[<b>PNADcIBGE</b>], mas antes s
 
 - <p class="jst"> Livro  <A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf">.purple["POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R"]</A>.
 - <p class="jst">Curso de R disponível no repositório do Git Hub: <A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master">.purple[Introdução à Programação em R]</b></A>. 
-- <p class="jst">Materiais online sobre o pacote .purple[<b>srvyr</b>]:
-  - <A href="https://rpubs.com/leobarone/pnadc_srvyr">.purple[Link 1]</A>.
-  - <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[Link 2]</A>.
+- <p class="jst">Materiais online sobre o pacote .purple[<b>srvyr</b>]: <A href="https://rpubs.com/leobarone/pnadc_srvyr">.purple[Link 1]</A> e <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[Link 2]</A>.
   
-Documentação para uso do pacote <A href="https://guilhermejacob.github.io/context/index.html">.purple[<b>convey</b></b>]</A>
+</br>
 
-Documentação para uso do pacote <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A> 
+Documentações para uso dos pacotes: <A href="https://guilhermejacob.github.io/context/index.html">.purple[<b>convey</b></b>]</A>, <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A>, <A href="https://cran.r-project.org/web/packages/censobr/vignettes/censobr.html">.purple[<b>censobr</b>]</A>, <A href="http://electionsbr.com/articles/introduction.html">.purple[<b>electionsBR</b>]</A>, <A href="https://github.com/rfsaldanha/microdatasus/wiki">.purple[<b>microdatasus</b>]</A> e <A href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html">.purple[<b>tmap</b>]</A>.
+
+Livro sobre o pacote <A href="https://r-tmap.github.io/tmap-book/
+">.purple[<b>tmap</b>]</A> e <A href="https://rpubs.com/Henriqueufla/tmap_r
+">.purple[tutorial]</A> mais curto.
+
+Livro com conteúdo mais avançado sobre manipulação e visualização de geodados: <A href="https://r.geocompx.org/">.purple[Geocomputation with R]</A>.
+
 
 ---
 exclude: TRUE

@@ -97,9 +97,9 @@ Bibliografia Complementar:
   - Mapeamento de objetos (&lt;i&gt;&lt;b&gt;aesthetic&lt;/b&gt;&lt;/i&gt;) - define as variáveis que compõem o gráfico; divisões categóricas dos dados que são traduzidas em cores, formatos e tamanhos; elementos da legenda e agrupamentos;
   - &lt;u&gt;Geometria dos objetos (&lt;i&gt;&lt;b&gt;geom&lt;/b&gt;&lt;/i&gt;&lt;/u&gt;) - basicamente o tipo do gráfico;
   - Transformações estatísticas (&lt;i&gt;&lt;b&gt;stat&lt;/b&gt;&lt;/i&gt;) - basicamente sumarização de dados;
-  - Posicionamento (&lt;i&gt;&lt;b&gt;position&lt;/b&gt;&lt;/i&gt;) - permite o deslocamento dos elementos gráficos se houver sobreposição.
+  - Posicionamento (&lt;i&gt;&lt;b&gt;position&lt;/b&gt;&lt;/i&gt;) - permite o deslocamento dos elementos gráficos, se houver sobreposição.
   
-2. &lt;p class="jst"&gt;Escalas  (&lt;i&gt;&lt;b&gt;scales&lt;/b&gt;&lt;/i&gt;) - permite controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos &lt;i&gt;labels&lt;/i&gt; nos eixos e legenda, entre outros.&lt;/p&gt;
+2. &lt;p class="jst"&gt;Escalas  (&lt;i&gt;&lt;b&gt;scales&lt;/b&gt;&lt;/i&gt;) - permite o controle sobre atributos estéticos como cores, formas e tamanhos dos elementos geométricos, espaçamento e disposição dos &lt;i&gt;labels&lt;/i&gt; nos eixos e legenda, entre outros.&lt;/p&gt;
 3. &lt;u&gt;Sistema de coordenadas (&lt;i&gt;&lt;b&gt;coord&lt;/b&gt;&lt;/i&gt;&lt;/u&gt;) - permite definir posição/aparência dos objetos mapeados no plano.
 
 4. &lt;p class="jst"&gt;Facetamento/tabulamento (&lt;i&gt;&lt;b&gt;faceting&lt;/b&gt;&lt;/i&gt;) - gera painéis contendo subdivisões dos dados baseadas em informações categóricas. Os subgráficos compartilham os mesmos atributos estéticos.&lt;/p&gt;
@@ -145,8 +145,10 @@ Existem diversos pacotes no r que fornecem mapas:
 &lt;p class="jst"&gt;Existem diversos pacotes no r que permitem manipulação e análise de objetos e dados espaciais (ex: .purple[&lt;b&gt;sf&lt;/b&gt;], .purple[&lt;b&gt;sp&lt;/b&gt;], .purple[&lt;b&gt;raster&lt;/b&gt;], .purple[&lt;b&gt;terra&lt;/b&gt;]). Não obstante, começamos por carregar o .purple[&lt;b&gt;ggplot2&lt;/b&gt;] e outros pacotes do .purple[&lt;b&gt;tidyverse&lt;/b&gt;].&lt;/p&gt;
 
 
+
+
 ```r
-  # install.packages("tidyverse")
+  install.packages("tidyverse")
   library(tidyverse)
 ```
 
@@ -162,7 +164,7 @@ Existem diversos pacotes no r que fornecem mapas:
   world_map &lt;- map_data("world")
 ```
 
-&lt;p class="jst"&gt; Podemos gerar esse mapa simples conforme o código abaixo. A variável &lt;b&gt;group&lt;/b&gt; possui os códigos individuais dos países, que indicamos no atributo estético de mesmo nome, para unir os vértices dos polígonos (coordenadas das colunas &lt;b&gt;long&lt;/b&gt; e &lt;b&gt;lat&lt;/b&gt;), ou seja, para gerar as divisas territoriais de cada país. Fixamos o preenchimento dos polígonos na cor cinza e as fronteiras como linhas pretas.&lt;/p&gt;
+&lt;p class="jst"&gt; Podemos gerar esse mapa simples, conforme o código abaixo. A variável &lt;b&gt;group&lt;/b&gt; possui os códigos individuais dos países, que indicamos no atributo estético, de mesmo nome, para unir os vértices dos polígonos (coordenadas das colunas &lt;b&gt;long&lt;/b&gt; e &lt;b&gt;lat&lt;/b&gt;), ou seja, para gerar as divisas territoriais de cada país. Fixamos o preenchimento dos polígonos na cor cinza e as fronteiras como linhas pretas.&lt;/p&gt;
 
 
 ```r
@@ -255,7 +257,7 @@ Podemos gerar um mapa com .purple[geom_map()], mapeando os dados de expectativa 
     theme_bw() + theme(legend.title = element_blank())
 ```
 
-&lt;p class="jst"&gt;A função .purple[expand_limits()] é necessaria para indicar as coordenadas limites nos eixos do mapa a ser gerado, já que as latitudes e longitudes não estão presentes nos dados de expectativa de vida.&lt;/p&gt;
+&lt;p class="jst"&gt;A função .purple[expand_limits()] é necessaria para indicar as coordenadas nos eixos do mapa a ser gerado, já que as latitudes e longitudes não estão presentes nos dados de expectativa de vida.&lt;/p&gt;
 
 ---
 class: left, top
@@ -452,12 +454,10 @@ ggplot() +
 &lt;p class="jst"&gt;Vimos algumas formas de produzir mapas. Sem embargo, o uso de objetos do tipo &lt;i&gt;"simple features"&lt;/i&gt; junto ao .purple[&lt;b&gt;ggplot2&lt;/b&gt;] tem se tornado predominante pela flexibilidade e disponibilidade de operações sobre mapas e dados. Seguiremos essa linha. Também precisamos de mapas do Brasil, portanto, usaremos o pacote &lt;A href="https://github.com/ipeaGIT/geobr".purple[&lt;b&gt;geobr&lt;/b&gt;]&lt;/A&gt;:&lt;/p&gt;
 
 
+
+
 ```r
   install.packages("geobr")
-```
-
-
-```r
   library(geobr)
 ```
 
@@ -693,7 +693,7 @@ Produziremos os seguintes gráficos:
   my_title &lt;- paste0("Rendimento médio mensal real efetivo e anos de estudo do morador com\n",
                      "14 anos ou mais de idade, nos estados e capitais.")
   my_theme = theme_classic() + theme(axis.text = element_blank(), axis.title = element_blank(),
-                   axis.ticks = element_blank(), legend.key.width = unit(1,"cm"),
+                   axis.ticks = element_blank(), legend.key.width = unit(1.2,"cm"),
                    legend.position = "bottom", legend.direction = "horizontal")
   p1 &lt;- ggplot(data = estados, aes(fill = rendimento_medio)) +
     geom_sf(color = "gray20") + 
@@ -716,19 +716,20 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
 
-&lt;p class="jst"&gt; &lt;b&gt;Distribuição da população por sexo e unidade da federação?&lt;/b&gt; Ao somar os valores da coluna &lt;b&gt;V1028&lt;/b&gt; (peso dos domicílios e das pessoas), estimamos o total de habitantes da população brasileira em milhões (multiplica-se por 10&lt;sup&gt;-6&lt;/sup&gt;). Como a estimativa será agregada por sexo e unidade da federação, os totais irão considerar essas divisões categóricas.&lt;/p&gt;
+&lt;p class="jst"&gt; &lt;b&gt;Distribuição da população por sexo e unidade da federação?&lt;/b&gt; Ao somar os valores da coluna &lt;b&gt;V1028&lt;/b&gt; (peso dos domicílios e das pessoas), estimamos o total de habitantes da população brasileira em milhões (multiplica-se por 10&lt;sup&gt;-6&lt;/sup&gt;, e formataremos usando .purple[label_number()]). Como a estimativa será agregada por sexo e unidade da federação, os totais irão considerar essas divisões categóricas.&lt;/p&gt;
 
 
 ```r
   pnadc_2023q1 |&gt;
-    summarise(total = sum(V1028) * 10^-6, .by = c(V2007, code_state)) |&gt;
+    summarise(total = sum(V1028), .by = c(V2007, code_state)) |&gt;
     right_join(estados_br, by = "code_state") |&gt; 
     st_sf() |&gt;
   ggplot() +
     geom_sf(aes(fill = total), color = "white") + 
     facet_wrap(~V2007) +
     labs(caption = my_cap) +
-    scale_fill_viridis_c(option = "C", name = "Distribuição da População (em milhões).") +
+    scale_fill_viridis_c(option = "C", name = "Distribuição da População", 
+                         labels = scales::label_number(suffix = " M", scale = 1e-6)) +
     theme_classic() + my_theme
 ```
 
@@ -740,20 +741,21 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
 
-&lt;p class="jst"&gt; &lt;b&gt;Número total e proporção da população por sexo e unidade da federação?&lt;/b&gt; Podemos agregar somente por estado, para estimar com a função .purple[count()], considerndo pesos (&lt;b&gt;wt = V1028&lt;/b&gt;), a distribuição da população segundo o sexo. Os valores serão armazenados na variável &lt;b&gt;n&lt;/b&gt;, e a proporção pode ser obtida ao dividir o total se cada sexo (&lt;b&gt;n&lt;/b&gt;) pela soma dos totais de cada estado (homens + mulheres):&lt;/p&gt;
+&lt;p class="jst"&gt; &lt;b&gt;Número total e proporção da população por sexo e unidade da federação?&lt;/b&gt; Podemos agregar somente por estado, para estimar com a função .purple[count()] a distribuição da população segundo o sexo, considerando pesos (&lt;b&gt;wt = V1028&lt;/b&gt;). Os valores serão armazenados na variável &lt;b&gt;n&lt;/b&gt;, e a proporção pode ser obtida ao dividir o total se cada sexo (&lt;b&gt;n&lt;/b&gt;) pela soma dos totais de cada estado (homens + mulheres):&lt;/p&gt;
 
 
 ```r
-  escala1 &lt;-  scale_fill_viridis_c(option = "C", name = "Total (em milhões)")
-  escala2 &lt;- scale_fill_viridis_c(option = "C", name = "Proporção (%)") 
+  escala1 &lt;-  scale_fill_viridis_c(option = "C", name = "Total",
+                                   labels = scales::label_number(suffix = " M", scale = 1e-6))
+  escala2 &lt;- scale_fill_viridis_c(option = "C", name = "Proporção", labels = scales::percent) 
   populacao &lt;- pnadc_2023q1 |&gt; 
     group_by(code_state) |&gt;
     count(V2007, wt = V1028) |&gt;
     mutate(proporcao = n/sum(n)) |&gt;
     right_join(estados_br, by = "code_state") |&gt; st_sf()
-  p1 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = n * 10^-6), color = "white") +
+  p1 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = n), color = "white") +
     facet_wrap(~V2007) + escala1 + my_theme
-  p2 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = proporcao * 100), color = "white") + 
+  p2 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = proporcao), color = "white") + 
     facet_wrap(~V2007) + escala2 + my_theme
   p1 / p2 + plot_annotation(title = "Distribuição da população.",
                             caption = my_cap)
@@ -767,7 +769,7 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
 
-&lt;p class="jst"&gt; &lt;b&gt;Número total e proporção das pessoas com 60 anos ou mais de idade por sexo e unidade da federação?&lt;/b&gt;&lt;/p&gt;
+&lt;p class="jst"&gt; &lt;b&gt;Número total e proporção das pessoas com 60 anos ou mais de idade por unidade da federação?&lt;/b&gt;&lt;/p&gt;
 
 
 ```r
@@ -777,9 +779,9 @@ Produziremos os seguintes gráficos:
     mutate(proporcao = n/sum(n)) |&gt;
     right_join(estados_br, by = "code_state") |&gt; st_sf()
   p1 &lt;- ggplot(data = filter(populacao, `V2009 &gt; 60` == TRUE)) +
-    geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
+    geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
   p2 &lt;- ggplot(data = filter(populacao, `V2009 &gt; 60` == TRUE)) +
-    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+    geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p1 / p2 + plot_annotation(
               title = "Distribuição da população com idade\nigual ou superior a 60 anos.",
               caption = my_cap
@@ -805,14 +807,14 @@ Produziremos os seguintes gráficos:
   forca_trabalho &lt;-   pnadc_2023q1 |&gt; group_by(code_state) |&gt; count(VD4002, wt = V1028) |&gt; 
     mutate(proporcao = n/sum(n) ) |&gt; right_join(estados_br, by = "code_state") |&gt; st_sf()
   p &lt;- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas ocupadas")) 
-  p1 &lt;- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p2 &lt;- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p1 &lt;- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p2 &lt;- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p &lt;- ggplot(data = filter(forca_trabalho, VD4002 == "Pessoas desocupadas"))
-  p3 &lt;- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p4 &lt;- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p3 &lt;- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p4 &lt;- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p &lt;- ggplot(data = filter(forca_trabalho, is.na(VD4002)))
-  p5 &lt;- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p6 &lt;- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p5 &lt;- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p6 &lt;- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
  (p1 + p2) / (p3 + p4) / (p5 + p6) + plot_annotation(tag_levels = 'A', title = my_title,
                                          subtitle = my_subtitle, caption = my_cap)
 ```
@@ -839,7 +841,7 @@ Produziremos os seguintes gráficos:
     geom_sf(aes(fill = n), color = "white") + 
     scale_fill_viridis_c(option = "C", name = "Total") + my_theme
   p2 &lt;- ggplot(data = populacao) +
-    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+    geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p1 / p2 + plot_annotation(title = "Subocupados no Brasil.",
                             caption = my_cap)
 ```
@@ -866,7 +868,7 @@ Produziremos os seguintes gráficos:
     geom_sf(aes(fill = n), color = "white") + 
     scale_fill_viridis_c(option = "C", name = "Total") + my_theme
   p2 &lt;- ggplot(data = populacao) + 
-    geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+    geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p1 / p2 + plot_annotation(title = "Desalentados no Brasil.",
                           caption = my_cap)
 ```
@@ -887,7 +889,7 @@ Produziremos os seguintes gráficos:
     theme(axis.text = element_blank(), axis.title = element_blank(),
           axis.ticks = element_blank(), strip.text = element_text(size = 6, face = "bold"),
           legend.direction = "horizontal", legend.position = "bottom",
-          legend.key.width = unit(1,"cm"))
+          legend.key.width = unit(1.2,"cm"))
   pnadc_2023q1 |&gt;
     filter(V2009 &gt;= 25) |&gt; 
     group_by(code_state) |&gt;
@@ -895,10 +897,10 @@ Produziremos os seguintes gráficos:
     mutate(proporcao = n/sum(n)) |&gt;
     right_join(estados_br, by = "code_state") |&gt; drop_na() |&gt; st_sf() |&gt;
   ggplot() + 
-    geom_sf(aes(fill = proporcao * 100), color = "gray20") + facet_wrap(~VD3004) +
+    geom_sf(aes(fill = proporcao), color = "gray20") + facet_wrap(~VD3004) +
     scale_fill_distiller(palette = "Spectral",
                          name = paste0("Proporção da População (25 anos ou mais de idade)",
-                                       "\npor Nível de Instrução (%).")) +
+                                       "\npor Nível de Instrução."), labels = scales::percent) +
     labs(caption = my_cap) + my_theme2
 ```
 
@@ -924,11 +926,11 @@ Produziremos os seguintes gráficos:
     right_join(estados_br, by = "code_state") |&gt; st_sf()
   p &lt;- ggplot(data = filter(nivel_instrucao, 
                             VD3004 == "Sem instrução e menos de 1 ano de estudo"))  
-  p1 &lt;- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p2 &lt;- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p1 &lt;- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p2 &lt;- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
   p &lt;- ggplot(data = filter(nivel_instrucao, VD3004 == "Superior completo"))
-  p3 &lt;- p + geom_sf(aes(fill = n * 10^-6), color = "white") + escala1 + my_theme
-  p4 &lt;- p + geom_sf(aes(fill = proporcao * 100), color = "white") + escala2 + my_theme
+  p3 &lt;- p + geom_sf(aes(fill = n), color = "white") + escala1 + my_theme
+  p4 &lt;- p + geom_sf(aes(fill = proporcao), color = "white") + escala2 + my_theme
  (p1|p2)/(p3+p4) + plot_annotation(tag_levels = 'A', title = my_title, subtitle = my_subtitle,
                                    caption = my_cap)
 ```
@@ -954,7 +956,7 @@ Produziremos os seguintes gráficos:
     right_join(estados_br, by = "code_state") |&gt; st_sf()
   p1 &lt;- ggplot(populacao) + geom_sf(aes(fill = n), color = "white") + 
     scale_fill_viridis_c(option = "C", name = "Total") + my_theme
-  p2 &lt;- ggplot(populacao) + geom_sf(aes(fill = proporcao * 100), color = "white") +
+  p2 &lt;- ggplot(populacao) + geom_sf(aes(fill = proporcao), color = "white") +
     escala2 + my_theme
   p1 / p2 + plot_annotation(title = paste0("Analfabetismo no Brasil ",
                                            "(pessoas com 15 anos ou mais de idade)."),
@@ -969,15 +971,15 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
 
-&lt;p class="jst"&gt;Vamos ver um exemplo de gráfico mais elaborado. Antes produziremos um conjunto de dados com o total e proporção das pessoas segundo o nível de curso que frequentam.&lt;/p&gt;
+&lt;p class="jst"&gt;Vamos ver exemplos mais elaborados para produzir gráficos painelizados. Antes, produziremos um conjunto de dados com o total e a proporção das pessoas segundo o nível de curso que frequentam.&lt;/p&gt;
 
 
 ```r
   my_theme = theme_classic() + 
     theme(axis.text = element_blank(), axis.title = element_blank(), 
           axis.ticks = element_blank(), legend.position = "bottom",
-          legend.direction = "horizontal", legend.key.width = unit(.4,"cm"),
-          legend.text = element_text(size = 6), legend.title = element_text(size=7),
+          legend.direction = "horizontal", legend.key.width = unit(.6,"cm"),
+          legend.text = element_text(size = 5), legend.title = element_text(size=7),
           strip.text = element_text(size = 7))
   populacao &lt;- pnadc_2023q1 |&gt;  
     group_by(code_state) |&gt;
@@ -985,9 +987,9 @@ Produziremos os seguintes gráficos:
     mutate(proporcao = n/sum(n),
            curso = case_when(
              curso == "Educação de jovens e adultos (EJA) do ensino fundamental" ~ 
-               "EJA do ensino fundamental",
+               "EJA - ensino fundamental",
              curso == "Educação de jovens e adultos (EJA) do ensino médio" ~
-               "EJA do ensino médio", 
+               "EJA - ensino médio", 
              .default = curso)
     ) |&gt; right_join(estados_br, by = "code_state") |&gt; st_sf()
 ```
@@ -995,7 +997,7 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
 
-&lt;p class="jst"&gt;&lt;b&gt;Qual o total populacional cursando cada nível de ensino por unidade da federação?&lt;/b&gt; Para isso, dividiremos nossos dados com a função .purple[base::split()], segundo o nível de ensino. Depois, usaremos a função .purple[purrr::map()] para mapear cada divisão do conjunto de dados no paínel gráfico respectivo, gerado pelo .purple[ggplot()]. Dessa forma, as escalas serão geradas individualmente para cada paínel - comportamento aqui almejado. Ainda precisamos da função .purple[cowplot::plot_grid] para recompor os painéis individuais em um único gráfico.&lt;/p&gt;
+&lt;p class="jst"&gt;&lt;b&gt;Qual o total populacional cursando cada nível de ensino por unidade da federação?&lt;/b&gt; Para isso, dividiremos nossos dados com a função .purple[base::split()], segundo o nível de ensino. Depois, usaremos a função .purple[purrr::map()] para mapear cada divisão categórica (nível do curso) do conjunto de dados no respectivo paínel gráfico, gerado pelo .purple[ggplot()]. Dessa forma, as escalas serão geradas individualmente para cada paínel - comportamento aqui almejado. Ainda precisamos da função .purple[cowplot::plot_grid()] para recompor os painéis individuais em um único gráfico.&lt;/p&gt;
 
 
 ```r
@@ -1003,7 +1005,7 @@ Produziremos os seguintes gráficos:
   populacao %&gt;%  
     split(.$curso) %&gt;%
     purrr::map(
-      ~ ggplot(., aes(fill = n * 10^-6)) +
+      ~ ggplot(., aes(fill = n)) +
           geom_sf() +
           facet_wrap(~curso) +
           escala1 + my_theme
@@ -1019,14 +1021,14 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
 
-&lt;b&gt;Qual a proporção da população em cada nível de ensino por unidade da federação?&lt;/b&gt;
+&lt;b&gt;Qual a proporção da população cursando cada nível de ensino por unidade da federação?&lt;/b&gt;
 
 
 ```r
   populacao %&gt;% 
     split(.$curso) %&gt;%
     purrr::map(
-      ~ ggplot(., aes(fill = proporcao * 100)) +
+      ~ ggplot(., aes(fill = proporcao)) +
           geom_sf() +
           facet_wrap(~curso) +
           escala2 + my_theme
@@ -1060,8 +1062,10 @@ Agora, vamos aplicar o plano amostral com .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;],
 &lt;p class="jst"&gt;O pacote .purple[&lt;b&gt;convey&lt;/b&gt;] (documentação &lt;A href="https://guilhermejacob.github.io/context/index.html"&gt;online&lt;/b&gt;&lt;/A&gt;) permite estimar diversas medidas de concentração de renda e desigualdade em dados com amostragem complexa como o índice de Gini. Vamos carregar esse pacote e preparar os dados, sendo necessário converter o tipo do objeto com a função .purple[convey::convey_prep()]&lt;/p&gt;
 
 
+
+
 ```r
-  # install.packages("convey")
+  install.packages("convey")
   library(convey)
 ```
 
@@ -1247,10 +1251,11 @@ Agora, vamos aplicar o plano amostral com .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;],
         FUN = svyarpr, na.rm = TRUE) |&gt;
     right_join(estados_br, by = "code_state") |&gt; st_sf() |&gt;
     ggplot() + 
-    geom_sf(aes(fill = VD5005_real * 100), color = "gray20") +
+    geom_sf(aes(fill = VD5005_real), color = "gray20") +
     scale_fill_distiller(
       palette = "Spectral",
-      name = paste0("Proporção da população sob risco\nde pobreza em cada estado (%).")
+      name = paste0("Proporção da população sob risco\nde pobreza em cada estado."),
+      labels = scales::percent
     ) +
     labs(caption = "Fonte: PNADC do IBGE, 2022.") + my_theme2
 ```
@@ -1267,17 +1272,17 @@ Agora, vamos aplicar o plano amostral com .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;],
 
 
 ```r
-  escala3 &lt;-  scale_fill_distiller(palette = "Spectral", name = "Total (em milhões)")
-  escala4 &lt;- scale_fill_distiller(palette = "Spectral", name = "Proporção (%)") 
+  escala3 &lt;-  scale_fill_distiller(palette = "Spectral", name = "Total",
+                                   labels = scales::label_number(suffix = " M", scale = 1e-6))
+  escala4 &lt;- scale_fill_distiller(palette = "Spectral", name = "Proporção",
+                                  labels = scales::percent) 
   risco_pobreza_br &lt;- svyarpt(~VD5005_real, pnadc_2022_it5, na.rm = TRUE)
-  populacao &lt;- pnadc_2022_it5$variables |&gt; 
-    group_by(code_state) |&gt;
+  populacao &lt;- pnadc_2022_it5$variables |&gt; group_by(code_state) |&gt;
     count(sob_pobreza = VD5005_real &lt;= risco_pobreza_br, wt = V1032) |&gt;
-    mutate(proporcao = n/sum(n)) |&gt; 
-    filter(sob_pobreza == TRUE) |&gt; 
+    mutate(proporcao = n/sum(n)) |&gt; filter(sob_pobreza == TRUE) |&gt; 
     right_join(estados_br, by = "code_state") |&gt; st_sf()
-  p1 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = n * 10^-6), color = "black") 
-  p2 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = proporcao * 100), color = "black")
+  p1 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = n), color = "black") 
+  p2 &lt;- ggplot(data = populacao) + geom_sf(aes(fill = proporcao), color = "black")
   (p1 + escala3 + my_theme2) + (p2 + escala4 + my_theme2) +
   plot_annotation(
     title = paste0("População em risco de pobreza, cujo rendimento médio mensal real ",
@@ -1291,6 +1296,201 @@ Agora, vamos aplicar o plano amostral com .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;],
 &lt;img src="09-aula_files/figure-html/p6g_out-1.png" width="700px" height="500px" style="display: block; margin: auto;" /&gt;
 
 ---
+### .orange[Fontes Adicionais de Dados de Interesse Social]
+
+&lt;p class="jst"&gt;Existem outros pacotes no r que fornecem acesso simplificado a dados como:&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Pacote &lt;A href="https://ipeagit.github.io/censobr/index.html"&gt;.purple[&lt;b&gt;censobr&lt;/b&gt;]&lt;/A&gt;  - dados de censos demográficos.&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Pacote &lt;A href="https://electionsbr.com/"&gt;.purple[&lt;b&gt;electionsBR&lt;/b&gt;]&lt;/A&gt; - dados do TSE sobre eleições no Brasil.&lt;/p&gt;
+
+- &lt;p class="jst"&gt;Pacote &lt;A href="https://github.com/rfsaldanha/microdatasus"&gt;.purple[&lt;b&gt;microdatasus&lt;/b&gt;]&lt;/A&gt; - dados do Sistema Único de Saúde do Brasil (SUS), fornecidos pelo departamento de informática do SUS - o DATASUS. Obs: Este pacote não está disponível no CRAM, sendo necessário instalá-lo através de repositório no GitHub.&lt;/p&gt;
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;O pacote .purple[&lt;b&gt;censobr&lt;/b&gt;] (documentação &lt;A href="https://ipeagit.github.io/censobr/index.html"&gt;online&lt;/b&gt;&lt;/A&gt;) permite baixar dados de censos demográficos realizados no Brasil. Vamos ver alguns exemplos de obtenção e visualização desses dados. Primeiro, instalamos e carregamos o pacote:&lt;/p&gt; 
+
+
+
+
+```r
+  install.packages("censobr"); library(censobr);
+```
+
+&lt;p class="jst"&gt;Focaremos em dados domésticos de residências, que são baixados com .purple[censobr::read_households()]: &lt;/p&gt;
+ 
+
+```r
+  domestico_br &lt;- read_households(year = 2010, add_labels = 'pt', showProgress = FALSE)
+```
+
+&lt;p class="jst"&gt;O objeto &lt;b&gt;domestico_br&lt;/b&gt; ainda não possui os dados de domicílios. Como o pacote .purple[&lt;b&gt;censobr&lt;/b&gt;] foi implementado considerando o pacote .purple[&lt;b&gt;arrow&lt;/b&gt;] (provém armazenamento, manipulação e acesso remoto de dados), o objeto  &lt;b&gt;domestico_br&lt;/b&gt; permite baixar dados conforme à demanda do usuário - questão importante devido às possíveis limitações computacionais (principalmente memória RAM) e a grande quantidade de dados censitários.&lt;/p&gt;
+
+
+```r
+  class(domestico_br)
+```
+
+```
+## [1] "arrow_dplyr_query"
+```
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;Já que podemos baixar variáveis específicas, devemos conhecer os dados. Para fazer consultas, basta usar a função .purple[censobr::data_dictionary()].&lt;/p&gt;
+
+
+```r
+  data_dictionary(2010, 'households')
+```
+
+&lt;p class="jst"&gt;Vamos obter dados sobre o tipo de esgotamento sanitário (variável &lt;b&gt;V0207&lt;/b&gt;) disponível nos domicílios, calculando o total e a proporção de cada tipo nos municípios. É necessário considerar o peso amostral (variável &lt;b&gt;V0010&lt;/b&gt;). Com a função .purple[dplyr::collect()], coletamos nossos dados, que são fornecidos pelo objeto &lt;b&gt;domestico_br&lt;/b&gt;, observe:&lt;/p&gt;
+
+
+```r
+  esgotamento_sanitario &lt;- domestico_br |&gt; 
+    collect() |&gt;
+    group_by(code_muni) |&gt;                                          
+    count(tipo = V0207, wt = V0010) |&gt;      
+    mutate(proporcao = n / sum(n)) |&gt; 
+    collect()  
+```
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;Também vamos obter o mapa do Brasil com a divisão territorial dos municípios:&lt;/p&gt;
+
+
+```r
+  municipios_br &lt;- geobr::read_municipality(year = 2010, showProgress = FALSE) |&gt; 
+    mutate(code_muni = as.character(code_muni))
+```
+
+Agora, produziremos mapas dos dados, conforme:
+
+
+```r
+  left_join(esgotamento_sanitario, municipios_br, by = "code_muni") |&gt;
+    st_sf() |&gt;
+    drop_na() |&gt;
+  ggplot(aes(fill = proporcao)) +
+            geom_sf(linewidth = 0) +
+            facet_wrap(~tipo) +
+            escala4 + my_theme 
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p5a_out-1.png" width="700px" height="500px" style="display: block; margin: auto;" /&gt;
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;p class="jst"&gt;Podemos gerar mapas com outros pacotes gráficos, como o &lt;A href="https://r-tmap.github.io/tmap/"&gt;.purple[&lt;b&gt;tmap&lt;/b&gt;]&lt;/A&gt;.&lt;/p&gt; 
+
+
+
+
+```r
+  install.packages(c("lwgeom", "tmap"))
+  library(tmap)
+```
+
+Vejamos um exemplo de mapa com os mesmos dados de esgotamento sanitário:
+
+
+```r
+  esgotamento_sanitario |&gt; 
+    mutate(proporcao = proporcao * 100) |&gt;
+    right_join(municipios_br, by = "code_muni") |&gt; 
+    st_sf() |&gt; drop_na() |&gt;
+  tm_shape() + 
+    tmap_options(check.and.fix = TRUE) +
+    tm_fill("proporcao", 
+            n = 10,
+            palette = '-Spectral', 
+            title = "Esgotamento Sanitário (%)") + 
+    tm_facets(by = "tipo")
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p5b_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;b&gt;Somente para o estado do Rio grande do sul?&lt;/b&gt;
+
+
+```r
+  esgotamento_sanitario |&gt; 
+    mutate(proporcao = proporcao * 100) |&gt; 
+    right_join(y = filter(municipios_br, code_state == 43), by = "code_muni") |&gt; 
+    st_sf() |&gt; 
+    drop_na() |&gt;
+  tm_shape() + 
+    tmap_options(check.and.fix = TRUE) +
+    tm_fill("proporcao",
+            n = 10,
+            palette = '-Spectral',
+            title = "Esgotamento Sanitário (%)") + 
+    tm_facets(by = "tipo")
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p5c_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;b&gt;Computador com acesso à internet (variável V0220), no estado do Rio grande do sul?&lt;/b&gt;
+
+
+```r
+  domestico_br |&gt; 
+    collect() |&gt;
+    group_by(code_muni) |&gt;                                          
+    count(acesso_internet = V0220, wt = V0010) |&gt;      
+    mutate(proporcao = n / sum(n) * 100) |&gt; 
+    collect() |&gt;
+    right_join(y = filter(municipios_br, code_state == 43), by = "code_muni") |&gt;
+    st_sf() |&gt; 
+    drop_na() |&gt;
+  tm_shape() + 
+    tmap_options(check.and.fix = TRUE) +
+    tm_fill("proporcao",
+            n = 10,
+            palette = '-Spectral',
+            title = "Acesso à Internet por\nmeio de Computador (%)") + 
+    tm_facets(by = "acesso_internet")
+```
+
+
+---
+### .orange[Dados Domésticos do Censo IBGE &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt; - visualização espacial]
+
+&lt;img src="09-aula_files/figure-html/p5d_out-1.png" width="800px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+### .orange[Visualização Espacial Interativa &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464,256c0-114.87-93.13-208-208-208S48,141.13,48,256s93.13,208,208,208S464,370.87,464,256Z" style="fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px"&gt;&lt;/path&gt;  &lt;path d="M445.57,172.14c-16.06.1-14.48,29.73-34.49,15.75-7.43-5.18-12-12.71-21.33-15-8.15-2-16.5.08-24.55,1.47-9.15,1.58-20,2.29-26.94,9.22-6.71,6.67-10.26,15.62-17.4,22.33-13.81,13-19.64,27.19-10.7,45.57,8.6,17.67,26.59,27.26,46,26,19.07-1.27,38.88-12.33,38.33,15.38-.2,9.8,1.85,16.6,4.86,25.71,2.79,8.4,2.6,16.54,3.24,25.21,1.18,16.2,4.16,34.36,12.2,48.67l15-21.16c1.85-2.62,5.72-6.29,6.64-9.38,1.63-5.47-1.58-14.87-1.95-21s-.19-12.34-1.13-18.47c-1.32-8.59-6.4-16.64-7.1-25.13-1.29-15.81,1.6-28.43-10.58-41.65-11.76-12.75-29-15.81-45.47-13.22-8.3,1.3-41.71,6.64-28.3-12.33,2.65-3.73,7.28-6.79,10.26-10.34,2.59-3.09,4.84-8.77,7.88-11.18s17-5.18,21-3.95,8.17,7,11.64,9.56a49.89,49.89,0,0,0,21.81,9.36c13.66,2,42.22-5.94,42-23.46C456.45,191.7,448.65,180,445.57,172.14Z"&gt;&lt;/path&gt;  &lt;path d="M287.45,316.3c-5.33-22.44-35.82-29.94-52.26-42.11-9.45-7-17.86-17.81-30.27-18.69-5.72-.41-10.51.83-16.18-.64-5.2-1.34-9.28-4.14-14.82-3.41-10.35,1.36-16.88,12.42-28,10.92-10.55-1.42-21.42-13.76-23.82-23.81-3.08-12.92,7.14-17.11,18.09-18.26,4.57-.48,9.7-1,14.09.67,5.78,2.15,8.51,7.81,13.7,10.67,9.73,5.33,11.7-3.19,10.21-11.83-2.23-12.94-4.83-18.22,6.71-27.12,8-6.14,14.84-10.58,13.56-21.61-.76-6.48-4.31-9.41-1-15.86,2.51-4.91,9.4-9.34,13.89-12.27,11.59-7.56,49.65-7,34.1-28.16-4.57-6.21-13-17.31-21-18.83-10-1.89-14.44,9.27-21.41,14.19-7.2,5.09-21.22,10.87-28.43,3-9.7-10.59,6.43-14.07,10-21.46S176.34,70.33,170,66.79l-29.81,33.43a41.52,41.52,0,0,0,8.34,31.86c5.93,7.63,15.37,10.08,15.8,20.5.42,10-1.14,15.12-7.68,22.15-2.83,3-4.83,7.26-7.71,10.07-3.53,3.43-2.22,2.38-7.73,3.32-10.36,1.75-19.18,4.45-29.19,7.21C95.34,199.94,93.8,172.69,86.2,162l-25,20.19c-.27,3.31,4.1,9.4,5.29,13C73.32,215.76,87.1,231.67,96,251.35c9.37,20.84,34.53,15.06,45.64,33.32,9.86,16.2-.67,36.71,6.71,53.67,5.36,12.31,18,15,26.72,24,8.91,9.09,8.72,21.53,10.08,33.36a305.22,305.22,0,0,0,7.45,41.28c1.21,4.69,2.32,10.89,5.53,14.76,2.2,2.66,9.75,4.95,6.7,5.83,4.26.7,11.85,4.68,15.4,1.76,4.68-3.84,3.43-15.66,4.24-21,2.43-15.9,10.39-31.45,21.13-43.35,10.61-11.74,25.15-19.69,34.11-33C288.44,349,291.07,331.49,287.45,316.3Zm-33.39,26.32c-6,10.71-19.36,17.88-27.95,26.39-2.33,2.31-7.29,10.31-10.21,8.58-2.09-1.24-2.8-11.62-3.57-14a61.17,61.17,0,0,0-21.71-29.95c-3.13-2.37-10.89-5.45-12.68-8.7-2-3.53-.2-11.86-.13-15.7.11-5.6-2.44-14.91-1.06-20,1.6-5.87-1.48-2.33,3.77-3.49,2.77-.62,14.21,1.39,17.66,2.11,5.48,1.14,8.5,4.55,12.82,8,11.36,9.11,23.87,16.16,36.6,23.14C257.46,324.46,260.36,331.37,254.06,342.62Z"&gt;&lt;/path&gt;  &lt;path d="M184.46,67.09c4.74,4.63,9.2,10.11,16.27,10.57,6.69.45,13-3.17,18.84,1.38,6.48,5,11.15,11.33,19.75,12.89,8.32,1.51,17.13-3.35,19.19-11.86,2-8.11-2.31-16.93-2.57-25.07,0-1.13.61-6.15-.17-7-.58-.64-5.42.08-6.16.1q-8.13.24-16.22,1.12a207.1,207.1,0,0,0-57.18,14.65C178.64,65.55,181.69,66.22,184.46,67.09Z"&gt;&lt;/path&gt;  &lt;path d="M356.4,123.27c8.49,0,17.11-3.8,14.37-13.62-2.3-8.23-6.22-17.16-15.76-12.72-6.07,2.82-14.67,10-15.38,17.12C338.82,122.13,350.74,123.27,356.4,123.27Z"&gt;&lt;/path&gt;  &lt;path d="M349.62,166.24c8.67,5.19,21.53,2.75,28.07-4.66,5.11-5.8,8.12-15.87,17.31-15.86a15.4,15.4,0,0,1,10.82,4.41c3.8,3.93,3.05,7.62,3.86,12.54,1.81,11.05,13.66.63,16.75-3.65,2-2.79,4.71-6.93,3.8-10.56-.84-3.39-4.8-7-6.56-10.11-5.14-9-9.37-19.47-17.07-26.74-7.41-7-16.52-6.19-23.55,1.08-5.76,6-12.45,10.75-16.39,18.05-2.78,5.13-5.91,7.58-11.54,8.91-3.1.73-6.64,1-9.24,3.08C338.64,148.43,342.76,162.12,349.62,166.24Z"&gt;&lt;/path&gt;&lt;/svg&gt;]
+
+&lt;p class="jst"&gt;Existem alternativas no r para visualizar mapas interativos e dinâmicos. Para simplificar, podemos continuar usando o pacote .purple[&lt;b&gt;tmap&lt;/b&gt;], que fornece visualizações interativas. Veremos um breve exemplo por meio deste &lt;A href="https://tsklipp.github.io/metodologias-informacionais-com-r/scripts/dynamic_maps.html"&gt;tutorial&lt;/A&gt;.&lt;/p&gt;
+
+
+---
 ### .orange[Bibliográfia Complementar]
 
 &lt;p class="jst"&gt;Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: &lt;/p&gt;
@@ -1299,13 +1499,18 @@ Agora, vamos aplicar o plano amostral com .purple[&lt;b&gt;PNADcIBGE&lt;/b&gt;],
 
 - &lt;p class="jst"&gt; Livro  &lt;A href="https://repositorio.ufrn.br/bitstream/123456789/48507/1/PorDentrodaPNADContinua_Trov%C3%A3o_SilvaJ%C3%BAnior_2022.pdf"&gt;.purple["POR DENTRO DA PNAD CONTÍNUA: Uma introdução ao tratamento de dados usando o R"]&lt;/A&gt;.
 - &lt;p class="jst"&gt;Curso de R disponível no repositório do Git Hub: &lt;A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master"&gt;.purple[Introdução à Programação em R]&lt;/b&gt;&lt;/A&gt;. 
-- &lt;p class="jst"&gt;Materiais online sobre o pacote .purple[&lt;b&gt;srvyr&lt;/b&gt;]:
-  - &lt;A href="https://rpubs.com/leobarone/pnadc_srvyr"&gt;.purple[Link 1]&lt;/A&gt;.
-  - &lt;A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/"&gt;.purple[Link 2]&lt;/A&gt;.
+- &lt;p class="jst"&gt;Materiais online sobre o pacote .purple[&lt;b&gt;srvyr&lt;/b&gt;]: &lt;A href="https://rpubs.com/leobarone/pnadc_srvyr"&gt;.purple[Link 1]&lt;/A&gt; e &lt;A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/"&gt;.purple[Link 2]&lt;/A&gt;.
   
-Documentação para uso do pacote &lt;A href="https://guilhermejacob.github.io/context/index.html"&gt;.purple[&lt;b&gt;convey&lt;/b&gt;&lt;/b&gt;]&lt;/A&gt;
+&lt;/br&gt;
 
-Documentação para uso do pacote &lt;A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html"&gt;.purple[&lt;b&gt;geobr&lt;/b&gt;]&lt;/A&gt; 
+Documentações para uso dos pacotes: &lt;A href="https://guilhermejacob.github.io/context/index.html"&gt;.purple[&lt;b&gt;convey&lt;/b&gt;&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html"&gt;.purple[&lt;b&gt;geobr&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://cran.r-project.org/web/packages/censobr/vignettes/censobr.html"&gt;.purple[&lt;b&gt;censobr&lt;/b&gt;]&lt;/A&gt;, &lt;A href="http://electionsbr.com/articles/introduction.html"&gt;.purple[&lt;b&gt;electionsBR&lt;/b&gt;]&lt;/A&gt;, &lt;A href="https://github.com/rfsaldanha/microdatasus/wiki"&gt;.purple[&lt;b&gt;microdatasus&lt;/b&gt;]&lt;/A&gt; e &lt;A href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html"&gt;.purple[&lt;b&gt;tmap&lt;/b&gt;]&lt;/A&gt;.
+
+Livro sobre o pacote &lt;A href="https://r-tmap.github.io/tmap-book/
+"&gt;.purple[&lt;b&gt;tmap&lt;/b&gt;]&lt;/A&gt; e &lt;A href="https://rpubs.com/Henriqueufla/tmap_r
+"&gt;.purple[tutorial]&lt;/A&gt; mais curto.
+
+Livro com conteúdo mais avançado sobre manipulação e visualização de geodados: &lt;A href="https://r.geocompx.org/"&gt;.purple[Geocomputation with R]&lt;/A&gt;.
+
 
 ---
 exclude: TRUE
