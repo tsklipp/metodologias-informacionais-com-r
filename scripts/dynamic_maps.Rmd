@@ -1,0 +1,73 @@
+---
+title: "Mapas Interativos com o Pacote `tmap`"
+output:
+  html_document:
+    df_print: paged
+---
+
+## Carregamos os pacotes necessários
+
+```{r, warning=FALSE}
+  xfun::pkg_attach(c("tidyverse", "sf", "geobr", "censobr", "tmap"))
+```
+
+## Dados Domésticos do Censo IBGE
+
+Obtemos dados domiciliares do Censo IBGE. Lembrando que o dicionário dos dados pode ser consultado com `data_dictionary()`.
+
+```{r p5data1, cache=TRUE, message=FALSE}
+  # data_dictionary(2010, 'households')
+  domestico_br <- read_households(year = 2010, add_labels = 'pt', showProgress = FALSE)
+```
+
+## Carregamos o Mapa Base
+
+Precisamos do mapa do Brasil segundo a divisão territorial dos municípios.
+
+```{r p5data3, cache=TRUE, message=FALSE}
+  municipios_br <- geobr::read_municipality(year = 2010, showProgress = FALSE) |> 
+    mutate(code_muni = as.character(code_muni))
+```
+
+##  Visualização Espacial Interativa `r icons::ionicons("earth-outline")`
+
+<b>Como mostrar os dados de acesso à internet através do computador, no estado do Rio grande do sul, com mapas interativos?</b>
+Usamos a função `tmap_mode("view")` e adicionamos mapas base com `tm_basemap()`. Vejamos o exemplo:
+
+```{r mapa1, cache=TRUE}
+  tmap_mode("view")
+  domestico_br |> 
+    collect() |>
+    group_by(code_muni) |>                                          
+    count(acesso_internet = V0220, wt = V0010) |>      
+    mutate(proporcao = n / sum(n) * 100) |> 
+    collect() |>
+    left_join(y = filter(municipios_br, code_state == 43), by = "code_muni") |>
+    st_sf() |> 
+    drop_na() |> 
+  tm_shape() + 
+    tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
+    tmap_options(check.and.fix = TRUE) +
+    tm_fill("proporcao", alpha = .7, palette = '-Spectral',
+            id = "name_muni",
+            title = "Acesso à Internet\npor Computador (%)") + 
+    tm_facets(by = "acesso_internet")
+```
+
+Este é apenas um exemplo simples. Outras opções de customização são possíveis. Não obstante, podemos considerar qualquer outro tipo de dado que possa ser mapeado ou unido com o mapa base. 
+
+<hr style="border:2px solid LightGray"> 
+
+## Referências
+
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for data science (2e): import, tidy, transform, visualize, and model data. "O'Reilly Media, Inc.". Disponível em: <A href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</A>
+
+- Edzer Pebesma, (2018). Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10:1, 439-446. </br>
+
+- Pebesma, E.; Bivand, R. (2023). Spatial Data Science: With Applications in R (1st ed.). 314 pages. Chapman and Hall/CRC. </br>
+
+- Pereira, R.H.M.; Gonçalves, C.N.; et. all (2019) geobr: Loads Shapefiles of Official Spatial Data Sets of Brazil. GitHub repository - https://github.com/ipeaGIT/geobr. </br>
+
+- Pereira, Rafael H. M.; Barbosa, Rogério J. (2023) censobr: Download Data from Brazil’s Population Census. R package version v0.2.0, https://CRAN.R-project.org/package=censobr. </br>
+
+- Tennekes, M., (2018), tmap: Thematic Maps in R, Journal of Statistical Software, 84(6), 1-39.
