@@ -4,7 +4,7 @@
     <title>Metodologias Informacionais com R</title>
     <meta charset="utf-8" />
     <meta name="author" content=" Telmo dos Santos Klipp (telmo.klipp@inpe.br) " />
-    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
@@ -592,8 +592,7 @@ Por fim todas as operações anteriores serão persistidas em um novo conjunto d
       wt_class = case_when(
         wt &lt; 2581 ~ "lightweight", 
         between(wt, 2581, 3610)  ~ "middleweight",
-        wt &gt; 3610 ~ "heavyweight" 
-      )
+        wt &gt; 3610 ~ "heavyweight")
     ) |&gt;
     mutate(
       # o pacote forcats oferece funcionalidades para trabalhar com dados categóricos

@@ -127,16 +127,16 @@ O .purple[<b>ggplot2</b>] permite a produção de mapas estáticos segundo algum
   - Padronização seguida pela <i>Open Geospatial Consortium</i>.
   - Diversidade/facilidade  entre os tipos de projeções existentes (Observe em <A href="https://semba-blog.netlify.app/01/26/2020/world-map-and-map-projections/">link 1</A> e <A href="https://www.happykhan.com/posts/map-projections-in-r/">link 2</A>).
 
-<p class="jst"> <b>Observação</b>: Em uma projeção, queremos mapear o globo terrestre para uma superfície plana, o que envolve tranformações de coordenadas (latitudes e longitudes) da superficie esférica para a plana. Existem diversas formas de projeções possíveis (ex: cilíndrica, conica, plana, Robinson e Mollweide).</p>
+<p class="jst"> <b>Observação</b>: Em uma projeção, queremos mapear o globo terrestre para uma superfície plana, o que envolve tranformações de coordenadas (latitudes e longitudes) da superfície esférica para a plana. Existem diversas formas de projeções possíveis (ex: cilíndrica, cônica, plana, Robinson e Mollweide).</p>
 
 ---
 ### .orange[`r icons::fontawesome("globe")` Visualização espacial de dados `r icons::fontawesome("table")` - .purple[<b>ggplot2</b>]]
 
 A visualização espacial pode ser dividida em duas etapas:
 
-- Obter um conjunto de dados de um mapa base.
+1. Obter um conjunto de dados de um mapa base.
 
-- Adicionar/mapear os dados e metadados que nos interessam ao mapa base.
+2. Adicionar/mapear os dados e metadados que nos interessam ao mapa base.
 
 Existem diversos pacotes no r que fornecem mapas:
 - Representação por meio de polígonos: .purple[<b>maps</b>].
@@ -167,7 +167,7 @@ Existem diversos pacotes no r que fornecem mapas:
   world_map <- map_data("world")
 ```
 
-<p class="jst"> Podemos gerar esse mapa simples, conforme o código abaixo. A variável <b>group</b> possui os códigos individuais dos países, que indicamos no atributo estético, de mesmo nome, para unir os vértices dos polígonos (coordenadas das colunas <b>long</b> e <b>lat</b>), ou seja, para gerar as divisas territoriais de cada país. Fixamos o preenchimento dos polígonos na cor cinza e as fronteiras como linhas pretas.</p>
+<p class="jst"> Podemos gerar esse mapa simples, conforme o código abaixo. A variável <b>group</b> possui os códigos individuais dos países, que indicamos no atributo estético, de mesmo nome, para unir os vértices dos polígonos (coordenadas das colunas <b>long</b> e <b>lat</b>), ou seja, para gerar os contornos territoriais de cada país. Fixamos o preenchimento dos polígonos na cor cinza e as fronteiras como linhas pretas.</p>
 
 ```{r p1a, message=FALSE, eval=FALSE, cache=TRUE}
   ggplot(data = world_map, aes(x = long, y = lat, group = group)) +
@@ -510,10 +510,9 @@ options(OutDec=",", scipen=100, digits=4, big.mark = ".")
 
 <p class="jst">Continuaremos trabalhando com microdados do primeiro trimestre de 2023, que podem ser baixados/carregados usando funções do pacote .purple[<b>PNADcIBGE</b>].</p>
 
-- Baixar e carregar os dados:
+- Baixar os dados:
 
 ```{r, eval=FALSE}  
-  # Baixar os dados
   get_pnadc(year = 2023, quarter = 1, savedir = "PNADC20231") 
 ```
 
@@ -604,7 +603,8 @@ O conjunto de dados gerado também possui o código dos estados.
     labs(title = paste0("Rendimento médio mensal real efetivo do morador\ncom nível ",
                         "superior completo por estado."), caption = my_cap) + 
     scale_fill_distiller(palette = "Spectral", name = "Rendimento Médio") +
-    theme_minimal() + theme(plot.title = element_text(size = 11, face = 'bold')) +
+    theme_minimal() + 
+    theme(plot.title = element_text(size = 11, face = 'bold')) +
     ggspatial::annotation_scale()
 ```
 
@@ -700,7 +700,7 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst"> <b>Distribuição da população por sexo e unidade da federação?</b> Ao somar os valores da coluna <b>V1028</b> (peso dos domicílios e das pessoas), estimamos o total de habitantes da população brasileira em milhões (multiplica-se por 10<sup>-6</sup>, e formataremos usando .purple[label_number()]). Como a estimativa será agregada por sexo e unidade da federação, os totais irão considerar essas divisões categóricas.</p>
+<p class="jst"> <b>Distribuição da população por sexo e unidade da federação?</b> Ao somar os valores da coluna <b>V1028</b> (peso dos domicílios e das pessoas), estimamos o total de habitantes da população brasileira - formataremos em milhões de habitantes com .purple[label_number()]. Como a estimativa será agregada por sexo e unidade da federação, os totais irão considerar essas divisões categóricas.</p>
 
 ```{r p4a, message=FALSE, eval=FALSE}
   pnadc_2023q1 |>
@@ -725,7 +725,7 @@ Produziremos os seguintes gráficos:
 ---
 ### .orange[Microdados da PNAD Contínua `r icons::ionicons("earth-outline")` - visualização espacial]
 
-<p class="jst"> <b>Número total e proporção da população por sexo e unidade da federação?</b> Podemos agregar somente por estado, para estimar com a função .purple[count()] a distribuição da população segundo o sexo, considerando pesos (<b>wt = V1028</b>). Os valores serão armazenados na variável <b>n</b>, e a proporção pode ser obtida ao dividir o total se cada sexo (<b>n</b>) pela soma dos totais de cada estado (homens + mulheres):</p>
+<p class="jst"> <b>Número total e proporção da população por sexo e unidade da federação?</b> Podemos agregar somente por estado, para estimar com a função .purple[count()] a distribuição da população segundo o sexo, considerando pesos (<b>wt = V1028</b>). Os valores serão armazenados na variável <b>n</b>, e a proporção pode ser obtida ao dividir o total por sexo (<b>n</b>) em cada estado pela soma desses totais (homens + mulheres = <b>sum(n)</b>), sendo que o agrupamento permite isso:</p>
 
 ```{r p4b, message=FALSE, eval=FALSE}
   escala1 <-  scale_fill_viridis_c(option = "C", name = "Total",
@@ -740,8 +740,7 @@ Produziremos os seguintes gráficos:
     facet_wrap(~V2007) + escala1 + my_theme
   p2 <- ggplot(data = populacao) + geom_sf(aes(fill = proporcao), color = "white") + 
     facet_wrap(~V2007) + escala2 + my_theme
-  p1 / p2 + plot_annotation(title = "Distribuição da população.",
-                            caption = my_cap)
+  p1 / p2 + plot_annotation(title = "Distribuição da população.", caption = my_cap)
 ```
 
 ---
@@ -1475,12 +1474,6 @@ Vejamos um exemplo de mapa com os mesmos dados de esgotamento sanitário:
 ```
 
 ---
-### .orange[Visualização Espacial Interativa `r icons::ionicons("earth-outline")`]
-
-<p class="jst">Existem alternativas no r para visualizar mapas interativos e dinâmicos. Para simplificar, podemos continuar usando o pacote .purple[<b>tmap</b>], que fornece visualizações interativas. Veremos um breve exemplo por meio deste <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/scripts/dynamic_maps.html">tutorial</A>.</p>
-
-
----
 ### .orange[Bibliográfia Complementar]
 
 <p class="jst">Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: </p>
@@ -1491,14 +1484,16 @@ Vejamos um exemplo de mapa com os mesmos dados de esgotamento sanitário:
 - <p class="jst">Curso de R disponível no repositório do Git Hub: <A href="https://github.com/leobarone/cebrap_lab_cetic_programacao_r/tree/master">.purple[Introdução à Programação em R]</b></A>. 
 - <p class="jst">Materiais online sobre o pacote .purple[<b>srvyr</b>]: <A href="https://rpubs.com/leobarone/pnadc_srvyr">.purple[Link 1]</A> e <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[Link 2]</A>.
   
-</br>
+  
+Documentação para uso do pacote <A href="https://guilhermejacob.github.io/context/index.html">.purple[<b>convey</b></b>]</A>.</br>
+Documentação para uso do pacote <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A>.</br>
+Documentação para uso do pacote <A href="https://cran.r-project.org/web/packages/censobr/vignettes/censobr.html">.purple[<b>censobr</b>]</A>.</br>
+Documentação para uso do pacote <A href="http://electionsbr.com/articles/introduction.html">.purple[<b>electionsBR</b>]</A>.</br>
+Documentação para uso do pacote <A href="https://github.com/rfsaldanha/microdatasus/wiki">.purple[<b>microdatasus</b>]</A>.
 
-Documentações para uso dos pacotes: <A href="https://guilhermejacob.github.io/context/index.html">.purple[<b>convey</b></b>]</A>, <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A>, <A href="https://cran.r-project.org/web/packages/censobr/vignettes/censobr.html">.purple[<b>censobr</b>]</A>, <A href="http://electionsbr.com/articles/introduction.html">.purple[<b>electionsBR</b>]</A>, <A href="https://github.com/rfsaldanha/microdatasus/wiki">.purple[<b>microdatasus</b>]</A> e <A href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html">.purple[<b>tmap</b>]</A>.
 
 Livro sobre o pacote <A href="https://r-tmap.github.io/tmap-book/
-">.purple[<b>tmap</b>]</A> e <A href="https://rpubs.com/Henriqueufla/tmap_r
-">.purple[tutorial]</A> mais curto.
-
+">.purple[<b>tmap</b>]</A>.</br>
 Livro com conteúdo mais avançado sobre manipulação e visualização de geodados: <A href="https://r.geocompx.org/">.purple[Geocomputation with R]</A>.
 
 

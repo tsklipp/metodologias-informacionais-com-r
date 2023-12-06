@@ -344,8 +344,7 @@ Por fim todas as operações anteriores serão persistidas em um novo conjunto d
       wt_class = case_when(
         wt < 2581 ~ "lightweight", 
         between(wt, 2581, 3610)  ~ "middleweight",
-        wt > 3610 ~ "heavyweight" 
-      )
+        wt > 3610 ~ "heavyweight")
     ) |>
     mutate(
       # o pacote forcats oferece funcionalidades para trabalhar com dados categóricos

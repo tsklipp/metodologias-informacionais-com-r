@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Metodologias Informacionais com R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Telmo dos Santos Klipp (telmo.klipp@inpe.br) " />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <b>Metodologias Informacionais com R</b>
+]
+.subtitle[
+## <br/>Módulo III: Programação Essencial
+]
+.author[
+### <br/><b>Telmo dos Santos Klipp</b> (<a href="mailto:telmo.klipp@inpe.br" class="email">telmo.klipp@inpe.br</a>)<br/>
+]
+
+---
+
+layout: true
+
+background-image: url(figures/template_middlepage_2.png)
+background-size: cover
+
+
+
+---
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Informações Gerais sobre o Curso]
+
+- &lt;p class="jst"&gt;Materiais disponibilizados via &lt;A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3"&gt;Classroom&lt;/A&gt;;&lt;/p&gt; 
+- &lt;p class="jst"&gt;O aprendizado requer a prática que será constante nas aulas;&lt;/p&gt;
+
+.pull-left[
+Bibliografia Básica:
+
+ .tiny2[- &lt;p class="jst"&gt;Kennedy, R., &amp; Waggoner, P. D. (2021). Introduction to r for social scientists: a tidy programming approach. CRC Press.&lt;/p&gt;
+
+&lt;img src="figures/basicblibliograph.png" width="39%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+.pull-right[
+Bibliografia Complementar:
+
+ .tiny2[- &lt;p class="jst"&gt;Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). R for data science (2e): import, tidy, transform, visualize, and model data. "O'Reilly Media, Inc.". Disponível em: &lt;A href="https://r4ds.hadley.nz/"&gt;https://r4ds.hadley.nz/&lt;/A&gt;. Acesso em: 14 de junho, 2023. (Online) &lt;/p&gt;
+- &lt;p class="jst"&gt;Damiani, A. et. al., (2022). Ciência de Dados em R. Curso-R. Disponível em: &lt;A href="https://livro.curso-r.com"&gt;https://livro.curso-r.com&lt;/A&gt;. Acesso em: 12 de maio, 2023. (Online)&lt;/p&gt;
+-  &lt;p class="jst"&gt;de Aquino, J. A. (2014). R para cientistas sociais. Editora da UESC (editus). Disponível em: &lt;A href="http://www.uesc.br/editora/index.php?item=conteudo_livros_digitais.php"&gt;http://www.uesc.br/editora/&lt;/A&gt;. Acesso em: 12 de maio, 2023. &lt;/p&gt;
+-  &lt;p class="jst"&gt;de Oliveira, P. F., Guerra, S., McDonnell, R. (2018). Ciência de Dados com R: Introdução. Editora IBPAD. Disponível em: &lt;A href="https://cdr.ibpad.com.br/index.html"&gt;https://cdr.ibpad.com.br/index.html&lt;/A&gt;. Acesso em: 12 de maio, 2023. (Online) &lt;/p&gt; ] 
+]
+
+---
+
+### .orange[Nas últimas aulas vimos:]
+
+- Visualização de dados de forma estática com .purple[&lt;b&gt;ggplot2&lt;/b&gt;]
+
+- Visualização de dados de forma interativa com .purple[&lt;b&gt;plotly&lt;/b&gt;]
+
+&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;
+
+&gt; .center[&lt;b&gt;Agora agregaremos algumas habilidades de programação.&lt;/b&gt;]
+
+---
+### .orange[Conceitos de Programação]
+
+Habilidades de programação englobam aspectos como:
+
+- Raciocínio lógico.
+
+- Entendimento de problemas.
+
+- Compreensão de métodos para a solução de problemas:
+  - Solução algorítmica (sequência de passos);
+  - Dividir para conquistar.
+  
+- Conhecimentos técnicos:
+  - dos recursos computacionais;
+  - de recursos da linguagem de programação em uso;
+  - de estruturas de dados;
+  - de formatos de dados e arquivos.
+
+---
+### .orange[Conceitos de Programação]
+
+&lt;p class="jst"&gt; Linguagens de programação surgiram e evoluíram considerando a criação de recursos para:&lt;/p&gt;
+
+- &lt;p class="jst"&gt;A solução de problemas com instruções de máquina (ex: acessar posições de memória, mover dados, executar operações matemáticas), lógica condicional, laços de repetição, entre outros.&lt;/p&gt;
+- &lt;p class="jst"&gt;Representação, armazenamento e manipulação de dados: tipos básicos (ex: inteiro e carácter) e estruturas de dados (ex: vetores, matrizes e listas), leitura e escrita de arquivos, entre outros.&lt;/p&gt;
+- &lt;p class="jst"&gt;Criação de recursos para reaproveitamento e organização de código como a modularização (ex: funções, classes e objetos).&lt;/p&gt;
+- &lt;p class="jst"&gt;Elevar a abstração para flexibilizar e expandir as representações computacionais e facilitar o entendimento humano, exemplos:&lt;/p&gt;
+    - Linguagens de programação de baixo nível (linguagem de máquina e de montagem) para de alto nível (C, C++, Java, Python, R);
+    - Conceitos de programação como orientação a objetos, programação funcional e programação literal (ex: &lt;i&gt;grammar of graphics&lt;/i&gt;).
+
+&gt;  .center[&lt;b&gt;O R é uma linguagem de alto nível que engloba vários dos pontos mencionados.&lt;/b&gt;]
+
+---
+### .orange[Conceitos de Programação no R  - objetos básicos]
+
+- &lt;p class="jst"&gt;Já vimos que existem 6 tipos básicos (atômicos) de objetos:&lt;/p&gt;
+  - .content-box-yellow[numeric;]
+  - .content-box-yellow[integer;]
+  - .content-box-yellow[character;]
+  - .content-box-yellow[logical;]
+  - complex;
+  - raw.
+
+&lt;/br&gt;
+&gt; .center[&lt;b&gt;Objetos tem classes, bem como, podem ter atributos (metadados), que determinam os tipos de manipulações e operações aplicáveis  nestes individualmente e entre si.&lt;/b&gt;]
+
+---
+### .orange[Conceitos de Programação no R - objetos básicos]
+
+&lt;p class="jst"&gt;Outra característica do R é ser uma linguagem vetorial. Os objetos básicos vistos anteriormente são vetores, podendo armazenar um ou mais elementos, desde que do mesmo tipo. Observe:&lt;/p&gt;
+
+
+```r
+  vetor_de_numeros &lt;- 7
+  vetor_de_numeros[1]
+```
+
+```
+## [1] 7
+```
+
+```r
+  vetor_de_numeros[2:6] &lt;- c(1, 2, 3, 4, 99)
+  vetor_de_numeros[6]
+```
+
+```
+## [1] 99
+```
+
+
+```r
+  length(vetor_de_numeros)
+```
+
+```
+## [1] 6
+```
+
+```r
+  typeof(vetor_de_numeros)
+```
+
+```
+## [1] "double"
+```
+
+---
+### .orange[Conceitos de Programação no R - tipos de operadores]
+
+Operadores são divididos basicamente em quatro categorias:
+
+- Aritméticos: +, -, /, *, ^, %% e %/%.
+
+- Relacionais: &lt;, &gt;, &lt;=, &gt;=, == e !=. 
+
+- Lógicos: !, &amp;, &amp;&amp;, | e ||. 
+
+- De atribuição: &lt;-, &lt;&lt;-, -&gt; e -&gt;&gt;.
+
+&lt;/br&gt;
+
+Vejamos detalhes neste material &lt;A href="https://www.datamentor.io/r-programming/reserved-words"&gt; online&lt;/A&gt;.
+
+---
+### .orange[Conceitos de Programação no R - controle de fluxo]
+ 
+&lt;p class="jst"&gt; Um importante fator em soluções algorítmicas é o controle de fluxo da sequência de operações. O R conta com as estruturas condicionais e de repetições comulmente conhecidas:&lt;/p&gt;
+
+- .blue[if(condicional) {intruções}] e .blue[if(condicional) {intruções}] ... .blue[else {intruções}] ou
+
+- .blue[if(condicional1) {intruções} else if(condicional2) ] ... .blue[else {intruções}];
+
+- .blue[ifelse(teste, verdadeiro, falso)]
+
+- .blue[switch(teste, caso1, caso2, caso3....)];
+
+- .blue[while(cond) {intruções}];
+
+- .blue[for(variavel in sequencia) {intruções}];
+
+- .blue[break] e .blue[next];
+
+- .blue[repeat{intrucao1, intrucao2, intrucao3 ... break}];
+
+&lt;/br&gt;
+Vejamos mais sobre estas estruturas nesse material &lt;A href="https://www.datamentor.io/r-programming/reserved-words"&gt; online&lt;/A&gt;.
+
+---
+### .orange[Conceitos de Programação no R - objetos não básicos]
+
+- &lt;p class="jst"&gt;Vimos também alguns exemplos de objetos mais complexos:&lt;/p&gt;
+  - .content-box-yellow[factor;]
+  - .content-box-yellow[data.frame;]
+  - .content-box-yellow[function;]
+  - .content-box-yellow[lists;]
+  - matrices, arrays.
+
+&lt;/br&gt;
+
+Vejamos detalhes no mesmo material &lt;A href="https://www.datamentor.io/r-programming/reserved-words"&gt; online&lt;/A&gt;.
+
+---
+### .orange[Conceitos de Programação no R -funções]
+
+&lt;p class="jst"&gt; Já vimos que funções realizam tarefas manipulando dados. Estas podem possuir mais de um parâmetro ou nenhum.  As funções retornam ao menos um novo objeto e um dos principais motivos para o uso é a modularização de código. Quebrar códigos em partes mais simples ajuda na manutenção e entendimento do mesmos.&lt;/p&gt;
+
+&lt;/br&gt;
+
+Vejamos igualmente detalhes no material &lt;A href="https://www.datamentor.io/r-programming/reserved-words"&gt; online&lt;/A&gt;.
+
+---
+### .orange[Conceitos de Programação no R -funções]
+
+&lt;p class="jst"&gt;Elabore uma função que calcule a hipotenusa de um triângulo  retângulo conforme o Teorema de Pitágoras: .large[ `\(c^2\)` = `\(a^2\)` + `\(b^2\)` ].&lt;/p&gt;
+
+--
+
+&lt;/br&gt;
+
+Abaixo segue um protótipo com os argumentos necessários para a função:
+
+
+```r
+  calcula_hipotenusa &lt;- function(a, b) {}
+```
+
+--
+
+&lt;/br&gt;
+
+Uma possível solução:
+
+
+```r
+  calcula_hipotenusa &lt;- function(a, b) {
+    return(sqrt(a^2 + b^2))
+  }
+  calcula_hipotenusa(3, 4)
+```
+
+```
+## [1] 5
+```
+
+---
+### .orange[Conceitos de Programação no R -funções]
+
+Observe o seguinte exemplo de função:
+
+
+```r
+    calcula_hipotenusa &lt;- function(a, b) {
+      if(!is.numeric(a)) {
+        stop('"a" must be numeric\n', 
+             'You have provided an object of class: ', class(a))
+      }
+      sqrt(a^2 + b^2)
+    }
+```
+
+--
+
+
+```r
+    calcula_hipotenusa &lt;- function(a, b) {
+      #if(!is.numeric(a)) {
+      #  stop('"a" must be numeric\n', 
+      #       'You have provided an object of class: ', class(a))
+      #}
+      sqrt(a^2 + b^2)
+    }
+    calcula_hipotenusa(3, 4)
+```
+
+```
+## [1] 5
+```
+
+---
+### .orange[Conceitos de Programação no R -funções]
+
+&lt;p class="jst"&gt;Considerando o exemplo de função anterior. Que melhorias seriam possíveis para incrementar a proteção contra entradas erradas inseridas por usuários? Tente codificar essas melhorias. &lt;/p&gt;
+
+
+
+```r
+    calcula_hipotenusa &lt;- function(a, b) {
+      if(!is.numeric(a) | !is.numeric(b)) {
+          stop("\"a\" and \"b\" must be numeric!\n", 
+               "You have provided object of classes \"a\": ", 
+               class(a), " \"b\": ", class(b))
+      }
+      return(sqrt(a^2 + b^2))
+   }
+```
+
+---
+### .orange[Conceitos de Programação no R]
+
+Pontos importantes para guardar:
+
+- Abuse dos recursos da linguagem para modularização de código.
+  - Crie suas próprias funções;
+  - Crie seus próprios temas de gráficos do &lt;b&gt;ggplot2&lt;/b&gt;, suas escalas, entre outros. Mantenha salvo em código para reuso.
+  
+- Se familiarize com o uso de funções. Muita problemas já foram resolvidos, bastando apenas conhecer os pacote e funções disponíveis. 
+
+- Tente sempre automatizar tarefas.
+
+---
+exclude: TRUE
+class: left, top
+
+### .orange[Referências]
+
+
+
+.small[
+&lt;p&gt;&lt;cite&gt;Wickham, H., M. Çetinkaya-Rundel, and G. Grolemund
+(2023).
+&lt;em&gt;R for data science (2e): import, tidy, transform, visualize, and model data&lt;/em&gt;.
+Disponível em: &lt;a href="https://r4ds.hadley.nz/"&gt;https://r4ds.hadley.nz/&lt;/a&gt;, Acesso em: 14 de junho de 2023.
+O'Reilly Media, Inc.&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;Becker, E.
+(2023).
+&lt;em&gt;R for Social Scientists.&lt;/em&gt;
+Data Carpentry.
+Disponível em: &lt;a href="https://datacarpentry.org/r-socialsci/index.html"&gt;https://datacarpentry.org/r-socialsci/index.html&lt;/a&gt;, Acesso em: 14 de junho de 2023.&lt;/cite&gt;&lt;/p&gt;
+]
+
+---
+class: center, middle
+
+background-image: url(figures/template_endpage_2.png)
+background-size: contain
+
+.center[.large[&lt;b&gt; Metotologias Informacionais com &lt;svg role="img" viewBox="0 0 24 24" style="position:relative;display:inline-block;top:.1em;height:2em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/b&gt; ]]
+
+.xxlarge[&lt;b style="color:MidnightBlue "&gt; Muito Obrigado pela Atenção!&lt;/b&gt;]
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideClass": ["left", "top"],
+"slideNumberFormat": "%current%",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
