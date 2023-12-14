@@ -3,7 +3,7 @@
 Curso que aborda aspectos introdutórios da linguagem R e tecnologias envolvidas e, posteriormente, uso mais avançado da linguagem com enfase na área de ciências sociais. Prioriza-se o uso de pacotes do *tidyverse*.
 
 ## Slides do curso
-- [https://tsklipp.github.io/metodologias-informacionais-com-r/slides/01-aula.html?authuser=0#1](aula 1)
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/01-aula.html?authuser=0#1"> Aula 1 </A>
 - [https://tsklipp.github.io/metodologias-informacionais-com-r/slides/02-aula.html?authuser=0#1](aula 2)
 - [https://tsklipp.github.io/metodologias-informacionais-com-r/slides/03-aula.html?authuser=0#1](aula 3)
 - [https://tsklipp.github.io/metodologias-informacionais-com-r/slides/04-aula.html?authuser=0#1](aula 4)
