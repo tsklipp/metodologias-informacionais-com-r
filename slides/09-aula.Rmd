@@ -1474,6 +1474,13 @@ Vejamos um exemplo de mapa com os mesmos dados de esgotamento sanitário:
 ```
 
 ---
+### .orange[Visualização Espacial Interativa `r icons::ionicons("earth-outline")`]
+
+<p class="jst">Existem alternativas no r para visualizar mapas interativos e dinâmicos. Para simplificar, podemos continuar
+usando o pacote .purple[<b>tmap</b>], que fornece visualizações interativas. Veremos um breve exemplo por meio deste
+<A href="https://tsklipp.github.io/metodologias-informacionais-com-r/scripts/dynamic_maps.html"> tutorial</A>.</p>
+
+---
 ### .orange[Bibliográfia Complementar]
 
 <p class="jst">Há uma diversidade de bons materiais que orientam o uso dos microdados da PNAD Contínua através do R: </p>
@@ -1485,15 +1492,13 @@ Vejamos um exemplo de mapa com os mesmos dados de esgotamento sanitário:
 - <p class="jst">Materiais online sobre o pacote .purple[<b>srvyr</b>]: <A href="https://rpubs.com/leobarone/pnadc_srvyr">.purple[Link 1]</A> e <A href="https://rpubs.com/amrofi/microdados_pnadc_srvyr/">.purple[Link 2]</A>.
   
   
-Documentação para uso do pacote <A href="https://guilhermejacob.github.io/context/index.html">.purple[<b>convey</b></b>]</A>.</br>
-Documentação para uso do pacote <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A>.</br>
-Documentação para uso do pacote <A href="https://cran.r-project.org/web/packages/censobr/vignettes/censobr.html">.purple[<b>censobr</b>]</A>.</br>
-Documentação para uso do pacote <A href="http://electionsbr.com/articles/introduction.html">.purple[<b>electionsBR</b>]</A>.</br>
-Documentação para uso do pacote <A href="https://github.com/rfsaldanha/microdatasus/wiki">.purple[<b>microdatasus</b>]</A>.
+</br></br>
+Documentações para uso dos pacotes: <A href="https://guilhermejacob.github.io/context/index.html">.purple[<b>convey</b></b>]</A>, <A href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">.purple[<b>geobr</b>]</A>, <A href="https://cran.r-project.org/web/packages/censobr/vignettes/censobr.html">.purple[<b>censobr</b>]</A>, <A href="http://electionsbr.com/articles/introduction.html">.purple[<b>electionsBR</b>]</A>, <A href="https://github.com/rfsaldanha/microdatasus/wiki">.purple[<b>microdatasus</b>]</A> e <A href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html">.purple[<b>tmap</b>]</A>.
 
 
 Livro sobre o pacote <A href="https://r-tmap.github.io/tmap-book/
-">.purple[<b>tmap</b>]</A>.</br>
+">.purple[<b>tmap</b>]</A> e <A href="https://rpubs.com/Henriqueufla/tmap_r">.purple[tutorial]</A> mais curto. </br>
+
 Livro com conteúdo mais avançado sobre manipulação e visualização de geodados: <A href="https://r.geocompx.org/">.purple[Geocomputation with R]</A>.
 
 
