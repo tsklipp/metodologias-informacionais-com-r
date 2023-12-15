@@ -4,7 +4,7 @@
     <title>Metodologias Informacionais com R</title>
     <meta charset="utf-8" />
     <meta name="author" content=" Telmo dos Santos Klipp (telmo.klipp@inpe.br) " />
-    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 # <b>Metodologias Informacionais com R</b>
 ]
 .subtitle[
-## <br/>Módulo I: Introdução à Linguagem R
+## <br/>Módulo I e II: Revisão
 ]
 .author[
 ### <br/><b>Telmo dos Santos Klipp</b> (<a href="mailto:telmo.klipp@inpe.br" class="email">telmo.klipp@inpe.br</a>)<br/>
@@ -53,7 +53,6 @@ Doutorando em Computação Aplicada (INPE, 2020-atual) &lt;br/&gt;
 
 - &lt;p class="jst"&gt;Materiais disponibilizados via &lt;A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3"&gt;Classroom&lt;/A&gt;;&lt;/p&gt; 
 - &lt;p class="jst"&gt;O aprendizado requer a prática que será constante nas aulas;&lt;/p&gt;
-- &lt;p class="jst"&gt;Será cobrado ao menos uma atividade semanal &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:black;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M298.028 214.267L285.793 96H328c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v48c0 13.255 10.745 24 24 24h42.207L85.972 214.267C37.465 236.82 0 277.261 0 328c0 13.255 10.745 24 24 24h136v104.007c0 1.242.289 2.467.845 3.578l24 48c2.941 5.882 11.364 5.893 14.311 0l24-48a8.008 8.008 0 0 0 .845-3.578V352h136c13.255 0 24-10.745 24-24-.001-51.183-37.983-91.42-85.973-113.733z"&gt;&lt;/path&gt;&lt;/svg&gt;.&lt;/p&gt; 
 
 .pull-left[
 Bibliografia Básica:
@@ -74,30 +73,13 @@ Bibliografia Complementar:
 ]
 
 ---
-
-### .orange[Nas últimas aulas vimos:]
-- Definição de uma sessão do R.
-
-- Como nos manter organizados usando .purple[R project].
-
-- Diretórios (caminhos absolutos e relativos), pastas e tipos de arquivos.
-
-- Pacotes no R.
-
-- Salvar e carregar dados.
-
-- Conceitos iniciais de dados brutos e  tratados (arrumados/organizados).
-
-- Onde ficaremos no ciclo da ciência dos dados?
-
----
 ### .orange[Ciclo da ciência dos dados - "whole game"]
 
 .right[.small[Créditos: Adaptado de &lt;A href="https://r4ds.hadley.nz/data-tidy.html"&gt; Wickham, et al (2023)&lt;/A&gt;.]]
 &lt;img src="figures/data-sciency-cycle2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 &lt;/br&gt;
-&gt;.center[&lt;b&gt;Vamos fazer gestão e manipulação de dados considerando .purple[R project] e &lt;i&gt;Data Wrangling&lt;/i&gt;&lt;/b&gt;.]
+&gt;.center[&lt;b&gt;Vamos fazer gestão, manipulação e visualização de dados considerando .purple[R project], &lt;i&gt;Data Wrangling&lt;/i&gt;, observação de tabelas no RStudio e geração de gráficos&lt;/b&gt;.]
 
 ---
 
@@ -149,7 +131,9 @@ background-size: contain
 
 - &lt;p class="jst"&gt;Obs: Parte dos dados que serão usados foram baixados por meio do pacote &lt;A href="https://basedosdados.org/dataset/9fa532fb-5681-4903-b99d-01dc45fd527a?table=9e4ab8f4-3ad4-47fb-9919-5658d2e09c4f"&gt;basedosdados&lt;/A&gt;. Existem outras alternativas de dados disponíveis nessa base, sendo necessário seguir alguns passos para o uso do pacote conforme o &lt;A href="https://dev.to/basedosdados/como-usar-a-biblioteca-basedosdados-no-r-capitulo-1-46kb"&gt;tutorial de uso&lt;/A&gt; e  &lt;A href="https://basedosdados.github.io/mais/api_reference_r/"&gt;documentação específica&lt;/A&gt;.&lt;/p&gt;
 
-
+&lt;/br&gt;
+&gt; .center[Os principais pacotes do .purple[&lt;b&gt;tidyverse&lt;/b&gt;]  para ler e manipular dados são .purple[&lt;b&gt;readr&lt;/b&gt;], .purple[&lt;b&gt;dplyr&lt;/b&gt;] e .purple[&lt;b&gt;tidyr&lt;/b&gt;].]
+ 
 ???
 Criar uma pasta:
 - .purple[`dir.create()`], ou
@@ -190,21 +174,31 @@ Vamos usar:
 Salvar as operações em .purple[R scripts]
 
 ---
-### .orange[Gestão e Manipulação de &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"&gt;&lt;/path&gt;&lt;/svg&gt; dados]
+### .orange[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M32,32V464a16,16,0,0,0,16,16H480" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/path&gt;  &lt;rect x="96" y="224" width="80" height="192" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="240" y="176" width="80" height="240" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;  &lt;rect x="383.64" y="112" width="80" height="304" rx="20" ry="20" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"&gt;&lt;/rect&gt;&lt;/svg&gt; Visualização de&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"&gt;&lt;/path&gt;&lt;/svg&gt; dados]
 
-Vamos vislumbrar:
+Gere visualizações dos dados:
 
-- Como fazer um plot básico com .purple[&lt;b&gt;ggplot2&lt;/b&gt;]
+- Comece por gráficos básicos usando o .purple[&lt;b&gt;ggplot2&lt;/b&gt;].
 
-- Como personalizar o plot.
+- Tente personalizar os gráficos.
 
-- O uso do operador .purple[pipe]
+- Use o operador .purple[pipe].
 
-- Como produzir um plot interativo com .purple[&lt;b&gt;plotly&lt;/b&gt;]
+- Tente produzir um plot interativo com .purple[&lt;b&gt;plotly&lt;/b&gt;].
 
-Salvaremos os passos em um .purple[R script].
+Salve os passos em um .purple[R script].
 
-Salvaremos as figuras produzidas em uma nova pasta.
+Salve as figuras produzidas em uma nova pasta.
+
+???
+
+Vamos usar:
+- .purple[`ggplot2::ggplot()`], .purple[`ggplot2::geom_col()`], .purple[`ggplot2::facet_wrap()`] e .purple[`ggplot2::theme()`]
+- .purple[`plotly::ggplotly()`] ou .purple[`plotly::plot_ly()`] e .purple[`plotly::layout()`]
+- o operador pipe .purple[|&gt;] 
+- .purple[`dplyr::filter()`], .purple[`dplyr::mutate()`] e .purple[`dplyr::summarise()`]
+
+Salvar as operações em .purple[R script]
 
 ---
 class: left, top

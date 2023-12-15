@@ -444,9 +444,9 @@ Links:
 
 - <p class="jst">Leia o arquivo .purple[.csv] salvo usando as funções .purple[`utils::read.csv2()`] e .purple[`readr::read_csv2()`] armazenando os dados em dois objetos diferentes - considere usar o parâmetro .purple[skip = 1]. Os objetos criados são da mesma classe (tipos iguais)? </p>
 
-- <p class="jst">Leia o arquivo .purple[.xlsx] salvo usando a função .purple[`readxl::read_excel()`] e armaze os dados em um objeto. Qual o tipo desse novo objeto? </p>
+- <p class="jst">Leia o arquivo .purple[.xlsx] salvo usando a função .purple[`readxl::read_excel()`] e armazene os dados em um objeto. Qual o tipo desse novo objeto? </p>
 
-- <p class="jst">Considerando a estruturação dos dados atual, é possível executar diferentes operações sobre os dados e tarefas de análise com facilidade?</p>
+- <p class="jst">Considerando a estruturação atual dos dados, é possível executar diferentes operações sobre os mesmos e tarefas de análise com facilidade?</p>
 
 ---
 class: center, middle

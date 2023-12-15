@@ -1,7 +1,7 @@
 ---
 class: inverse 
 title: "<b>Metodologias Informacionais com R</b>"
-subtitle: "<br/>Módulo I: Introdução à Linguagem R"
+subtitle: "<br/>Módulo I e II: Revisão"
 author: "<br/><b>Telmo dos Santos Klipp</b> (telmo.klipp@inpe.br)<br/>"
 output:
   xaringan::moon_reader:
@@ -53,7 +53,6 @@ Doutorando em Computação Aplicada (INPE, 2020-atual) <br/>
 
 - <p class="jst">Materiais disponibilizados via <A href="https://classroom.google.com/u/0/c/NjExMjg5MTU0OTY3">Classroom</A>;</p> 
 - <p class="jst">O aprendizado requer a prática que será constante nas aulas;</p>
-- <p class="jst">Será cobrado ao menos uma atividade semanal `r icon_style(fontawesome("thumbtack"), fill = "black")`.</p> 
 
 .pull-left[
 Bibliografia Básica:
@@ -76,23 +75,6 @@ Bibliografia Complementar:
 ]
 
 ---
-
-### .orange[Nas últimas aulas vimos:]
-- Definição de uma sessão do R.
-
-- Como nos manter organizados usando .purple[R project].
-
-- Diretórios (caminhos absolutos e relativos), pastas e tipos de arquivos.
-
-- Pacotes no R.
-
-- Salvar e carregar dados.
-
-- Conceitos iniciais de dados brutos e  tratados (arrumados/organizados).
-
-- Onde ficaremos no ciclo da ciência dos dados?
-
----
 ### .orange[Ciclo da ciência dos dados - "whole game"]
 
 .right[.small[Créditos: Adaptado de <A href="https://r4ds.hadley.nz/data-tidy.html"> Wickham, et al (2023)</A>.]]
@@ -101,7 +83,7 @@ knitr::include_graphics("figures/data-sciency-cycle2.png")
 ```
 
 </br>
->.center[<b>Vamos fazer gestão e manipulação de dados considerando .purple[R project] e <i>Data Wrangling</i></b>.]
+>.center[<b>Vamos fazer gestão, manipulação e visualização de dados considerando .purple[R project], <i>Data Wrangling</i>, observação de tabelas no RStudio e geração de gráficos</b>.]
 
 ---
 
@@ -155,7 +137,9 @@ background-size: contain
 
 - <p class="jst">Obs: Parte dos dados que serão usados foram baixados por meio do pacote <A href="https://basedosdados.org/dataset/9fa532fb-5681-4903-b99d-01dc45fd527a?table=9e4ab8f4-3ad4-47fb-9919-5658d2e09c4f">basedosdados</A>. Existem outras alternativas de dados disponíveis nessa base, sendo necessário seguir alguns passos para o uso do pacote conforme o <A href="https://dev.to/basedosdados/como-usar-a-biblioteca-basedosdados-no-r-capitulo-1-46kb">tutorial de uso</A> e  <A href="https://basedosdados.github.io/mais/api_reference_r/">documentação específica</A>.</p>
 
-
+</br>
+> .center[Os principais pacotes do .purple[<b>tidyverse</b>]  para ler e manipular dados são .purple[<b>readr</b>], .purple[<b>dplyr</b>] e .purple[<b>tidyr</b>].]
+ 
 ???
 Criar uma pasta:
 - .purple[`dir.create()`], ou
@@ -198,21 +182,31 @@ Vamos usar:
 Salvar as operações em .purple[R scripts]
 
 ---
-### .orange[Gestão e Manipulação de `r icons::fontawesome("database")` dados]
+### .orange[`r icons::ionicons("bar-chart-outline")` Visualização de`r icons::fontawesome("table")` dados]
 
-Vamos vislumbrar:
+Gere visualizações dos dados:
 
-- Como fazer um plot básico com .purple[<b>ggplot2</b>]
+- Comece por gráficos básicos usando o .purple[<b>ggplot2</b>].
 
-- Como personalizar o plot.
+- Tente personalizar os gráficos.
 
-- O uso do operador .purple[pipe]
+- Use o operador .purple[pipe].
 
-- Como produzir um plot interativo com .purple[<b>plotly</b>]
+- Tente produzir um plot interativo com .purple[<b>plotly</b>].
 
-Salvaremos os passos em um .purple[R script].
+Salve os passos em um .purple[R script].
 
-Salvaremos as figuras produzidas em uma nova pasta.
+Salve as figuras produzidas em uma nova pasta.
+
+???
+
+Vamos usar:
+- .purple[`ggplot2::ggplot()`], .purple[`ggplot2::geom_col()`], .purple[`ggplot2::facet_wrap()`] e .purple[`ggplot2::theme()`]
+- .purple[`plotly::ggplotly()`] ou .purple[`plotly::plot_ly()`] e .purple[`plotly::layout()`]
+- o operador pipe .purple[|>] 
+- .purple[`dplyr::filter()`], .purple[`dplyr::mutate()`] e .purple[`dplyr::summarise()`]
+
+Salvar as operações em .purple[R script]
 
 ---
 class: left, top

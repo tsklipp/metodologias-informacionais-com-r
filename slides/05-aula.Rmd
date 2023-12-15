@@ -64,15 +64,22 @@ Bibliografia Complementar:
 
 ### .orange[Nas últimas aulas vimos:]
 
+- Definição de uma sessão do R.
+
 - Como nos manter organizados usando .purple[R project].
 
-- Salvar e carregar dados (arquivos csv, <i>sripts</i> e figuras).
+- Diretórios (caminhos absolutos e relativos), pastas e tipos de arquivos.
 
-- Conceitos iniciais de dados brutos e tratados (arrumados/organizados).
+- Pacotes no R - instalar, carregar e obter fontes de informações como manuais, <i>vignettes</i> e <i>Cheatsheets</i>.
 
-- Conceitos iniciais de <i>Data Wrangling</i>.
+- Como salvar e carregar dados (ex: arquivos csv).
 
-- Exemplos de gráficos usando .purple[<b>ggplot2</b>].
+- Conceitos iniciais de dados brutos e  tratados (arrumados/organizados).
+
+- Onde ficaremos no ciclo da ciência dos dados?
+
+</br>
+>.center[<b>Agora focaremos em <i>Data Wrangling</i></b> com o pacote .purple[<b>dplyr</b>] do <A href="https://www.tidyverse.org/">.purple[<b>tidyverse</b>]</A>.]
 
 ---
 background-image: url(figures/tidyverse3.png)
