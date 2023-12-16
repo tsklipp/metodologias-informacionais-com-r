@@ -30,6 +30,17 @@
 - <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/09-aula.html?authuser=0#1"> Slide 9 </A>
 
 
+## Slides em PDF
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide1.pdf"> Slide 1 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide2.pdf"> Slide 2 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide3.pdf"> Slide 3 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide4.pdf"> Slide 4 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide5.pdf"> Slide 5 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide6.pdf"> Slide 6 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide7.pdf"> Slide 7 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide8.pdf"> Slide 8 </A>
+- <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/slides/Metodologias Informacionais com R_Slide9.pdf"> Slide 9 </A>
+
 ## Materias complementares
 - <A href="https://tsklipp.github.io/metodologias-informacionais-com-r/webexercises/docs/index.html?authuser=0">Web Exercises</A> (referente ao conteúdo do slide 2)
 - <A href="https://github.com/tsklipp/populacao-brasileira">Projeto Dados da População Brasileira</A> e <A href="https://tsklipp.github.io/populacao-brasileira/scripts/plotando_dados.html?authuser=0#1">Plotando dados da população brasileira</A> (referente aos conteúdos dos slides 4, 5 e 6)

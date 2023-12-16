@@ -108,7 +108,7 @@ Habilidades de programação englobam aspectos como:
 ---
 ### .orange[Conceitos de Programação no R  - objetos básicos]
 
-- <p class="jst">Já vimos que existem 6 tipos básicos (atômicos) de objetos:</p>
+<p class="jst">Já vimos que existem 6 tipos básicos (atômicos) de objetos:</p>
   - .content-box-yellow[numeric;]
   - .content-box-yellow[integer;]
   - .content-box-yellow[character;]
@@ -118,6 +118,10 @@ Habilidades de programação englobam aspectos como:
 
 </br>
 > .center[<b>Objetos tem classes, bem como, podem ter atributos (metadados), que determinam os tipos de manipulações e operações aplicáveis  nestes individualmente e entre si.</b>]
+
+</br>
+
+Teste as funções .purple[class()] e .purple[attributes()] no conjunto de dados <b>mtcars</b>.
 
 ---
 ### .orange[Conceitos de Programação no R - objetos básicos]
@@ -141,13 +145,13 @@ Habilidades de programação englobam aspectos como:
 
 Operadores são divididos basicamente em quatro categorias:
 
-- Aritméticos: +, -, /, *, ^, %% e %/%.
+- <b>Aritméticos:</b> +, -, /, *, ^, %% e %/%.
 
-- Relacionais: <, >, <=, >=, == e !=. 
+- <b>Relacionais:</b> <, >, <=, >=, == e !=. 
 
-- Lógicos: !, &, &&, | e ||. 
+- <b>Lógicos:</b> !, &, &&, | e ||. 
 
-- De atribuição: <-, <<-, -> e ->>.
+- <b>De atribuição:</b> <-, <<-, -> e ->>.
 
 </br>
 
@@ -156,23 +160,23 @@ Vejamos detalhes neste material <A href="https://www.datamentor.io/r-programming
 ---
 ### .orange[Conceitos de Programação no R - controle de fluxo]
  
-<p class="jst"> Um importante fator em soluções algorítmicas é o controle de fluxo da sequência de operações. O R conta com as estruturas condicionais e de repetições comulmente conhecidas:</p>
+<p class="jst"> Um importante fator em soluções algorítmicas é o controle de fluxo da sequência de operações. O R conta com as estruturas condicionais e de repetição comulmente conhecidas em linguagens de programação:</p>
 
-- .blue[if(condicional) {intruções}] e .blue[if(condicional) {intruções}] ... .blue[else {intruções}] ou
+- .blue[if(condicional) {instruções}] ou .blue[if(condicional) {instruções}] ... .blue[else {instruções}] ou
 
-- .blue[if(condicional1) {intruções} else if(condicional2) ] ... .blue[else {intruções}];
+- .blue[if(condicional 1) {instruções} else if(condicional 2) {instruções}] ... .blue[else {instruções}];
 
 - .blue[ifelse(teste, verdadeiro, falso)]
 
-- .blue[switch(teste, caso1, caso2, caso3....)];
+- .blue[switch(teste, caso 1, caso 2, caso 3....)];
 
-- .blue[while(cond) {intruções}];
+- .blue[while(condicional) {instruções}];
 
-- .blue[for(variavel in sequencia) {intruções}];
+- .blue[for(variavel in sequencia) {instruções}];
 
 - .blue[break] e .blue[next];
 
-- .blue[repeat{intrucao1, intrucao2, intrucao3 ... break}];
+- .blue[repeat{instrução 1, instrução 2, instrução 3 ... break}];
 
 </br>
 Vejamos mais sobre estas estruturas nesse material <A href="https://www.datamentor.io/r-programming/reserved-words"> online</A>.
@@ -180,7 +184,7 @@ Vejamos mais sobre estas estruturas nesse material <A href="https://www.datament
 ---
 ### .orange[Conceitos de Programação no R - objetos não básicos]
 
-- <p class="jst">Vimos também alguns exemplos de objetos mais complexos:</p>
+ <p class="jst">Vimos também alguns exemplos de objetos mais complexos:</p>
   - .content-box-yellow[factor;]
   - .content-box-yellow[data.frame;]
   - .content-box-yellow[function;]
@@ -194,7 +198,7 @@ Vejamos detalhes no mesmo material <A href="https://www.datamentor.io/r-programm
 ---
 ### .orange[Conceitos de Programação no R - funções]
 
-<p class="jst"> Já vimos que funções realizam tarefas manipulando dados. Estas podem possuir mais de um parâmetro ou nenhum.  As funções retornam ao menos um novo objeto e um dos principais motivos para o uso é a modularização de código. Quebrar códigos em partes mais simples ajuda na manutenção e entendimento do mesmos.</p>
+<p class="jst"> Já vimos que funções realizam tarefas manipulando dados. Estas podem possuir mais de um parâmetro ou nenhum e retornam ao menos um novo objeto. Um dos principais motivos para o uso de funções é a modularização de código. Quebrar códigos em partes mais simples ajuda na manutenção e entendimento dos mesmos.</p>
 
 </br>
 
@@ -259,8 +263,9 @@ Observe o seguinte exemplo de função:
 ---
 ### .orange[Conceitos de Programação no R - funções]
 
-<p class="jst">Considerando o exemplo de função anterior. Que melhorias seriam possíveis para incrementar a proteção contra entradas erradas inseridas por usuários? Tente codificar essas melhorias. </p>
+<p class="jst">Considerando o exemplo anterior de função, que melhorias seriam possíveis para incrementar a proteção contra entradas erradas inseridas por usuários? Tente codificar essas melhorias ou observe: </p>
 
+--
 
 ```{r, eval=FALSE}
     calcula_hipotenusa <- function(a, b) {
@@ -282,11 +287,11 @@ Pontos importantes para guardar:
   - Crie suas próprias funções;
   - Crie seus próprios temas de gráficos do <b>ggplot2</b>, suas escalas, entre outros. Mantenha salvo em código para reúso.
   
-- Tente familiarizar-se com o uso de funções. Muitos problemas já foram resolvidos, bastando apenas conhecer os pacotes e funções disponíveis. 
+- Tente se familiarizar com o uso de funções. Muitos problemas já foram resolvidos, bastando apenas conhecer os pacotes e funções disponíveis. 
 
 - Tente sempre automatizar tarefas.
 
-- Documente seu trabalho por meio de <i>scripts</i>, análises de dados através de arquivos .blue[R markdown] ou plataformas web específicas como <A href="https://github.com/">GitHub</A>,  <A href="https://www.kaggle.com/">Kaggle</A> e <A href="https://colab.google/">Google Colab</A>.
+- Documente seu trabalho por meio de <i>scripts</i>, análises de dados através de arquivos .blue[R markdown] ou em plataformas web específicas como <A href="https://github.com/">GitHub</A>,  <A href="https://www.kaggle.com/">Kaggle</A> e <A href="https://colab.google/">Google Colab</A>.
 
 ---
 exclude: TRUE
